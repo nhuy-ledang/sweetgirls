@@ -1,0 +1,136 @@
+<?php namespace Modules\User\Entities;
+
+use Imagy;
+use Modules\Core\Entities\Eloquent\CoreModel;
+
+class Contact extends CoreModel {
+    /**
+     * The table associated with the model.
+     * @var string
+     */
+    protected $table = 'user__contact';
+
+    /**
+     * Indicates if the model should be timestamped.
+     * @var bool
+     */
+    public $timestamps = true;
+
+    /**
+     * The attributes that are mass assignable.
+     * @var array
+     */
+    protected $fillable = [
+        'user_id', 'group', 'type', 'industrial_park_id', 'career_ids', 'product_ids',
+        'name', 'name_en', 'description', 'image', 'president', 'phone', 'fax', 'mst', 'email', 'website', 'investor_id', 'investor', 'agents', 'employees', 'revenue',
+        'country_id', 'province_id', 'address', 'zip_code', 'f_country_id', 'f_province_id', 'f_address', 'f_zip_code',
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     * @var array
+     */
+    protected $hidden = ['image'];
+
+    /**
+     * The attributes that should be casted to native types.
+     * @var array
+     */
+    protected $casts = [
+        'id'                 => 'integer',
+        'user_id'            => 'integer',
+        'group'              => 'integer',
+        'type'               => 'integer',
+        'industrial_park_id' => 'integer',
+        'employees'          => 'integer',
+        'revenue'            => 'integer',
+        'country_id'         => 'integer',
+        'province_id'        => 'integer',
+        'f_country_id'       => 'integer',
+        'f_province_id'      => 'integer',
+        'investor_id'        => 'integer',
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['thumb_url', 'group_name', 'type_name', 'employee_label', 'revenue_label'/*, 'href'*/];
+
+    public function getThumbUrlAttribute() {
+        if ($this->image) {
+            return media_url_file(Imagy::getThumbnail($this->image, 'thumb'));
+        } else {
+            return null;
+        }
+    }
+
+    public function getGroupNameAttribute() {
+        $list = ['Thương mại', 'Nhà Sản Xuất'];
+        if (isset($list[$this->group - 1])) {
+            return $list[$this->group - 1];
+        } else {
+            return '';
+        }
+    }
+
+    public function getTypeNameAttribute() {
+        $list = ['Tập đoàn', 'TNHH', 'Cổ phần', 'Liên doanh', 'Cơ sở', 'VPĐD', 'Loại khác'];
+        if (isset($list[$this->group - 1])) {
+            return $list[$this->group - 1];
+        } else {
+            return '';
+        }
+    }
+
+    public function getEmployeeLabelAttribute() {
+        $list = ['<20', '20 ~ 50', '50 ~ 100', '100 ~ 200', '200 ~ 500', '>500'];
+        if (isset($list[$this->employees - 1])) {
+            return $list[$this->employees - 1];
+        } else {
+            return '';
+        }
+    }
+
+    public function getRevenueLabelAttribute() {
+        $list = ['<10 tỷ', '10 ~ 50 tỷ', '50 ~ 100 tỷ', '100 ~ 500 tỷ', '>500 tỷ'];
+        if (isset($list[$this->revenue - 1])) {
+            return $list[$this->revenue - 1];
+        } else {
+            return '';
+        }
+    }
+
+    public function getHrefAttribute() {
+        if (!empty($this->alias)) {
+            return rtrim(config('app.url'), '/') . '/' . $this->alias;
+        } else {
+            return rtrim(config('app.url'), '/') . '/product/contact/info?contact_id=' . $this->id;
+        }
+    }
+
+    /**
+     * Relationship
+     */
+
+    public function user() {
+        return $this->belongsTo('Modules\User\Entities\Sentinel\User');
+    }
+
+    public function careers() {
+        return $this->hasMany('Modules\User\Entities\ContactCareer');
+    }
+
+    public function products() {
+        return $this->hasMany('Modules\User\Entities\ContactProducts');
+    }
+
+    public function country() {
+        return $this->belongsTo('Modules\Location\Entities\Country');
+    }
+
+    public function province() {
+        return $this->belongsTo('Modules\Location\Entities\Province');
+    }
+}

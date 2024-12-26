@@ -1,0 +1,13 @@
+{
+    "name": "Usr",
+    "alias": "usr",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\Usr\\Providers\\UsrServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

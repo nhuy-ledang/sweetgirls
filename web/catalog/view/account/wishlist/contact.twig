@@ -1,0 +1,18 @@
+{% if contacts %}
+  {% for item in contacts %}
+    <div class="contact-item d-flex">
+      <div class="avatar hover-zoom flex-shrink-0 mr-4"><a href="{{ item.href }}"><span class="shadow-sm embed-responsive embed-responsive-16by9 rounded-sm overflow-hidden"><span class="embed-responsive-item"><img src="{{ img_placeholder }}" data-src="{{ item.thumb_url }}" class="lazyload w-100 h-100"></span></span></a></div>
+      <div class="d-flex flex-column flex-grow-1">
+        <div class="category"><span class="badge badge-danger badge-pill">{{ item.careers }}</span></div>
+        <a href="{{ item.href }}" class="title">{{ item.name }}</a>
+        <p><span class="ic_location"></span> {{ item.address }}</p>
+        <p><a href="tel:{{ item.phone }}"><span class="ic_phone"></span> {{ item.phone }}</a></p>
+        <p><a href="mailto:{{ item.email }}"><span class="ic_email"></span> {{ item.email }}</a></p>
+        <p><a href="{{ item.website }}" target="_blank"><span class="ic_globe"></span> {{ item.website|replace({'http://':'','https://':''}) }}</a></p>
+      </div>
+    </div>
+  {% endfor %}
+  {{ pagination }}
+{% else %}
+  <div class="text-center text-muted">{{ text_empty }}</div>
+{% endif %}

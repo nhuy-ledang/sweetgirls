@@ -1,0 +1,3 @@
+-- DELETE FROM `seo__url` WHERE `seo__url`.`id` = 7;
+-- DELETE FROM `seo__url` WHERE `seo__url`.`keyword` = 'tat-ca-chuong-trinh-khuyen-mai';
+-- INSERT INTO `seo__url` (`id`, `lang`, `query`, `keyword`, `push`) VALUES (7, 'vi', 'route=campaign/all', 'tat-ca-chuong-trinh-khuyen-mai', 'route=campaign/all');

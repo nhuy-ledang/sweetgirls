@@ -1,0 +1,57 @@
+{{ header }}
+<style>
+  @media (max-width: 767px) {
+    .block-action {
+      position: relative;
+      margin-bottom: 30px;
+    }
+  }
+</style>
+<main id="main-content" ng-controller="ProfileCtrl">
+  {{ module_profile }}
+  <div class="">
+    <div class="container">
+      <div class="layout_account">
+        {{ column_left }}
+        <div class="main_content position-relative" ng-controller="ProfileNotifyCtrl" ng-init="init()" style="display: none" ng-style="{'display':inited?'':'none'}">
+          <div class="page-title font-weight-bold text-capitalize h4 mb-md-8 mb-4">{{ text_my_notification }}</div>
+          <div class="block-action d-flex">
+            <div class="icon cursor-pointer" ng-click="markReadAll()"><span class="ic_check_all"></span> {{ text_seen_all }}</div>
+            <div class="icon cursor-pointer ml-md-8 ml-2" ng-click="removeAll()"><span class="ic_trash"></span> {{ text_delete_all }}</div>
+          </div>
+          <div class="block-notify">
+            <div class="notify_item" ng-repeat="item in data.items" ng-class="{'unseen':!item.is_read}">
+              <div class="pl-0 pr-0">
+                {#<span class="icon-top-left icon-round bg-primary"><span class="ic_promotion"></span></span>#}
+                <div>
+                  <p class="mb-2" ng-bind-html="item.message|safe_html"></p>
+                  <div class="font-size-sm" ng-bind="item.created_at|formatDate"></div>
+                </div>
+                {#<span class="icon-top-right"><span class="ic_dots_vertical"></span></span>#}
+                <div class="icon-top-right">
+                  <div class="dropdown" uib-dropdown>
+                    <a class="dropdown-toggle no_caret" uib-dropdown-toggle href="javascript:void(0)"><span class="ic_dots_vertical"></span></a>
+                    <div class="dropdown-menu dropdown-menu-right" uib-dropdown-menu>
+                      <a class="dropdown-item text-danger" href="javascript:void(0)" ng-click="remove(item)">{#<span class="ic_trash dropdown-item-icon"></span> #}{{ text_delete }}</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {#<div class="notify_item">
+              <div>
+                <span class="icon-top-left icon-round bg-primary"><span class="ic_promotion"></span></span>
+                <div>
+                  <p class="mb-2">Lorem ipsum dolor sit amet <b>consetetur sadipscing elitr</b> sed diam nonumy</p>
+                  <div class="font-size-sm">11/09/2020</div>
+                </div>
+                <span class="icon-top-right"><span class="ic_dots_vertical"></span></span>
+              </div>
+            </div>#}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{{ footer }}

@@ -1,0 +1,48 @@
+<div bsModal #modal="bs-modal" [config]="{backdrop:'static'}" class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered" style="z-index: 99999">
+    <div class="modal-content">
+      <form novalidate [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+        <div class="modal-header">
+          <h4 class="modal-title"><span [innerText]="!info?'Thêm':'Cập nhật'"></span> vai trò</h4>
+          <a class="close" (click)="hide()"><span class="ic_close"></span></a>
+        </div>
+        <div class="modal-body">
+          <div class="form-group" [ngClass]="{'has-error': (controls.name.invalid && (controls.name.touched || showValid))}">
+            <label class="input-label">Tên</label>
+            <input name="name" type="text" [formControl]="controls.name" class="form-control">
+          </div>
+          <div class="form-group">
+            <table class="table table-bordered m-0">
+              <thead>
+              <tr>
+                <th class="border-bottom-0">Tính năng</th>
+                <th class="border-bottom-0" style="width: 150px;">Quyền</th>
+              </tr>
+              </thead>
+              <tbody>
+              <ng-container *ngFor="let module of permissionList; let $pIndex = index">
+                <tr [attr.data-name]="module.id">
+                  <td style="width: 200px;"><b [innerText]="module.name"></b></td>
+                  <td>
+                    <div class="row">
+                      <div class="col-6 col-sm-3" *ngFor="let item of module.permissions; let $index = index">
+                        <div class="custom-control custom-checkbox mb-1" *ngIf="controls.permissions.controls[module.id]&&controls.permissions.controls[module.id].controls[item.id]">
+                          <input type="checkbox" class="custom-control-input" [attr.id]="'permission_'+$pIndex+'_'+$index" [formControl]="controls.permissions.controls[module.id].controls[item.id]">
+                          <label class="custom-control-label" [attr.for]="'permission_'+$pIndex+'_'+$index" [innerText]="item.name"></label>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+              </tbody>
+            </table>
+          </div>
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-secondary" type="submit" [disabled]="submitted"><span class="spinner-border spinner-border-sm" *ngIf="submitted"></span> <span *ngIf="!info">Thêm</span><span *ngIf="info">Cập nhật</span></button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

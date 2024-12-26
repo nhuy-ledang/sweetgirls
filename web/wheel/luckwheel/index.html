@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VÒNG XOAY TEDFAST</title>
+  <link rel="stylesheet" href="css/typo/typo.css"/>
+  <link rel="stylesheet" href="css/hc-canvas-luckwheel.css"/>
+  <style>
+    .hc-luckywheel {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      margin-top: -250px;
+      margin-left: -250px;
+    }
+  </style>
+</head>
+<body class="bg">
+<div class="wrapper typo" id="wrapper">
+  <section id="luckywheel" class="hc-luckywheel">
+    <div class="hc-luckywheel-container">
+      <canvas class="hc-luckywheel-canvas" width="500px" height="500px">Vòng Xoay May Mắn</canvas>
+    </div>
+    <span class="hc-luckywheel-btn">Xoay</span>
+  </section>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="js/hc-canvas-luckwheel.js"></script>
+<script src="js/confetti.js"></script>
+<script>
+  var path_wheel = "//local.sweetgirl.vn/wheel/tienich/assets/sound/chiecnonkydieu.ogg";
+  var wheel_music = new Audio(path_wheel);
+  var path_congrat = "//local.sweetgirl.vn/wheel/tienich/assets/sound/congratulation.mp3";
+  var congrat_music = new Audio(path_congrat);
+  document.querySelector(".hc-luckywheel-btn").addEventListener("click", function() {
+    wheel_music.play();
+  });
+  var isPercentage = true;
+  var prizes = [
+    {
+      text: "TEDFAST-100%",
+      img: "images/TEDFAST100.png",
+      number: 3, // 1%,
+      percentpage: 0.01 // 1%
+    },
+    {
+      text: "TEDFAST-75%",
+      img: "images/TEDFAST75.png",
+      number: 3,
+      percentpage: 0.05 // 5%
+    },
+    {
+      text: "TEDFAST-50%",
+      img: "images/TEDFAST50.png",
+      number: 3,
+      percentpage: 0.1 // 10%
+    },
+    {
+      text: "TEDFAST-25%",
+      img: "images/TEDFAST25.png",
+      number: 3,
+      percentpage: 0.83 // 24%
+    },
+    {
+      text: "Chúc bạn may mắn lần sau",
+      img: "images/TEDFAST0.png",
+      number: 3,
+      percentpage: 0.01 // 60%
+    },
+  ];
+  document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+      hcLuckywheel.init({
+        id: "luckywheel",
+        config: function(callback) {
+          callback &&
+          callback(prizes);
+        },
+        mode: "both",
+        getPrize: function(callback) {
+          var rand = randomIndex(prizes);
+          var chances = rand;
+          callback && callback([rand, chances]);
+        },
+        gotBack: function(data) {
+          console.log(data);
+          if (data.text == null) {
+            Swal.fire(
+              'Chương trình kết thúc',
+              'Đã hết phần thưởng',
+              'error'
+            )
+          } else if (data.text == 'Chúc bạn may mắn lần sau') {
+            Swal.fire(
+              'Bạn không trúng thưởng',
+              data,
+              'error'
+            )
+          } else {
+            Swal.fire(
+              'Đã trúng giải',
+              data.text,
+              'success'
+            )
+          }
+          wheel_music.pause();
+          congrat_music.play();
+          confetti.start();
+          setTimeout(confetti.stop, 1500)
+        }
+      });
+    },
+    false
+  );
+
+  function randomIndex(prizes) {
+    if (isPercentage) {
+      var counter = 1;
+      for (let i = 0; i < prizes.length; i++) {
+        if (prizes[i].number == 0) {
+          counter++
+        }
+      }
+      if (counter == prizes.length) {
+        return null
+      }
+      let rand = Math.random();
+      let prizeIndex = null;
+      console.log(rand);
+      let cumulativePercent = 0;
+      for (let i = 0; i < prizes.length; i++) {
+        cumulativePercent += prizes[i].percentpage;
+        if (rand < cumulativePercent) {
+          prizeIndex = i;
+          break;
+        }
+      }
+      if (prizes[prizeIndex].number != 0) {
+        prizes[prizeIndex].number = prizes[prizeIndex].number - 1;
+        return prizeIndex
+      } else {
+        return randomIndex(prizes)
+      }
+    } else {
+      var counter = 0;
+      for (let i = 0; i < prizes.length; i++) {
+        if (prizes[i].number == 0) {
+          counter++
+        }
+      }
+      if (counter == prizes.length) {
+        return null
+      }
+      var rand = (Math.random() * (prizes.length)) >>> 0;
+      if (prizes[rand].number != 0) {
+        prizes[rand].number = prizes[rand].number - 1;
+        return rand
+      } else {
+        return randomIndex(prizes)
+      }
+    }
+  }
+</script>
+</body>
+</html>

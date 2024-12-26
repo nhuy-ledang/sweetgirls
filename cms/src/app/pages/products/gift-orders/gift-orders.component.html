@@ -1,0 +1,118 @@
+<div class="page-header no-gutter">
+  <div class="row align-items-end">
+    <div class="col-sm">
+      <h1 class="page-header-title"><span>Danh sách bộ quà tặng đơn hàng</span></h1>
+      <nav>
+        <ol class="breadcrumb breadcrumb-no-gutter">
+          <li class="breadcrumb-item"><span>Sản phẩm</span></li>
+          <li class="breadcrumb-item active"><span>Quà tặng đơn hàng</span></li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-sm-auto">
+      <div class="btn-group">
+        <button type="button" (click)="create()" class="btn btn-secondary d-flex align-items-center"><span class="mr-1 ic ic_plus"></span><span>Thêm</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="table-responsive">
+    <table class="table m-0">
+      <thead>
+      <tr>
+        <th style="width: 1px">
+          <div class="table_tools d-flex justify-content-between align-items-center">
+            <div>
+              <div class="custom-control-wrapper">
+                <div class="custom-control custom-checkbox ml-0"><input type="checkbox" class="custom-control-input" [(ngModel)]="data.selectAll" (change)="selectAll()" id="customSelect"><label class="custom-control-label cursor-pointer" for="customSelect"></label></div>
+              </div>
+            </div>
+            <div>&nbsp;&nbsp;Stt</div>
+          </div>
+        </th>
+        <th (click)="sortBy('id')" [attr.class]="sortClass('id')"># <span class="sort-indicator"></span></th>
+        <th (click)="sortBy('name')" [attr.class]="sortClass('name')">Tên bộ quà tặng <span class="sort-indicator"></span></th>
+        <th>Sản phẩm</th>
+        <th (click)="sortBy('total')" [attr.class]="sortClass('total')">Tổng giá trị <span class="sort-indicator"></span></th>
+        <th (click)="sortBy('amount')" [attr.class]="sortClass('amount')">Tổng đơn hàng <span class="sort-indicator"></span></th>
+        <th><span>Ngày bắt đầu</span></th>
+        <th><span>Ngày kết thúc</span></th>
+        <th>Số lượng</th>
+        <th>Tình trạng</th>
+        <th>Ngày tạo</th>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td><span class="d-block" style="min-width: 100px;max-width: 250px"><input type="text" [(ngModel)]="data.data.q" (keyup)="onFilter($event)" class="form-control"></span></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </thead>
+      <tbody class="text-dark">
+      <tr *ngIf="data.loading">
+        <td colspan="8" class="text-center"><span class="spinner-border"><span class="sr-only">Loading...</span></span></td>
+      </tr>
+      <ng-container *ngFor="let item of data.items; let $index = index">
+        <tr *ngIf="!item.is_deleted" [ngClass]="{'odd':$index%2==0,'even':$index%2==1}">
+          <td>
+            <div class="table_tools d-flex justify-content-between align-items-center">
+              <div class="d-flex justify-content-start align-items-center">
+                <div>
+                  <div class="custom-control-wrapper">
+                    <div class="custom-control custom-checkbox ml-0"><input type="checkbox" class="custom-control-input" [(ngModel)]="item.checkbox" [attr.id]="'customSelect'+$index" (click)="checkbox(item)"><label class="custom-control-label cursor-pointer" [attr.for]="'customSelect'+$index"></label></div>
+                  </div>
+                </div>
+                <div><a (click)="edit(item)" class="btn btn-icon" href="javascript:;"><span class="ic_pencil_square"></span></a></div>
+                <div>
+                  <div class="dropdown" dropdown container="body" placement="bottom left">
+                    <button type="button" dropdownToggle class="btn btn-icon"><span class="ic_three_dots_vertical"></span></button>
+                    <div *dropdownMenu class="dropdown-menu">
+                      <a class="dropdown-item text-danger" (click)="remove(item)" href="javascript:;">Xóa</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div><span class="btn btn-icon w-auto fs-normal pl-1" [innerText]="$index + 1"></span></div>
+            </div>
+          </td>
+          <td [innerText]="item.id"></td>
+          <td><span class="d-block" style="min-width: 150px; max-width: 350px;" [innerText]="item.name"></span></td>
+          <td>
+            <ol class="d-block m-0 p-0" style="min-width: 150px; max-width: 350px;list-style-position: inside;">
+              <ng-container *ngFor="let product of item.products">
+                <li>
+                  <span [innerText]="product.name_display"></span>
+                  <div class="pl-2">
+                    - Giá: <span [innerText]="product.price|currencyFormat"></span><br>
+                    - Số lượng: <span [innerText]="product.quantity|number"></span><br>
+                    - Tổng tiền: <span [innerText]="(product.price*product.quantity)|currencyFormat"></span>
+                  </div>
+                </li>
+              </ng-container>
+            </ol>
+          </td>
+          <td [innerText]="item.total|currencyFormat"></td>
+          <td [innerText]="item.amount|currencyFormat"></td>
+          <td [innerText]="item.start_date|formatDate:'HH:MM \n dd/mm/yyyy'"></td>
+          <td [innerText]="item.end_date|formatDate:'HH:MM \n dd/mm/yyyy'"></td>
+          <td><span [innerText]="item.uses_total"></span> / <span>{{item.limited?item.limited:'&infin;'}}</span></td>
+          <td>
+            <ngx-toggle-switch [(ngModel)]="item.status" (change)="changeProp(item, 'status')"></ngx-toggle-switch>
+          </td>
+          <td [innerText]="item.created_at|formatDate"></td>
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
+  </div>
+  <div class="card-footer">
+    <ngx-pagination2 [page]="data.page" [pageSize]="data.pageSize" [totalItems]="data.totalItems" [maxSize]="data.maxSize" (change)="pageChanged($event)" (pageSizeChange)="pageSizeChanged($event)"></ngx-pagination2>
+  </div>
+</div>
+<ngx-pd-gift-order-form (onSuccess)="onFormSuccess($event)"></ngx-pd-gift-order-form>
+<ngx-modal-confirm (onConfirm)="onConfirm($event)"></ngx-modal-confirm>

@@ -1,0 +1,52 @@
+<div class="row align-items-center mb-3">
+  <div class="col-sm"><h5 *ngIf="showTitle" class="m-0" [innerText]="info?.name"></h5></div>
+  <div class="col-sm-auto">
+    <div class="btn-group mr-2">
+      <button type="button" class="btn btn-secondary" (click)="creates()"><span class="ic_plus"></span> <span [innerText]="'Thêm nhiều'|translate"></span></button>
+    </div>
+    <div class="btn-group">
+      <button type="button" class="btn btn-secondary" (click)="create()"><span class="ic_plus"></span> <span [innerText]="'Thêm hình'|translate"></span></button>
+    </div>
+  </div>
+</div>
+<div class="mb-3" *ngIf="data.selectList.length">
+  <div class="d-flex align-items-center">
+    <span class="font-size-sm mr-3"><span [innerText]="data.selectList.length"></span> selected</span>
+    <a class="btn btn-outline-danger" href="javascript:;" (click)="removeAll()"><span class="fa fa-trash mr-1"></span>Xóa</a>
+  </div>
+</div>
+<div class="card">
+  <div class="bg-light border-bottom align-items-center mb-2 p-2 font-weight-bold">
+    <div class="row">
+      <div class="col-1">
+        <div class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" [(ngModel)]="data.selectAll" (change)="selectAll()" id="tabImgSelect" [disabled]="!sorted"><label class="custom-control-label" for="tabImgSelect"></label></div>
+      </div>
+      <div class="col-1">Stt</div>
+      <div class="col-4">Hình</div>
+      <div class="col">Mô tả</div>
+    </div>
+  </div>
+  <div *ngIf="data.loading" class="text-center"><div class="spinner-border"><span class="sr-only">Loading...</span></div></div>
+  <!--<div class="row border-bottom py-2" *ngFor="let item of data.items; let $index = index">-->
+  <ng-template #itemTemplate let-item="item" let-index="index">
+    <div class="border-bottom p-2">
+      <div class="row">
+        <div class="col-1">
+          <div class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" [(ngModel)]="item.initData.checkbox" [attr.id]="'tabImgSelect'+index" (click)="checkbox(item.initData)" [disabled]="!sorted"><label class="custom-control-label" [attr.for]="'tabImgSelect'+index"></label></div>
+        </div>
+        <div class="col-1"><span [innerText]="index + 1"></span></div>
+        <div class="col-4">
+          <ng-container *ngIf="item.initData.thumb_url"><img [src]="item.initData.thumb_url" style="width: 80px; height: 80px; object-fit: cover"></ng-container>
+          <div class="">
+            <span *ngIf="!sorted" class="spinner-grow spinner-grow-sm"></span><a *ngIf="sorted" href="javascript:;" (click)="edit(item.initData)" [innerText]="'Sửa'|translate">Sửa</a>&nbsp; | &nbsp;
+            <a href="javascript:;" class="text-danger" (click)="remove(item.initData)" [innerText]="'Xóa'|translate">Xóa</a>
+          </div>
+        </div>
+        <div class="col" [innerHTML]="item.initData.image_alt"></div>
+      </div>
+    </div>
+  </ng-template>
+  <bs-sortable [(ngModel)]="data.items" [itemTemplate]="itemTemplate" [fieldName]="'sort_order'" (drag)="onDrag($event)" itemClass="sortable-item" itemActiveClass="sortable-item-active" placeholderItem="" placeholderClass="placeholderStyle text-center" wrapperClass="sortable-wrapper"></bs-sortable>
+</div>
+<ngx-pd-image-form (onSuccess)="onFormSuccess($event)"></ngx-pd-image-form>
+<ngx-modal-confirm (onConfirm)="onConfirm($event)"></ngx-modal-confirm>

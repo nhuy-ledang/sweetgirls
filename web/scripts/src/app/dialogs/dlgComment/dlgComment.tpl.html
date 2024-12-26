@@ -1,0 +1,143 @@
+<style>
+  .swiper-button-next, .swiper-button-prev {
+    background: #000000;
+    opacity: 0.25;
+    width: 50px !important;
+    height: 50px !important;
+  }
+  .swiper-button-next {
+    right: 0;
+  }
+  .swiper-button-prev {
+    left: 0;
+  }
+  .swiper-button-next:hover, .swiper-button-prev:hover {
+    opacity: 0.5;
+    color: #0F1F2A;
+  }
+  .swiper-button-next:hover::after, .swiper-button-prev:hover::after {
+    opacity: 1;
+  }
+  .swiper-button-next::after, .swiper-button-prev::after {
+    font-size: 16px;
+    background: transparent no-repeat padding-box;
+    opacity: 0.75;
+    color: #FFFFFF;
+  }
+  .box_comment {
+    max-height: 320px;
+    overflow: auto;
+  }
+</style>
+<div class="news_feed position-relative">
+  <a class="close d-lg-none d-flex align-items-center justify-content-center bg-white" data-dismiss="modal" aria-label="Close" ng-click="close()" style="position: absolute; right: 0; top: 0; z-index: 2; font-size: 50px; width: 50px; height: 50px;">
+    <span aria-hidden="true">&times;</span>
+  </a>
+  <div class="modal-body">
+   <div class="row">
+     <div class="col-12 col-lg-6 mb-4 mb-lg-0">
+       <div class="swiper swiper_reviews">
+         <div class="swiper-wrapper gallery-slide">
+           <div class="swiper-slide bg-white" ng-repeat="item in info.images">
+             <div class="embed-responsive embed-responsive-3by4 img_">
+               <div class="embed-responsive-item"><img ng-src="{{ item.raw_url }}" alt="" class="img-fluid img-cover"></div>
+             </div>
+           </div>
+         </div>
+         <div class="swiper-button-next"></div>
+         <div class="swiper-button-prev"></div>
+       </div>
+     </div>
+     <div class="col-12 col-lg-6">
+       <div class="d-flex w-100 justify-content-start mb-4">
+         <div ng-if="!info.user" class="w-100 justify-content-start mb-4">
+           <img ng-src="{{ logo }}" alt="" style="height: 35px;">
+           <span class="time_post d-block mt-3" ng-bind="info.updated_at|formatDate:'dd/mm/yyyy - HH:mm'"></span>
+         </div>
+         <div ng-if="info.user" class="d-flex w-100 justify-content-start px-3 mb-4">
+           <a href="javascript:void(0)"><span class="mr-3 item_avatar embed-responsive embed-responsive-cms bg-cover rounded-circle" style="background-image: url('{{ info.user.avatar_url }}'); width: 40px; height: 40px;"></span></a>
+           <div class="d-flex flex-column">
+             <div class="limit-text-3 overflow-hidden">
+               <a href="javascript:void(0)"><span class="cursor-pointer font-weight-bold d-inline position-relative" ng-bind="info.user.display"></span></a>
+               <span class="d-inline text_item_action">đã viết đánh giá cho sản phẩm</span>
+               <a href="{{ info.product.href }}"><span class="font-weight-bold" ng-bind="info.product.name"></span></a>
+             </div>
+             <!-- Item Rating -->
+             <div class="mt-1">
+               <div class="rating" style="--percent: {{ info.rating/5*100 }}%; letter-spacing: 3px">
+                 <div class="percent"><span class="fa fa-star" ng-repeat="index in [1, 2, 3, 4, 5]"></span></div>
+                 <div><span class="fa fa-star-o" ng-repeat="index in [1, 2, 3, 4, 5]"></span></div>
+               </div>
+               <span class="time_post pl-xl-1" ng-bind="info.updated_at|formatDate:'dd/mm/yyyy - HH:mm'"></span>
+             </div>
+           </div>
+           <a class="ml-4" href="{{ info.product.href }}"><span class="product_img embed-responsive embed-responsive-cms bg-cover" style="background-image: url('{{ info.product.small_url }}'); width: 50px; height: 50px"></span></a>
+         </div>
+       </div>
+       <div class="mb-4">
+         <span ng-bind-html="info.review|safe_html"></span>
+       </div>
+       <div class="news_reaction position-relative d-flex align-items-center justify-content-between border-top border-bottom py-3 mb-5">
+         <div class="d-flex">
+           <div class="like-feed cursor-pointer d-flex justify-content-center align-items-center" ng-click="like()">
+             <i class="fa" ng-class="{'fa-thumbs-o-up': !liked, 'fa-thumbs-up': liked}" style="font-size: 20px"></i>
+             <span class="px-1" ng-bind="like_total"></span>
+           </div>
+           <div class="comment-feed cursor-pointer px-2 d-flex justify-content-center align-items-center">
+             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20"><g id="Mask_Group_711" data-name="Mask Group 711" transform="translate(-132 -454)" clip-path="url(#clip-path)"><g id="Group_20472" data-name="Group 20472" transform="translate(132 454)"><g id="Group_20471" data-name="Group 20471" clip-path="url(#clip-path-2)"><path id="Path_28101" data-name="Path 28101" d="M20,3.231a3.259,3.259,0,0,0-.778-2.139A3.052,3.052,0,0,0,17.312.033a.11.11,0,0,1-.036-.017L17.252,0l-.006,0H2.745c-.078.022-.158.041-.235.061A3.447,3.447,0,0,0,2,.214,3.1,3.1,0,0,0,.036,2.661a.21.21,0,0,1-.021.053L0,2.742l0,0V14.209c.014.055.027.11.041.165.029.118.058.24.095.358a3.176,3.176,0,0,0,2.807,2.217l.083.007.034,0c0,.059,0,.117,0,.175,0,.144,0,.294,0,.44,0,.083,0,.167,0,.25a3.634,3.634,0,0,0,.048.683,1.773,1.773,0,0,0,1.3,1.4A2.008,2.008,0,0,0,5,20a1.777,1.777,0,0,0,1.264-.543c.76-.742,1.52-1.51,2.255-2.252l.114-.115a.429.429,0,0,1,.334-.142h0c2.513,0,5.068,0,7.538,0H16.8a3.139,3.139,0,0,0,3.194-3.19q0-1.594,0-3.188c0-2.407-.007-4.9.01-7.343M4.677,17.5a7.837,7.837,0,0,0-.037-.9,1.483,1.483,0,0,0-1.415-1.263A1.557,1.557,0,0,1,1.67,14.2a1.879,1.879,0,0,1-.058-.474c0-3.121,0-6.456,0-10.494A1.539,1.539,0,0,1,3.238,1.61H16.711a1.553,1.553,0,0,1,1.672,1.674v.895q0,4.771,0,9.541a1.528,1.528,0,0,1-1.156,1.561,2.074,2.074,0,0,1-.513.054H15.68c-2.207,0-4.49.006-6.735,0H8.931a1.866,1.866,0,0,0-1.425.6c-.553.571-1.126,1.141-1.681,1.691l-.628.625a.391.391,0,0,1-.255.14h0a.206.206,0,0,1-.148-.07.447.447,0,0,1-.107-.272c-.008-.18-.009-.365-.009-.543" fill="#0f1f2a"/><path id="Path_28102" data-name="Path 28102" d="M89.1,104.92h9.129a.881.881,0,0,0,.633-.242.779.779,0,0,0,.222-.566.8.8,0,0,0-.845-.8H89.131a.961.961,0,0,0-.238.021.8.8,0,0,0,.207,1.586" transform="translate(-83.689 -97.936)" fill="#0f1f2a"/><path id="Path_28103" data-name="Path 28103" d="M89.188,193.242H94.42a.888.888,0,0,0,.638-.251.777.777,0,0,0,.224-.558.813.813,0,0,0-.851-.8H89.179a.85.85,0,0,0-.609.238.81.81,0,0,0,.619,1.37" transform="translate(-83.747 -181.663)" fill="#0f1f2a"/><path id="Path_28104" data-name="Path 28104" d="M244.246,191.591c-.272-.005-.547-.005-.818,0a.8.8,0,0,0,0,1.606c.094,0,.189,0,.281,0h.383l.154,0a.8.8,0,0,0,0-1.606" transform="translate(-230.024 -181.619)" fill="#0f1f2a"/></g></g></g></svg>
+             <span class="px-1" ng-bind="comment_total"></span>
+           </div>
+         </div>
+         <div class="share-feed cursor-pointer">
+           <a href="https://www.facebook.com/sharer/sharer.php?u={{ global.actual_link }}">
+             <svg xmlns="http://www.w3.org/2000/svg" width="19.996" height="20" viewBox="0 0 19.996 20"><g id="Group_20468" data-name="Group 20468" transform="translate(-384.766 -1944.406)"><path id="Path_28098" data-name="Path 28098" d="M386.759,2046.071a2.768,2.768,0,0,1-1.1-.477,2.213,2.213,0,0,1-.893-1.786q-.01-6.072,0-12.145a2.274,2.274,0,0,1,2.256-2.255c.969-.021,1.939-.008,2.909,0a.625.625,0,1,1-.014,1.247c-.911,0-1.822,0-2.733,0a1.061,1.061,0,0,0-1.172,1.173q0,5.916,0,11.832a1.055,1.055,0,0,0,1.158,1.163h15.188a1.052,1.052,0,0,0,1.149-1.153q0-3.456,0-6.912a.615.615,0,0,1,.914-.6,1.67,1.67,0,0,1,.335.386v7.538c-.013.042-.03.083-.04.126a2.21,2.21,0,0,1-1.123,1.557,5.977,5.977,0,0,1-.829.309Z" transform="translate(0 -81.665)" fill="#0f1f2a"/><path id="Path_28099" data-name="Path 28099" d="M527.418,1950.814a5.478,5.478,0,0,1-.365.47q-2.568,2.676-5.142,5.347a.688.688,0,0,1-.654.263.637.637,0,0,1-.506-.691c0-.794,0-1.588,0-2.382v-.2c-.023-.018-.032-.032-.043-.033a7.11,7.11,0,0,0-5.938,2.135,6.946,6.946,0,0,0-1.13,1.606.63.63,0,0,1-.841.347.561.561,0,0,1-.37-.51,10.657,10.657,0,0,1,.335-3.615,8,8,0,0,1,6.336-5.665c.531-.11,1.081-.125,1.651-.187v-.184c0-.807,0-1.614,0-2.421a.625.625,0,0,1,.867-.631.822.822,0,0,1,.248.183q2.677,2.775,5.347,5.555a2.071,2.071,0,0,1,.2.3ZM522,1946.58v.245q0,.712,0,1.425c0,.511-.226.728-.736.741a11.745,11.745,0,0,0-1.731.085,6.759,6.759,0,0,0-5.521,4.674c-.135.379-.2.782-.3,1.174l.064.027c.057-.059.113-.12.17-.178a7.838,7.838,0,0,1,4.99-2.393c.788-.072,1.585-.042,2.378-.05a.617.617,0,0,1,.683.691c0,.508,0,1.015,0,1.523,0,.046.01.092.019.173l3.906-4.058Z" transform="translate(-122.656)" fill="#0f1f2a"/></g></svg>
+           </a>
+         </div>
+       </div>
+       <div ng-if="data.loading" class="text-center my-5"><div class="spinner-grow bg-gray"><span class="sr-only">Loading...</span></div></div>
+       <div ng-if="!data.loading&&data.comments.length" class="box_comment my-5">
+         <div class="item_comment d-flex mb-4" ng-repeat="item in data.comments">
+           <a href="javascript:void(0)"><span class="mr-3 item_avatar embed-responsive embed-responsive-cms bg-cover rounded-circle" style="background-image: url('{{ item.user.avatar_url }}'); width: 35px; height: 35px;"></span></a>
+           <div>
+             <div class="px-5 py-1 rounded-lg bg-light">
+               <b class="mr-1" ng-bind="item.user.display"></b>
+               <span ng-bind="item.comment"></span>
+             </div>
+             <div class="px-5 py-1" ng-bind="item.updated_at|formatDate:'dd/mm/yyyy - HH:mm'"></div>
+           </div>
+         </div>
+       </div>
+       <div class="d-flex justify-content-center">
+         <form name="form" novalidate class="w-100" enctype="multipart/form-data" role="form" accept-charset="utf-8">
+           <input type="hidden" name="product_id" ng-model="info.id">
+           <div class="row no-gutters align-items-center">
+             <a href="javascript:void(0)"><span class="col-auto mr-3 item_avatar embed-responsive embed-responsive-cms bg-cover rounded-circle" style="background-image: url('{{ currentUser.avatar_url }}'); width: 35px; height: 35px; background-color: #e5e5e5"></span></a>
+             <div class="col d-flex border rounded-pill overflow-hidden px-2" ng-class="{'has-error': form.comment.$invalid &&envData.showValid}">
+               <input name="comment" ng-model="params.comment" class="form-control border-0" placeholder="Gửi bình luận của bạn ..." required>
+               <button type="submit" class="btn font-weight-bold font-13" ng-click="submit(form)" ng-disabled="envData.submitted"><span><span class="spinner-border spinner-border-sm align-baseline" ng-if="envData.submitted"></span></span><span ng-if="!envData.submitted">Gửi</span></button>
+             </div>
+           </div>
+         </form>
+       </div>
+     </div>
+   </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function() {
+    var swiper = new Swiper(".swiper_reviews", {
+      slidesPerView: 1,
+      spaceBetween: 0,
+      loop: true,
+      grabCursor: true,
+      centeredSlides: true,
+      freeMode: false,
+      speed: 500,
+      effect: "fade",
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+  });
+</script>

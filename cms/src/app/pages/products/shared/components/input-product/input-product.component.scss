@@ -1,0 +1,10 @@
+@import "~bootstrap/scss/functions";
+@import '../../../../../@theme/styles/bootstrap/variables';
+
+.form-control[readonly] {
+  color: $input-color;
+  background-color: $input-bg;
+  &:disabled {
+    background-color: $input-disabled-bg;
+  }
+}

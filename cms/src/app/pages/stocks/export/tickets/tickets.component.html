@@ -1,0 +1,178 @@
+<div class="page-header no-gutter">
+  <div class="row align-items-start">
+    <div class="col-sm">
+      <h1 class="page-header-title">Phiếu xuất kho</h1>
+      <nav>
+        <ol class="breadcrumb breadcrumb-no-gutter">
+          <li class="breadcrumb-item">Kho hàng</li>
+          <li class="breadcrumb-item">Quản lý kho</li>
+          <li class="breadcrumb-item">Nhập kho</li>
+          <li class="breadcrumb-item active">Phiếu xuất kho</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-sm-auto">
+      <div class="d-flex justify-content-end mb-2">
+        <ngx-date-range-picker [options]="'all,week,month,year,customRange'" [data]="data" (applyEvent)="onDatePickerSuccess()"></ngx-date-range-picker>
+      </div>
+      <div class="d-flex justify-content-end">
+        <!--<div class="btn-group"><a class="btn btn-primary" (click)="create()" href="javascript:;"><span class="ic_plus"></span> Thêm</a></div>-->
+      </div>
+    </div>
+  </div>
+</div>
+<div class="nav-tabs-light">
+  <ul class="nav nav-tabs">
+    <li class="nav-item"><a [routerLink]="['/pages/sto/exp/requests']" class="nav-link" routerLinkActive="active">Yêu cầu xuất kho</a></li>
+    <li class="nav-item"><a [routerLink]="['/pages/sto/exp/tickets']" class="nav-link" routerLinkActive="active">Phiếu xuất kho</a></li>
+    <li class="nav-item"><a [routerLink]="['/pages/sto/exp/products']" class="nav-link" routerLinkActive="active">Sản phẩm xuất</a></li>
+    <li class="nav-item"><a [routerLink]="['/pages/sto/exp/histories']" class="nav-link" routerLinkActive="active">Lịch sử xuất</a></li>
+  </ul>
+  <div class="tab-content pt-3">
+    <div class="card">
+      <div class="table-responsive">
+        <table class="table m-0">
+          <thead>
+          <tr>
+            <th style="width: 1px">
+              <div class="table_tools d-flex justify-content-between align-items-center">
+                <div>
+                  <div class="custom-control-wrapper">
+                    <div class="custom-control custom-checkbox ml-0"><input type="checkbox" class="custom-control-input" [(ngModel)]="data.selectAll" (change)="selectAll()" id="customSelect"><label class="custom-control-label cursor-pointer" for="customSelect"></label></div>
+                  </div>
+                </div>
+                <div>&nbsp;&nbsp;Stt</div>
+              </div>
+            </th>
+            <th [hidden]="!columns.id" (click)="sortBy('id')" [attr.class]="sortClass('id')"># <span class="sort-indicator"></span></th>
+            <th [hidden]="!columns.created_at" (click)="sortBy('created_at')" [attr.class]="sortClass('created_at')">Ngày giờ <span class="sort-indicator"></span></th>
+            <th [hidden]="!columns.idx">Mã phiếu</th>
+            <th [hidden]="!columns.usr_request">Người yêu cầu</th>
+            <th [hidden]="!columns.status">Trạng thái xử lý</th>
+            <th [hidden]="!columns.out_type">Loại</th>
+            <th [hidden]="!columns.to">Nơi nhận</th>
+            <th [hidden]="!columns.stock">Kho xuất</th>
+            <th [hidden]="!columns.staff">Người giao</th>
+            <th [hidden]="!columns.owner">Người lâp</th>
+            <th [hidden]="!columns.storekeeper">Thủ kho</th>
+            <th [hidden]="!columns.accountant">Kế toán trưởng</th>
+            <th [hidden]="!columns.products">Danh sách<br>hàng hóa</th>
+            <th [hidden]="!columns.quantity">Tổng SL</th>
+            <th [hidden]="!columns.total" (click)="sortBy('total')" [attr.class]="sortClass('total')">Thành tiền <span class="sort-indicator"></span></th>
+            <th [hidden]="!columns.note">Ghi chú</th>
+            <th [hidden]="!columns.att_files">Chứng từ đi kèm</th>
+            <th [hidden]="!columns.cert_files">Chứng từ ký duyệt</th>
+          </tr>
+          <tr>
+            <td>
+              <div class="dropdown" dropdown container="body" placement="bottom left" [insideClick]="true">
+                <button type="button" dropdownToggle class="btn btn-primary dropdown-toggle no_arrow d-flex align-items-center"><span class="mr-1 ic ic_visible_outlined"></span><span>Hiển thị</span></button>
+                <div *dropdownMenu class="dropdown-menu dropdown-menu-sm dropdown-menu-left">
+                  <div class="dropdown-item" *ngFor="let item of columnList">
+                    <div class="custom-control custom-checkbox"><input type="checkbox" [attr.id]="'columnShow'+item.id" [(ngModel)]="item.checkbox" class="custom-control-input" [disabled]="item.disabled" (change)="columnCheckbox()"><label [attr.for]="'columnShow'+item.id" class="custom-control-label d-block" [innerText]="item.name"></label></div>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td [hidden]="!columns.id"></td>
+            <td [hidden]="!columns.created_at"></td>
+            <td [hidden]="!columns.idx"></td>
+            <td [hidden]="!columns.usr_request"></td>
+            <td [hidden]="!columns.status"></td>
+            <td [hidden]="!columns.out_type"></td>
+            <td [hidden]="!columns.to"></td>
+            <td [hidden]="!columns.stock"></td>
+            <td [hidden]="!columns.staff"></td>
+            <td [hidden]="!columns.owner"></td>
+            <td [hidden]="!columns.storekeeper"></td>
+            <td [hidden]="!columns.accountant"></td>
+            <td [hidden]="!columns.products"></td>
+            <td [hidden]="!columns.quantity"></td>
+            <td [hidden]="!columns.total"></td>
+            <td [hidden]="!columns.note"></td>
+            <td [hidden]="!columns.att_files"></td>
+            <td [hidden]="!columns.cert_files"></td>
+          </tr>
+          </thead>
+          <tbody class="text-dark">
+          <tr *ngIf="data.loading">
+            <td colspan="18"><span class="spinner-border"><span class="sr-only">Loading...</span></span></td>
+          </tr>
+          <ng-container *ngFor="let item of data.items; let $index = index">
+            <tr *ngIf="!item.is_deleted" [ngClass]="{'odd':$index%2==0,'even':$index%2==1}">
+              <td>
+                <div class="table_tools d-flex justify-content-between align-items-center">
+                  <div class="d-flex justify-content-start align-items-center">
+                    <div>
+                      <div class="custom-control-wrapper">
+                        <div class="custom-control custom-checkbox ml-0"><input type="checkbox" class="custom-control-input" [(ngModel)]="item.checkbox" [attr.id]="'customSelect'+$index" (click)="checkbox(item)"><label class="custom-control-label cursor-pointer" [attr.for]="'customSelect'+$index"></label></div>
+                      </div>
+                    </div>
+                    <div><a (click)="edit(item)" class="btn btn-icon" href="javascript:;"><span class="ic_pencil_square"></span></a></div>
+                    <div>
+                      <div class="dropdown" dropdown container="body" placement="bottom left">
+                        <button type="button" dropdownToggle class="btn btn-icon"><span class="ic_three_dots_vertical"></span></button>
+                        <div *dropdownMenu class="dropdown-menu">
+                          <!--<a class="dropdown-item" (click)="upload(item, 'att')" href="javascript:;">Chứng từ đi kèm</a>-->
+                          <!--<div class="dropdown-divider"></div>-->
+                          <a class="dropdown-item" (click)="upload(item, 'cert')" href="javascript:;">Chứng từ ký duyệt</a>
+                          <ng-container *ngIf="item.status=='new'">
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-white bg-success" (click)="changeStatus(item, 'completed')" href="javascript:;">Hoàn thành</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-white bg-danger" (click)="changeStatus(item, 'rejected')" href="javascript:;">Từ chối</a>
+                          </ng-container>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item text-danger" (click)="remove(item)" href="javascript:;">Xóa</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div><span class="btn btn-icon w-auto fs-normal pl-1" [innerText]="$index + 1"></span></div>
+                </div>
+              </td>
+              <td [hidden]="!columns.id" [innerText]="item.id"></td>
+              <td [hidden]="!columns.created_at"><span [innerText]="item.created_at|formatDate"></span> <br> <span [innerText]="item.created_at|formatDate:'HH:MM'"></span></td>
+              <td [hidden]="!columns.idx" class="text-nowrap" [innerText]="item.idx"></td>
+              <td [hidden]="!columns.usr_request"><ngx-contact-html [contact]="item.request?.owner"></ngx-contact-html></td>
+              <td [hidden]="!columns.status"><button class="btn" [ngStyle]="{'background': stoTicketStatusList[item.status]?.colour}" [innerText]="stoTicketStatusList[item.status]?.name"></button></td>
+              <td [hidden]="!columns.out_type"><span class="text-nowrap font-weight-bold" [innerText]="stoOutTypeStatusList[item.request?.out_type]?.name" [ngStyle]="{'color': stoOutTypeStatusList[item.request?.out_type]?.colour}"></span></td>
+              <td [hidden]="!columns.to">
+                <ng-container *ngIf="item.request?.out_type=='sale'"><span class="d-block" style="min-width: 150px; max-width: 350px" [innerText]="item.request?.location"></span></ng-container>
+                <ng-container *ngIf="item.out_type=='purchase'"><span class="d-block" style="min-width: 150px; max-width: 350px" [innerText]="item.request?.supplier"></span></ng-container>
+                <!--<ng-container *ngIf="item.out_type=='purchase'"><span class="d-block" style="min-width: 150px; max-width: 350px" [innerText]="item.out_supplier?.company"></span></ng-container>-->
+                <ng-container *ngIf="item.out_type=='transfer'"><span [innerText]="item.out_stock?.name"></span></ng-container>
+              </td>
+              <td [hidden]="!columns.stock" [innerText]="item.request?.stock?.name"></td>
+              <td [hidden]="!columns.staff"><span class="d-block" style="min-width: 200px"><ngx-contact-html [contact]="item.staff"></ngx-contact-html></span></td>
+              <td [hidden]="!columns.owner"><span class="d-block" style="min-width: 200px"><ngx-contact-html [contact]="item.request?.owner"></ngx-contact-html></span></td>
+              <td [hidden]="!columns.storekeeper"><span class="d-block" style="min-width: 200px"><ngx-contact-html [contact]="item.request?.storekeeper"></ngx-contact-html></span></td>
+              <td [hidden]="!columns.accountant"><span class="d-block" style="min-width: 200px"><ngx-contact-html [contact]="item.request?.accountant"></ngx-contact-html></span></td>
+              <td [hidden]="!columns.products"><a class="text-nowrap" (click)="showProducts(item)" href="javascript:;" style="text-decoration: underline;">Xem chi tiết</a></td>
+              <td [hidden]="!columns.quantity" class="text-center" [innerText]="item.request?.products.length"></td>
+              <td [hidden]="!columns.total" [innerText]="item.request?.total|currencyFormat"></td>
+              <td [hidden]="!columns.note"><span class="d-block" style="min-width: 150px; max-width: 350px" [innerText]="item.request?.note || ''"></span></td>
+              <td [hidden]="!columns.att_files">
+                <ng-container *ngFor="let file of item.att_files; let $fileIndex = index">
+                  <span class="d-flex justify-content-start align-items-center" [ngClass]="{'mt-1':$fileIndex>0}"><span [ngxFileExtension]="file.filename" class="mr-1"></span><span style="max-width: 150px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;" [tooltip]="file.filename" container="body"><a [href]="file.url" [innerText]="file.filename" target="_blank"></a></span></span>
+                </ng-container>
+              </td>
+              <td [hidden]="!columns.cert_files">
+                <ng-container *ngFor="let file of item.cert_files; let $fileIndex = index">
+                  <span class="d-flex justify-content-start align-items-center" [ngClass]="{'mt-1':$fileIndex>0}"><span [ngxFileExtension]="file.filename" class="mr-1"></span><span style="max-width: 150px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;" [tooltip]="file.filename" container="body"><a [href]="file.url" [innerText]="file.filename" target="_blank"></a></span></span>
+                </ng-container>
+              </td>
+            </tr>
+          </ng-container>
+          </tbody>
+        </table>
+      </div>
+      <div class="card-footer">
+        <ngx-pagination2 [page]="data.page" [pageSize]="data.pageSize" [totalItems]="data.totalItems" [maxSize]="data.maxSize" (change)="pageChanged($event)" (pageSizeChange)="pageSizeChanged($event)"></ngx-pagination2>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="d-none"><input #fileUpload type="file" multiple (change)="onFiles()" accept=".jpg,.png,.pdf,.doc,image/jpeg,image/png,application/pdf,application/msword"></div>
+<ngx-sto-exp-ticket-form (onSuccess)="onFormSuccess($event)"></ngx-sto-exp-ticket-form>
+<ngx-modal-confirm (onConfirm)="onConfirm($event)"></ngx-modal-confirm>

@@ -1,0 +1,135 @@
+<?php namespace Modules\Product\Http\Controllers\Api;
+
+use Illuminate\Http\Request;
+use Modules\Product\Repositories\ProductRepository;
+
+/**
+ * Class ProductController
+ *
+ * @package Modules\Product\Http\Controllers\Api
+ * @author Huy Dang <huydang1920@gmail.com>
+ * Date: 2121-07-09
+ */
+class ProductController extends ApiBaseModuleController {
+    protected $maximumLimit = 20;
+
+    public function __construct(Request $request,
+                                ProductRepository $product_repository) {
+        $this->model_repository = $product_repository;
+
+        $this->middleware('auth.usr')->except(['index', 'show']);
+
+        parent::__construct($request);
+    }
+
+    /**
+     * @OA\Get(
+     *   path="/backend/pd_products",
+     *   summary="Get Products",
+     *   description="Get Products",
+     *   operationId="getProducts",
+     *   tags={"BackendPdProducts"},
+     *   security={{"bearer":{}}},
+     *   @OA\Parameter(name="paging", in="query", description="With Paging", example=0),
+     *   @OA\Parameter(name="page", in="query", description="Current Page", example=1),
+     *   @OA\Parameter(name="pageSize", in="query", description="Item total on page", example=20),
+     *   @OA\Parameter(name="sort", in="query", description="Sort by", example="id"),
+     *   @OA\Parameter(name="order", in="query", description="Order", example="desc"),
+     *   @OA\Parameter(name="data", in="query", description="{embed:Optional get related fields, fields: Optional get optional fields} | Syntax: embed=PROPERTYNAME or embed=PROPERTYNAME.CHILDPROPERTYNAME | fields=PROPERTYNAME1,PROPERTYNAME2", example="%7B%22subject_id%22%3A0%2C%22course_id%22%3A0%2C%22q%22%3A%22%22%7D"),
+     *   @OA\Response(response=200, description="Success", @OA\JsonContent()),
+     *   @OA\Response(response=400, description="Invalid request params", @OA\JsonContent()),
+     *   @OA\Response(response=401, description="Caller is not authenticated", @OA\JsonContent()),
+     *   @OA\Response(response=403, description="Wrong credentials response", @OA\JsonContent()),
+     *   @OA\Response(response=404, description="Resource not found", @OA\JsonContent()),
+     *   @OA\Response(response=500, description="Internal Server Error", @OA\JsonContent())
+     * )
+     */
+    public function index() {
+        try {
+            $page = (int)$this->request->get('page');
+            if (!$page) $page = 1;
+            $pageSize = (int)$this->request->get('pageSize');
+            if (!$pageSize) $pageSize = $this->pageSize;
+            if ($this->maximumLimit && $pageSize > $this->maximumLimit) $pageSize = $this->maximumLimit;
+            $sort = 'id';
+            $order = 'desc';
+            $queries = [
+                'and'      => [],
+                'whereRaw' => [],
+            ];
+
+            $fields = ['pd__products.*'];
+            $fields[] = \DB::raw('(select count(*) from `pd__product_likes` where `product_id` = `pd__products`.`id` and `liked` = 1) as total_likes');
+            if ($this->isLogged()) {
+                $fields [] = \DB::raw('(select count(*) from `pd__product_likes` where `product_id` = `pd__products`.`id` and `user_id` = ' . $this->auth->id . ' and `liked` = 1) as liked');
+            } else {
+                $fields [] = \DB::raw('0 as liked');
+            }
+            $results = $this->setUpQueryBuilder($this->model(), $queries, false, $fields)->orderBy($sort, $order)->take($pageSize)->skip($pageSize * ($page - 1))->get();
+
+            $output = [];
+            foreach ($results as $item) {
+                if ($item->total_likes) {
+                    $item->likeList = $item->getLikes(3);
+                } else {
+                    $item->likeList = [];
+                }
+                $output[] = $item;
+            }
+
+            $paging = $this->request->get('paging');
+            $paging = is_null($paging) || $paging === 'true' ? true : ($paging === 'false' ? false : (boolean)$paging);
+
+            if (!$paging) {
+                return $this->respondWithSuccess($output);
+            } else {
+                $totalCount = $this->setUpQueryBuilder($this->model(), $queries, true)->count();
+                return $this->respondWithPaging($output, $totalCount, $pageSize, $page);
+            }
+        } catch (\Exception $e) {
+            return $this->errorInternalError($e->getMessage());
+        }
+    }
+
+    /**
+     * @OA\Get(
+     *   path="/backend/pd_products/{id}",
+     *   summary="Get a Product",
+     *   description="Get a Product",
+     *   operationId="getProduct",
+     *   tags={"BackendPdProducts"},
+     *   security={{"bearer":{}}},
+     *   @OA\Parameter(name="id", in="path", description="Product Product Id", example="1"),
+     *   @OA\Parameter(name="data", in="query", description="{embed:Optional get related fields, fields: Optional get optional fields} | Syntax: embed=PROPERTYNAME or embed=PROPERTYNAME.CHILDPROPERTYNAME | fields=PROPERTYNAME1,PROPERTYNAME2", example=""),
+     *   @OA\Response(response=200, description="Success", @OA\JsonContent()),
+     *   @OA\Response(response=400, description="Invalid request params", @OA\JsonContent()),
+     *   @OA\Response(response=401, description="Caller is not authenticated", @OA\JsonContent()),
+     *   @OA\Response(response=403, description="Wrong credentials response", @OA\JsonContent()),
+     *   @OA\Response(response=404, description="Resource not found", @OA\JsonContent()),
+     *   @OA\Response(response=500, description="Internal Server Error", @OA\JsonContent())
+     * )
+     */
+    public function show($id) {
+        try {
+            $fields = ['pd__products.*'];
+            $fields[] = \DB::raw('(select count(*) from `pd__product_likes` where `product_id` = `pd__products`.`id` and `liked` = 1) as total_likes');
+            if ($this->isLogged()) {
+                $fields [] = \DB::raw('(select count(*) from `pd__product_likes` where `product_id` = `pd__products`.`id` and `user_id` = ' . $this->auth->id . ' and `liked` = 1) as liked');
+            } else {
+                $fields [] = \DB::raw('0 as liked');
+            }
+            $model = $this->setUpQueryBuilder($this->model(), [], false, $fields)->where('id', $id)->first();
+            if (!$model) return $this->errorNotFound();
+
+            /*if ($model->total_likes) {
+                $model->likeList = $model->getLikes(3);
+            } else {
+                $model->likeList = [];
+            }*/
+
+            return $this->respondWithSuccess($model);
+        } catch (\Exception $e) {
+            return $this->errorInternalError($e->getMessage());
+        }
+    }
+}

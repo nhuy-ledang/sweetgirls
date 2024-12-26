@@ -1,0 +1,274 @@
+<div class="page-header no-gutter">
+  <div class="row align-items-end">
+    <div class="col-sm">
+      <h1 class="page-header-title"><span [innerText]="'Danh sách sản phẩm'"></span></h1>
+      <nav>
+        <ol class="breadcrumb breadcrumb-no-gutter">
+          <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;"><span [innerText]="'Sản phẩm'"></span></a></li>
+          <li class="breadcrumb-item active"><span [innerText]="'Sản phẩm'"></span></li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-sm-auto">
+      <div class="btn-group mr-2" *ngIf="data.selectList.length">
+        <div class="d-flex align-items-center">
+          <span class="fs-sm mr-3">Chọn <span [innerText]="data.selectList.length"></span> dòng</span>
+          <a class="btn btn-outline-danger" (click)="removeAll()" href="javascript:;"><span class="fa fa-trash mr-1"></span>Xóa</a>
+        </div>
+      </div>
+      <div class="btn-group mr-2" *ngIf="data.itemSelected"><a class="btn btn-outline-secondary" (click)="toggleView()"><span class="ic_angle_right"></span></a></div>
+      <div class="btn-group">
+        <button type="button" class="btn btn-secondary" (click)="create()"><span class="ic_plus"></span>&nbsp;<span>Thêm mới</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-5" [ngClass]="{'col-md-5': data.itemSelected,'col-md-12': !data.itemSelected}">
+    <div class="card">
+      <div class="table-responsive">
+        <table class="table m-0">
+          <thead>
+          <tr>
+            <th style="width: 1px">
+              <div class="table_tools d-flex justify-content-between align-items-center">
+                <div>
+                  <div class="custom-control-wrapper">
+                    <div class="custom-control custom-checkbox ml-0"><input type="checkbox" class="custom-control-input" [(ngModel)]="data.selectAll" (change)="selectAll()" id="customSelect"><label class="custom-control-label cursor-pointer" for="customSelect"></label></div>
+                  </div>
+                </div>
+                <div>&nbsp;&nbsp;Stt</div>
+              </div>
+            </th>
+            <th (click)="sortBy('model')" [attr.class]="sortClass('model')">Mã <span class="sort-indicator"></span></th>
+            <th (click)="sortBy('id')" [attr.class]="sortClass('id')">#ID <span class="sort-indicator"></span></th>
+            <th [hidden]="!columns.image||data.itemSelected"><span>Hình</span></th>
+            <th [hidden]="!columns.name" (click)="sortBy('name')" [attr.class]="sortClass('name')"><span>Tên</span> <span class="sort-indicator"></span></th>
+            <th [hidden]="!columns.category||data.itemSelected"><span>Danh mục</span></th>
+            <th [hidden]="!columns.price||data.itemSelected"><span>Giá bán</span></th>
+            <!--<th [hidden]="!columns.coins||data.itemSelected">Coin</th>-->
+            <th [hidden]="!columns.quantity||data.itemSelected">Số lượng</th>
+            <th [hidden]="!columns.stock_status||data.itemSelected">Tình trạng</th>
+            <!--<th [hidden]="!columns.is_gift||data.itemSelected">Là quà tặng</th>-->
+            <th [hidden]="!columns.status||data.itemSelected">Trạng thái</th>
+            <!--<th [hidden]="!columns.weight||data.itemSelected">Cân nặng</th>
+            <th [hidden]="!columns.dimension||data.itemSelected">Kích thước</th>-->
+            <th [hidden]="!columns.created_at||data.itemSelected" (click)="sortBy('created_at')" [attr.class]="sortClass('created_at')"><span>Ngày tạo</span> <span class="sort-indicator"></span></th>
+            <th [hidden]="!columns.updated_at||data.itemSelected" (click)="sortBy('updated_at')" [attr.class]="sortClass('updated_at')"><span>Ngày cập nhật</span> <span class="sort-indicator"></span></th>
+          </tr>
+          <tr>
+            <td>
+              <div class="dropdown" dropdown container="body" placement="bottom left" [insideClick]="true">
+                <button type="button" dropdownToggle class="btn btn-secondary dropdown-toggle no_arrow d-flex align-items-center"><span class="mr-1 ic ic_visible_outlined"></span><span>Hiển thị</span></button>
+                <div *dropdownMenu class="dropdown-menu dropdown-menu-sm dropdown-menu-left">
+                  <div class="dropdown-item" *ngFor="let item of columnList">
+                    <div class="custom-control custom-checkbox"><input type="checkbox" [attr.id]="'columnShow'+item.id" [(ngModel)]="item.checkbox" class="custom-control-input" [disabled]="item.disabled" (change)="columnCheckbox()"><label [attr.for]="'columnShow'+item.id" class="custom-control-label d-block" [innerText]="item.name"></label></div>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <span class="d-block" style="min-width: 100px">
+                <input type="text" [(ngModel)]="data.data.model" (keyup)="onFilter($event)" class="form-control">
+              </span>
+            </td>
+            <td></td>
+            <td [hidden]="!columns.image||data.itemSelected"></td>
+            <td [hidden]="!columns.name"><span class="d-block" style="min-width: 200px;max-width: 350px"><input type="text" [(ngModel)]="data.data.q" (keyup)="onFilter($event)" class="form-control"></span></td>
+            <td [hidden]="!columns.category||data.itemSelected">
+              <div style="min-width: 150px; max-width: 350px">
+                <select [(ngModel)]="data.data.category_id" (change)="onFilter($event)" class="form-control" [ngClass]="{'loading':categoryData.loading}">
+                  <option value="">Tất cả</option>
+                  <ng-container *ngFor="let item of categoryData.items">
+                    <option [value]="item.id">{{ item.name }}</option>
+                    <ng-container *ngFor="let child of item.childs">
+                      <option [value]="child.id">-- {{ child.name }}</option>
+                    </ng-container>
+                  </ng-container>
+                </select>
+              </div>
+            </td>
+            <td [hidden]="!columns.price||data.itemSelected"></td>
+            <td [hidden]="!columns.quantity||data.itemSelected"></td>
+            <!--<td [hidden]="!columns.coins||data.itemSelected"></td>-->
+            <td [hidden]="!columns.stock_status||data.itemSelected">
+              <div style="min-width: 90px; max-width: 200px">
+                <select [(ngModel)]="filters.stock_status.value" (change)="onFilter($event)" class="form-control">
+                  <option value="">Tất cả</option>
+                  <ng-container *ngFor="let item of stockList">
+                    <option [value]="item.id">{{ item.name }}</option>
+                  </ng-container>
+                </select>
+              </div>
+            </td>
+            <!--<td [hidden]="!columns.is_gift||data.itemSelected">
+              <div style="min-width: 90px; max-width: 200px">
+                <select [(ngModel)]="filters.is_gift.value" (change)="onFilter($event)" class="form-control">
+                  <option value="">Tất cả</option>
+                  <ng-container *ngFor="let item of giftList">
+                    <option [value]="item.id">{{ item.name }}</option>
+                  </ng-container>
+                </select>
+              </div>
+            </td>-->
+            <td [hidden]="!columns.status||data.itemSelected">
+              <div style="min-width: 90px; max-width: 200px">
+                <select [(ngModel)]="filters.status.value" (change)="onFilter($event)" class="form-control">
+                  <option value="">Tất cả</option>
+                  <ng-container *ngFor="let item of statusList">
+                    <option [value]="item.id">{{ item.name }}</option>
+                  </ng-container>
+                </select>
+              </div>
+            </td>
+            <!--<td [hidden]="!columns.weight||data.itemSelected"></td>
+            <td [hidden]="!columns.dimension||data.itemSelected"></td>-->
+            <td [hidden]="!columns.created_at||data.itemSelected"></td>
+            <td [hidden]="!columns.updated_at||data.itemSelected"></td>
+          </tr>
+          </thead>
+          <tbody class="text-dark">
+          <tr *ngIf="data.loading">
+            <td colspan="15" class="text-center"><span class="spinner-border"><span class="sr-only">Loading...</span></span></td>
+          </tr>
+          <ng-container *ngFor="let item of data.items; let $index = index">
+            <tr *ngIf="!item.is_deleted" [ngClass]="{'odd':$index%2==0,'even':$index%2==1,'bg_selected':data.itemSelected&&data.itemSelected.id==item.id,'bg_children':item.master_id}">
+              <td>
+                <div class="table_tools d-flex justify-content-between align-items-center">
+                  <div class="d-flex justify-content-start align-items-center">
+                    <div>
+                      <div class="custom-control-wrapper">
+                        <div class="custom-control custom-checkbox ml-0"><input type="checkbox" class="custom-control-input" [(ngModel)]="item.checkbox" [attr.id]="'customSelect'+$index" (click)="checkbox(item)"><label class="custom-control-label cursor-pointer" [attr.for]="'customSelect'+$index"></label></div>
+                      </div>
+                    </div>
+                    <div><a (click)="edit(item)" class="btn btn-icon" href="javascript:;"><span class="ic_pencil_square"></span></a></div>
+                    <div>
+                      <div class="dropdown" dropdown container="body" placement="bottom left">
+                        <button type="button" dropdownToggle class="btn btn-icon"><span class="ic_three_dots_vertical"></span></button>
+                        <div *dropdownMenu class="dropdown-menu">
+                          <!--<a class="dropdown-item" (click)="updateQuantity(item)" href="javascript:;"><span class="fa fa-pencil-square-o pr-2"></span><span>Cập nhật số lượng</span></a>
+                          <div class="dropdown-divider"></div>-->
+                          <a class="dropdown-item" (click)="detail(item)" href="javascript:;"><span class="fa fa-info-circle pr-2"></span><span>Chi tiết</span></a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" (click)="copy(item)" href="javascript:;"><span class="fa fa-clone pr-2"></span><span>Sao chép</span></a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" (click)="renew(item)" href="javascript:;"><span class="fa fa-refresh pr-2"></span><span>Làm mới</span></a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item text-danger" (click)="remove(item)" href="javascript:;"><span class="fa fa-trash-o pr-2"></span><span>Xóa</span></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div><span class="btn btn-icon w-auto fs-normal pl-1" [innerText]="$index + 1"></span></div>
+                </div>
+              </td>
+              <td [innerText]="item.model"></td>
+              <td [innerText]="item.id"></td>
+              <td [hidden]="!columns.image||data.itemSelected">
+                <ng-container *ngIf="item.thumb_url"><img [src]="item.thumb_url" style="width: 100px"></ng-container>
+              </td>
+              <td [hidden]="!columns.name">
+                <div style="min-width: 200px;max-width: 350px">
+                  <div><a (click)="select(item)" href="javascript:;" [innerText]="item.name"></a>&nbsp;&nbsp;<a (click)="preview(item)" href="javascript:;"><span class="ic_visible_outlined"></span></a></div>
+                  <div *ngIf="item.gift_set">Bộ quà tặng: <span class="text-danger" [innerText]="item.gift_set.name"></span></div>
+                </div>
+              </td>
+              <td [hidden]="!columns.category||data.itemSelected" [innerText]="item.category?.name"></td>
+              <td [hidden]="!columns.price||data.itemSelected">
+                <span *ngIf="item.special"><strike [innerText]="item.price|currencyFormat"></strike><br><span class="text-danger" [innerText]="item.special|currencyFormat"></span></span>
+                <span *ngIf="!item.special" [innerText]="item.price|currencyFormat"></span>
+                <div class="text-info text-nowrap" *ngIf="!item.master_id&&item.num_of_child>0&&item.price_min>0">
+                  <span *ngIf="item.price_min!=item.price_max" class="badge badge-primary fs-xs"><span [innerText]="item.price_min|currencyFormat"></span>-<span [innerText]="item.price_max|currencyFormat"></span></span>
+                  <span *ngIf="item.price_min==item.price_max" class="badge badge-primary fs-xs">Giá từ <span [innerText]="item.price_min|currencyFormat"></span></span>
+                </div>
+              </td>
+              <!--<td [hidden]="!columns.coins||data.itemSelected"><span *ngIf="item.is_gift" [innerText]="item.coins|number"></span></td>-->
+              <td [hidden]="!columns.quantity||data.itemSelected"><span [innerText]="item.quantity|number"></span></td>
+              <td [hidden]="!columns.stock_status||data.itemSelected"><span *ngIf="item.stock_status == 'in_stock'" class="text-success">Sẵn hàng</span><span *ngIf="item.stock_status == 'out_of_stock'" class="text-danger">Hết hàng</span><span *ngIf="item.stock_status == 'pre_order'" class="text-warning">Đặt trước</span></td>
+              <!--<td [hidden]="!columns.is_gift||data.itemSelected">
+                <label class="toggle-switch toggle-switch-sm cursor-default">
+                  <input type="checkbox" class="toggle-switch-input" [checked]="item.is_gift" disabled>
+                  <span class="toggle-switch-label checked-disabled"><span class="toggle-switch-indicator"></span></span>
+                </label>
+              </td>-->
+              <td [hidden]="!columns.status||data.itemSelected">
+                <ngx-toggle-switch [(ngModel)]="item.status" (change)="changeProp(item, 'status')"></ngx-toggle-switch>
+              </td>
+              <!--<td [hidden]="!columns.weight||data.itemSelected" [innerText]="item.weight|number"></td>
+              <td [hidden]="!columns.dimension||data.itemSelected"><span [innerText]="item.length|number"></span>x<span [innerText]="item.width|number"></span>x<span [innerText]="item.height|number"></span></td>-->
+              <td [hidden]="!columns.created_at||data.itemSelected" [innerText]="item.created_at|formatDate"></td>
+              <td [hidden]="!columns.updated_at||data.itemSelected" [innerText]="item.updated_at|formatDate"></td>
+            </tr>
+          </ng-container>
+          </tbody>
+        </table>
+      </div>
+      <div class="card-footer">
+        <ngx-pagination2 [page]="data.page" [pageSize]="data.pageSize" [totalItems]="data.totalItems" [maxSize]="data.maxSize" (change)="pageChanged($event)" (pageSizeChange)="pageSizeChanged($event)"></ngx-pagination2>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-7" *ngIf="data.itemSelected">
+    <div class="card">
+      <tabset class="tabcard_right">
+        <tab (selectTab)="onSelectTab($event, 'images')">
+          <ng-template tabHeading><span>Hình</span></ng-template>
+          <div class="card-body" *ngIf="tabs.images">
+            <ngx-pd-images [product]="data.itemSelected"></ngx-pd-images>
+          </div>
+        </tab>
+        <tab (selectTab)="onSelectTab($event, 'specials')">
+          <ng-template tabHeading>Khuyến mãi</ng-template>
+          <div class="card-body" *ngIf="tabs.specials">
+            <ngx-pd-specials [product]="data.itemSelected"></ngx-pd-specials>
+          </div>
+        </tab>
+        <tab (selectTab)="onSelectTab($event, 'options')">
+          <ng-template tabHeading><span [innerText]="'Tùy chọn'"></span></ng-template>
+          <div class="card-body" *ngIf="tabs.options">
+            <ngx-pd-product-options [product]="data.itemSelected"></ngx-pd-product-options>
+          </div>
+        </tab>
+        <tab (selectTab)="onSelectTab($event, 'variants')">
+          <ng-template tabHeading><span [innerText]="'Biến thể'"></span></ng-template>
+          <div class="card-body" *ngIf="tabs.variants">
+            <ngx-pd-product-variants [product]="data.itemSelected"></ngx-pd-product-variants>
+          </div>
+        </tab>
+        <!--<tab (selectTab)="onSelectTab($event, 'incombo')">
+          <ng-template tabHeading><span [innerText]="'SP combo'"></span></ng-template>
+          <div class="card-body" *ngIf="tabs.incombo">
+            <ngx-pd-product-incombos [product]="data.itemSelected"></ngx-pd-product-incombos>
+          </div>
+        </tab>
+        <tab (selectTab)="onSelectTab($event, 'relateds')">
+          <ng-template tabHeading><span [innerText]="'SP mua cùng'"></span></ng-template>
+          <div class="card-body" *ngIf="tabs.relateds">
+            <ngx-pd-product-relateds [product]="data.itemSelected"></ngx-pd-product-relateds>
+          </div>
+        </tab>-->
+        <!--<tab (selectTab)="onSelectTab($event, 'properties')">
+          <ng-template tabHeading><span [innerText]="'Thuộc tính'"></span></ng-template>
+          <div class="card-body" *ngIf="tabs.properties">
+            <ngx-pd-product-properties [product]="data.itemSelected"></ngx-pd-product-properties>
+          </div>
+        </tab>-->
+        <!--<tab (selectTab)="onSelectTab($event, 'specs')">
+          <ng-template tabHeading><span [innerText]="'Thông số kỹ thuật'"></span></ng-template>
+          <div class="card-body" *ngIf="tabs.specs">
+            <ngx-pd-product-specs [product]="data.itemSelected"></ngx-pd-product-specs>
+          </div>
+        </tab>-->
+        <!--<tab (selectTab)="onSelectTab($event, 'modules')">
+          <ng-template tabHeading>Module</ng-template>
+          <div class="card-body" *ngIf="tabs.modules">
+            <ngx-pd-modules [product]="data.itemSelected"></ngx-pd-modules>
+          </div>
+        </tab>-->
+      </tabset>
+    </div>
+  </div>
+</div>
+<ngx-pd-product-form (onSuccess)="onFormSuccess($event)"></ngx-pd-product-form>
+<ngx-pd-product-quantity-form (onSuccess)="onQuantityFormSuccess($event)"></ngx-pd-product-quantity-form>
+<ngx-modal-confirm (onConfirm)="onConfirm($event)"></ngx-modal-confirm>

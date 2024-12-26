@@ -1,0 +1,34 @@
+<div class="card mb-3">
+  <div class="table-responsive">
+    <table class="table m-0">
+      <thead>
+      <tr>
+        <th class="w-auto">Tên sản phẩm</th>
+        <th>Giá</th>
+        <th>Số lượng</th>
+        <th class="text-right">Tổng cộng</th>
+      </tr>
+      </thead>
+      <tbody class="text-dark">
+      <tr *ngIf="data.loading">
+        <td colspan="4" class="text-center"><span class="spinner-border"><span class="sr-only">Loading...</span></span></td>
+      </tr>
+      <tr *ngFor="let item of data.items">
+        <td>
+          {{ item.name }}
+          <br>
+          <div class="text-nowrap d-inline-block pr-2" *ngFor="let it of item.options">
+            <b>{{ it.name }}:</b> <span>{{ it.value }}</span>
+          </div>
+          <div *ngIf="item.type === 'I'">
+            <b>Lời chúc: </b> <span>{{ item.message }}</span>
+          </div>
+        </td>
+        <td>{{ item.price|currencyFormat }}</td>
+        <td>{{ item.quantity }}</td>
+        <td class="text-right">{{ item.total|currencyFormat }}<small *ngIf="item.coins" [innerText]="' (' + item.coins + ' coin)'"></small></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

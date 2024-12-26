@@ -1,0 +1,209 @@
+<div bsModal #modal="bs-modal" [config]="{backdrop:'static'}" class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-lg" style="z-index: 99999">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">
+          <span *ngIf="!info"><span>Thêm sản phẩm</span></span>
+          <span *ngIf="info">Cập nhật sản phẩm</span>
+        </h4>
+        <a href="javascript:" (click)="hide()" class="close"><span class="ic_close"></span></a>
+      </div>
+      <div class="modal-body">
+        <form class="pt-3" novalidate [formGroup]="form">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="row">
+                <div class="col-sm-6 form-group" [ngClass]="{'has-error': (controls.model.invalid && (controls.model.touched || showValid))}">
+                  <label class="input-label">Mã</label>
+                  <input name="model" type="text" [formControl]="controls.model" class="form-control">
+                </div>
+                <div class="col-sm-6 form-group" [ngClass]="{'has-error': (controls.unit.invalid && (controls.unit.touched || showValid))}">
+                  <label class="input-label">ĐVT</label>
+                  <input name="unit" type="text" [formControl]="controls.unit" class="form-control" placeholder="VD: hộp, chai, ...">
+                </div>
+              </div>
+              <div class="form-group" [ngClass]="{'has-error': (controls.name.invalid && (controls.name.touched || showValid))}">
+                <label class="input-label">Tên</label>
+                <input name="name" type="text" [formControl]="controls.name" class="form-control" (change)="onChangeName()">
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <div class="form-group" *ngIf="modal.isShown">
+                <label class="input-label">Hình (16:9)</label>
+                <ngx-picture-uploader [options]="fileOpt" (onSelected)="onFileSelected($event)" (onDeleted)="onFileDeleted($event)"></ngx-picture-uploader>
+              </div>
+            </div>
+            <!--<div class="col-sm-3">
+              <div class="form-group" *ngIf="modal.isShown">
+                <label class="input-label">Banner (1920 x 400px)</label>
+                <ngx-picture-uploader [options]="bnOpt" (onSelected)="onBnSelected($event)" (onDeleted)="onBnDeleted($event)"></ngx-picture-uploader>
+              </div>
+            </div>-->
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="input-label">Tên dài</label>
+                <input name="long_name" type="text" [formControl]="controls.long_name" class="form-control" (change)="onChangeName()">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group" [ngClass]="{'has-error': (controls.category_id.invalid && (controls.category_id.touched || showValid))}">
+                <label class="input-label">Danh mục</label>
+                <select class="form-control" [formControl]="controls.category_id" [ngClass]="{'loading':categoryData.loading}">
+                  <option value="">Không</option>
+                  <ng-container *ngFor="let item of categoryData.items">
+                    <option [value]="item.id">{{ item.name }}</option>
+                    <!--<ng-container *ngFor="let child of item.childs">-->
+                    <!--<option [value]="child.id">&#45;&#45; {{ child.name }}</option>-->
+                    <!--</ng-container>-->
+                  </ng-container>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group" [ngClass]="{'has-error': (controls.manufacturer_id.invalid && (controls.manufacturer_id.touched || showValid))}">
+                <label class="input-label">Nhà cung cấp</label>
+                <select class="form-control" [formControl]="controls.manufacturer_id" [ngClass]="{'loading':manufacturerData.loading}">
+                  <option value="">Không</option>
+                  <option *ngFor="let item of manufacturerData.items" [value]="item.id">{{ item.name }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group" [ngClass]="{'has-error': (controls.price.invalid && (controls.price.touched || showValid))}">
+                <label class="input-label">Đơn giá</label>
+                <input ngxCurrency type="number" [formControl]="controls.price" class="form-control">
+              </div>
+            </div>
+            <!--<div class="form-group col-sm-6" *ngIf="modal.isShown">
+              <label class="input-label">Liên kết danh mục</label>
+              <div class="card bg-light" style="height: 159px; overflow: auto;">
+                <div class="card-body p-2">
+                  <div style="user-select: none;">
+                    &lt;!&ndash;<ng-container *ngFor="let item of categoryData.items; let $index = index">
+                      <div class="checkbox m-0 mb-1">
+                        <input type="checkbox" [attr.id]="'categoryCheckBox-'+$index" [formControl]="controls.categories.controls['category_'+item.id]" (change)="onChangeCategories(item)">
+                        <label [attr.for]="'categoryCheckBox-'+$index"><span [innerText]="item.name"></span></label>
+                      </div>
+                    </ng-container>&ndash;&gt;
+                    <ng-container *ngFor="let item of categoryData.items; let $index = index">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" [attr.id]="'categoryCheckBox-'+$index" [formControl]="controls.categories.controls['category_'+item.id]" (change)="onChangeCategories(item)">
+                        <label class="custom-control-label" [attr.for]="'categoryCheckBox-'+$index"><span [innerText]="item.name"></span></label>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>-->
+          </div>
+          <div class="row">
+            <!--<div class="form-group col-sm-2">
+              <label class="input-label">Là quà tặng</label>
+              <ngx-toggle-switch [formControl]="controls.is_gift" (ngModelChange)="onChangeGift()"></ngx-toggle-switch>
+            </div>
+            <div *ngIf="controls.is_gift.value" class="form-group col-sm-2">
+              <label class="input-label">Chỉ đổi coin</label>
+              <ngx-toggle-switch [formControl]="controls.is_coin_exchange"></ngx-toggle-switch>
+            </div>
+            <div *ngIf="controls.is_gift.value" class="form-group col-sm-4" [ngClass]="{'has-error': (controls.coins.invalid && (controls.coins.touched || showValid))}">
+              <label class="input-label">Số coin</label>
+              <input type="number" [formControl]="controls.coins" [min]="0" class="form-control">
+            </div>-->
+          </div>
+          <div class="row">
+            <!--<div class="form-group col-sm-6">
+              <label class="input-label">Cân nặng (gram)</label>
+              <input type="number" [formControl]="controls.weight" [min]="0" class="form-control">
+            </div>
+            <div class="form-group col-sm-6">
+              <label class="input-label">Kích thước (DxRxC) (mm)</label>
+              <div class="input-group">
+                <input type="number" [formControl]="controls.length" [min]="0" placeholder="chiều dài" class="form-control">
+                <input type="number" [formControl]="controls.width" [min]="0" placeholder="chiều rộng" class="form-control">
+                <input type="number" [formControl]="controls.height" [min]="0" placeholder="chiều cao" class="form-control">
+              </div>
+            </div>
+            <div class="form-group col-sm-6">
+              <label class="input-label">Gói quà tặng</label>
+              <select class="form-control" [formControl]="controls.gift_set_id" [ngClass]="{'loading':giftSetData.loading}">
+                <option value="">Không</option>
+                <option *ngFor="let item of giftSetData.items" [value]="item.id">{{ item.name }}</option>
+              </select>
+            </div>-->
+            <div class="form-group col-sm-2">
+              <label class="input-label">Tình trạng</label>
+              <select name="stock_status" [formControl]="controls.stock_status" class="form-control">
+                <option value="in_stock">Sẵn hàng</option>
+                <option value="out_of_stock">Hết hàng</option>
+                <option value="pre_order">Đặt trước</option>
+              </select>
+            </div>
+            <div class="form-group col-sm-2">
+              <label class="input-label">Trạng thái</label>
+              <ngx-toggle-switch [formControl]="controls.status"></ngx-toggle-switch>
+            </div>
+            <!--<div class="form-group col-sm-2">
+              <label class="input-label">Không COD</label>
+              <ngx-toggle-switch [formControl]="controls.no_cod"></ngx-toggle-switch>
+            </div>-->
+          </div>
+          <div class="form-group" [ngClass]="{'has-error': (controls.short_description.invalid && (controls.short_description.touched || showValid))}">
+            <label class="input-label">Mô tả ngắn (đơn hàng)</label>
+            <textarea [formControl]="controls.short_description" rows="3" class="form-control"></textarea>
+          </div>
+          <div class="form-group" [ngClass]="{'has-error': (controls.description.invalid && (controls.description.touched || showValid))}">
+            <label class="input-label">Thông tin sản phẩm</label>
+            <textarea ngxEditor name="description" [formControl]="controls.description" class="form-control"></textarea>
+          </div>
+          <!--<div class="form-group" [ngClass]="{'has-error': (controls.user_guide.invalid && (controls.user_guide.touched || showValid))}">
+            <label class="input-label">Hướng dẫn sử dụng</label>
+            <textarea ngxEditor name="user_guide" [formControl]="controls.user_guide" class="form-control"></textarea>
+          </div>
+          <div class="form-group" [ngClass]="{'has-error': (controls.properties.invalid && (controls.properties.touched || showValid))}">
+            <label class="input-label">Thành phần chính</label>
+            <textarea ngxEditor name="properties" [formControl]="controls.properties" class="form-control"></textarea>
+          </div>
+          <div class="form-group" [ngClass]="{'has-error': (controls.tag.invalid && (controls.tag.touched || showValid))}">
+            <label class="input-label">Tags</label>
+            <input type="text" name="tag" [formControl]="controls.tag" class="form-control">
+          </div>-->
+          <!--<div class="form-group">
+            <label class="input-label">Link</label>
+            <input type="text" name="link" [formControl]="controls.link" class="form-control" placeholder="http:// or https://">
+          </div>
+          <div class="form-group" [ngClass]="{'has-error': (controls.meta_title.invalid && (controls.meta_title.touched || showValid))}">
+            <label class="input-label">Meta Tag Title</label>
+            <input name="meta_title" type="text" [formControl]="controls.meta_title" class="form-control">
+          </div>
+          <div class="form-group" [ngClass]="{'has-error': (controls.meta_description.invalid && (controls.meta_description.touched || showValid))}">
+            <label class="input-label">Meta Tag Description</label>
+            <textarea name="description" [formControl]="controls.meta_description" rows="3" class="form-control"></textarea>
+          </div>
+          <div class="form-group" [ngClass]="{'has-error': (controls.meta_keyword.invalid && (controls.meta_keyword.touched || showValid))}">
+            <label class="input-label">Meta Tag Keywords</label>
+            <textarea name="description" [formControl]="controls.meta_keyword" rows="3" class="form-control"></textarea>
+          </div>
+          <div class="form-group" [ngClass]="{'has-error': (controls.alias.invalid && (controls.alias.touched || showValid))}">
+            <label class="input-label">Seo url
+              <small><br><span [innerText]="'Không sử dụng khoảng trống, thay vào đó bằng - và đảm bảo rằng URL SEO là độc nhất trên toàn cầu.'|translate"></span></small>
+            </label>
+            <input name="alias" type="text" [formControl]="controls.alias" class="form-control">
+          </div>-->
+          <ng-container *ngIf="!(info && langData.items.length)">
+            <div class="d-flex justify-content-end" style="position: sticky; bottom: 0; padding:15px 0; background: #ffffff; z-index: 9">
+              <button type="button" (click)="onSubmit(form.value)" [disabled]="submitted" class="btn btn-secondary"><span class="spinner-border spinner-border-sm" *ngIf="submitted"></span> <span *ngIf="!info" [innerText]="'Thêm mới'|translate">Thêm mới</span><span *ngIf="info" [innerText]="'Cập nhật'|translate">Cập nhật</span></button>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="(info && langData.items.length)">
+            <div class="d-flex justify-content-end" style="position: sticky; bottom: 0; padding:15px 0; background: #ffffff; z-index: 9">
+              <button type="button" (click)="onSubmit(form.value, true, true)" [disabled]="submitted" class="btn btn-secondary mr-1"><span [innerText]="'Cập nhật'|translate">Cập nhật</span></button>
+              <button type="button" (click)="onSubmit(form.value, false, true)" [disabled]="submitted" class="btn btn-secondary"><span [innerText]="'Cập nhật & thoát'|translate">Cập nhật & thoát</span></button>
+            </div>
+          </ng-container>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

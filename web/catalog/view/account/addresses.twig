@@ -1,0 +1,38 @@
+{{ header }}
+<main id="main-content" ng-controller="ProfileCtrl">
+  <div class="container-lg pt-xl-10 pt-2">
+    {{ module_profile }}
+    <div class="row no-gutters border-top">
+      <div class="col-12 col-xl-3">{{ column_left }}</div>
+      <div class="wid_content_info block_address_list border-left col-12 col-xl-9 pl-0 pl-xl-10 py-6" ng-controller="ProfileAddressCtrl" ng-init="init()" style="display: none;" ng-style="{'display':inited?'':'none'}">
+        <div class="page-title font-weight-bold text-uppercase h4 mb-4">{{ text_delivery_address }}<!-- text_delivery_address --></div>
+        <div class="row" style="row-gap: 20px">
+          <div class="col-12 col-md-6 mb-4 mb-md-0" ng-repeat="item in addressList">
+            <div class="address_info d-flex flex-column justify-content-between border p-4 wow fadeInUp" data-wow-delay="0.3s">
+              <div class="mb-8">
+                <div class="d-flex justify-content-between">
+                  <span class="font-weight-bold" ng-bind="item.first_name">,&nbsp;<span ng-bind="item.phone_number"></span></span>
+                  <span ng-if="item.is_default" class="text-primary font-weight-bold">{{ text_default }}<!-- text_default --></span>
+                </div>
+                <div class="pr-12 mt-2"><span ng-bind="item.address_1"></span>, <span ng-bind="item.ward"></span>, <span ng-bind="item.district"></span>, <span ng-bind="item.province"></span></div>
+              </div>
+              <button type="button" class="cus_btn px-5 px-xl-10" ng-click="edit(item)">{{ text_edit }}<!-- text_edit --></button>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="address_info h-100 add_more_address cursor-pointer d-flex flex-column justify-content-center align-items-center p-4 wow fadeInUp" data-wow-delay="0.3s" ng-click="create()">
+              <span class="icon_plus" style="--primary-color: #0F1F2A"></span>
+              <div class="font-weight-bold mt-2">{{ text_add_address }}<!-- text_add_address --></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    $('#new-address').click(function () {
+      $('form').show()
+    })
+  </script>
+</main>
+{{ footer }}

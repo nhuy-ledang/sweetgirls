@@ -1,0 +1,22 @@
+@import './layout1';
+@import './layout2';
+@import './layout3';
+@import './layout4';
+@import './layout5';
+@import './layout6';
+@import './layout7';
+@import './layout8';
+@import './layout9';
+@import './layout10';
+@import './layout11';
+@import './layout12';
+
+.section_button {
+  margin-top: 30px;
+}
+
+@media (max-width: 575px) {
+  .section_button {
+    margin-top: 15px;
+  }
+}

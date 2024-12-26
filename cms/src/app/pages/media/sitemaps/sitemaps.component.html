@@ -1,0 +1,47 @@
+<div class="page-header no-gutter">
+  <div class="row align-items-end">
+    <div class="col-sm">
+      <h1 class="page-header-title">Danh sách sitemap</h1>
+      <nav>
+        <ol class="breadcrumb breadcrumb-no-gutter">
+          <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;"><span [innerText]="'Đa phương tiện'|translate"></span></a></li>
+          <li class="breadcrumb-item active">Sitemap</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-sm-auto">
+      <div class="btn-group">
+        <button type="button" class="btn btn-secondary" (click)="build()"><span class="ic_plus"></span> Build</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="table-responsive">
+    <table class="table m-0">
+      <thead>
+      <tr>
+        <th>
+          <div class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" [(ngModel)]="data.selectAll" (change)="selectAll()" id="customSelect"><label class="custom-control-label" for="customSelect"></label></div>
+        </th>
+        <th>Stt</th>
+        <th>Sitemap</th>
+      </tr>
+      </thead>
+      <tbody class="text-dark">
+      <tr *ngIf="data.loading">
+        <td colspan="3" class="text-center">
+          <div class="spinner-border"><span class="sr-only">Loading...</span></div>
+        </td>
+      </tr>
+      <tr *ngFor="let item of data.items; let $index = index">
+        <td>
+          <div class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" [(ngModel)]="item.checkbox" [attr.id]="'customSelect'+$index" (click)="checkbox(item)"><label class="custom-control-label" [attr.for]="'customSelect'+$index"></label></div>
+        </td>
+        <td>{{ item.index + 1 }}</td>
+        <td><a href="{{item.url}}" [innerText]="item.url" target="_blank"></a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

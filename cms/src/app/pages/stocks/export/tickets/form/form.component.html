@@ -1,0 +1,145 @@
+<div bsModal #modal="bs-modal" [config]="{backdrop:'static'}" class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-xl" style="z-index: 99999">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"><span [innerText]="!info?'Thêm':'Cập nhật'"></span> phiếu xuất kho</h4>
+        <a class="close" (click)="hide()"><span class="ic_close"></span></a>
+      </div>
+      <div class="modal-body">
+        <form novalidate [formGroup]="form">
+          <div class="row">
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': (controls.idx.invalid && (controls.idx.touched || showValid))}">
+              <label class="input-label">Mã phiếu</label>
+              <input type="text" [formControl]="controls.idx" class="form-control">
+            </div>
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': (controls.stock_id.invalid && (controls.stock_id.touched || showValid))}">
+              <label class="input-label">Kho xuất<span class="text-required">*</span></label>
+              <select class="form-control" [formControl]="controls.stock_id" [ngClass]="{'loading':stockData.loading}">
+                <option value="">Không</option>
+                <option *ngFor="let item of stockData.items" [value]="item.id">{{ item.name }}</option>
+              </select>
+            </div>
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': (controls.out_type.invalid && (controls.out_type.touched || showValid))}">
+              <label class="input-label">Loại<span class="text-required">*</span></label>
+              <select class="form-control" [formControl]="controls.out_type" (ngModelChange)="onOutTypeChange()">
+                <option *ngFor="let item of outTypes" [value]="item.id">{{ item.name }}</option>
+              </select>
+            </div>
+            <div *ngIf="controls.out_type.value == 'sale'" class="form-group col-sm-3" [ngClass]="{'has-error': (controls.out_customer_id.invalid && (controls.out_customer_id.touched || showValid))}">
+              <label class="input-label">Nơi nhận<span class="text-required">*</span></label>
+              <ngx-input-customer [formControl]="controls.out_customer_id" [(selected)]="cusSelected"></ngx-input-customer>
+            </div>
+            <div *ngIf="controls.out_type.value == 'transfer'" class="form-group col-sm-3" [ngClass]="{'has-error': (controls.out_stock_id.invalid && (controls.out_stock_id.touched || showValid))}">
+              <label class="input-label">Nơi nhận<span class="text-required">*</span></label>
+              <select class="form-control" [formControl]="controls.out_stock_id" [ngClass]="{'loading':stockData.loading}">
+                <option value="">Không</option>
+                <option *ngFor="let item of stockData.items" [value]="item.id">{{ item.name }}</option>
+              </select>
+            </div>
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': (controls.staff_id.invalid && (controls.staff_id.touched || showValid))}">
+              <label class="input-label">Người nhận giao hàng</label>
+              <select class="form-control" [formControl]="controls.staff_id" [ngClass]="{'loading':staffData.loading}">
+                <option value="">Không</option>
+                <option *ngFor="let item of staffData.items" [value]="item.id">{{ item.display }}</option>
+              </select>
+            </div>
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': (controls.storekeeper_id.invalid && (controls.storekeeper_id.touched || showValid))}">
+              <label class="input-label">Thủ kho</label>
+              <select class="form-control" [formControl]="controls.storekeeper_id" [ngClass]="{'loading':staffData.loading}">
+                <option value="">Không</option>
+                <option *ngFor="let item of staffData.items" [value]="item.id">{{ item.display }}</option>
+              </select>
+            </div>
+            <div class="form-group col-sm-3" [ngClass]="{'has-error': (controls.accountant_id.invalid && (controls.accountant_id.touched || showValid))}">
+              <label class="input-label">Kế toán trưởng</label>
+              <select class="form-control" [formControl]="controls.accountant_id" [ngClass]="{'loading':staffData.loading}">
+                <option value="">Không</option>
+                <option *ngFor="let item of staffData.items" [value]="item.id">{{ item.display }}</option>
+              </select>
+            </div>
+            <div class="form-group col-sm-6">
+              <label class="input-label">Lý do xuất</label>
+              <textarea [formControl]="controls.reason" rows="3" class="form-control"></textarea>
+            </div>
+            <div class="form-group col-sm-6">
+              <label class="input-label">Ghi chú</label>
+              <textarea [formControl]="controls.note" rows="3" class="form-control"></textarea>
+            </div>
+          </div>
+        </form>
+        <div class="card mb-3">
+          <div class="card-header">
+            <div class="row justify-content-between align-items-center flex-grow-1">
+              <div class="col-12 col-sm"><h4 class="m-0">Danh sách sản phẩm</h4></div>
+              <div class="col-auto">
+                <div class="d-flex align-items-center">
+                  <div class="btn-group dropdown" dropdown (onShown)="onShown()" #dropdown="bs-dropdown" placement="bottom right" [insideClick]="true">
+                    <input dropdownToggle type="text" class="form-control" style="min-width: 350px" placeholder="Tìm sản phẩm">
+                    <div *dropdownMenu class="dropdown-menu bs-dropdown-menu">
+                      <div class="bs-searchbox"><input #inputElement type="text" [(ngModel)]="data.data.q" class="form-control" (keyup)="onFilter($event)" placeholder="Gõ để tìm kiếm..."></div>
+                      <div class="bs-innerbox">
+                        <ul class="dropdown-menu inner">
+                          <li *ngIf="data.loading" class="text-center"><span class="spinner-border"><span class="sr-only">Loading...</span></span></li>
+                          <li *ngFor="let item of data.items"><a (click)="addProduct(item);dropdown.isOpen=false"><span [innerText]="item.idx"></span> - <span [innerText]="item.name"></span></a></li>
+                        </ul>
+                      </div>
+                      <div *ngIf="data.data.q && !data.loading && !data.items.length" class="bs-status">Không tìm thấy kết quả nào</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table m-0">
+              <thead>
+              <tr>
+                <th>Stt</th>
+                <th>Danh mục hàng hóa</th>
+                <th>ĐVT</th>
+                <th>Đơn giá<br><em class="font-weight-normal">vnđ</em></th>
+                <th style="width: 86px;">Số lượng<br>chứng từ</th>
+                <th style="width: 86px;">Số lượng<br>thực nhập</th>
+                <th>Thành tiền<br><em class="font-weight-normal">vnđ</em></th>
+                <th>Lô</th>
+                <th>Ngày hết hạn</th>
+                <th>Mã vị trí</th>
+                <th style="width: 1px"></th>
+              </tr>
+              </thead>
+              <tbody class="text-dark">
+              <tr *ngFor="let item of products; let $index = index">
+                <td><span class="form-control-plaintext" [innerText]="$index + 1"></span></td>
+                <td><span class="form-control-plaintext"><b>({{item.idx}})</b> {{item.name}}</span></td>
+                <td><span class="form-control-plaintext" [innerText]="item.unit_name"></span></td>
+                <td><span class="form-control-plaintext" [innerText]="item.price|currencyFormat"></span></td>
+                <td><input type="number" [(ngModel)]="item.ord_quantity" min="1" class="form-control" style="width: 70px"></td>
+                <td><input type="number" [(ngModel)]="item.quantity" (change)="changeQuantity()" min="1" class="form-control" style="width: 70px"></td>
+                <td><span class="form-control-plaintext" [innerText]="(item.price*item.quantity)|currencyFormat"></span></td>
+                <td><input type="text" [(ngModel)]="item.shipment" class="form-control" style="width: 70px"></td>
+                <td><input type="text" [(ngModel)]="item.due_date" bsDatepicker class="form-control" style="width: 100px"></td>
+                <td><input type="text" [(ngModel)]="item.code" class="form-control" style="width: 70px"></td>
+                <td><a class="btn btn-sm btn-danger" (click)="removeProduct(item)" title="Xóa" href="javascript:;"><span class="ic ic_close"></span></a></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="clearfix">
+          <table class="table table-sm d-inline-block w-auto table-borderless text-right text-nowrap float-right">
+            <tbody>
+            <tr>
+              <td style="vertical-align: middle;"><span class="font-weight-bold">Thành tiền:</span></td>
+              <td style="vertical-align: middle;">{{total|currencyFormat}}đ</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="d-flex justify-content-end">
+          <button type="button" (click)="hide()" class="btn btn-secondary mr-2">Hủy</button>
+          <button type="button" (click)="onSubmit(form.value)" [disabled]="submitted" class="btn btn-primary"><span class="spinner-border spinner-border-sm" *ngIf="submitted"></span> Hoàn tất</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

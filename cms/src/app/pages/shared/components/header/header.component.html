@@ -1,0 +1,40 @@
+<!--<div class="header-container">
+  <div class="d-flex">
+    <a (click)="$event.preventDefault();toggleSidebar()" class="sidebar-toggle" href="javascript:;"><span class="icon"><span [ngClass]="{'ic_left_chevron':!compacted,'ic_right_chevron':compacted}"></span></span></a>
+    &lt;!&ndash;<a class="logo" (click)="navigateHome()" href="#" >Admin</a>&ndash;&gt;
+  </div>
+</div>-->
+<div class="header-container">
+  <div class="header-actions">
+    <!--<div class="control-item notification-action" dropdown>
+      <a dropdownToggle (click)="false"><span class="ic_bell"></span><span class="badge">{{ alertCount }}</span></a>
+      <ul *dropdownMenu class="dropdown-menu">
+        <li class="dd-header">
+          <span class="ng-binding">Bạn có {{ alertCount }} tin nhắn mới</span>
+          <span><a href="javascript:;" (click)="markReadAll()">Đánh dấu tất cả</a></span>
+        </li>
+        <div class="scrollthis" tabindex="0">
+          <div>
+            <li *ngFor="let item of alerts">
+              <a class="notification-user" [ngClass]="{'active': item.is_read}" (click)="alertClick(item)">
+                <button class="btn-mark-unread"><i class="fa" [ngClass]="{'fa-circle-thin': !item.is_read, 'fa-circle': item.is_read}"></i></button>
+                <span class="time" [innerText]="item.created_at|ago"></span>
+                <i class="fa fa-user"></i>
+                <span class="msg">{{item.message}}</span>
+              </a>
+            </li>
+          </div>
+        </div>
+        &lt;!&ndash;<li class="dd-footer"><a href="javascript:;" (click)="markReadAll()">View All Notifications</a></li>&ndash;&gt;
+      </ul>
+    </div>-->
+    <div class="control-item user-action" dropdown>
+      <a dropdownToggle (click)="false" class="user-container"><span class="user-picture" [style.background-image]="'url('+user?.avatar_url+')'"></span><span class="user-name">{{ user?.display }}</span></a>
+      <ul *dropdownMenu class="dropdown-menu">
+        <li><a class="dropdown-item">Hồ sơ</a></li>
+        <li><a href="javascript:" class="dropdown-item" (click)="$event.preventDefault();changPass()">Đổi mật khẩu</a></li>
+        <li><a href="javascript:" class="dropdown-item" (click)="$event.preventDefault();logout()">Đăng xuất</a></li>
+      </ul>
+    </div>
+  </div>
+</div>

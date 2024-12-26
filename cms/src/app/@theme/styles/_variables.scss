@@ -1,0 +1,21 @@
+// App Variables
+// --------------------------
+//
+// Common Variables
+$assets-path: "../../../../assets";
+$header-height: 3.75rem;
+$footer-height: 3.75rem;
+$sidebar-width-max: 13.75rem;
+$sidebar-width-min: 3.5rem;
+
+// Color system
+$rated_1: #ff0000 !default;
+$rated_2: #f8941d !default;
+$rated_3: #f8e200 !default;
+$rated_4: #39b54a !default;
+$rated_5: #0072bc !default;
+
+// ngx-boostrap/datepicker/utils/variables
+$theme-red: var(--primary);
+$hover-theme-red: var(--primary);
+$active-theme-red: var(--primary);

@@ -1,0 +1,164 @@
+@font-face {
+  font-family: 'ic';
+  src:  url('fonts/ic.eot?kt759a');
+  src:  url('fonts/ic.eot?kt759a#iefix') format('embedded-opentype'),
+    url('fonts/ic.ttf?kt759a') format('truetype'),
+    url('fonts/ic.woff?kt759a') format('woff'),
+    url('fonts/ic.svg?kt759a#ic') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="ic_"], [class*=" ic_"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'ic' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ic_check:before {
+  content: "\e926";
+}
+.ic_edit:before {
+  content: "\e927";
+}
+.ic_address:before {
+  content: "\e924";
+}
+.ic_info:before {
+  content: "\e925";
+}
+.ic_eye_hidden:before {
+  content: "\e922";
+}
+.ic_eye:before {
+  content: "\e923";
+}
+.ic_allowance:before {
+  content: "\e90e";
+  color: #494949;
+}
+.ic_bonus:before {
+  content: "\e90f";
+  color: #494949;
+}
+.ic_business_fee:before {
+  content: "\e910";
+  color: #494949;
+}
+.ic_clock:before {
+  content: "\e911";
+}
+.ic_educate:before {
+  content: "\e912";
+  color: #494949;
+}
+.ic_health_care:before {
+  content: "\e913";
+  color: #494949;
+}
+.ic_insurance:before {
+  content: "\e914";
+  color: #494949;
+}
+.ic_laptop:before {
+  content: "\e915";
+}
+.ic_salary_increase:before {
+  content: "\e916";
+  color: #494949;
+}
+.ic_seniority_allowances:before {
+  content: "\e917";
+  color: #494949;
+}
+.ic_travel:before {
+  content: "\e918";
+  color: #494949;
+}
+.ic_uniform:before {
+  content: "\e919";
+  color: #494949;
+}
+.ic_vacation_mode:before {
+  content: "\e91a";
+  color: #494949;
+}
+.ic_wage:before {
+  content: "\e91b";
+}
+.ic_arrow_left_long:before {
+  content: "\e920";
+}
+.ic_arrow_right_long:before {
+  content: "\e90c";
+}
+.ic_cart:before {
+  content: "\e902";
+}
+.ic_angle_down:before {
+  content: "\e904";
+}
+.ic_angle_up:before {
+  content: "\e907";
+}
+.ic_angle_left:before {
+  content: "\e900";
+}
+.ic_angle_right:before {
+  content: "\e901";
+}
+.ic_search:before {
+  content: "\e90d";
+}
+.ic_location:before {
+  content: "\e921";
+}
+.ic_global:before {
+  content: "\e903";
+}
+.ic_phone:before {
+  content: "\e909";
+}
+.ic_hotline:before {
+  content: "\e905";
+}
+.ic_email:before {
+  content: "\e906";
+}
+.ic_facebook2:before {
+  content: "\e91c";
+}
+.ic_facebook:before {
+  content: "\e908";
+}
+.ic_youtube2:before {
+  content: "\e91e";
+}
+.ic_youtube:before {
+  content: "\e90a";
+}
+.ic_zalo2:before {
+  content: "\e91f";
+}
+.ic_zalo:before {
+  content: "\e90b";
+}
+.ic_instagram2:before {
+  content: "\e91d";
+}
+.ic_linkedin:before {
+  content: "\e928";
+}
+.ic_alibaba:before {
+  content: "\e929";
+}

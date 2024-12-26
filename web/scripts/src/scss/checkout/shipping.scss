@@ -1,0 +1,130 @@
+.path--checkout-shipping, .path--checkout-payment {
+  .section_cart_info {
+    position: sticky;
+    top: 0;
+    overflow: hidden;
+    height: 100vh;
+    background-color: #FAF7F4;
+    .border-bottom {
+      border-bottom-color: var(--secondary) !important;
+    }
+    quantity {
+      position: absolute;
+      top: -0.78125rem;
+      left: auto;
+      right: -10px;
+      width: 24px;
+      height: 24px;
+      font-size: .875rem;
+      font-weight: bold;
+      color: #fff;
+      text-align: center;
+      letter-spacing: 0;
+      line-height: 1.375rem;
+      background: #0F1F2A;
+      border-radius: 50%;
+      border: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .section_button {
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+      background-color: #0F1F2A;
+      z-index: 1;
+    }
+    .box-total-bill {
+      height: 100%;
+      padding-bottom: 100px;
+      overflow: scroll;
+    }
+    @media (max-width: 767px) {
+        height: auto;
+        max-height: 80vh;
+    }
+  }
+
+  .custom-control {
+    padding-left: 1.7rem;
+  }
+
+  .order-process {
+    .progress-item {
+      &.active ~ .progress-item {
+        opacity: 0.5 !important;
+      }
+    }
+    .progress-link {
+      max-width: 120px;
+    }
+  }
+
+  .custom_badge {
+    background-color: rgba(236, 224, 205, 0.4);
+    border-radius: 0;
+    padding: .4em;
+  }
+
+  .section_bill_info {
+    input[type="text"] {
+      position: unset;
+      opacity: 1;
+      width: 100%;
+      height: 3.33rem;
+      cursor: auto;
+      border-radius: 0;
+    }
+  }
+
+  .coupon_tag {
+    background-color: var(--secondary);
+    &::before, &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 50%;
+      transform: translateY(50%);
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      z-index: 1;
+      background-color: #FAF7F4;
+    }
+    &::before {
+      left: -8px;
+    }
+    &::after {
+      right: -8px;
+    }
+  }
+
+  .cancel-coupon {
+    span {
+      color: #303030;
+      opacity: 0.5;
+      font-size: 18px;
+    }
+    &:hover {
+      span {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  .box-checkout-header {
+    .navbar-brand {
+      img {
+        height: 55px;
+      }
+    }
+    @media (max-width: 767px) {
+      border: none !important;
+    }
+  }
+
+  .box_header, footer {
+    display: none;
+  }
+}

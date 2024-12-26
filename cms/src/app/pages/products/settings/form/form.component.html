@@ -1,0 +1,96 @@
+<div bsModal #modal="bs-modal" [config]="{backdrop:'static'}" class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered" style="z-index: 99999" [ngClass]="{'modal-lg':info.type=='editor_lang'}">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"><span [innerText]="'Cập nhật thuộc tính'|translate"></span> &nbsp;<span [innerHTML]="info?.name"></span></h4>
+        <a class="close" (click)="hide()"><span class="ic_close"></span></a>
+      </div>
+      <div class="modal-body">
+        <div class="form-group" *ngIf="info.type=='default'">
+          <label class="input-label">Giá trị</label>
+          <input type="text" [(ngModel)]="value" placeholder="{{info.placeholder}}" class="form-control">
+        </div>
+        <div class="form-group" *ngIf="info.type=='image' && modal.isShown">
+          <label class="input-label" [innerText]="'Hình'|translate">Hình</label>
+          <ngx-picture-uploader [options]="fileOpt" (onSelected)="onFileSelected($event)" (onDeleted)="onFileDeleted($event)"></ngx-picture-uploader>
+        </div>
+        <div [hidden]="info.type!='editor_lang'">
+          <div class="form-group">
+            <label class="input-label">Tiếng việt</label>
+            <ng-container *ngIf="info.type=='editor_lang'"><input type="hidden" [(ngModel)]="value['vi']" class="form-control"></ng-container>
+            <ngx-tiny-mce [value]="valueInitVi" (editorKeyup)="editorChangeHandler($event, 'vi')"></ngx-tiny-mce>
+          </div>
+          <div class="form-group">
+            <label class="input-label">Tiếng anh</label>
+            <ng-container *ngIf="info.type=='editor_lang'"><input type="hidden" [(ngModel)]="value['en']" class="form-control"></ng-container>
+            <ngx-tiny-mce [value]="valueInitEn" (editorKeyup)="editorChangeHandler($event, 'en')"></ngx-tiny-mce>
+          </div>
+        </div>
+        <container *ngIf="info.type=='text'">
+          <div class="form-group">
+            <label class="input-label">Tiếng việt</label>
+            <input type="text" [(ngModel)]="value['vi']" class="form-control">
+          </div>
+          <div class="form-group">
+            <label class="input-label">Tiếng anh</label>
+            <input type="text" [(ngModel)]="value['en']" class="form-control">
+          </div>
+        </container>
+        <container *ngIf="info.type=='textarea'">
+          <div class="form-group">
+            <label class="input-label">Tiếng việt</label>
+            <textarea [(ngModel)]="value['vi']" class="form-control" rows="5"></textarea>
+          </div>
+          <div>
+            <label class="input-label">Tiếng anh</label>
+            <textarea [(ngModel)]="value['en']" class="form-control" rows="5"></textarea>
+          </div>
+        </container>
+        <div *ngIf="info.type=='boolean'" class="form-group">
+          <label class="input-label">Giá trị</label>
+          <div><ngx-toggle-switch [(ngModel)]="value"></ngx-toggle-switch></div>
+        </div>
+        <div *ngIf="info.type=='link_page'" class="form-group">
+          <label class="input-label">Liên kết đến trang</label>
+          <select class="form-control" [(ngModel)]="value" [ngClass]="{'loading':pageData.loading}">
+            <option value="">{{'Không'|translate}}</option>
+            <option *ngFor="let item of pageData.items" [value]="item.id">{{ item.name }}</option>
+          </select>
+        </div>
+        <div *ngIf="info.type=='select_theme'" class="form-group">
+          <label class="input-label">Chọn giao diện</label>
+          <select [(ngModel)]="value" class="form-control">
+            <option value="">Mặc định</option>
+            <option *ngFor="let item of themes" [value]="item.id">{{ item.name }}</option>
+          </select>
+        </div>
+        <div *ngIf="info.type=='colors'" class="form-group">
+          <label class="input-label">{{info.name}}</label>
+          <select [(ngModel)]="value" class="form-control">
+            <option value="">Mặc định</option>
+            <option *ngFor="let item of colors" [value]="item.id">{{ item.name }}</option>
+          </select>
+        </div>
+        <div *ngIf="info.type=='frame'" class="form-group">
+          <label class="input-label">Khung ảnh</label>
+          <select [(ngModel)]="value" class="form-control">
+            <option value="">Mặc định</option>
+            <option value="1by1">1:1</option>
+            <option value="3by4">3:4</option>
+            <option value="4by3">4:3</option>
+            <option value="5by6">5:6</option>
+            <option value="13by8">13:8</option>
+            <option value="16by9">16:9</option>
+            <option value="21by9">21:9</option>
+          </select>
+        </div>
+        <div *ngIf="info&&info.note" class="form-group">
+          <small>{{info.note}}</small>
+        </div>
+        <div class="d-flex justify-content-end">
+          <button class="btn btn-secondary" type="button" (click)="onSubmit()" [disabled]="submitted"><span class="spinner-border spinner-border-sm" *ngIf="submitted"></span> <span>Cập nhật</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

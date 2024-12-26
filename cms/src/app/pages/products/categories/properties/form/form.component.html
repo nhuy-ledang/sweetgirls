@@ -1,0 +1,31 @@
+<div bsModal #modal="bs-modal" [config]="{backdrop:'static'}" class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-sm modal-dialog-centered" style="z-index: 99999">
+    <div class="modal-content">
+      <form novalidate [formGroup]="form">
+        <div class="modal-header">
+          <h4 class="modal-title">
+            <span *ngIf="!info"><span [innerText]="'Chọn thuộc tính'|translate"></span></span>
+            <span *ngIf="info"><span [innerText]="'Cập nhật thuộc tính'|translate"></span></span>
+          </h4>
+          <a class="close" (click)="hide()"><span class="ic_close"></span></a>
+        </div>
+        <div class="modal-body">
+          <div class="form-group" [ngClass]="{'has-error': (controls.properties.invalid && (controls.properties.touched || showValid))}">
+            <label class="input-label"><span [innerText]="'Thuộc tính'"></span> <!--<a *ngIf="controls.properties.value" href="javascript:;" class="float-right" (click)="onPropertyValueAdd()"><span [innerText]="'Thêm thuộc tính'|translate"></span></a>--></label>
+            <div class="form-control" style="height:auto; max-height: 230px; overflow: auto;" [ngClass]="{'loading':propertyData.loading}">
+              <div *ngFor="let item of propertyData.items">
+                <label><input type="checkbox" [value]="item.id" [checked]="info.properties && info.properties.indexOf(item.id) > -1 && valueChecked" (change)="onCheckboxChange($event)">
+                  {{item.name}}
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-secondary" type="button" (click)="onSubmit(form.value)" [disabled]="submitted"><span class="spinner-border spinner-border-sm" *ngIf="submitted"></span> <span *ngIf="!info" [innerText]="'Thêm mới'|translate">Thêm mới</span><span *ngIf="info" [innerText]="'Cập nhật'|translate">Cập nhật</span></button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!--<ngx-pd-property-value-form (onSuccess)="onFormPropertyValueSuccess($event)"></ngx-pd-property-value-form>-->

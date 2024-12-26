@@ -1,0 +1,13 @@
+@import 'plugins/owl-carousel';
+//@import 'plugins/slick';
+//@import 'plugins/slick-theme';
+
+$slick-font-path: "../assets/";
+$slick-font-family: "slick";
+$slick-loader-path: "#{$assets-path}/images/";
+@import "../../vendor/slick-carousel/slick/slick";
+@import "../../vendor/slick-carousel/slick/slick-theme";
+
+$lg-path-fonts: '#{$assets-path}/images/lightgallery/fonts';
+$lg-path-images: '#{$assets-path}/images/lightgallery/img';
+@import "../../vendor/lightgallery/src/sass/lightgallery";

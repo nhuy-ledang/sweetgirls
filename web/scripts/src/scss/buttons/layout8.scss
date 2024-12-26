@@ -1,0 +1,120 @@
+.button_layout8 {
+  display: flex;
+  justify-content: var(--button-align, center);
+  .wid_button {
+    background-color: transparent;
+    border: none;
+    box-shadow: inset 0 0 0 3px var(--button-color, var(--primary));
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--text-btn-color, var(--primary));
+    padding: 10px 40px;
+    position: relative;
+    transition: 0.2s ease all;
+    transform-origin: center;
+    transform: translate(0, 0);
+    overflow: hidden;
+    span {
+      &:before, &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        background: var(--button-hover-color, var(--secondary));
+        transition: 0.35s ease all;
+        transition-delay: 0.1s;
+      }
+      &:first-child {
+        &:before, &:after {
+          width: 0%;
+          height: 3px;
+        }
+        &:before {
+          top: 0;
+          left: 0;
+        }
+        &:after {
+          bottom: 0;
+          left: 100%;
+        }
+      }
+      &:last-child {
+        &:before, &:after {
+          width: 3px;
+          height: 0%;
+        }
+        &:before {
+          top: 0%;
+          left: 0;
+        }
+        &:after {
+          top: 100%;
+          right: 0;
+        }
+      }
+    }
+    &:before, &:after {
+      content: '';
+      display: block;
+      width: 0%;
+      height: 90%;
+      background: var(--button-hover-color, var(--secondary));
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      z-index: -1;
+      transition: all 0.25s ease-in-out .2s;
+      transition-delay: 0.5s;
+    }
+    &:after{
+      background: var(--button-hover-color, var(--secondary));
+      transition: 0.25s ease-in-out .2s;
+      transition-delay: 0.4s;
+      width: 80%;
+      left: -80%;
+    }
+    &:hover, &:active, &:focus {
+      box-shadow: inset 0 0 0 0 var(--button-hover-color, var(--secondary));
+      padding: 15px 50px;
+      margin: -5px -10px;
+      color: var(--text-btn-hover-color, var(--white));
+      &:before {
+        width: calc(100% - 6px);
+        left: 3px;
+        box-shadow: inset 0 0 0 4px var(--text-btn-hover-color, var(--white));
+      }
+      &:after {
+        left: 100%;
+        box-shadow: inset 0 0 0 3px var(--text-btn-hover-color, var(--white));
+      }
+      span {
+        &:first-child {
+          &:before, &:after {
+            width: 100%;
+          }
+          &:before {
+            top: 0;
+            left: 0;
+          }
+          &:after {
+            bottom: 0;
+            left: 0;
+          }
+        }
+        &:last-child {
+          &:before, &:after {
+            height: 100%;
+          }
+          &:before {
+            top: 0;
+            left: 0;
+          }
+          &:after {
+            top: 0;
+            right: 0;
+          }
+        }
+      }
+    }
+  }
+}

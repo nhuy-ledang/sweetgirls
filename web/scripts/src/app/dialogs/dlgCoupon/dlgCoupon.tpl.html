@@ -1,0 +1,77 @@
+<style>
+  .primary-color {
+    background-color: var(--primary);
+  }
+  .coupon_item {
+    background-color: #F4F4F4;
+  }
+  .coupon_code {
+    border-right: 3px dashed #fff;
+  }
+ .coupon_code:before, .coupon_info:after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 50%;
+    transform: translateY(50%);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    z-index: 2;
+    background-color: #fff;
+  }
+  .coupon_info:after {
+    right: -20px;
+  }
+  .coupon_code:before {
+    left: -20px;
+  }
+</style>
+<div class="modal-header border-bottom-0 text-center pt-5">
+  <h3 class="modal-title text-center w-100 font-weight-bold text-uppercase">Mã giảm giá</h3>
+  <button type="button" class="close btn border-0 py-0 px-3" ng-click="close()" style="font-size: 25px"><span aria-hidden="true">&times;</span></button>
+</div>
+<div class="modal-body px-5 px-md-10 pb-5 pb-md-10">
+  <div class="d-flex justify-content-center">
+    <form name="form" novalidate autocomplete="off" class="w-100">
+      <div class="input-group" ng-class="{'has-danger':form.code.$invalid&&envData.showValid}">
+        <input type="text" ng-model="params.code" placeholder="Nhập mã giảm giá" class="form-control h-auto rounded-0" required>
+        <button type="button" ng-click="submit(form)" class="btn primary-color text-white font-weight-normal input-group-append rounded-0 align-items-center">Áp dụng</button>
+      </div>
+      <!--<div ng-if="data.loading"><div class="spinner-border"><span class="sr-only">Loading...</span></div></div>-->
+      <div ng-if="!data.loading&&data.coupons.length" class="list-coupon mt-3">
+        <p class="font-weight-bold">Mã giảm giá hot</p>
+        <div ng-repeat="item in data.coupons" class="coupon_item row no-gutters mt-3">
+          <div class="col coupon_code d-flex align-items-center justify-content-center"><span class="font-4 font-weight-bold text-primary" ng-bind="item.code"></span></div>
+          <div class="col position-relative coupon_info d-flex flex-column py-3 px-4 px-md-8">
+            <span class="mb-1" ng-bind="item.name"></span>
+            <div class="d-flex justify-content-between">
+              <span ng-if="item.end_date" class="text-teal">HSD: <span ng-bind="item.end_date|formatDate:'HH:MM - dd/mm/yyyy'"></span></span>
+              <a ng-click="select(item)" class="text-primary font-weight-bold cursor-pointer">Áp dụng</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Voucher-->
+      <div ng-if="!data.loading&&data.vouchers" class="list-voucher mt-3">
+        <p class="font-weight-bold">Dành riêng cho bạn</p>
+        <div ng-repeat="item in data.vouchers" class="coupon_item row no-gutters mt-3">
+          <div class="col coupon_code d-flex align-items-center justify-content-center"><span class="font-4 font-weight-bold text-primary" ng-bind="item.code"></span></div>
+          <div class="col position-relative coupon_info d-flex flex-column py-3 px-4 px-md-8">
+            <span class="mb-1" ng-if="item.name" ng-bind="item.name"></span>
+            <span class="mb-1" ng-if="!item.name">
+              <span ng-if="item.type==='F'" ng-bind="'Giảm ' + (item.amount|currency:'':0)+'đ cho đơn từ ' + (item.total|currency:'':0) + 'đ'"></span>
+              <span ng-if="item.type==='P'" ng-bind="'Giảm ' + (item.amount|number)+'% cho đơn từ ' + (item.total|currency:'':0) + 'đ'"></span>
+            </span>
+            <div class="d-flex justify-content-between">
+              <span class="text-teal" ng-if="item.end_date">HSD: <span ng-bind="item.end_date|formatDate:'HH:MM - dd/mm/yyyy'"></span></span>
+              <span class="text-teal" ng-if="!item.end_date">Hiệu lực từ: <span ng-bind="(item.start_date?item.start_date:item.created_at)|formatDate"></span></span>
+              <a ng-click="select(item)" class="text-primary font-weight-bold cursor-pointer text-nowrap">Áp dụng</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div ng-if="!data.loading&&!data.coupons.length&&!data.vouchers.length">Không có mã giảm giá nào</div>
+    </form>
+  </div>
+</div>

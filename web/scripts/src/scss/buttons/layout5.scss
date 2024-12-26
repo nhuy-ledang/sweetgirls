@@ -1,0 +1,52 @@
+.button_layout5 {
+  display: flex;
+  justify-content: var(--button-align, center);
+  .wid_button {
+    min-width: 160px;
+    width: max-content;
+    background-color: var(--button-color, var(--white));
+    padding: 0 30px;
+    height: 50px;
+    color: var(--text-btn-color, var(--primary));
+    font-weight: 700;
+    box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.3);
+    position: relative;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 0;
+    span {
+      z-index: 1;
+      text-align: center;
+    }
+    &:before,
+    &:after {
+      content: "";
+      position: absolute;
+      width: 4px;
+      height: 100%;
+      top: 0;
+      transition: all 0.4s ease;
+      background-color: var(--text-btn-color, var(--primary));
+    }
+    &:before {
+      left: 0;
+    }
+    &:after {
+      right: 0;
+    }
+    &:hover {
+      transition: all 0.4s ease;
+      box-shadow: 0 8px 20px -12px rgba(0, 0, 0, 0.2);
+      color: var(--text-btn-hover-color, var(--white));
+      &:before,
+      &:after {
+        width: 51%;
+        background-color: var(--button-hover-color, var(--primary));
+      }
+    }
+  }
+}

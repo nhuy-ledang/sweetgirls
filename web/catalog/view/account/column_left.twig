@@ -1,0 +1,139 @@
+<nav class="py-xl-6 d-none d-xl-block">
+  <div class="menu_profile">
+    <div class="item_menu border-bottom pb-6 pr-lg-9 wow fadeInUp" data-wow-delay="0.3s">
+      <div class="parent_menu cursor-pointer d-flex justify-content-between align-items-center" onclick="toggleMenu(this)">
+        <div class="font-weight-bold font-4 text-uppercase">{{ text_account }} <!-- text_account --></div>
+        <span class="fa fa-plus"></span>
+      </div>
+      <div class="child_menu" style="display: none">
+        <div class="item_child_menu d-flex align-items-center justify-content-between mt-3 border-bottom {{ 'profile' in route?'active text-primary' : '' }}">
+          <div class="cursor-pointer pr-2"><a href="/account/profile"><label class="w-100 cursor-pointer">{{ text_personal_info }}<!-- text_personal_info --><span class="text-primary ml-1 fa fa-info-circle"></span></label></a></div>
+        </div>
+        <div class="item_child_menu d-flex align-items-center justify-content-between mt-3 border-bottom {{ 'password' in route?'active text-primary' : '' }}">
+          <div class="cursor-pointer pr-2"><a href="/account/password"><label class="w-100 cursor-pointer">{{ text_change_pass }}<!-- text_change_pass --></label></a></div>
+        </div>
+        <div class="item_child_menu d-flex align-items-center justify-content-between mt-3 {{ 'addresses' in route?'active text-primary' : '' }}">
+          <div class="cursor-pointer pr-2"><a href="/account/addresses"><label class="w-100 cursor-pointer">{{ text_delivery_address }}<!-- text_delivery_address --></label></a></div>
+        </div>
+      </div>
+    </div>
+    {# <div class="item_menu border-bottom pb-6 pr-lg-9 pt-4 pt-xl-6 wow fadeInUp" data-wow-delay="0.4s">
+      <div class="parent_menu cursor-pointer d-flex justify-content-between align-items-center" onclick="toggleMenu(this)">
+        <div class="font-weight-bold font-4 text-uppercase">{{ text_product }}<!-- text_product --></div>
+        <span class="fa fa-plus"></span>
+      </div>
+      <div class="child_menu" style="display: none">
+        <div class="item_child_menu d-flex align-items-center justify-content-between mt-3 border-bottom {{ 'viewed' in route?'active text-primary' : '' }}">
+          <div class="cursor-pointer pr-2"><a href="/account/viewed"><label class="w-100 cursor-pointer">{{ text_viewed_product }}<!-- text_viewed_product --></label></a></div>
+        </div>
+        <div class="item_child_menu d-flex align-items-center justify-content-between mt-3 border-bottom {{ 'wishlist' in route?'active text-primary' : '' }}">
+          <div class="cursor-pointer pr-2"><a href="/account/wishlist"><label class="w-100 cursor-pointer">{{ text_favorite_product }}<!-- text_favorite_product --></label></a></div>
+        </div>
+        <!-- Tạm ẩn -->
+        <div class="item_child_menu d-flex align-items-center justify-content-between mt-3 border-bottom">
+          <div class="cursor-pointer pr-2"><a href="javascript:void(0);"><label class="w-100 cursor-pointer">{{ text_restock_product }}<!-- text_restock_product --></label></a></div>
+        </div>
+        <div class="item_child_menu d-flex align-items-center justify-content-between mt-3 {{ 'review' in route?'active text-primary' : '' }}">
+          <div class="cursor-pointer pr-2"><a href="/account/review"><label class="w-100 cursor-pointer">{{ text_review_product }}<!-- text_review_product --></label></a></div>
+        </div>
+      </div>
+    </div> #}
+    <div class="item_menu border-bottom pb-6 pr-lg-9 pt-4 pt-xl-6 wow fadeInUp" data-wow-delay="0.5s">
+      <div class="parent_menu cursor-pointer d-flex justify-content-between align-items-center" onclick="toggleMenu(this)">
+        <div class="font-weight-bold font-4 text-uppercase">{{ text_info }}<!-- text_info --></div>
+        <span class="fa fa-plus"></span>
+      </div>
+      <div class="child_menu" style="display: none">
+        <div class="item_child_menu d-flex align-items-center justify-content-between mt-3 border-bottom {{ 'promotion' in route?'active text-primary' : '' }}">
+          <div class="cursor-pointer pr-2"><a href="/account/promotion"><label class="w-100 cursor-pointer">{{ text_coupon_code }}<!-- text_coupon_code --></label></a></div>
+        </div>
+        <div class="item_child_menu d-flex align-items-center justify-content-between mt-3 border-bottom {{ 'orders' in route?'active text-primary' : '' }}">
+          <div class="cursor-pointer pr-2"><a href="/account/orders"><label class="w-100 cursor-pointer">{{ text_orders_history }}<!-- text_orders_history --></label></a></div>
+        </div>
+        {# {% if user_invite_status %}
+          <div class="item_child_menu d-flex align-items-center justify-content-between mt-3 border-bottom {{ 'invite' in route?'active text-primary' : '' }}">
+            <div class="cursor-pointer pr-2"><a href="/account/invite"><label class="w-100 cursor-pointer">{{ text_invite_friends }}<!-- text_invite_friends --></label></a></div>
+          </div>
+        {% endif %} #}
+        {# <div class="item_child_menu d-flex align-items-center justify-content-between mt-3 {{ 'feedback' in route?'active text-primary' : '' }}">
+          <div class="cursor-pointer pr-2"><a href="/account/feedback"><label class="w-100 cursor-pointer">{{ text_support_request }}<!-- text_support_request --></label></a></div>
+        </div> #}
+      </div>
+    </div>
+  </div>
+</nav>
+<nav class="navbar menu_bar_mb d-xl-none">
+  <div class="button_menu_close font-weight-bold text-uppercase text-right"><i class="fa fa-times p-2" style="font-size: 1.6rem"></i></div>
+  <div class="wid_block_menu py-xl-6 px-4">
+    <div class="item_menu_mb py-2 font-3 font-weight-bold">
+      <a href="">{{ text_account }}</a>
+    </div>
+    <div class="menu_childs_mb">
+      {#<a href="javascript:void(0);" class="d-block py-3 border-bottom">{{ text_my_post }}</a>#}
+      <a href="/account/profile" class="d-flex justify-content-between align-items-center py-3 border-bottom">{{ text_personal_info }} <i class="fa fa-angle-right" style="font-size: 1.2rem;"></i></a>
+      <a href="/account/password" class="d-flex justify-content-between align-items-center py-3 border-bottom">{{ text_change_pass }} <i class="fa fa-angle-right" style="font-size: 1.2rem;"></i></a>
+      <a href="/account/addresses" class="d-flex justify-content-between align-items-center py-3">{{ text_delivery_address }} <i class="fa fa-angle-right" style="font-size: 1.2rem;"></i></a>
+    </div>
+  </div>
+  {# <div class="wid_block_menu py-xl-6 px-4">
+    <div class="item_menu_mb py-2 font-3 font-weight-bold">
+      <a href="">{{ text_product }}</a>
+    </div>
+    <div class="menu_childs_mb">
+      <a href="/account/viewed" class="d-flex justify-content-between align-items-center py-3 border-bottom">{{ text_viewed_product }} <i class="fa fa-angle-right" style="font-size: 1.2rem;"></i></a>
+      <a href="/account/wishlist" class="d-flex justify-content-between align-items-center py-3 border-bottom">{{ text_favorite_product }} <i class="fa fa-angle-right" style="font-size: 1.2rem;"></i></a>
+      <a href="javascript:void(0);" class="d-flex justify-content-between align-items-center py-3 border-bottom">{{ text_restock_product }} <i class="fa fa-angle-right" style="font-size: 1.2rem;"></i></a>
+      <a href="/account/review" class="d-flex justify-content-between align-items-center py-3">{{ text_review_product }} <i class="fa fa-angle-right" style="font-size: 1.2rem;"></i></a>
+    </div>
+  </div> #}
+  <div class="wid_block_menu py-xl-6 px-4">
+    <div class="item_menu_mb py-2 font-3 font-weight-bold">
+      <a href="">{{ text_info }}</a>
+    </div>
+    <div class="menu_childs_mb">
+      <a href="/account/promotion" class="d-flex justify-content-between align-items-center py-3 border-bottom">{{ text_coupon_code }} <i class="fa fa-angle-right" style="font-size: 1.2rem;"></i></a>
+      <a href="/account/feedback" class="d-flex justify-content-between align-items-center py-3 border-bottom">{{ text_orders_history }} <i class="fa fa-angle-right" style="font-size: 1.2rem;"></i></a>
+      {# <a href="/account/feedback" class="d-flex justify-content-between align-items-center py-3">{{ text_support_request }} <i class="fa fa-angle-right" style="font-size: 1.2rem;"></i></a> #}
+    </div>
+  </div>
+</nav>
+<div class="button_menu_account d-xl-none" style="position: fixed;width: 42px;height: 42px;border-radius: 50%;left: 20px;bottom: calc(75px + env(safe-area-inset-bottom));z-index: 998;background: #fff;box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);display: flex;align-items: center;justify-content: center;"><i class="fa fa-bars" style="font-size: 1.4rem"></i></div>
+<overlay id="overlay_menu_bar"></overlay>
+<script>
+  $('.item_child_menu.active').parents('.item_menu').find('.parent_menu').trigger('click');
+
+  function toggleMenu(e) {
+    var menuActive = $('.item_menu.active');
+    if (menuActive.length && !$(e).parents('.item_menu').hasClass('active')) {
+      menuActive.find('.child_menu').slideUp(500);
+      $('.item_menu').find('.fa-minus').removeClass('fa-minus').addClass('fa-plus');
+      menuActive.removeClass('active');
+    }
+
+    $(e).parents('.item_menu').toggleClass('active');
+    $(e).parents('.item_menu').children('.child_menu').slideToggle(500);
+    $(e).find('.fa').toggleClass('fa-plus fa-minus');
+  }
+
+  $('.button_menu_account, .button_menu_close, overlay').click(function() {
+    $('.menu_bar_mb, overlay').toggleClass('active');
+    // $('.menu_bar_mb .menu_childs_mb').slideUp(200);
+  });
+
+  $('.menu_bar_mb .item_menu_mb').click(function() {
+    // $(this).next($('.menu_bar_mb .menu_childs_mb')).slideToggle(200);
+  });
+  $(document).ready(function() {
+    function marginFooter() {
+      if ($(window).width() < 1280) {
+        $('footer').css('margin-bottom', '50px');
+      } else {
+        $('footer').css('margin-bottom', '0');
+      }
+    }
+    setTimeout(function() {
+      marginFooter();
+    }, 1000);
+    $(window).resize(marginFooter)
+  });
+</script>

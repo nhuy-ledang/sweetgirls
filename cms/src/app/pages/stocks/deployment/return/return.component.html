@@ -1,0 +1,216 @@
+<div class="page-header no-gutter">
+  <div class="row align-items-start">
+    <div class="col-sm">
+      <h1 class="page-header-title">Danh sách hóa đơn</h1>
+      <nav>
+        <ol class="breadcrumb breadcrumb-no-gutter">
+          <li class="breadcrumb-item">Kho hàng</li>
+          <li class="breadcrumb-item">Triển khai đơn</li>
+          <li class="breadcrumb-item active">Hoàn trả</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-sm-auto">
+      <div class="d-flex justify-content-end mb-2">
+        <ngx-date-range-picker [options]="'all,week,month,year,customRange'" [data]="data" (applyEvent)="onDatePickerSuccess()"></ngx-date-range-picker>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="nav-tabs-light">
+  <ul class="nav nav-tabs">
+    <li class="nav-item"><a [routerLink]="['/pages/sto/dep/orders']" class="nav-link" routerLinkActive="active">Đơn hàng</a></li>
+    <li class="nav-item"><a [routerLink]="['/pages/sto/dep/deployment']" class="nav-link" routerLinkActive="active">Đơn triển khai</a></li>
+    <li class="nav-item"><a [routerLink]="['/pages/sto/dep/refund']" class="nav-link" routerLinkActive="active">Hoàn đổi</a></li>
+    <li class="nav-item"><a [routerLink]="['/pages/sto/dep/return']" class="nav-link" routerLinkActive="active">Hoàn trả</a></li>
+    <li class="nav-item"><a [routerLink]="['/pages/sto/dep/warranty']" class="nav-link" routerLinkActive="active">Bảo hành</a></li>
+    <li class="nav-item"><a [routerLink]="['/pages/sto/dep/reviews']" class="nav-link" routerLinkActive="active">Đánh giá</a></li>
+    <li class="nav-item"><a [routerLink]="['/pages/sto/dep/histories']" class="nav-link" routerLinkActive="active">Lịch sử</a></li>
+  </ul>
+  <div class="tab-content pt-3">
+    <div class="card p-5 text-center h3 text-danger">
+      Tính năng đang sẽ được triển khai sớm!
+      <!--<div class="table-responsive">
+        <table class="table m-0">
+          <thead>
+          <tr>
+            <th>
+              <div class="table_tools d-flex justify-content-between align-items-center">
+                <div>
+                  <div class="custom-control-wrapper">
+                    <div class="custom-control custom-checkbox ml-0"><input type="checkbox" class="custom-control-input" [(ngModel)]="data.selectAll" (change)="selectAll()" id="customSelect"><label class="custom-control-label cursor-pointer" for="customSelect"></label></div>
+                  </div>
+                </div>
+                <div>Stt</div>
+              </div>
+            </th>
+            <th [hidden]="!columns.id" (click)="sortBy('id')" [attr.class]="sortClass('id')"># <span class="sort-indicator"></span></th>
+            <th [hidden]="!columns.idx">Mã hóa đơn</th>
+            <th [hidden]="!columns.order_no">Mã phụ lục</th>
+            <th [hidden]="!columns.customer || data.itemSelected">Khách hàng</th>
+            <th [hidden]="!columns.num_of_pay">Số đợt TT</th>
+            <th [hidden]="!columns.start_date" (click)="sortBy('start_date')" [attr.class]="sortClass('start_date')">Phát hành <span class="sort-indicator"></span></th>
+            <th [hidden]="!columns.end_date" (click)="sortBy('end_date')" [attr.class]="sortClass('end_date')">Hạn<br>thanh toán <span class="sort-indicator"></span></th>
+            <th [hidden]="!columns.end_at" (click)="sortBy('end_at')" [attr.class]="sortClass('end_at')">Kết thúc <span class="sort-indicator"></span></th>
+            <th [hidden]="!columns.is_vat">VAT</th>
+            <th [hidden]="!columns.total" (click)="sortBy('total')" [attr.class]="sortClass('total')">Tổng tiền <span class="sort-indicator"></span></th>
+            <th [hidden]="!columns.paid" (click)="sortBy('paid')" [attr.class]="sortClass('paid')">Đã thanh toán <span class="sort-indicator"></span></th>
+            <th [hidden]="!columns.unpaid" (click)="sortBy('unpaid')" [attr.class]="sortClass('unpaid')">Còn lại <span class="sort-indicator"></span></th>
+            <th [hidden]="!columns.status">Trạng thái</th>
+            <th [hidden]="!columns.owner">Tạo bởi</th>
+            <th [hidden]="!columns.approved">Duyệt<br>phát hành</th>
+            <th [hidden]="!columns.seller">Phụ trách</th>
+            <th [hidden]="!columns.file">Chứng từ</th>
+          </tr>
+          <tr>
+            <td>
+              <div class="dropdown" dropdown container="body" placement="bottom left" [insideClick]="true">
+                <button type="button" dropdownToggle class="btn btn-primary dropdown-toggle no_arrow d-flex align-items-center"><span class="mr-1 ic ic_visible_outlined"></span><span>Hiển thị</span></button>
+                <div *dropdownMenu class="dropdown-menu dropdown-menu-sm dropdown-menu-left">
+                  <div class="dropdown-item" *ngFor="let item of columnList">
+                    <div class="custom-control custom-checkbox"><input type="checkbox" [attr.id]="'columnShow'+item.id" [(ngModel)]="item.checkbox" class="custom-control-input" [disabled]="item.disabled" (change)="columnCheckbox()"><label [attr.for]="'columnShow'+item.id" class="custom-control-label d-block" [innerText]="item.name"></label></div>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td [hidden]="!columns.id"></td>
+            <td [hidden]="!columns.idx">
+              <div style="min-width: 150px;max-width: 350px"><input type="text" class="form-control" [(ngModel)]="data.data.invoice_no" (keyup)="onFilter($event)"></div>
+            </td>
+            <td [hidden]="!columns.order_no">
+              <div style="min-width: 150px;max-width: 350px"><input type="text" class="form-control" [(ngModel)]="data.data.order_no" (keyup)="onFilter($event)"></div>
+            </td>
+            <td [hidden]="!columns.customer || data.itemSelected">
+              <div style="min-width: 150px;max-width: 350px"><input type="text" class="form-control" [(ngModel)]="data.data.q" (keyup)="onFilter($event)"></div>
+            </td>
+            <td [hidden]="!columns.num_of_pay"></td>
+            <td [hidden]="!columns.start_date"></td>
+            <td [hidden]="!columns.end_date"></td>
+            <td [hidden]="!columns.end_at"></td>
+            <td [hidden]="!columns.is_vat"></td>
+            <td [hidden]="!columns.total"></td>
+            <td [hidden]="!columns.paid"></td>
+            <td [hidden]="!columns.unpaid"></td>
+            <td [hidden]="!columns.status">
+              <div class="btn-group dropdown" dropdown placement="bottom right" [insideClick]="true">
+                <button type="button" dropdownToggle class="btn btn-outline-secondary bg-white dropdown-toggle"><span class="ic_funnel position-relative" tooltip="Trạng thái" container="body"></span> Trạng thái</button>
+                <ul *dropdownMenu class="dropdown-menu dropdown-menu-right">
+                  <a class="dropdown-item" [ngClass]="{'active':fData.all}" href="javascript:;" (click)="customView('')">Tất cả</a>
+                  <li class="dropdown-divider"></li>
+                  <a class="dropdown-item" [ngClass]="{'active':fData.draft}" href="javascript:;" (click)="customView('draft')">Nháp</a>
+                  <a class="dropdown-item" [ngClass]="{'active':fData.approved}" href="javascript:;" (click)="customView('approved')">Chưa thanh toán</a>
+                  <a class="dropdown-item" [ngClass]="{'active':fData.in_process}" href="javascript:;" (click)="customView('in_process')">Thanh toán một phần</a>
+                  <a class="dropdown-item" [ngClass]="{'active':fData.paid}" href="javascript:;" (click)="customView('paid')">Đã tất toán</a>
+                  <a class="dropdown-item" [ngClass]="{'active':fData.canceled}" href="javascript:;" (click)="customView('canceled')">Bị hủy bỏ</a>
+                </ul>
+              </div>
+            </td>
+            <td [hidden]="!columns.owner"></td>
+            <td [hidden]="!columns.approved"></td>
+            <td [hidden]="!columns.seller"></td>
+            <td [hidden]="!columns.file"></td>
+          </tr>
+          </thead>
+          <tbody class="text-dark">
+          <tr *ngIf="data.loading">
+            <td colspan="17"><span class="spinner-border"><span class="sr-only">Loading...</span></span></td>
+          </tr>
+          <ng-container *ngFor="let item of data.items; let $index = index">
+            <tr *ngIf="!item.is_deleted" [ngClass]="{'odd':$index%2==0,'even':$index%2==1,'bg_selected':data.itemSelected&&data.itemSelected.id==item.id}">
+              <td [rowSpan]="item.expanded?2:1">
+                <div class="table_tools d-flex justify-content-between align-items-center">
+                  <div class="d-flex justify-content-start align-items-center">
+                    <div>
+                      <div class="custom-control-wrapper">
+                        <div class="custom-control custom-checkbox ml-0"><input type="checkbox" class="custom-control-input" [(ngModel)]="item.checkbox" [attr.id]="'customSelect'+$index" (click)="checkbox(item)"><label class="custom-control-label cursor-pointer" [attr.for]="'customSelect'+$index"></label></div>
+                      </div>
+                    </div>
+                    &lt;!&ndash;<div><a (click)="edit(item)" class="btn btn-icon" href="javascript:;"><span class="ic_pencil_square"></span></a></div>
+                    <div>
+                      <div class="dropdown" dropdown container="body" placement="bottom left">
+                        <button type="button" dropdownToggle class="btn btn-icon"><span class="ic_three_dots_vertical"></span></button>
+                        <div *dropdownMenu class="dropdown-menu">
+                          <a class="dropdown-item" (click)="upload(item)" href="javascript:;">Tải lên chứng từ</a>
+                        </div>
+                      </div>
+                    </div>&ndash;&gt;
+                  </div>
+                  <div><span class="btn btn-icon w-auto fs-normal pl-1" [innerText]="$index + 1"></span></div>
+                </div>
+              </td>
+              <td [rowSpan]="item.expanded?2:1" [hidden]="!columns.id" [innerText]="item.id"></td>
+              <td [rowSpan]="item.expanded?2:1" [hidden]="!columns.idx">
+                <a href="javascript:;" (click)="select(item)" class="d-block text-nowrap" [innerText]="item.no"></a>
+                <span *ngIf="item.is_recurring" class="badge border border-info text-body">Định kỳ</span>
+                &lt;!&ndash;<div class="row-options">
+                  <ng-container *ngIf="item.recurring>0"><a href="javascript:;" (click)="ended(item)"><span *ngIf="!item.end_at">Kết thúc</span><span *ngIf="item.end_at">Mở lại</span></a>&nbsp; | &nbsp;</ng-container>
+                  <a href="javascript:;" (click)="edit(item)">Sửa</a>&nbsp; | &nbsp;<a href="javascript:;" (click)="remove(item)" class="text-danger">Xóa</a>
+                  <br><a href="javascript:;" (click)="copy(item)" class="hidden-xs text-muted">Sao chép</a>
+                  <ng-container *ngIf="item.status=='approved'">&nbsp; | &nbsp;<a href="javascript:;" (click)="approvedRollback(item)" class="hidden-xs text-muted">Hủy duyệt</a></ng-container>
+                </div>&ndash;&gt;
+              </td>
+              <td [rowSpan]="item.expanded?2:1" [hidden]="!columns.order_no">
+                <div style="min-width: 150px">
+                  <a *ngIf="item.order" [routerLink]="['/pages/ord/doc/annexes']" [queryParams]="{order_no: item.order.no}">{{ item.order.no ? item.order.no : ('#' + item.order.id) }}</a>
+                  <span *ngIf="!item.order">Không có hợp đồng</span>
+                </div>
+              </td>
+              <td [rowSpan]="item.expanded?2:1" [hidden]="!columns.customer || data.itemSelected">
+                <div style="min-width: 150px;max-width: 350px">
+                  <a [routerLink]="['/pages/cus/customers', item.customer_id, 'info']" [innerText]="item.customer?.company"></a>
+                </div>
+              </td>
+              <td [hidden]="!columns.num_of_pay">
+                <ng-container *ngIf="item.status=='approved'||item.status=='in_process'||item.status=='paid'">
+                  <small><span [innerText]="item.num_of_paid">0</span>/<span [innerText]="item.num_of_pay">0</span></small>
+                  <div class="row-options"><a href="javascript:;" (click)="rpView(item)" class="text-info"><span *ngIf="!item.expanded">Chi tiết</span><span *ngIf="item.expanded">Ẩn</span></a></div>
+                </ng-container>
+              </td>
+              <td [hidden]="!columns.start_date" [innerText]="item.start_date|formatDate"></td>
+              <td [hidden]="!columns.end_date" [innerText]="item.end_date|formatDate"></td>
+              <td [hidden]="!columns.end_at" [innerText]="item.end_at|formatDate"></td>
+              <td [hidden]="!columns.is_vat"><span><ngx-toggle-switch-html [checked]="item.is_vat"></ngx-toggle-switch-html></span></td>
+              <td [hidden]="!columns.total" [innerText]="item.total|currencyFormat"></td>
+              <td [hidden]="!columns.paid" [innerText]="item.paid|currencyFormat"></td>
+              <td [hidden]="!columns.unpaid" [innerText]="(item.total - item.paid)|currencyFormat"></td>
+              <td [hidden]="!columns.status"><span class="badge badge_status" [ngClass]="item.status_class" [innerText]="item.status_name"></span></td>
+              <td [hidden]="!columns.owner"><span class="d-block" style="min-width: 100px" [innerText]="item.owner?.display"></span></td>
+              <td [hidden]="!columns.approved" [innerText]="item.approved_at|formatDate"></td>
+              <td [hidden]="!columns.seller">
+                <div *ngIf="item.customer" style="min-width: 200px">
+                  <div *ngIf="item.customer.seller_type=='staff'&&item.customer.staff" class="d-flex">
+                    <div><span class="avatar avatar-sm avatar-circle"><img class="avatar-img" [src]="item.customer.staff.avatar_url"></span></div>
+                    <div class="ml-2">
+                      <div class="font-weight-bold" [innerText]="item.customer.staff.fullname"></div>
+                      <div class="fs-6 text-primary" [innerText]="item.customer.staff.position"></div>
+                    </div>
+                  </div>
+                  <div *ngIf="item.customer.seller_type=='agent'&&item.customer.agent" class="d-flex">
+                    <div><span class="avatar avatar-sm avatar-circle"><img class="avatar-img" [src]="item.customer.agent.avatar_url"></span></div>
+                    <div class="ml-2">
+                      <div class="font-weight-bold" [innerText]="item.customer.agent.company?item.customer.agent.company:item.customer.agent.fullname"></div>
+                      <div class="fs-6 text-primary" [innerText]="item.customer.agent.type_name">Đại lý</div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td [hidden]="!columns.file" class="text-nowrap text-right">
+                <ng-container *ngIf="item.file"><a [href]="item.file.url" class="btn btn-info btn-sm mr-1" target="_blank"><span class="ic_download"></span></a></ng-container>
+              </td>
+            </tr>
+            <tr *ngIf="item.expanded">
+              <td colspan="10" class="p-0">
+                <ngx-com-inv-receipts [info]="item"></ngx-com-inv-receipts>
+              </td>
+            </tr>
+          </ng-container>
+          </tbody>
+        </table>
+      </div>
+      <div class="card-footer">
+        <ngx-pagination2 [page]="data.page" [pageSize]="data.pageSize" [totalItems]="data.totalItems" [maxSize]="data.maxSize" (change)="pageChanged($event)" (pageSizeChange)="pageSizeChanged($event)"></ngx-pagination2>
+      </div>-->
+    </div>
+  </div>
+</div>
+<ngx-modal-confirm (onConfirm)="onConfirm($event)"></ngx-modal-confirm>

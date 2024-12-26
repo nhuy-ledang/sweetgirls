@@ -1,0 +1,21 @@
+{
+    "name": "Media",
+    "alias": "media",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Media\\Providers\\MediaServiceProvider",
+        "Modules\\Media\\Image\\ImageServiceProvider",
+        "Intervention\\Image\\ImageServiceProvider"
+    ],
+    "aliases": {
+        "Image": "Intervention\\Image\\Facades\\Image",
+        "Imagy": "Modules\\Media\\Image\\Facade\\Imagy"
+    },
+    "files": [
+        "helpers.php"
+    ],
+    "requires": []
+}

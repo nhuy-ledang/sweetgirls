@@ -1,0 +1,16 @@
+<ng-container *ngIf="info&&desc">
+  <form novalidate [formGroup]="form">
+    <div class="form-group" [ngClass]="{'has-error': (controls.name.invalid && (controls.name.touched || showValid))}">
+      <label class="input-label">Tên</label>
+      <input name="name" type="text" [formControl]="controls.name" class="form-control">
+    </div>
+    <div class="form-group" [ngClass]="{'has-error': (controls.description.invalid && (controls.description.touched || showValid))}">
+      <label class="input-label" [innerText]="'Mô tả'">Mô tả</label>
+      <textarea ngxEditor name="description" [formControl]="controls.description" class="form-control"></textarea>
+    </div>
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-secondary mr-1" type="button" (click)="onSubmit(form.value)" [disabled]="submitted"><span [innerText]="'Cập nhật'">Cập nhật</span></button>
+      <button class="btn btn-secondary" type="button" (click)="onSubmit(form.value, true)" [disabled]="submitted"><span [innerText]="'Cập nhật & thoát'">Cập nhật & thoát</span></button>
+    </div>
+  </form>
+</ng-container>

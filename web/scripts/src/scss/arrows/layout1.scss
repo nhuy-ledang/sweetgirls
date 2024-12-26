@@ -1,0 +1,50 @@
+.arrow_layout1, .arrow_ {
+  &.bottom_negative {
+    position: relative;
+    padding-bottom: calc(-1 * var(--arrow-bottom));
+    .swiper-button-next, .swiper-button-prev {
+      bottom: 0 !important;
+    }
+  }
+  .swiper-button-next, .swiper-button-prev {
+    background: var(--arrow-color, black);
+    color: var(--text-arrow-color, white);
+    opacity: 0.3;
+    width: 50px !important;
+    height: 50px !important;
+    transition: .5s ease;
+    top: unset !important;
+    bottom: var(--arrow-bottom, 50%);
+    transform: translateY(var(--arrow-bottom, 0));
+    z-index: 11;
+  }
+  &.right_0 .swiper-button-next {
+    right: 0 !important;
+  }
+  &.right_0 .swiper-button-prev {
+    left: 0 !important;
+  }
+  .swiper-button-next {
+    left: unset;
+    right: calc(var(--arrow-right) - 50px/2);
+    transform: translateX(var(--arrow-right, 0));
+  }
+  .swiper-button-prev {
+    left: calc(var(--arrow-right) - 50px/2);
+    transform: translateX(calc(-1 * var(--arrow-right, 0)));
+  }
+  .swiper-button-next:hover, .swiper-button-prev:hover {
+    opacity: 0.5 !important;
+    color: var(--text-arrow-hover-color, white);
+    background: var(--arrow-hover-color, black);
+  }
+  .swiper-button-next:hover::after, .swiper-button-prev:hover::after {
+    opacity: 1;
+  }
+  .swiper-button-next::after, .swiper-button-prev::after {
+    font-size: 16px;
+    background: transparent no-repeat padding-box;
+    opacity: 0.75;
+    color: #fff;
+  }
+}

@@ -1,0 +1,42 @@
+{{ header }}
+<main id="main-content">
+  <div class="container-lg pt-xl-10 pt-2">
+    {{ module_profile }}
+    <div class="row no-gutters border-top">
+      <div class="col-12 col-xl-3">{{ column_left }}</div>
+      <div class="wid_content_info block_points_histories border-left col-12 col-xl-9 pl-0 pl-xl-10 py-6" ng-controller="ProfileCoinsCtrl" ng-init="init()" style="display: none" ng-style="{'display':inited?'':'none'}">
+        <div class="page-title font-weight-bold text-uppercase h4 mb-4"><a href="/account/points"><span class="cursor-pointer fa fa-arrow-left"></span></a>&nbsp;&nbsp;{{ text_points_histories }}<!-- text_points_histories --></div>
+        <div class="text-center" ng-if="data.loading"><div class="spinner-border"></div></div>
+        <div class="points_histories pt-2 overflow-hidden" ng-if="data.items.length">
+          <table class="table border-bottom">
+            <thead>
+            <tr>
+              <th class="border-0 font-weight-normal">Ngày</th>
+              <th class="border-0 font-weight-normal">Lý do</th>
+              <th class="border-0 font-weight-normal">Box</th>
+              <th class="border-0 text-right font-weight-normal">Thay đổi</th>
+              <th class="border-0 text-right font-weight-normal">Tổng số</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in data.items">
+                <td width="13%" ng-bind="(item.created_at)|formatDate"></td>
+                <td width="25%"><span>{{ "{{ item.type == 'order'?'Thay đổi trong đơn hàng ':(item.type == 'product'?'Nhận xét: ':(item.type == 'share'?'Chia sẻ thành công':'Đập hộp sản phẩm' )) }}" }}<span ng-bind="item.type == 'order'?item.order.no:(item.type == 'product'?item.review.review:'')"></span></span></td>
+                <td width="35%">
+                  <div class="d-flex flex-start flex-wrap w-100" ng-if="item.type == 'order'">
+                    <a class="d-block mb-1 mr-1" href="{{ '{{ product.href }}' }}" ng-repeat="product in item.order.products" ng-if="!product.is_included"><span class="box_img embed-responsive embed-responsive-cms bg-cover border" ng-style="{'background-image': 'url(' + product.thumb_url + ')'}" style="--img-frame: 50/35; height: 35px;"></span></a>
+                  </div>
+                </td>
+                <td class="text-green text-right" width="13%" ng-if="item.coins >= 0" ng-bind="'+' + (item.coins|number) + ' GoMartCoin'"></td>
+                <td class="text-red text-right" width="13%" ng-if="item.coins < 0" ng-bind="(item.coins|number)+' GoMartCoin'"></td>
+                <td class="text-green text-right" width="13%" ng-bind="(item.total|number)+' GoMartCoin'" ng-class="item.coins < 0 ? 'text-red':'text-green'"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="text-center" ng-if="!data.items.length && !data.loading">Hãy nhanh tay mua hàng để nhận được GoMartCoin</div>
+      </div>
+    </div>
+  </div>
+</main>
+{{ footer }}

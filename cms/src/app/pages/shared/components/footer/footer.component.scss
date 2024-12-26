@@ -1,0 +1,30 @@
+//@import '../../styles/themes';
+@import '~@nebular/theme/styles/global/breakpoints';
+@import '~bootstrap/scss/mixins/breakpoints';
+
+:host {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .socials {
+    font-size: 2rem;
+
+    a {
+      padding: 0.4rem;
+      color: #8f9bb3;
+      transition: color ease-out 0.1s;
+
+      &:hover {
+        color: #222b45;
+      }
+    }
+  }
+
+  @include media-breakpoint-down(is) {
+    .socials {
+      font-size: 1.5rem;
+    }
+  }
+}

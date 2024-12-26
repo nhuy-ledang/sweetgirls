@@ -1,0 +1,82 @@
+{{ header }}
+<main>
+  <div class="box-checkout-header">
+    <nav class="navbar-sticky bg-fixed-white navbar navbar-expand-lg navbar-light bg-white border-bottom position-relative">
+      <span class="icon-top-left top-center ic_angle_left ic-xl pl-md-4 pl-2 d-xl-none p-3" onclick="goBack()"></span>
+      <div class="container"><a class="py-1 navbar-brand d-none d-xl-block" href="/"><img src="/assets/logo/logo.svg" class="img-fluid"></a>
+        <nav class="text-uppercase mx-auto mb-md-7 mb-5 nav-process">
+          <div class="nav nav-tabs mb-0 text-center">
+            <a class="h5 nav-item nav-link active" href="javascript:void(0)">{{ text_login }}</a>
+            <a class="h5 nav-item nav-link" href="javascript:void(0)">{{ text_delivery_address }}</a>
+            <a class="h5 nav-item nav-link" href="javascript:void(0)">{{ text_pay }}</a>
+          </div>
+        </nav>
+        <div class="d-none d-xl-flex align-items-center justify-content-between justify-content-lg-end mt-1 mb-2 my-lg-0">
+          <div class="border border-primary text-primary px-3 text-center">Hotline: <br> (028) 123 456 178</div>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <div class="tab-content mt-12 mt-xl-0">
+    <div class="tab-pane fadein show active">
+      <div class="blank block-login" ng-controller="LoginCtr">
+        <div class="container mb-12">
+          <div class="page-tabs text-center">
+            <ul class="nav nav-tabs h4 mb-10">
+              <li class="nav-item"><a class="nav-link active">{{ text_login }}</a></li>
+              <li class="nav-item"><a class="nav-link nav-separate px-6">|</a></li>
+              <li class="nav-item"><a class="nav-link" href="/dang-ky">{{ text_register }}</a></li>
+            </ul>
+          </div>
+          <div class="login-box">
+            <form name="form" novalidate autocomplete="off" ng-submit="login(form.$valid)">
+              {% if error_warning %}<p class="alert alert-danger">{{ error_warning }}</p>{% endif %}
+              <div class="form-group mb-10" ng-class="{'has-danger':form.email.$invalid&&(!form.email.$pristine||envData.showValid)}">
+                <input name="email" type="text" class="form-control border-top-0 border-left-0 border-right-0 px-0" placeholder="Email/Số điện thoại" ng-model="params.email" required>
+              </div>
+              <div class="form-group mb-3" ng-class="{'has-danger':form.password.$invalid&&(!form.password.$pristine||envData.showValid)}">
+                <div class="input-group input-group-merge">
+                  <input name="password" type="{{ '{{ passType }}' }}" class="form-control border-top-0 border-left-0 border-right-0 px-0" placeholder="{{ text_password }}" ng-model="params.password" required>
+                  <div class="input-group-append">
+                    <button type="button" class="btn border-bottom" ng-click="changePassType()" style="width: 35px;"><span class="ic_eye text-gray" ng-class="{'ic_eye':passType=='password','ic_hidden':passType=='text'}"></span></button>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group mb-8">
+                <div class="d-flex no-block align-items-center">
+                  <div class="ml-auto"><a href="{{ forgot_href }}" class="">{{ text_forgot }}?</a></div>
+                </div>
+              </div>
+              <div class="form-group text-center mb-10">
+                <a onclick="nextTab(2)">
+                  <button class="btn btn-lg btn-primary w-100" type="submit" ng-disabled="envData.submitted"><span class="spinner-border spinner-border-sm" ng-if="envData.submitted"></span> {{ text_login }}</button>
+                </a>
+              </div>
+            </form>
+            <div class="row no-gutters mb-2">
+              <div class="col-5">
+                <hr class="my-2">
+              </div>
+              <div class="col-2 text-center">Hoặc</div>
+              <div class="col-5">
+                <hr class="my-2">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4 pr-2">
+                <button class="btn text-white font-weight-normal w-100 d-flex align-items-center justify-content-center" style="background: #1877F2; text-transform: unset; height: 50px"><span class="icon pl-4"><span class="ic_facebook"></span></span>Facebook</button>
+              </div>
+              <div class="col-4 px-2">
+                <button class="btn text-white font-weight-normal w-100 d-flex align-items-center justify-content-center" style="background: #D64C3F; text-transform: unset; height: 50px"><span class="icon pl-5"><span class="ic_google"></span></span>Google</button>
+              </div>
+              <div class="col-4 pl-2">
+                <button class="btn text-white font-weight-normal w-100 d-flex align-items-center justify-content-center" style="background: #191919; text-transform: unset; height: 50px"><span class="icon pl-5"><span class="ic_apple"></span></span>Apple</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{{ footer }}

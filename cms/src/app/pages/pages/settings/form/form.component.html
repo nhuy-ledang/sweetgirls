@@ -1,0 +1,151 @@
+<div bsModal #modal="bs-modal" [config]="{backdrop:'static'}" class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-lg" style="z-index: 99999">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"><span [innerText]="'Cập nhật thuộc tính'|translate"></span> <span [innerHTML]="info?.name"></span></h4>
+        <a class="close" (click)="hide()"><span class="ic_close"></span></a>
+      </div>
+      <div class="modal-body">
+        <div class="form-group" *ngIf="info.type=='default'">
+          <label class="input-label">Giá trị</label>
+          <input type="text" [(ngModel)]="value" placeholder="{{info.placeholder}}" class="form-control">
+        </div>
+        <div class="form-group" *ngIf="info.type=='image' && modal.isShown">
+          <label class="input-label" [innerText]="'Hình'|translate">Hình</label>
+          <ngx-picture-uploader #uploaderEl [options]="fileOpt" (onSelected)="onFileSelected($event)" (onDeleted)="onFileDeleted($event)"></ngx-picture-uploader>
+        </div>
+        <div [hidden]="info.type!='editor_lang'">
+          <div class="form-group">
+            <label class="input-label">Tiếng việt</label>
+            <ng-container *ngIf="info.type=='editor_lang'"><input type="hidden" [(ngModel)]="value['vi']" class="form-control"></ng-container>
+            <ngx-tiny-mce [value]="valueInitVi" (editorKeyup)="editorChangeHandler($event, 'vi')"></ngx-tiny-mce>
+          </div>
+          <div class="form-group">
+            <label class="input-label">Tiếng anh</label>
+            <ng-container *ngIf="info.type=='editor_lang'"><input type="hidden" [(ngModel)]="value['en']" class="form-control"></ng-container>
+            <ngx-tiny-mce [value]="valueInitEn" (editorKeyup)="editorChangeHandler($event, 'en')"></ngx-tiny-mce>
+          </div>
+        </div>
+        <container *ngIf="info.type=='text'">
+          <div class="form-group">
+            <label class="input-label">Tiếng việt</label>
+            <input type="text" [(ngModel)]="value['vi']" class="form-control">
+          </div>
+          <div class="form-group">
+            <label class="input-label">Tiếng anh</label>
+            <input type="text" [(ngModel)]="value['en']" class="form-control">
+          </div>
+        </container>
+        <container *ngIf="info.type=='textarea'">
+          <div class="form-group">
+            <label class="input-label">Tiếng việt</label>
+            <textarea [(ngModel)]="value['vi']" class="form-control" rows="5"></textarea>
+          </div>
+          <div>
+            <label class="input-label">Tiếng anh</label>
+            <textarea [(ngModel)]="value['en']" class="form-control" rows="5"></textarea>
+          </div>
+        </container>
+        <div *ngIf="info.type=='boolean'" class="form-group">
+          <label class="input-label">Giá trị</label>
+          <div><ngx-toggle-switch [(ngModel)]="value"></ngx-toggle-switch></div>
+        </div>
+        <div *ngIf="info.type=='header_theme'" class="form-group">
+          <label class="input-label">Chọn giao diện header</label>
+          <select [(ngModel)]="value" class="form-control" (change)="onStyleChange(info.type)" [ngClass]="{'loading':moduleData.loading}">
+            <option value="">Mặc định</option>
+            <option *ngFor="let item of moduleData.headers" [value]="item.id">{{ item.name }}</option>
+          </select>
+          <div [hidden]="!preview" class="form-group mt-2">
+            <img src="{{preview}}" class="img-fluid">
+          </div>
+        </div>
+        <div *ngIf="info.type=='footer_theme'" class="form-group">
+          <label class="input-label">Chọn giao diện footer</label>
+          <select [(ngModel)]="value" class="form-control" (change)="onStyleChange(info.type)" [ngClass]="{'loading':moduleData.loading}">
+            <option value="">Mặc định</option>
+            <option *ngFor="let item of moduleData.footers" [value]="item.id">{{ item.name }}</option>
+          </select>
+          <div [hidden]="!preview" class="form-group mt-2">
+            <img src="{{preview}}" class="img-fluid">
+          </div>
+        </div>
+        <div *ngIf="info.type=='header_cont'" class="form-group">
+          <label class="input-label">Chọn container header</label>
+          <select [(ngModel)]="value" class="form-control">
+            <option value="">Mặc định</option>
+            <option value="sm">Nhỏ ~ 1000</option>
+            <option value="md">Trung bình ~ 1400</option>
+            <option value="lg">Lớn ~ 90%</option>
+            <option value="xl">Full - 100%</option>
+          </select>
+        </div>
+        <div *ngIf="info.type=='footer_cont'" class="form-group">
+          <label class="input-label">Chọn container footer</label>
+          <select [(ngModel)]="value" class="form-control">
+            <option value="">Mặc định</option>
+            <option value="sm">Nhỏ ~ 1000</option>
+            <option value="md">Trung bình ~ 1400</option>
+            <option value="lg">Lớn ~ 90%</option>
+            <option value="xl">Full - 100%</option>
+          </select>
+        </div>
+        <div *ngIf="info.type=='button_theme'" class="form-group">
+          <label class="input-label">Chọn giao diện button</label>
+          <select [(ngModel)]="value" class="form-control" (change)="onStyleChange(info.type)" [ngClass]="{'loading':moduleData.loading}">
+            <option value="">Mặc định</option>
+            <option *ngFor="let item of moduleData.buttons" [value]="item.id">{{ item.name }}</option>
+          </select>
+          <div [hidden]="!preview" class="form-group mt-2">
+            <img src="{{preview}}" class="img-fluid">
+          </div>
+        </div>
+        <div *ngIf="info.type=='dot_theme'" class="form-group">
+          <label class="input-label">Chọn giao diện dot</label>
+          <select [(ngModel)]="value" class="form-control" (change)="onStyleChange(info.type)" [ngClass]="{'loading':moduleData.loading}">
+            <option value="">Mặc định</option>
+            <option *ngFor="let item of moduleData.dots" [value]="item.id">{{ item.name }}</option>
+          </select>
+          <div [hidden]="!preview" class="form-group mt-2">
+            <img src="{{preview}}" class="img-fluid">
+          </div>
+        </div>
+        <div *ngIf="info.type=='arrow_theme'" class="form-group">
+          <label class="input-label">Chọn giao diện arrow</label>
+          <select [(ngModel)]="value" class="form-control" (change)="onStyleChange(info.type)" [ngClass]="{'loading':moduleData.loading}">
+            <option value="">Mặc định</option>
+            <option *ngFor="let item of moduleData.arrows" [value]="item.id">{{ item.name }}</option>
+          </select>
+          <div [hidden]="!preview" class="form-group mt-2">
+            <img src="{{preview}}" class="img-fluid">
+          </div>
+        </div>
+        <div *ngIf="info.type=='style_transform'" class="form-group">
+          <label class="input-label">Chọn kiểu Transform</label>
+          <select [(ngModel)]="value" class="form-control">
+            <option value="">Mặc định</option>
+            <option value="capitalize">In hoa mỗi chữ cái đầu</option>
+            <option value="uppercase">In hoa tất cả chữ cái</option>
+          </select>
+        </div>
+        <div class="form-group" *ngIf="info.type=='number'">
+          <label class="input-label">Giá trị</label>
+          <input type="number" [(ngModel)]="value" placeholder="{{info.placeholder}}" class="form-control">
+        </div>
+        <div class="form-group" *ngIf="info.type=='colors'">
+          <label class="input-label">{{info.name}}</label>
+          <select [(ngModel)]="value" class="form-control">
+            <option value="">Mặc định</option>
+            <option *ngFor="let item of colors" [value]="item.id">{{ item.name }}</option>
+          </select>
+        </div>
+        <div *ngIf="info&&info.note" class="form-group">
+          <small>{{info.note}}</small>
+        </div>
+        <div class="d-flex justify-content-end">
+          <button class="btn btn-secondary" type="button" (click)="onSubmit()" [disabled]="submitted"><span class="spinner-border spinner-border-sm" *ngIf="submitted"></span> <span>Cập nhật</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

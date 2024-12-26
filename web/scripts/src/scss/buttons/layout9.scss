@@ -1,0 +1,51 @@
+.button_layout9 {
+  display: flex;
+  justify-content: var(--button-align, center);
+  position: relative;
+  z-index: 1;
+  .wid_button {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    height: max-content;
+    width: max-content;
+    text-transform: uppercase;
+    border: 1px solid currentColor;
+    color: var(--button-color, var(--primary));
+    padding: 17px 44px;
+    box-sizing: border-box;
+    transition: 0.8s;
+    &:before,
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      border-bottom: 80px solid var(--button-hover-color, var(--primary));
+      z-index: -1;
+      transition: 0.5s ease-in-out;
+    }
+    &:before {
+      right: -50px;
+      border-right: 50px solid transparent;
+      transform: translateX(-100%);
+    }
+    &:after {
+      left: -50px;
+      border-left: 50px solid transparent;
+      transform: translateX(100%);
+    }
+    &:hover {
+      color: var(--text-btn-hover-color, var(--white));
+      border-color: var(--button-hover-color, var(--primary));
+      &:before {
+        transform: translateX(-30%);
+      }
+      &:after {
+        transform: translateX(30%);
+      }
+    }
+  }
+}

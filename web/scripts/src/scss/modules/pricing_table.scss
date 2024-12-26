@@ -1,0 +1,52 @@
+#pricing_table-layout1--container {
+  position: relative;
+  z-index: 1;
+  thead {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+  tbody th {
+    position: sticky;
+    left: -1px;
+    z-index: 1;
+  }
+  @media (min-width: 1280px) {
+    table {
+      overflow: hidden;
+    }
+  }
+}
+
+#pricing_table-layout2--container {
+  position: relative;
+  z-index: 1;
+  thead {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+  tbody th {
+    position: sticky;
+    left: -1px;
+    z-index: 1;
+  }
+  .tab_desc {
+    background: #e5e5e5;
+    border-radius: 50px;
+    font-weight: bold;
+  }
+  .tab_item {
+    border-radius: 50px;
+  }
+  .tab_item.active {
+    box-shadow: 0 3px 6px #00000029;
+    background: #fff;
+    color: var(--primary-color, var(--primary));
+  }
+  @media (min-width: 1280px) {
+    table {
+      overflow: hidden;
+    }
+  }
+}

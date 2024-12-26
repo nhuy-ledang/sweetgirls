@@ -1,0 +1,54 @@
+<div class="card">
+  <div class="card-header">
+    <div class="row justify-content-between align-items-center flex-grow-1">
+      <div class="col-sm">
+        <h4 class="card-title m-0">Thanh toán</h4>
+      </div>
+      <div class="col-sm-auto"></div>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table m-0">
+      <thead>
+      <tr>
+        <th><div class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" [(ngModel)]="data.selectAll" (change)="selectAll()" id="customSelect"><label class="custom-control-label" for="customSelect"></label></div></th>
+        <th>Stt</th>
+        <th>Mã hóa đơn</th>
+        <th [hidden]="!columns.product">Sản phẩm/dịch vụ</th>
+        <th [hidden]="!columns.total" (click)="sortBy('total')" [attr.class]="sortClass('total')">Số tiền <span class="sort-indicator"></span></th>
+        <th [hidden]="!columns.status" (click)="sortBy('status')" [attr.class]="sortClass('status')">Trạng thái <span class="sort-indicator"></span></th>
+        <th [hidden]="!columns.payment_method">Phương thức thanh toán</th>
+        <th [hidden]="!columns.payment_at" (click)="sortBy('payment_at')" [attr.class]="sortClass('payment_at')">Thanh toán <span class="sort-indicator"></span></th>
+        <th [hidden]="!columns.supervisor">Phụ trách</th>
+      </tr>
+      </thead>
+      <tbody class="text-dark">
+      <tr *ngIf="data.loading"><td colspan="9" class="text-center"><div class="spinner-border"><span class="sr-only">Loading...</span></div></td></tr>
+      <tr *ngFor="let item of data.items; let $index = index">
+        <td><div class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" [(ngModel)]="item.checkbox" [attr.id]="'customSelect'+$index" (click)="checkbox(item)"><label class="custom-control-label" [attr.for]="'customSelect'+$index"></label></div></td>
+        <td>{{ item.index + 1 }}</td>
+        <td>
+          <a href="javascript:" (click)="select(item)" class="d-block text-nowrap">{{ item.no }}</a>
+          <div class="row-options">
+            <a href="javascript:" (click)="detail(item)">Chi tiết</a>
+          </div>
+        </td>
+        <td [hidden]="!columns.product">
+          <a href="javascript:" class="d-block">{{item.name}}</a>
+          <span class="badge border border-info" *ngIf="item.type=='activity'">Activities</span>
+          <span class="badge border border-info" *ngIf="item.type=='exhibit'">Exhibition</span>
+          <span class="badge border border-info" *ngIf="item.type=='product'">Boutiques</span>
+        </td>
+        <td [hidden]="!columns.total">{{ item.total|currencyFormat }}</td>
+        <td [hidden]="!columns.status"><span class="s-status" [ngClass]="item.status">{{ item.status_name }}</span></td>
+        <td [hidden]="!columns.payment_method">{{ item.payment_method }}</td>
+        <td [hidden]="!columns.payment_at">{{ item.payment_at|formatDate }}</td>
+        <td [hidden]="!columns.supervisor">{{ item.usr?.display }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card-footer">
+    <ngx-pagination2 [page]="data.page" [pageSize]="data.pageSize" [totalItems]="data.totalItems" [maxSize]="data.maxSize" (change)="pageChanged($event)" (pageSizeChange)="pageSizeChanged($event)"></ngx-pagination2>
+  </div>
+</div>

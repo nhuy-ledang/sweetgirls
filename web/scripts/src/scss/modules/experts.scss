@@ -1,0 +1,15 @@
+#experts-layout1--container {
+  .wid_info {
+    width: 80%;
+    left: 10%;
+    bottom: -10%;
+  }
+
+  @media (max-width: 767px) {
+    .wid_info {
+      width: 80%;
+      left: 10%;
+      bottom: -10%;
+    }
+  }
+}

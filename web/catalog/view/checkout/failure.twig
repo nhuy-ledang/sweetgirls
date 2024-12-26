@@ -1,0 +1,41 @@
+{{ header }}
+<style>
+  .box-footer-top, .box-venue-form, .main-footer hr {
+    display: none;
+  }
+  .block-success {
+    position: relative;
+    z-index: 1;
+    min-height: calc(100vh - 10rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url("/assets/images/background/payment_success.png");
+    background-position: center top;
+  }
+  .block-success h2 {
+    letter-spacing: 5px;
+  }
+  @media (min-width: 1600px) {
+    .block-success {
+      height: calc(100vh - 5.625rem);
+      min-height: 42.5rem;
+    }
+  }
+  @media (max-width: 767px) {
+    .block-success {
+      min-height: calc(100vh - 8.125rem);
+    }
+    .block-success .h2 {
+      letter-spacing: 5px !important;
+    }
+  }
+</style>
+<div class="block-success">
+  <div class="container-sm text-center">
+    <h2 class="mb-5">{{ heading_title }}</h2>
+    <p>{{ info.summary }}</p>
+    <a class="d-flex align-items-center justify-content-center mt-10" href="/checkout/payment"><button type="button" class="cus_btn w-50">Tiếp tục thanh toán</button></a>
+  </div>
+</div>
+{{ footer }}

@@ -1,0 +1,21 @@
+.button_layout1, .button_ {
+  display: flex;
+  justify-content: var(--button-align, center);
+  .wid_button {
+    font-size: 13px;
+    background: var(--button-color, var(--white));
+    color: var(--text-btn-color, var(--primary));
+    display: block;
+    position: relative;
+    width: max-content;
+    height: max-content;
+    text-align: center;
+    border: 1px solid var(--button-hover-color, var(--primary));
+    padding: 17px 44px;
+    transition: 0.3s ease-in-out;
+    &:hover, &:active {
+      background-color: var(--button-hover-color, var(--primary));
+      color: var(--text-btn-hover-color, var(--white));
+    }
+  }
+}

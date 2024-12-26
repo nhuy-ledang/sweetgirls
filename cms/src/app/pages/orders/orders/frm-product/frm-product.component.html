@@ -1,0 +1,229 @@
+<div bsModal #modal="bs-modal" [config]="{backdrop:'static'}" class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-xl modal-dialog-centered" style="z-index: 99999">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Tạo đơn hàng</h4>
+        <a href="javascript:" (click)="hide()" class="close"><span class="ic_close"></span></a>
+      </div>
+      <div class="modal-body">
+        <form novalidate [formGroup]="form">
+          <div class="row">
+            <div class="form-group col-sm-6" [ngClass]="{'has-error': (controls.user_id.invalid && (controls.user_id.touched || showValid))}">
+              <label class="input-label">Khách hàng</label>
+              <ngx-input-customer [formControl]="controls.user_id" [selected]="userSelected" (onSelected)="onCustomerSelected($event)"></ngx-input-customer>
+            </div>
+            <!--<div *ngIf="controls.user_id.value" class="form-group col-sm-6" [ngClass]="{'has-error': (controls.user_id.invalid && (controls.user_id.touched || showValid))}">
+              <label class="input-label">Danh sách địa chỉ</label>
+              <ngx-input-customer [formControl]="controls.user_id" [selected]="userSelected" (onSelected)="onCustomerSelected($event)"></ngx-input-customer>
+            </div>-->
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-6" [ngClass]="{'has-error': (controls.first_name.invalid && (controls.first_name.touched || showValid))}">
+              <label class="input-label">Họ tên <span class="text-danger">*</span></label>
+              <input type="text" [formControl]="controls.first_name" class="form-control" (change)="bindingName()">
+            </div>
+            <div class="form-group col-sm-6" [ngClass]="{'has-error': (controls.phone_number.invalid && (controls.phone_number.touched || showValid))}">
+              <label class="input-label">Số điện thoại <span class="text-danger">*</span></label>
+              <input type="text" [formControl]="controls.phone_number" class="form-control"  (change)="bindingPhoneNumber()">
+            </div>
+            <div class="form-group col-sm-6" [ngClass]="{'has-error': (controls.email.invalid && (controls.email.touched || showValid))}">
+              <label class="input-label">Email</label>
+              <input type="email" [formControl]="controls.email" class="form-control">
+            </div>
+            <div class="form-group col-sm-6" [ngClass]="{'has-error': (controls.payment_code.invalid && (controls.payment_code.touched || showValid))}">
+              <label class="input-label">Phương thức thanh toán <span class="text-danger">*</span></label>
+              <select [formControl]="controls.payment_code" class="form-control">
+                <option *ngFor="let item of paymentMethodList" [value]="item.id">{{ item.name }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="d-flex my-3">
+            <h4 class="col-auto font-weight-bold pl-0">Giao hàng</h4>
+            <hr class="col">
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-6" [ngClass]="{'has-error': (controls.shipping_first_name.invalid && (controls.shipping_first_name.touched || showValid))}">
+              <label class="input-label">Tên người nhận</label>
+              <input type="text" [formControl]="controls.shipping_first_name" class="form-control">
+            </div>
+            <div class="form-group col-sm-6" [ngClass]="{'has-error': (controls.shipping_phone_number.invalid && (controls.shipping_phone_number.touched || showValid))}">
+              <label class="input-label">Số điện thoại người nhận</label>
+              <input type="text" [formControl]="controls.shipping_phone_number" class="form-control">
+            </div>
+            <div class="form-group col-sm-6" [ngClass]="{'has-error': (controls.shipping_province_id.invalid && (controls.shipping_province_id.touched || showValid))}">
+              <label class="input-label">Tỉnh/thành phố</label>
+              <select class="form-control" [formControl]="controls.shipping_province_id" (change)="onProvinceChange()" [ngClass]="{'loading':provinceData.loading}">
+                <option value="">Không</option>
+                <option *ngFor="let item of provinceData.items" [value]="item.vt_id">{{ item.name }}</option>
+              </select>
+            </div>
+            <div class="form-group col-sm-6" [ngClass]="{'has-error': (controls.shipping_district_id.invalid && (controls.shipping_district_id.touched || showValid))}">
+              <label class="input-label">Quận/Huyện</label>
+              <select class="form-control" [formControl]="controls.shipping_district_id" (change)="onDistrictChange()" [ngClass]="{'loading':districtData.loading}">
+                <option value="">Không</option>
+                <option *ngFor="let item of districtData.items" [value]="item.vt_id">{{ item.name }}</option>
+              </select>
+            </div>
+            <div class="form-group col-sm-6" [ngClass]="{'has-error': (controls.shipping_ward_id.invalid && (controls.shipping_ward_id.touched || showValid))}">
+              <label class="input-label">Phường/Xã</label>
+              <select class="form-control" [formControl]="controls.shipping_ward_id" (change)="needUpateShippingFee()" [ngClass]="{'loading':wardData.loading}">
+                <option value="">Không</option>
+                <option *ngFor="let item of wardData.items" [value]="item.vt_id">{{ item.name }}</option>
+              </select>
+            </div>
+            <div class="form-group col-sm-6" [ngClass]="{'has-error': (controls.shipping_address_1.invalid && (controls.shipping_address_1.touched || showValid))}">
+              <label class="input-label">Địa chỉ người nhận</label>
+              <input type="text" [formControl]="controls.shipping_address_1" class="form-control">
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-12">
+              <label class="input-label">Xuất hóa đơn</label>
+              <ngx-toggle-switch [formControl]="controls.is_invoice"></ngx-toggle-switch>
+            </div>
+            <ng-container *ngIf="controls.is_invoice.value">
+              <div class="form-group col-sm-6" [ngClass]="{'has-error': (controls.company.invalid && (controls.company.touched || showValid))}">
+                <label class="input-label">Công ty</label>
+                <input type="text" [formControl]="controls.company" class="form-control">
+              </div>
+              <div class="form-group col-sm-6" [ngClass]="{'has-error': (controls.company_tax.invalid && (controls.company_tax.touched || showValid))}">
+                <label class="input-label">Mã số thuế</label>
+                <input type="text" [formControl]="controls.company_tax" class="form-control">
+              </div>
+              <div class="form-group col-sm-6" [ngClass]="{'has-error': (controls.company_email.invalid && (controls.company_email.touched || showValid))}">
+                <label class="input-label">Email</label>
+                <input type="text" [formControl]="controls.company_email" class="form-control">
+              </div>
+              <div class="form-group col-sm-6" [ngClass]="{'has-error': (controls.company_address.invalid && (controls.company_address.touched || showValid))}">
+                <label class="input-label">Địa chỉ</label>
+                <input type="text" [formControl]="controls.company_address" class="form-control">
+              </div>
+            </ng-container>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label class="input-label">Ghi chú</label>
+              <textarea [formControl]="controls.comment" rows="3" class="form-control"></textarea>
+            </div>
+          </div>
+        </form>
+        <div class="card">
+          <div class="card-header">
+            <div class="row justify-content-between align-items-center flex-grow-1">
+              <div class="col-12 col-sm"><h4 class="m-0">Danh sách sản phẩm</h4></div>
+              <div class="col-auto">
+                <div class="d-flex align-items-center">
+                  <div class="btn-group dropdown bootstrap-select" dropdown (onShown)="onShown()" #dropdown="bs-dropdown" placement="bottom right" [insideClick]="true">
+                    <input dropdownToggle type="text" class="form-control" style="min-width: 350px" placeholder="Tìm sản phẩm">
+                    <div *dropdownMenu class="dropdown-menu">
+                      <div class="bs-searchbox"><input #inputElement type="text" [(ngModel)]="data.data.q" class="form-control" (keyup)="onFilter($event)" placeholder="Gõ để tìm kiếm..."></div>
+                      <div class="bs-innerbox">
+                        <ul class="dropdown-menu inner">
+                          <li *ngIf="data.loading" class="text-center">
+                            <div class="spinner-border"><span class="sr-only">Loading...</span></div>
+                          </li>
+                          <ng-container *ngFor="let item of data.items">
+                            <li [ngClass]="{'bg-light':!item.status||item.quantity==0}"><a href="javascript:" (click)="addProduct(item);dropdown.isOpen=false"><span [innerText]="item.name"></span><br>
+                              <small>Số lượng: {{ item.quantity }}, Giá: {{ (item.special ? item.special : item.price)|currencyFormat }}</small>
+                            </a></li>
+                          </ng-container>
+                        </ul>
+                      </div>
+                      <div *ngIf="!data.data.q && !data.loading && !data.items.length" class="status">Không tìm thấy kết quả nào</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table m-0">
+              <thead>
+              <tr>
+                <th>Stt</th>
+                <th>Tên sản phẩm/dịch vụ</th>
+                <th>Mã sản phẩm</th>
+                <th style="width: 86px;">Số lượng</th>
+                <th style="width: 140px;">Đơn giá</th>
+                <th>Tổng tiền</th>
+                <th style="width: 1px"></th>
+              </tr>
+              </thead>
+              <tbody class="text-dark">
+              <tr *ngFor="let item of products; let $index = index">
+                <td><span class="form-control-plaintext">{{ $index + 1 }}</span></td>
+                <td><span readonly class="form-control-plaintext" style="min-width: 220px;" [innerText]="item.name"></span></td>
+                <td><span readonly class="form-control-plaintext" [innerText]="item.model"></span></td>
+                <td><input type="number" [(ngModel)]="item.quantity" (change)="onProductChange(item)" min="1" class="form-control" style="width: 70px"></td>
+                <td><span readonly class="form-control-plaintext" [innerText]="item.price|currencyFormat"></span></td>
+                <td><span class="form-control-plaintext">{{ (item.price * item.quantity)|currencyFormat }}</span></td>
+                <td><a class="btn btn-sm btn-danger" (click)="removeProduct(item)" title="Xóa" href="javascript:void(0)"><span class="ic ic_close"></span></a></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <hr class="hr-bill">
+        <div class="clearfix">
+          <table class="table table-sm d-inline-block w-auto table-borderless text-right text-nowrap float-right">
+            <tbody>
+            <!--<tr>
+              <td style="vertical-align: middle;"><span class="font-weight-bold">Tổng:</span></td>
+              <td class="subtotal" style="vertical-align: middle;">{{sub_total|currencyFormat}}đ</td>
+            </tr>
+            <tr>
+              <td class="text-nowrap" style="vertical-align: middle;">
+                <span class="font-weight-bold">Chiết khấu &nbsp;</span>
+                <div class="d-inline-block" style="width: 250px;">
+                  <div class="input-group">
+                    <input name="discount" type="text" [(ngModel)]="discount" (change)="onChangeDiscount($event)" class="form-control">
+                    <ng-container *ngIf="modal.isShown">
+                      <div class="input-group-append dropdown" dropdown placement="bottom">
+                        <button type="button" dropdownToggle class="btn btn-outline-secondary dropdown-toggle">{{discount_type=='P'?'%':'Bằng tiền'}}</button>
+                        <div *dropdownMenu class="dropdown-menu">
+                          <a class="dropdown-item" href="javascript:void(0)" (click)="selectDiscountType('P')">%</a>
+                          <a class="dropdown-item" href="javascript:void(0)" (click)="selectDiscountType('F')">Bằng tiền</a>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+              </td>
+              <td style="vertical-align: middle;">
+                <ng-container *ngIf="discount_type=='F'">{{discount|currencyFormat}}đ</ng-container>
+                <ng-container *ngIf="discount_type=='P'">{{discount}}%</ng-container>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-nowrap" style="vertical-align: middle;">
+                <span class="font-weight-bold">Điều chỉnh &nbsp;</span>
+                <div class="d-inline-block" style="width: 180px;">
+                  <input name="adjustment" type="number" [(ngModel)]="adjustment" (change)="onChangeAdjustment($event)" class="form-control">
+                </div>
+              </td>
+              <td style="vertical-align: middle;">{{adjustment|currencyFormat}}đ</td>
+            </tr>-->
+            <tr *ngIf="controls.shipping_fee.value">
+              <td style="vertical-align: middle;"><span class="font-weight-bold">Phí vận chuyển:</span></td>
+              <td style="vertical-align: middle;">{{controls.shipping_fee.value|currencyFormat}}đ</td>
+            </tr>
+            <tr *ngIf="controls.shipping_discount.value">
+              <td style="vertical-align: middle;"><span class="font-weight-bold">Phí vận chuyển:</span></td>
+              <td style="vertical-align: middle;">-{{controls.shipping_discount.value|currencyFormat}}đ</td>
+            </tr>
+            <tr>
+              <td style="vertical-align: middle;"><span class="font-weight-bold">Thành tiền:</span></td>
+              <td style="vertical-align: middle;">{{total|currencyFormat}}đ</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="d-flex justify-content-end">
+          <!-- <button class="btn btn-danger mr-3" type="button" [disabled]="submitted || hasShippingFee || !controls.shipping_province_id.value || !controls.shipping_district_id.value || !controls.shipping_ward_id.value || !controls.shipping_address_1.value || !products.length" (click)="onGetShippingFee()"> Cập nhật phí vận chuyển</button>
+          <button class="btn btn-secondary" type="button" [disabled]="submitted || !hasShippingFee" (click)="onSubmit(form.value)"><span class="spinner-border spinner-border-sm" *ngIf="submitted"></span> Lưu</button> -->
+          <button class="btn btn-secondary" type="button" [disabled]="submitted" (click)="onSubmit(form.value)"><span class="spinner-border spinner-border-sm" *ngIf="submitted"></span> Lưu</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

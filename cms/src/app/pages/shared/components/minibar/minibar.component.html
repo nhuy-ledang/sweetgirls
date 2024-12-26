@@ -1,0 +1,24 @@
+<div class="mini_nav">
+  <ul class="nav">
+    <li class="nav-item"><a class="nav-icon" href="javascript:;" (click)="onMini('file')"><span class="ic_bell"></span><span class="badge"></span></a></li>
+    <!--<li class="nav-item"><a class="nav-icon" href="javascript:;" (click)="onMini('task')"><span class="ic_task"></span><span class="badge"></span></a></li>-->
+    <!--<li class="nav-item"><a class="nav-icon" href="javascript:;" (click)="onMini('brightness')"><span class="ic_brightness_alt_high"></span><span class="badge"></span></a></li>-->
+    <!--<li class="nav-item"><a class="nav-icon" href="javascript:;" (click)="onMini('message')"><span class="ic_message_square_outline"></span><span class="badge">1190</span></a></li>-->
+  </ul>
+</div>
+<div class="mini_content">
+  <div class="card">
+    <div class="card-header card-header-content-between">
+      <h4 class="card-header-title">Thông báo</h4>
+      <div>
+        <div class="btn-group mr-1" *ngIf="mini.status!=2">
+          <a href="javascript:;" (click)="extendMini()"><span class="ic_box_arrow_up_right"></span> Tất cả</a>
+        </div>
+        <div class="btn-group">
+          <a href="javascript:;" (click)="closeMini()"><span class="ic_box_arrow_down_right"></span> Thu gọn</a>
+        </div>
+      </div>
+    </div>
+    <div class="card-body"></div>
+  </div>
+</div>

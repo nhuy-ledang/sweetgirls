@@ -1,0 +1,13 @@
+@import './layout1';
+
+.arrow_hide {
+  .section_arrow {
+    opacity: 0;
+    transition: 0.3s ease;
+  }
+  &:hover {
+    .section_arrow {
+      opacity: 1;
+    }
+  }
+}

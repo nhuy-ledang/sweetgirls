@@ -1,0 +1,279 @@
+{{ header }}
+<script>
+  function nextTab(step) {
+      $('#nav-' + step).trigger('click');
+  }
+  function clickTab(step) {
+    setTimeout(function () {
+    $('#nav-' + step).removeClass('actived');
+    $('#nav-' + step).addClass('active');
+    $('#nav-' + step).prev().removeClass('active').addClass('actived');
+    $('#nav-' + step).prev().prev().removeClass('active').addClass('actived');
+    $('#nav-' + step).next().removeClass('active').removeClass('actived');
+    $('#nav-' + step).next().next().removeClass('active').removeClass('actived');
+    },100);
+
+    // Refresh smooth scroll
+    // setTimeout(function () {
+    //
+    //   var h_content = document.querySelector('.tab-content').offsetHeight;
+    //   var h_header = document.querySelector('.box-checkout-header').offsetHeight;
+    //   var h_footer = document.querySelector('.footer-bottom').offsetHeight;
+    //
+    //   $('body').css('height', h_content + h_header + h_footer + 'px');
+    // }, 500)
+  }
+</script>
+<div class="box-checkout-header">
+  <nav class="navbar-sticky bg-fixed-white navbar navbar-expand-lg navbar-light bg-white border-bottom position-relative">
+    <span class="icon-top-left top-center ic_angle_left ic-xl pl-md-4 pl-2 d-xl-none p-3" onclick="goBack()"></span>
+    <div class="container"><a class="py-1 navbar-brand d-none d-xl-block" href="/"><img src="/assets/logo/logo.svg" class="img-fluid">
+      </a>
+      <nav class="text-uppercase mx-auto mb-md-7 mb-5 nav-process">
+        <div class="nav nav-tabs mb-0 text-center">
+          <a class="h5 nav-item nav-link actived" data-toggle="tab" href="#nav-choose" id="nav-1" onclick="clickTab(1)">{{ text_login }}</a>
+          <a class="h5 nav-item nav-link active" data-toggle="tab" href="#nav-pay" id="nav-2" onclick="clickTab(2)">địa chỉ giao hàng</a>
+          <a class="h5 nav-item nav-link" data-toggle="tab" href="#nav-done" id="nav-3" onclick="clickTab(3)">{{ text_pay }}</a>
+        </div>
+      </nav>
+      <div class=" d-none d-xl-flex align-items-center justify-content-between justify-content-lg-end mt-1 mb-2 my-lg-0">
+        <div class="border border-primary text-primary px-3 text-center">
+          Hotline: <br> (028) 123 456 178
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>
+<div class="tab-content mt-12 mt-xl-0">
+  <div class="tab-pane fade" id="nav-choose">
+    <div class="">
+      <div class="blank block-login" ng-controller="LoginCtr">
+        <div class="container mb-12">
+          <div class="page-tabs text-center">
+            <ul class="nav nav-tabs h4 mb-10">
+              <li class="nav-item"><a class="nav-link active">{{ text_login }}</a></li>
+              <li class="nav-item"><a class="nav-link nav-separate px-6">|</a></li>
+              <li class="nav-item"><a class="nav-link" href="/dang-ky">{{ text_register }}</a></li>
+            </ul>
+          </div>
+          <div class="login-box">
+            <form name="form" novalidate autocomplete="off" ng-submit="login(form.$valid)">
+              {% if error_warning %}<p class="alert alert-danger">{{ error_warning }}</p>{% endif %}
+              <div class="form-group mb-10" ng-class="{'has-danger':form.email.$invalid&&(!form.email.$pristine||envData.showValid)}">
+                <input name="email" type="text" class="form-control border-top-0 border-left-0 border-right-0 px-0" placeholder="Email/Số điện thoại" ng-model="params.email" required>
+              </div>
+              <div class="form-group mb-3" ng-class="{'has-danger':form.password.$invalid&&(!form.password.$pristine||envData.showValid)}">
+                <div class="input-group input-group-merge">
+                  <input name="password" type="{{ '{{ passType }}' }}" class="form-control border-top-0 border-left-0 border-right-0 px-0" placeholder="{{ text_password }}" ng-model="params.password" required>
+                  <div class="input-group-append"><button type="button" class="btn border-bottom" ng-click="changePassType()" style="width: 35px;"><span class="ic_eye text-gray" ng-class="{'ic_eye':passType=='password','ic_hidden':passType=='text'}"></span></button></div>
+                </div>
+              </div>
+              <div class="form-group mb-8">
+                <div class="d-flex no-block align-items-center">
+                  <div class="ml-auto"><a href="{{ forgot_href }}" class="">{{ text_forgot }}?</a></div>
+                </div>
+              </div>
+              <div class="form-group text-center mb-10">
+                <a onclick="nextTab(2)"><button class="btn btn-lg btn-primary p-0 w-100" type="submit" ng-disabled="envData.submitted"><span class="spinner-border spinner-border-sm" ng-if="envData.submitted"></span> {{ text_login }}</button></a>
+              </div>
+            </form>
+            <div class="row no-gutters mb-2">
+              <div class="col-5"><hr class="my-2"></div><div class="col-2 text-center">Hoặc</div><div class="col-5"><hr class="my-2"></div>
+            </div>
+            <div class="row">
+              <div class="col-4 pr-2"><button class="btn p-0 text-white font-weight-normal w-100 d-flex align-items-center justify-content-center" style="background: #1877F2; text-transform: unset; height: 50px"><span class="icon pl-4"><span class="ic_facebook"></span></span>Facebook</button></div>
+              <div class="col-4 px-2"><button class="btn p-0 text-white font-weight-normal w-100 d-flex align-items-center justify-content-center" style="background: #D64C3F; text-transform: unset; height: 50px"><span class="icon pl-5"><span class="ic_google"></span></span>Google</button></div>
+              <div class="col-4 pl-2"><button class="btn p-0 text-white font-weight-normal w-100 d-flex align-items-center justify-content-center" style="background: #191919; text-transform: unset; height: 50px"><span class="icon pl-5"><span class="ic_apple"></span></span>Apple</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane fadein show active" id="nav-pay">
+    <div class="container pt-10 checkout_pay">
+      <div class="row">
+        <div class="col-12">
+
+          <div class="border py-5 px-6 position-relative mb-5" style="background-image: radial-gradient(130% 200% ellipse at -15%, #fff 50%, transparent 70%),  url(/assets/images/bg-login.png); background-position: right">
+            <div class="position-relative mb-5">
+              <b>Thảo Trần</b>
+              <div class="my-2">Điện thoại: 0908879146</div>
+              <div class="">Địa chỉ: 49 Bùi Đình Túy, P. 24, Q. Bình Thạnh, Hồ Chí Minh</div>
+            </div>
+            <a onclick="nextTab(3)"><button class="btn btn-primary mr-6 w-auto disabled"><span class="px-3">giao hàng đến địa chỉ này</span></button></a>
+            <button class="btn btn-outline-primary text-unset w-auto disabled"><span class="icon-sm px-3"><span class="ic_edit mr-2"></span><span>Sửa</span></span></button>
+          </div>
+
+          <p class="mb-5">{{ text_other_address }}<a href="" class="text-primary" id="new-address">{{ text_new_shipping_address }}</a></p>
+
+          <div class="py-5 px-md-6 px-3 bg-light mb-10 box-new-address" style="display: none">
+          <form name="form" novalidate autocomplete="off" ng-submit="submit(form)">
+            <div class="form-row">
+              <div class="form-group col-12 col-md-6 col-lg-4 pr-md-4 mb-5" ng-class="{'has-danger':form.first_name.$invalid&&envData.showValid}">
+                <label class="control-label">{{ text_fullname }}</label>
+                <div class="input-group">
+                  <input name="first_name" type="text" ng-model="params.first_name" class="form-control" placeholder="Nhập họ tên" required>
+                </div>
+              </div>
+              <div class="form-group col-md-6 col-12 col-lg-4 px-xl-3" ng-class="{'has-danger':form.phone_number.$invalid&&envData.showValid}">
+                <label class="control-label">{{ text_phone }} di động</label>
+                <input name="phone_number" type="text" ng-model="params.phone_number" class="form-control" placeholder="Nhập số điện thoại" required>
+              </div>
+              <div class="form-group col-md-6 col-12 col-lg-4 pl-xl-4 px-2">
+                <label class="control-label d-block">Loại địa chỉ</label>
+                <div class="d-flex">
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadio1" name="gender" ng-model="params.gender" ng-value="1" class="custom-control-input">
+                    <label class="custom-control-label" for="customRadio1">Nhà riêng/Chung cư</label>
+                  </div>
+                  <div class="custom-control custom-radio custom-control-inline mr-0">
+                    <input type="radio" id="customRadio2" name="gender" ng-model="params.gender" ng-value="2" class="custom-control-input">
+                    <label class="custom-control-label" for="customRadio2">Cơ quan/Công ty</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-12 col-md-6 col-lg-4 mb-5 pr-xl-4" ng-class="{'has-danger':form.first_name.$invalid&&envData.showValid}">
+                <label class="control-label">Tỉnh/Thành phố</label>
+                <div class="input-group">
+                  <select name="first_name1" type="text" ng-model="params.first_name1" class="form-control" required>
+                    <option value="">Chọn Tỉnh/Thành phố</option>
+                    <option value="">Chọn Tỉnh/Thành phố 2</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group col-12 col-md-6 col-lg-4 mb-5 px-xl-3 pr-md-4" ng-class="{'has-danger':form.first_name.$invalid&&envData.showValid}">
+                <label class="control-label">Quận/Huyện</label>
+                <select name="first_name2" type="text" ng-model="params.first_name2" class="form-control" required>
+                  <option value="">Chọn Quận/Huyện</option>
+                  <option value="">Chọn Quận/Huyện 2</option>
+                </select>
+              </div>
+              <div class="form-group col-12 col-md-6 col-lg-4 mb-5 pl-xl-4" ng-class="{'has-danger':form.first_name.$invalid&&envData.showValid}">
+                <label class="control-label">Phường/Xã</label>
+                <div class="input-group">
+                  <select name="first_name3" type="text" ng-model="params.first_name3" class="form-control" required>
+                    <option value="">Chọn Phường/Xã</option>
+                    <option value="">Chọn Phường/Xã 2</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group col-12 col-md-6 col-lg-8 pr-xl-3 pr-md-4 mb-5" ng-class="{'has-danger':form.first_name.$invalid&&envData.showValid}">
+                <label class="control-label">Địa chỉ</label>
+                <div class="input-group">
+                  <input name="first_name4" type="text" ng-model="params.first_name4" class="form-control" placeholder="Ví dụ: 49 Bùi Đình Túy" required>
+                </div>
+              </div>
+              <div class="form-group col-md-6 col-12 col-lg-4 pl-xl-4">
+                <label class="control-label d-md-block d-none">&nbsp;</label>
+                <div class="custom-control custom-checkbox custom-control-inline mr-0">
+                  <input type="checkbox" id="customCheckbox" name="default" ng-model="params.default" ng-value="1" class="custom-control-input">
+                  <label class="custom-control-label font-size-sm" for="customCheckbox">Sử dụng địa chỉ này làm mặc định</label>
+                </div>
+              </div>
+              <div class="col-xl-8 col-12 text-right pr-xl-3">
+                <button class="btn btn-outline-primary mt-4 mr-5 disabled">hủy bỏ</button>
+                <a onclick="nextTab(3)"><button class="btn btn-primary mt-4 w-auto disabled"><span class="px-3">giao đến địa chỉ này</span></button></a>
+              </div>
+            </div>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="nav-done">
+    <div class="container pt-10 checkout_pay">
+      <div class="row">
+        <div class="col-xl-8 col-12">
+          <h4 class="letter-spacing-3 mb-5 text-uppercase">{{ text_delivery_method }}</h4>
+          <div class="form-group">
+            <div class="row">
+            <div class="custom-control custom-radio custom-control-inline col-6 mr-0 pl-7">
+              <input type="radio" id="customRadio3" name="gender1" ng-model="params.gender1" ng-value="1" class="custom-control-input">
+              <label class="custom-control-label" for="customRadio3">Giao tiêu chuẩn</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline col-6 mr-0 pl-7">
+              <input type="radio" id="customRadio4" name="gender1" ng-model="params.gender1" ng-value="2" class="custom-control-input">
+              <label class="custom-control-label" for="customRadio4">Giao hàng nhanh</label>
+            </div>
+            </div>
+          </div>
+
+          <div class="bg-light py-5 px-md-6 px-3">
+            <div class="position-relative">
+            <p class="mb-2">Nhận hàng vào Thứ sáu, 11/09/2020</p>
+            <p class="mb-0 font-size-sm text-primary">Miễn phí ship cho đơn hàng trên 500.000 đ</p>
+            <span class="h4 font-weight-normal icon-top-right top-center"><span class="line-through">35.000 đ</span></span>
+            </div>
+          </div>
+
+          <h4 class="letter-spacing-3 mb-5 text-uppercase mt-7">{{ text_payments }}</h4>
+          <div class="form-group row no-gutters pl-5">
+            <div class="custom-control custom-radio custom-control-inline mr-8 col-12">
+              <input type="radio" id="customRadio1" name="gender" ng-model="params.gender" ng-value="1" class="custom-control-input" checked>
+              <label class="custom-control-label" for="customRadio1">Thanh toán bằng thẻ quốc tế Visa, Master, JCB</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline col-12">
+              <input type="radio" id="customRadio2" name="gender" ng-model="params.gender" ng-value="2" class="custom-control-input">
+              <label class="custom-control-label" for="customRadio2">Thẻ ATM nội địa/Internet Banking</label>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-xl-4 col-12 pl-xl-9 mb-5 mb-xl-0">
+          <div class="py-5 px-md-6 px-3 border mb-7">
+            <h5 class="text-uppercase pb-5 mb-5 border-bottom position-relative">địa chỉ nhận hàng <span class="icon-top-right"><span class="ic_edit"></span></span></h5>
+            <p class="mb-2">Thảo Trần | 0980980988</p>
+            <p class="mb-0">49 Bùi Đình Túy, P. 24, Q. Bình Thạnh, Hồ Chí Minh</p>
+          </div>
+
+          <div class="py-5 px-md-6 px-3 border mb-13 mb-xl-0">
+            <h5 class="text-uppercase pb-5 mb-5 border-bottom position-relative">đơn hàng (2 sản phẩm) <span class="icon-top-right"><span class="ic_edit"></span></span></h5>
+            <div class="row mb-3">
+              <div class="col">
+                <p class="mb-0">1 x Lorem ipsum dolor sit amet</p>
+              </div>
+              <div class="col-5 text-right">
+                <p class="mb-0 text-primary">11.900.000 đ</p>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <p class="mb-0">1 x Lorem ipsum dolor sit amet</p>
+              </div>
+              <div class="col-5 text-right">
+                <p class="mb-0 text-primary">11.900.000 đ</p>
+              </div>
+            </div>
+
+            <hr class="my-5">
+
+            <div class="mb-3"><b class="text-uppercase">tạm tính</b> <span class="float-right">23.800.000 đ</span></div>
+            <div><b class="text-uppercase">phí vận chuyển</b> <span class="float-right">0 đ</span></div>
+
+            <hr class="my-5 d-none d-xl-block">
+
+            <div class="mb-2 d-none d-xl-block"><b class="text-uppercase">thành tiền</b> <span class="float-right h4 text-primary mb-0">23.800.000 đ</span></div>
+            <div class=" d-none d-xl-block text-gray text-right font-size-sm">(Đã bao gồm VAT nếu có)</div>
+
+          </div>
+
+          <div class="btn-order">
+            <div class="font-weight-bold py-3 bg-white px-5 d-xl-none"><span class="text-uppercase">thành tiền</span> <span class="text-primary float-right h4 total">23.800.000 đ</span></div>
+            <button class="btn btn-lg btn-primary mt-xl-7 w-100 mb-xl-11" ng-click="openAlert({summary: 'Thành công!'})">đặt mua</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    $('#new-address').click(function () {
+      $('.box-new-address').show()
+    })
+  </script>
+</div>
+
+{{ footer }}

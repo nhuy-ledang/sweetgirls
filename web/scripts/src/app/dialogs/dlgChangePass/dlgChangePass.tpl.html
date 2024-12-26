@@ -1,0 +1,25 @@
+<form class="position-relative" name="form" novalidate autocomplete="off" ng-submit="submit(form)">
+  <div class="modal-header">
+    <h4 class="modal-title" ng-bind="labels.text_change_password">Đổi mật khẩu</h4>
+    <a class="close mr-0 pr-0" ng-click="close()"><span class="fa fa-close cursor-pointer" style="font-size: 18px"></span></a>
+  </div>
+  <div class="modal-body">
+    <div class="form-group" ng-class="{'has-danger':form.current_password.$invalid&&envData.showValid}">
+      <label class="control-label" ng-bind="labels.entry_password_current">Mật khẩu hiện tại</label>
+      <input type="password" name="current_password" ng-model="params.current_password" class="form-control" required autocomplete="false">
+    </div>
+    <div class="form-group" ng-class="{'has-danger':form.password.$invalid&&envData.showValid}">
+      <label class="control-label" ng-bind="labels.entry_password_new">Mật khẩu mới</label>
+      <input type="password" name="password" ng-model="params.password" class="form-control" required autocomplete="false">
+    </div>
+    <div class="form-group" ng-class="{'has-danger':form.confirm_password.$invalid&&envData.showValid}">
+      <label class="control-label" ng-bind="labels.entry_password_confirm">Xác nhận mật khẩu</label>
+      <input type="password" name="confirm_password" ng-model="params.confirm_password" password-equal="params.password" class="form-control" required autocomplete="false">
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="text-right">
+      <button type="submit" class="btn w-auto o-bg-primary text-white" ng-disabled="envData.submitted"><span class="spinner-border spinner-border-sm" ng-if="envData.submitted"></span> <span ng-bind="labels.button_change_password">Đổi mật khẩu</span></button>
+    </div>
+  </div>
+</form>

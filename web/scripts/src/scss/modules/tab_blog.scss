@@ -1,0 +1,48 @@
+#tab_blog-layout1--container, #tab_blog-layout2--container, #tab_blog-layout3--container {
+  [class*="faq-tab"].active {
+    box-shadow: 5px 5px 10px #00000029 !important;
+  }
+  [class*="plus-more-big"] {
+    display: block;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    text-decoration: none;
+    background-color: transparent;
+    color: var(--primary-color, var(--primary));
+  }
+  [class*="plus-more-big"]:after, [class*="plus-more-big"]:before {
+    content: '';
+    position: absolute;
+    background: var(--primary-color, var(--primary));
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+    z-index: 1;
+  }
+  [class*="plus-more-big"]:before {
+    height: 4px;
+    width: 25px;
+    border-radius: 50px;
+  }
+  [class*="plus-more-big"]:after {
+    width: 4px;
+    height: 25px;
+    border-radius: 50px;
+  }
+
+  [class*="plus-more-big"].active:after {
+    opacity: 0%;
+  }
+  .wid_block {
+    background: var(--secondary-color, var(--secondary));
+  }
+}
+
+#tab_blog-layout2--container {
+
+}
+
+#tab_blog-layout3--container {
+
+}

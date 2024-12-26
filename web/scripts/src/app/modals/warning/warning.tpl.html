@@ -1,0 +1,8 @@
+<div class="modal-header" ng-if="title"><h4 class="modal-title">{{ title }}</h4></div>
+<div class="modal-body text-center">
+  <div class="font-18 mb-3 font-bold text-gray" ng-bind-html="message|safe_html"></div>
+  <div class="clearfix">
+    <div class="float-left"><button class="btn btn-light" ng-click="cancel()">Hủy</button></div>
+    <div class="float-right"><button class="btn btn-primary" ng-click="ok()">Xác nhận</button></div>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<div class="page-header">
+  <div class="row align-items-end">
+    <div class="col-sm">
+      <h1 class="page-header-title">Chi tiết trang</h1>
+      <nav>
+        <ol class="breadcrumb breadcrumb-no-gutter">
+          <li class="breadcrumb-item"><a class="breadcrumb-link" [routerLink]="['/pages/pages/pages']"><span [innerText]="'Danh mục trang'|translate"></span></a></li>
+          <li class="breadcrumb-item active"><span [innerText]="info?.name"></span></li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-sm-auto"></div>
+  </div>
+</div>
+<div class="nav-tabs-light horizontal-tabs">
+  <ul class="nav nav-tabs">
+    <li class="nav-item"><a [routerLink]="['info']" class="nav-link" routerLinkActive="active"><i class="fa fa-th"></i> Thông tin</a></li>
+    <li class="nav-item"><a [routerLink]="['contents']" class="nav-link" routerLinkActive="active"><i class="fa fa-check-circle"></i> Danh sách module</a></li>
+  </ul>
+  <div class="tab-content pt-3"><router-outlet></router-outlet></div>
+</div>

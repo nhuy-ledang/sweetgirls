@@ -1,0 +1,27 @@
+{{ header }}
+<div id="main-content" class="account{{ layout }}">
+  <div class="blank block_login" ng-controller="ForgotCtr" ng-init="init()" style="display: none; background: linear-gradient(to top, rgba(0, 0, 0, 0) 80%, rgba(255,255,255, 1) 100%), url('{{ global.config_bg_login }}') no-repeat bottom center / cover" ng-style="{'display':inited?'':'none'}">
+    <div class="container mb-15" style="max-width: 1000px">
+      <div class="text-center">
+        <h2 class="text-uppercase font-weight-normal">{{ text_forgotten }}<!-- text_forgotten --></h2>
+        <div class="mb-8">{{ text_password_question }}<!-- text_password_question --> <a class="font-weight-bolder" href="{{ login_href }}"><u>{{ text_login }}<!-- text_login --></u></a></div>
+      </div>
+      <div class="mb-4 text-center">{{ text_forgot_note }}<!-- text_forgot_note --></div>
+      <form name="form" novalidate autocomplete="off" ng-submit="submit(form)">
+        <div class="col-12 col-sm-6 col-md-5 mx-auto">
+          <div class="form-group" ng-class="{'has-danger':form.email.$invalid&&envData.showValid}">
+            <input name="email" type="text" ng-model="params.email" class="form-control rounded-0 border-white" ng-pattern="PATTERNS.EMAIL2" placeholder="Email" required>
+          </div>
+          <div class="text-center">
+            <button class="btn btn-lg rounded-0 btn_white_to_primary w-100 form-control" type="submit" ng-disabled="envData.submitted"><span class="spinner-grow spinner-grow-sm align-middle" ng-if="envData.submitted"></span> {{ button_forgot }}<!-- button_forgot --></button>
+          </div>
+        </div>
+      </form>
+      <div class="clearfix">&nbsp;</div>
+    </div>
+  </div>
+  <script>
+    $('.account{{ layout }} > div').css('min-height', 'calc(100vh - '+ $('.box_header').outerHeight() +'px)');
+  </script>
+</div>
+{{ footer }}

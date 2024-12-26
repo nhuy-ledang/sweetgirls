@@ -1,0 +1,115 @@
+#projects-layout1--container {
+  .product-img:before {
+    transition: all 1s ease-in-out;
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: transparent linear-gradient(180deg, transparent 0%, var(--secondary-color, var(--dark)) 100%) 0% 0% no-repeat padding-box;
+    z-index: 1;
+  }
+
+  .product-img .desc {
+    bottom: 0;
+    /*opacity: 0;*/
+    z-index: 2;
+    transform: translate(0%, 0%);
+    transition: all .3s ease-in-out;
+  }
+
+  .product-img .img {
+    transition: all .3s ease-in-out;
+  }
+
+  .product-img:hover .img {
+    transform: scale(1.1);
+  }
+
+  .product-img:hover {
+    transform: scale(0.98);
+  }
+
+  .product-img {
+    transition: all .3s ease-in-out;
+  }
+
+  .product-button:hover {
+    transform: scale(0.98);
+  }
+
+  .product-button {
+    transition: all .3s ease-in-out;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  }
+  @media (max-width: 767px) {
+    .product-img:before {
+      transition: all 1s ease-in-out;
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 50%;
+      background: transparent linear-gradient(180deg, transparent 0%, #000 100%) 0% 0% no-repeat padding-box;
+      z-index: 1;
+    }
+
+    .product-img .desc {
+      transform: translate(0%, 0%);
+      opacity: 100;
+      transition: all .5s ease-in-out;
+    }
+  }
+}
+
+#projects-layout2--container {
+  .product-img:before {
+    transition: all 1s ease-in-out;
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: transparent linear-gradient(180deg, transparent 0%, var(--secondary-color, var(--dark)) 100%) 0% 0% no-repeat padding-box;
+    z-index: 1;
+  }
+
+  .product-img .desc {
+    bottom: 0;
+    /*opacity: 0;*/
+    z-index: 2;
+    transform: translate(0%, 0%);
+    transition: all .3s ease-in-out;
+  }
+
+  .product-img .img {
+    transition: all .3s ease-in-out;
+  }
+
+  .product-img:hover .img {
+    transform: scale(1.1);
+  }
+
+  .product-img:hover {
+    transform: scale(0.98);
+  }
+
+  .product-img {
+    transition: all .3s ease-in-out;
+  }
+
+  .product-button:hover {
+    transform: scale(0.98);
+  }
+
+  .product-button {
+    transition: all .3s ease-in-out;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  }
+  .swiper-slide-active {
+    transform: scale(1.5);
+  }
+}

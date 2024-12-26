@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <link rel="alternate" type="application/rss+xml" title="Dòng thông tin tiện ích online " href="tienich/feed.html"/>
+  <meta name="description" content="Tự tạo vòng quay may mắn trên website, vòng quay may mắn tự ghi, vòng quay ngẫu nhiên giúp bạn ra quyết định nhanh chóng. Không cần đăng nhập, không cần cài đặt, vào chơi luôn.">
+  <title>Tự tạo vòng quay may mắn random, online, miễn phí ²⁰²³</title>
+  <link id="css-light" href="tienich/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="tienich/assets/css/nights.css?ver=1.2.3" rel="stylesheet">
+  <link href="tienich/assets/css/myapp.min.css?ver=1.0.47" rel="stylesheet">
+  <meta name="robots" content="index, follow"/>
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>
+  <link rel="canonical" href="tienich/vong-quay-may-man.html"/>
+
+  <link rel="shortcut icon" type="image/png" href="tienich/assets/images/57x57.png" sizes="57x57"/>
+  <link rel="apple-touch-icon" sizes="57x57" href="tienich/assets/images/57x57.png" sizes="57x57"/>
+  <link rel="apple-touch-icon" sizes="72x72" href="tienich/assets/images/72x72.png" sizes="72x72"/>
+  <link rel="apple-touch-icon" sizes="114x114" href="tienich/assets/images/114x114.png" sizes="114x114"/>
+  <link rel="preload" as="image" href="tienich/assets/images/logo.png">
+
+  <meta property="og:locale" content="vi_VN"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Tự tạo vòng quay may mắn random, online, miễn phí ²⁰²³"/>
+  <meta property="og:description" content="Tự tạo vòng quay may mắn trên website, vòng quay may mắn tự ghi, vòng quay ngẫu nhiên giúp bạn ra quyết định nhanh chóng. Không cần đăng nhập, không cần cài đặt, vào chơi luôn."/>
+  <meta property="og:url" content="tienich/vong-quay-may-man.html"/>
+  <meta property="og:site_name" content="Dịch thuật Phương Đông"/>
+  <meta property="article:publisher" content="https://www.facebook.com/dichthuatphuongdong"/>
+  <meta property="article:author" content="https://www.facebook.com/dichthuatphuongdong/"/>
+  <meta property="article:modified_time" content="2021-02-10T18:13:20+00:00"/>
+  <meta property="og:image" content="tienich/assets/images/vong-quay-may-man.jpg?ver=1.1"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="628"/>
+  <meta property="og:image:alt" content="Tự tạo vòng quay may mắn random, online, miễn phí ²⁰²³"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:image" content="tienich/assets/images/vong-quay-may-man.jpg?ver=1.1"/>
+  <meta name="twitter:creator" content="@dtphuongdong"/>
+  <meta name="twitter:site" content="@dtphuongdong"/>
+  <meta name="theme-color" content="#c8ss54">
+  <meta property="fb:app_id" content="472933380153784"/>
+  <meta property="fb:admins" content="100000798538841"/>
+  <meta property="fb:admins" content="423275371156236"/>
+
+  <!--  Bootstrap and Popover -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+</head>
+<body class="custom-theme">
+
+<input type="hidden" id="base_url" value="tienich">
+<input type="hidden" id="ajax_url" value="tienich/do.php">
+<input type="hidden" id="action" value="wheel">
+<input type="hidden" id="token" value="cd6b73b67c77edeaff94e24b961119dd">
+
+<header class="navbar navbar-expand-xl navbar-dark fixed-top bg-brand p-0 shadow toggle-show-hide">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="tienich/"><img src="tienich/assets/images/logo.png" width="131" height="40" alt="Tự tạo vòng quay may mắn random, online, miễn phí ²⁰²³"></a>
+    <div class="collapse navbar-collapse d-nonex d-lg-flexx" id="navbarCollapse">
+      <ul class="navbar-nav me-auto mb-2 mb-md-0" id="menu">
+        <li class="nav-item"><a class="nav-link " href="tienich/"><span data-feather="home" style="width:22px;height:22px;"></span></a></li>
+        <li class="nav-item"><a class="nav-link " id="nav-random" href="tienich/random/">Random</a></li>
+        <li class="nav-item"><a class="nav-link " id="nav-van-ban" href="tienich/van-ban/">Văn bản</a></li>
+        <li class="nav-item"><a class="nav-link " id="nav-ho-ten" href="tienich/ho-ten/">Họ tên</a></li>
+        <li class="nav-item"><a class="nav-link " id="nav-tai-chinh" href="tienich/tai-chinh/">Tài chính</a></li>
+        <li class="nav-item"><a class="nav-link " id="nav-cat-ghep-anh" href="tienich/cat-ghep-anh/">Cắt ghép ảnh</a></li>
+        <li class="nav-item"><a class="nav-link " id="nav-am-duong" href="tienich/am-duong/">Âm dương</a></li>
+        <li class="nav-item"><a class="nav-link " id="nav-emoji" href="tienich/emoji/">Emoji</a></li>
+        <li class="nav-item"><a class="nav-link " id="nav-khoe-dep" href="tienich/khoe-dep/">Khỏe đẹp</a></li>
+        <li class="nav-item"><a class="nav-link " id="nav-web" href="tienich/web/">Web</a></li>
+        <li class="nav-item"><a class="nav-link " id="nav-converter" href="tienich/converter/">Converter</a></li>
+        <li class="nav-item"><a class="nav-link " id="nav-hoc-tap" href="tienich/hoc-tap/">Học tập</a></li>
+        <li class="nav-item"><a class="nav-link " id="nav-khac" href="tienich/khac/">Khác</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+            Tags
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="tienich/cong-viec/">Công việc</a></li>
+            <li><a class="dropdown-item" href="tienich/giai-tri/">Giải trí</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div class="form-check form-switch ms-auto me-2 lightSwitchWrap" id="lightSwitchWrap">
+      <label class="form-check-label ms-3" for="lightSwitch">
+        <span data-feather="sun" style="width:22px;height:22px;opacity: .55;"></span>
+      </label>
+      <input class="form-check-input d-none" type="checkbox" id="lightSwitch"/>
+    </div>
+
+    <div>
+      <button class="btn text-light border-0 p-1 btn-fav-count" onclick="javascript:showFavorite();"><span data-feather="heart" style="width:22px;height:22px;opacity:.55;"></span> <sup>
+        <small id="totalFav">0</small>
+      </sup></button>
+
+      <button class="btn text-light border-0 p-1" onclick="el('search-form').classList.remove('d-none');"><span data-feather="search" style="width:22px;height:22px;opacity: .55;"></span></button>
+
+      <button class="navbar-toggler d-xl-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#mobileMenu" aria-controls="mobileMenu" aria-expanded="false" aria-label="Toggle navigation" onclick="document.getElementById('mobileMenu').innerHTML = '<ul>'+document.getElementById('menu').innerHTML+'</ul>';">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+    </div>
+
+    <!-- <button class="navbar-toggler d-none d-lg-block" type="button" onclick="toggleSidebar();">
+      <span class="navbar-toggler-icon"></span>
+    </button> -->
+
+  </div>
+</header>
+
+<nav id="mobileMenu" class="mobileMenu collapse open px-3">
+  <!-- Mobile Menu here -->
+</nav>
+
+<style>
+  @media screen and (max-width: 380px) {
+    .btn-fav-count {
+      display: none;
+    }
+  }
+</style>
+<div class="container-fluid">
+  <div class="row g-3">
+    <aside class="col-lg-3 col-xl-3 p-3 p-xl-4 sidebar sidebar-left order-2 order-lg-1" id="sidebar">
+            <div class="widget">
+        <div class="widget-inner">
+          <div class="h5 widget-title">Xem nhiều</div>
+
+          <div class="top-views">
+            <div class="item mb-3 border border-1 border-top-0 border-start-0 border-end-0">
+              <a href="get-youtube-thumbnail.html" class="text-dark text-decoration-none">
+                <div class="item-img mb-3">
+                  <img src="tienich/assets/images/get-thumbnail-youtube.jpg" class="border border-1 rounded-3 img-fluid" alt="Lấy ảnh thumbnail Youtube online hàng loạt với 1 click 2023">
+                </div>
+                <h3 class="h6 item-title text-danger">Lấy ảnh thumbnail Youtube online hàng loạt với 1 click 2023</h3>
+              </a>
+            </div>
+            <ol start="2" class="numbered-list">
+              <li>
+                <a class="text-decoration-none" href="phan-tram.html">Cách tính phần trăm (%) online 2023</a>
+              </li>
+              <li>
+                <a class="text-decoration-none" href="vong-quay-random-so.html">Vòng quay random số - Vòng quay số ngẫu nhiên 2023</a>
+              </li>
+              <li>
+                <a class="text-decoration-none" href="ten-ki-tu-dac-biet-lien-quan.html">Đổi tên Liên Quân ĐẸP ×͜× Tạo kí tự đặc biệt Liên Quân ²⁰²³</a>
+              </li>
+              <li>
+                <a class="text-decoration-none" href="convertcase.html">Chuyển chữ Hoa ⇌ chữ thường online 2023</a>
+              </li>
+              <li>
+                <a class="text-decoration-none" href="doi-so-tien-thanh-chu.html">Đổi số tiền thành chữ tiếng Việt, Anh, Trung, Nhật, Hàn 2023</a>
+              </li>
+            </ol>
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- <div class="widget sticky-lg-top" style="top:70px;">
+        <div class="widget-inner">
+            </div>
+      </div> -->      </aside>
+    <main class="col-lg-9 col-xl-9 p-3 p-xl-4 order-1 order-lg-2 main-sidebar-left" id="main">
+      <div class="toggle-show-hide" id="post-title">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <h1 class="h2">Tự tạo vòng quay may mắn random, online, miễn phí ²⁰²³</h1>
+          <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group me-0">
+              <style>
+                .switcher {
+                  font-family: Arial;
+                  font-size: 12pt;
+                  text-align: left;
+                  cursor: pointer;
+                  overflow: hidden;
+                  width: 173px;
+                  line-height: 17px;
+                }
+
+                .switcher a {
+                  text-decoration: none;
+                  display: block;
+                  font-size: 12pt;
+                  -webkit-box-sizing: content-box;
+                  -moz-box-sizing: content-box;
+                  box-sizing: content-box;
+                }
+
+                .switcher a img {
+                  vertical-align: middle;
+                  display: inline;
+                  border: 0;
+                  padding: 0;
+                  margin: 0;
+                  opacity: 0.8;
+                }
+
+                .switcher a:hover img {
+                  opacity: 1;
+                }
+
+                .switcher .selected {
+                  background: #fff linear-gradient(180deg, #efefef 0%, #fff 70%);
+                  position: relative;
+                  z-index: 1;
+                }
+
+                .switcher .selected a {
+                  border: 1px solid #ccc;
+                  color: #666;
+                  padding: 3px 5px;
+                  min-width: 161px;
+                  max-width: 100%;
+                }
+
+                .switcher .selected a:after {
+                  height: 24px;
+                  display: inline-block;
+                  position: absolute;
+                  right: 10px;
+                  width: 15px;
+                  background-position: 50%;
+                  background-size: 11px;
+                  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 285 285'><path d='M282 76.5l-14.2-14.3a9 9 0 0 0-13.1 0L142.5 174.4 30.3 62.2a9 9 0 0 0-13.2 0L3 76.5a9 9 0 0 0 0 13.1l133 133a9 9 0 0 0 13.1 0l133-133a9 9 0 0 0 0-13z' style='fill:%23666'/></svg>");
+                  background-repeat: no-repeat;
+                  content: "" !important;
+                  transition: all .2s;
+                }
+
+                .switcher .selected a.open:after {
+                  -webkit-transform: rotate(-180deg);
+                  transform: rotate(-180deg);
+                }
+
+                .switcher .selected a:hover {
+                  background: #fff
+                }
+
+                .switcher .option {
+                  position: absolute;
+                  z-index: 9998;
+                  border-left: 1px solid #ccc;
+                  border-right: 1px solid #ccc;
+                  border-bottom: 1px solid #ccc;
+                  background-color: #eee;
+                  display: none;
+                  min-width: 171px;
+                  max-width: 100%;
+                  max-height: 198px;
+                  -webkit-box-sizing: content-box;
+                  -moz-box-sizing: content-box;
+                  box-sizing: content-box;
+                  overflow-y: auto;
+                  overflow-x: hidden;
+                }
+
+                .switcher .option a {
+                  color: #000;
+                  padding: 3px 5px;
+                }
+
+                .switcher .option a:hover {
+                  background: #fff;
+                }
+
+                .switcher .option a.selected {
+                  background: #fff;
+                }
+
+                #selected_lang_name {
+                  float: none;
+                }
+
+                .l_name {
+                  float: none !important;
+                  margin: 0;
+                }
+
+                .switcher .option::-webkit-scrollbar-track {
+                  -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+                  border-radius: 5px;
+                  background-color: #f5f5f5;
+                }
+
+                .switcher .option::-webkit-scrollbar {
+                  width: 5px;
+                }
+
+                .switcher .option::-webkit-scrollbar-thumb {
+                  border-radius: 5px;
+                  -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, .3);
+                  background-color: #888;
+                }
+              </style>
+              <div class="switcher notranslate">
+                <div class="selected">
+                  <a href="#" onclick="return false;"><img src="tienich/assets/flags/24/vi.png" height="24" width="24" alt="vi" loading="lazy"/> Vietnamese</a>
+                </div>
+                <div class="option">
+                  <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <nav aria-label="breadcrumb" id="breadcrumb" class="toggle-show-hide small">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="tienich/" class="text-muted">Tiện ích</a></li>
+          <li class="breadcrumb-item"><a href="tienich/random/" class="text-muted">Random</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Tự tạo vòng quay may mắn random, online, miễn phí ²⁰²³</li>
+        </ol>
+      </nav>
+      <div class="py-2 position-relative toggle-show-hide" id="lovethistool">
+        <div class="position-absolute end-0" style="top:-40px;">
+          <button class="btn btn-sm btn-outline-danger btn-togglefav" onclick="toggleAddFav(this);" id="fav-1907621949"><span data-feather="heart"></span> Yêu thích</button>
+        </div>
+      </div>
+
+      <div class="mb-3 mb-lg-5 toggle-show-hide">
+
+      </div>
+
+
+      <style>
+        .section-list {
+          max-height: 320px;
+          overflow-y: auto;
+          overflow-x: hidden;
+        }
+      </style>
+      <div class="d-none" id="myLabel">{"cai_dat":"Cài đặt","ma_nhung":"Mã nhúng","gon_gang":"Gọn gàng","tao_moi":"Tạo mới","muc":"Mục","ket_qua":"Kết quả","trao_doi":"Trộn","sap_xep":"Sắp xếp","xoa_ket_qua":"Xóa kết quả","ket_qua_quay":"Kết quả quay","quay":"QUAY","chu_de":"Chủ đề","mau_chu_de":"Mẫu chủ đề","chu_de_cua_ban":"Chủ đề của bạn","chu_de_co_san":"Chủ đề có sẵn","tuy_chon_nhac":"Tùy chọn nhạc","bat_dau":"Bắt đầu","ket_thuc":"Kết thúc","tuy_chon_khac":"Tùy chọn khác","thoi_gian":"Thời
+        gian","ban_hoa_giay_khi_ket_thuc":"Bắn hoa giấy khi kết thúc","popup_ket_qua_voi_tieu_de":"Popup kết quả với tiêu đề","hien_thi_nut_xoa_o_nay":"Hiển thị nút \"Xóa ô này\"","tuy_chon_nen":"Tùy chọn nền","nen":"Nền","luu_lai":"Lưu lại","reset_ve_mac_dinh":"Reset về mặc định","binh_luan":"Bình luận","tat_tieng":"Tắt tiếng","ngau_nhien":"Ngẫu nhiên","chiec_non_ky_dieu":"Chiếc nón kỳ diệu","cuoi":"Cười","vong_quay":"Vòng quay","chuc_mung":"Chúc mừng","vo_tay":"Vỗ tay","vo_tay_pewpew":"Vỗ tay
+        PewPew","de_che_chien_thang":"Đế chế chiến thắng","de_che_thua_cuoc":"Đế chế thua cuộc","tieu_chuan":"Tiêu chuẩn","ngan_hon":"Ngắn hơn","dai_hon":"Dài hơn","dai_hon_nua":"Dài hơn nữa","ban_da_quay_vao_o":"Bạn đã quay vào ô","nhap_cac_muc_truoc_khi_quay":"Vui lòng nhập các mục trước khi quay","co_ban_sao_luu_tu_dong":"Có bản sao lưu tự động","khoi_phuc":"Khôi phục","chua-tao_chu_de":"* Bạn chưa tạo chủ đề nào của riêng mình. Để dùng lại nhiều lần, bạn nên lưu thành chủ đề.","da_luu":"Đã
+        lưu","tao_chu_de_moi":"Tạo chủ đề mới","nhap_ten_chu_de":"Nhập tên chủ đề","placeholder_hay_them_cac_muc":"Hãy thêm các 'mục' tham gia quay, mỗi 'mục' trên một dòng. Hoặc chọn các chủ đề có sẵn bên dưới.","tren_ban_nhau":"Trên bàn nhậu","trua_nay_an_gi":"Trưa nay ăn gì","ru_de_gai":"Rủ rê gái","chan_le":"Chẵn lẻ","ai_tra_tien":"Ai trả tiền?","nhan_pham":"Nhân phẩm","ten_ngau_nhien":"Tên ngẫu nhiên","chu_cai":"Chữ cái","chu_so":"Chữ số","mau_sac":"Màu sắc","bong_da":"Bóng
+        đá","phan_thuong":"Phần thưởng","fashion":"Thời trang","animal":"Động vật","xoa_o_nay":"Xóa ô này","dong_lai":"Đóng lại","chia_se":"Chia sẻ","hien_thi_zoom":"Hiển nút phóng to thu nhỏ","zoomin":"Phóng to","zoomout":"Thu nhỏ","background_only_fullscreen":"Nền chỉ áp dụng cho Fullcreen hoặc Mã nhúng","add_photo":"Thêm ảnh","luu_thanh_chu_de":"Lưu thành chủ đề","fullscreen_chua_ho_tro_hinh_anh":"- Fullscreen chưa hỗ trợ hình ảnh.\n- Bấm nút \"Gọn gàng\" để xem màn hình rộng
+        hơn.","xoa":"Xóa","nguon":"Nguồn"}
+      </div>
+      <input type="hidden" id="is-embed" value="0">
+
+      <ul class="nav nav-pills nav-fill mb-4 toggle-show-hide">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="tienich/so-ngau-nhien.html">Số ngẫu nhiên</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="tienich/vong-quay-may-man.html">Vòng quay may mắn</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="tienich/quay-thu-vietlott.html">Quay Vietlott</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="tienich/xuc-xac.html">Đổ xúc xắc</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="tienich/tung-dong-xu.html">Tung đồng xu</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="tienich/tung-dong-xu-am-duong.html">Tung xu âm dương</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="tienich/chon-ten-ngau-nhien.html">Chọn tên</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="tienich/random-ball.html">Lấy bóng</a>
+        </li>
+      </ul>
+
+      <div class="row my-4" id="wheel-wraper">
+        <div class="col-xl-8 text-center mb-3" id="colLeft">
+          <div class="h3 mb-4 text-primary d-none" id="chude-heading" contenteditable="true">Phần thưởng</div>
+          <div id="wheel-container">
+            <!-- Vòng quay sẽ xuất hiện tại đây -->
+          </div>
+          <div class="my-3 d-block"> <!-- d-sm-none -->
+            <div class="form-check form-switch d-inline-block mx-auto">
+              <input class="form-check-input" type="checkbox" value="0" id="toggleInfo">
+              <label class="form-check-label" for="toggleInfo">Gọn gàng</label>
+            </div>
+            <button class="btn" id="btn-embed-wheel" title="Tạo mã nhúng lên website vòng quay hiện tại"><span data-feather="share-2"></span> Mã nhúng</button>
+            <button class="btn" id="btn_show_setting" data-bs-toggle="collapse" href="#settings" role="button" aria-expanded="false" aria-controls="settings"><span data-feather="settings"></span> Cài đặt</button>
+            <button class="btn" id="btn-fullscreen" title="Fullscreen"><span data-feather="maximize"></span> Fullcreen</button>
+          </div>
+
+
+          <div class="collapse mx-auto mb-3" id="settings" style="width:320px;max-width:100%;">
+            <div class="text-start">
+              <label class="form-check-label text-start mb-2">Tùy chọn nhạc</label>
+              <div class="input-group mb-3">
+                <span class="input-group-text">Bắt đầu</span>
+                <select class="form-select" id="start_sound">
+                  <option value="0" selected>Tắt tiếng</option>
+                  <option value="random">Ngẫu nhiên</option>
+                  <option value="xoso">Xổ số miền Bắc</option>
+                  <option value="chiecnonkydieu" selected>Chiếc nón kỳ diệu</option>
+                  <option value="conquay">Vòng quay</option>
+                  <option value="spinning-2">Vòng quay 2</option>
+                  <option value="spinning-3">Vòng quay 3</option>
+                  <option value="olympia-1">Olympia 1</option>
+                  <option value="olympia-2">Olympia 2</option>
+                  <option value="olympia-3">Olympia 3</option>
+                  <option value="olympia-4">Olympia 4</option>
+                  <option value="olympia-5">Olympia 5</option>
+                  <option value="de-che-aoe-open">AOE open</option>
+                  <option value="de-che-aoe-1">AOE 1</option>
+                  <option value="de-che-aoe-2">AOE 2</option>
+                  <option value="de-che-aoe-3">AOE 3</option>
+                  <option value="de-che-aoe-4">AOE 4</option>
+                  <option value="de-che-aoe-5">AOE 5</option>
+                  <option value="congnong">Công nông</option>
+                </select>
+                <button class="btn btn-outline-secondary" id="btn-start-sound-play"><span data-feather="play"></span></button>
+                <button class="btn btn-outline-secondary" id="btn-start-sound-stop"><span data-feather="square"></span></button>
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text">Kết thúc</span>
+                <select class="form-select" id="end_sound">
+                  <option value="0" selected>Tắt tiếng</option>
+                  <option value="random">Ngẫu nhiên</option>
+                  <option value="congratulation" selected>Chúc mừng</option>
+                  <option value="olympia-trao-giai-1">Olympia trao giải 1</option>
+                  <option value="olympia-trao-giai-2">Olympia trao giải 2</option>
+                  <option value="olympia-trao-giai-3">Olympia trao giải 3</option>
+                  <option value="olympia-trao-giai-4">Olympia trao giải 4</option>
+                  <option value="votay">Vỗ tay</option>
+                  <option value="votayPewPew">Vỗ tay PewPew</option>
+                  <option value="hooray">Hooray</option>
+                  <option value="cuoi">Cười 1</option>
+                  <option value="cuoi2">Cười 2</option>
+                  <option value="cuoi3">Cười 3</option>
+                  <option value="deohieuduoc">Đ..éo thể hiểu được</option>
+                  <option value="xaochoPewPew">Xạo chó PewPew</option>
+                  <option value="deotin">Đ..éo tin</option>
+                  <option value="oh-nooo">Oh nooo!</option>
+                  <option value="Oh-no-no-no">Oh-no-no-no</option>
+                  <option value="de-che-chien-thang">Đế chế chiến thắng</option>
+                  <option value="de-che-thua">Đế chế thua cuộc</option>
+                </select>
+                <button class="btn btn-outline-secondary" id="btn-end-sound-play"><span data-feather="play"></span></button>
+                <button class="btn btn-outline-secondary" id="btn-end-sound-stop"><span data-feather="square"></span></button>
+              </div>
+              <label class="form-check-label text-start mb-2">Tùy chọn khác</label>
+              <div class="input-group mb-3">
+                <span class="input-group-text">Thời gian</span>
+                <select class="form-select" id="friction">
+                  <option value="0.991" selected>Tiêu chuẩn</option>
+                  <option value="0.98">Ngắn hơn</option>
+                  <option value="0.995">Dài hơn</option>
+                  <option value="0.998">Dài hơn nữa</option>
+                </select>
+              </div>
+
+              <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="show_confetti" checked>
+                <label class="form-check-label" for="show_confetti">
+                  Bắn hoa giấy khi kết thúc </label>
+              </div>
+
+              <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="show_popup" checked>
+                <label class="form-check-label" for="show_popup">
+                  Popup kết quả với tiêu đề:
+                </label>
+              </div>
+
+              <div class="mb-3">
+                <input type="text" class="form-control ms-3" style="width: calc(100% - 1rem);" id="popup_label" value="Bạn đã quay vào ô" placeholder="Bạn đã quay vào ô">
+              </div>
+
+              <div class="form-check ms-3 mb-3">
+                <input class="form-check-input" type="checkbox" id="show_remove_button" checked>
+                <label class="form-check-label" for="show_remove_button">
+                  Hiển thị nút "Xóa ô này" </label>
+              </div>
+
+              <label class="form-check-label text-start mb-2">Tùy chọn nền</label>
+              <div class="small text-muted mb-3">Nền chỉ áp dụng cho Fullcreen hoặc Mã nhúng</div>
+              <div class="input-group mb-3">
+                <select class="form-select" id="background" aria-label="Background">
+                  <option value="" selected>None</option>
+                  <option value="1.jpg">1.jpg</option>
+                  <option value="10.jpg">10.jpg</option>
+                  <option value="11.jpg">11.jpg</option>
+                  <option value="12.jpg">12.jpg</option>
+                  <option value="13.jpg">13.jpg</option>
+                  <option value="14.jpg">14.jpg</option>
+                  <option value="15.png">15.png</option>
+                  <option value="16.jpg">16.jpg</option>
+                  <option value="17.jpg">17.jpg</option>
+                  <option value="18.jpg">18.jpg</option>
+                  <option value="19.jpg">19.jpg</option>
+                  <option value="2.jpg">2.jpg</option>
+                  <option value="20.jpg">20.jpg</option>
+                  <option value="21.jpg">21.jpg</option>
+                  <option value="22.jpg">22.jpg</option>
+                  <option value="23.jpg">23.jpg</option>
+                  <option value="24.jpg">24.jpg</option>
+                  <option value="25.jpg">25.jpg</option>
+                  <option value="26.jpg">26.jpg</option>
+                  <option value="27.jpg">27.jpg</option>
+                  <option value="28.jpg">28.jpg</option>
+                  <option value="29.jpg">29.jpg</option>
+                  <option value="3.jpg">3.jpg</option>
+                  <option value="30.jpg">30.jpg</option>
+                  <option value="31.jpg">31.jpg</option>
+                  <option value="32.jpg">32.jpg</option>
+                  <option value="33.jpg">33.jpg</option>
+                  <option value="34.jpg">34.jpg</option>
+                  <option value="35.jpg">35.jpg</option>
+                  <option value="36.jpg">36.jpg</option>
+                  <option value="37.jpg">37.jpg</option>
+                  <option value="4.jpg">4.jpg</option>
+                  <option value="5.jpg">5.jpg</option>
+                  <option value="6.jpg">6.jpg</option>
+                  <option value="7.jpg">7.jpg</option>
+                  <option value="8.jpg">8.jpg</option>
+                  <option value="9.jpg">9.jpg</option>
+                </select>
+                <span class="input-group-text" id="preview_bgr"></span>
+              </div>
+
+              <div class="mb-3">
+                <button class="btn btn-primary w-100" id="btn_wheel_setting">Lưu lại</button>
+              </div>
+              <div class="mb-3">
+                <p class="text-center text-muted"><a href="javascript:void(0);" id="btn-reset-wheel" class="btn">Reset về mặc định</a></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-center d-none">
+            <div class="fb-like" data-href="tienich/vong-quay-may-man.html" data-width="" data-layout="button_count" data-action="like" data-size="small" data-share="true"></div>
+
+            <a href="javascript:void(0);" class="btn btn-primary" style="margin-left:3px;max-width:120px;font-size:11px;height:20px;line-height:20px;padding:0 6px;" onclick="el('fb-root').scrollIntoView();"><span class="fb-comments-count" data-href="tienich/vong-quay-may-man.html"></span> Bình luận</a>
+          </div>
+
+          <div class="d-flex justify-content-center">
+            <a class="btn" href="tienich/vong-quay-random-ten.html" title="Vietnamese"><img src="tienich/assets/images/vi.png" width="32" loading="lazy" alt="Vietnamese"></a>
+            <a class="btn" href="tienich/random-name-picker.html" title="English"><img src="tienich/assets/images/en.png" width="32" loading="lazy" alt="English"></a>
+          </div>
+
+          <div class="toggle-show-hide mb-3"><!-- DTPD - Tool -->
+
+          </div>
+
+        </div>
+        <div class="col-xl-4 toggle-show-hide">
+          <div class="mb-3">
+            <nav>
+              <div class="nav nav-tabs" id="main-tab" role="tablist">
+                <button class="nav-link w-50 active" id="tab-entries" data-bs-toggle="tab" data-bs-target="#tab-content-entries" type="button" role="tab" aria-controls="tab-content-1" aria-selected="true">Mục <span class="badge bg-primary text-light rounded-pill" id="entries_count">11</span></button>
+                <button class="nav-link w-50" id="tab-result" data-bs-toggle="tab" data-bs-target="#tab-content-result" type="button" role="tab" aria-controls="tab-result" aria-selected="false">Kết quả <span class="badge bg-primary text-light rounded-pill" id="result_count">0</span></button>
+              </div>
+            </nav>
+
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane py-3 fade show active" id="tab-content-entries" role="tabpanel" aria-labelledby="tab-entries">
+                <div class="d-flex w-100 justify-content-start mb-3">
+                  <button type="button" class="btn btn-outline-secondary btn-sm me-1" id="btn-clear-wheel"><span data-feather="x"></span> Xóa</button>
+                  <button type="button" class="btn btn-outline-secondary btn-sm me-1" id="btn-shuffle-wheel"><img src="tienich/assets/icons/shuffle.png" class="custom-icon" width="16" height="16" alt="shuffle" loading="lazy"> Trộn</button>
+                  <button type="button" class="btn btn-outline-secondary btn-sm me-1" id="btn-sort-wheel-az">⇣ AZ</button>
+                  <button type="button" class="btn btn-outline-secondary btn-sm me-1" id="btn-sort-wheel-za">⇣ ZA</button>
+                  <label class="btn btn-sm btn-outline-secondary btn-upanh" for="inputImage" title="Upload image file">
+                    <input type="file" class="d-none" id="inputImage" name="file" accept=".jpg,.jpeg,.png,.gif" multiple>
+                    <span data-feather="camera"></span> <span id="input-image-txt">Thêm ảnh</span>
+                  </label>
+                </div>
+                <div class="mb-3">
+                  <div id="sector_list" contenteditable="true" spellcheck="false" autocomplete="off" class="form-control section-list rounded-0" placeholder="Hãy thêm các 'mục' tham gia quay, mỗi 'mục' trên một dòng. Hoặc chọn các chủ đề có sẵn bên dưới.">
+                    <div>5k</div>
+                    <div>10k</div>
+                    <div>20k</div>
+                    <div>Quay lại</div>
+                    <div>50k</div>
+                    <div>30k</div>
+                    <div>100k</div>
+                    <div>Nhân đôi</div>
+                    <div>200k</div>
+                    <div>Chia đôi</div>
+                    <div>500k</div>
+                  </div>
+                </div>
+                <div class="mb-3 text-end">
+                  <a class="text-decoration-none small" data-bs-toggle="collapse" data-bs-target="#addform" href="javascript:void(0);" id="btn-add-form">Lưu thành chủ đề <span data-feather="chevron-down"></span></a>
+                </div>
+                <div class="input-group mb-3 collapse" id="addform">
+                  <input type="text" class="form-control" id="tpl-name" maxlength="20" placeholder="Nhập tên chủ đề">
+                  <button class="btn btn-primary" type="button" id="btn-save-template">Lưu lại</button>
+                </div>
+                <div id="auto-save"><!-- auto save --></div>
+              </div>
+              <div class="tab-pane py-3 fade" id="tab-content-result" role="tabpanel" aria-labelledby="tab-result">
+                <div class="d-flex justify-content-start mb-3">
+                  <button type="button" class="btn btn-outline-secondary btn-sm me-2" id="btn-sort-result"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i> Sắp xếp</button>
+                  <button type="button" class="btn btn-outline-secondary btn-sm" id="btn-clear-result"><i class="fa fa-times" aria-hidden="true"></i> Xóa kết quả</button>
+                </div>
+                <div id="wheel_result" class="form-control rounded-0 section-list" readonly placeholder="Kết quả quay"></div>
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="action">
+            <p><strong>Mẫu chủ đề:</strong> <strong id="chude" contenteditable="true" class="text-danger fs-5">Phần thưởng</strong></p>
+            <nav>
+              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link w-50" id="tab-1" data-bs-toggle="tab" data-bs-target="#tab-content-1" type="button" role="tab" aria-controls="tab-content-1" aria-selected="true">Chủ đề của bạn</button>
+                <button class="nav-link w-50 active" id="tab-2" data-bs-toggle="tab" data-bs-target="#tab-content-2" type="button" role="tab" aria-controls="tab-content-2" aria-selected="false">Chủ đề có sẵn</button>
+              </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane py-3 fade" id="tab-content-1" role="tabpanel" aria-labelledby="tab-1">
+                <!-- Chủ đề của bạn -->
+                <div id="button_from_cookies">
+                  <!-- button from cookies  -->
+                  <p class="text-muted fst-italic">* Bạn chưa tạo chủ đề nào của riêng mình. Để dùng lại nhiều lần, bạn nên lưu thành chủ đề.</p>
+                </div>
+                <div class="d-grid gap-2">
+                  <button type="button" class="btn btn-success btn-sm mb-2 rounded-pill" id="btn-create-new-tpl"><i class="fa fa-plus" aria-hidden="true"></i> Tạo mới</button>
+                </div>
+              </div>
+              <div class="tab-pane py-3 fade show active" id="tab-content-2" role="tabpanel" aria-labelledby="tab-2">
+                <!-- Chủ đề có sẵn -->
+                <button type="button" class="btn btn-secondary btn-sm mb-2 rounded-pill" id="btn-fill-ban-nhau">Trên bàn nhậu</button>
+                <button type="button" class="btn btn-primary btn-sm mb-2 rounded-pill" id="btn-fill-trua-an-gi">Trưa nay ăn gì</button>
+                <button type="button" class="btn btn-danger btn-sm mb-2 rounded-pill" id="btn-fill-ru-de-gai">Rủ rê gái</button>
+
+                <button type="button" class="btn btn-warning btn-sm mb-2 rounded-pill" id="btn-fill-chan-le">Chẵn lẻ</button>
+
+                <button type="button" class="btn btn-danger btn-sm mb-2 rounded-pill" id="btn-fill-ai-tra-tien">Ai trả tiền?</button>
+                <button type="button" class="btn btn-warning btn-sm mb-2 rounded-pill" id="btn-fill-nhan-pham">Nhân phẩm</button>
+
+                <button type="button" class="btn btn-success btn-sm mb-2 rounded-pill" id="btn-fill-chon-ten">Tên ngẫu nhiên</button>
+                <button type="button" class="btn btn-info btn-sm mb-2 rounded-pill" id="btn-fill-chu-cai">Chữ cái A→Z</button>
+                <button type="button" class="btn btn-secondary btn-sm mb-2 rounded-pill" id="btn-fill-mau-sac">Màu sắc</button>
+                <button type="button" class="btn btn-dark btn-sm mb-2 rounded-pill" id="btn-fill-chu-so">Chữ số (1→10)</button>
+                <button type="button" class="btn btn-secondary btn-sm mb-2 rounded-pill" id="btn-fill-100">Chữ số (1→100)</button>
+                <button type="button" class="btn btn-warning btn-sm mb-2 rounded-pill" id="btn-fill-bong-da">Bóng đá</button>
+                <button type="button" class="btn btn-info btn-sm mb-2 rounded-pill" id="btn-fill-phan-thuong">Phần thưởng</button>
+                <button type="button" class="btn btn-primary btn-sm mb-2 rounded-pill" id="btn-fill-fashion">Thời trang</button>
+                <button type="button" class="btn btn-success btn-sm mb-2 rounded-pill" id="btn-fill-animal">Động vật</button>
+                <button type="button" class="btn btn-secondary btn-sm mb-2 rounded-pill" id="btn-create-new-tpl-2"><i class="fa fa-plus" aria-hidden="true"></i> Tạo mới</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div id="content" class="toggle-show-hide">
+        <h2 class="h3 mb-3">* Vòng quay may mắn</h2>
+        <p><strong>VÒNG QUAY MAY MẮN</strong> (hay còn gọi là <strong>vòng xoay may mắn</strong> hoặc <strong>bánh xe may mắn</strong>) miễn phí trên website này giúp bạn chọn ngẫu nhiên một đối tượng trong danh sách bạn đưa ra, nó tương tự như trò chơi <a href="tienich/chiec-non-ky-dieu.html">chiếc nón kỳ diệu</a> mà bạn phải quay để nhận được giải thưởng. Cái hay của công cụ này là bạn có thể <strong>tự tuỳ chỉnh</strong> hay <strong>tự ghi</strong> nội dung của
+          vòng quay (<strong>tức tự tạo vòng quay may mắn trực tiếp trên website / điện thoại</strong>) rất nhanh hoặc chọn các chủ đề có sẵn như: </p>
+        <ul>
+          <li><a href="tienich/vong-quay-an-nhau.html">Vòng quay ăn nhậu</a>: Chọn ra ông nào phải uống bao nhiêu cốc, khi đi ăn <strong>chọn ông nào phải trả tiền</strong>, trò chơi <strong>chẵn lẻ / đầu đít</strong> của mấy anh văn phòng,...</li>
+          <li><a href="tienich/vong-quay-random-ten.html">Vòng quay random tên</a>: Để chọn ra một người nào đó làm việc gì đó như gọi tên lên bảng làm bài tập, chọn tên người may mắn được nhận phần thưởng hoặc đối với các bạn sinh viên ở chung với nhau có thể quay để chọn xem ai phải nấu cơm, rửa bát cả tháng chẳng hạn.</li>
+          <li><a href="tienich/vong-quay-random-so.html">Vòng quay số ngẫu nhiên</a>: Chọn ra số ngẫu nhiên trong danh sách các số bạn nhập vào. Ví dụ bạn có danh sách các con số may mắn nhưng phân vân ko biết chọn con số nào. Hãy quay để ứng dụng này tự chọn giúp bạn.</li>
+          <li><a href="tienich/vong-quay-random-chu-cai.html">Vòng quay chữ cái A->Z</a>: Chọn chữ cái ngẫu nhiên từ bảng chữ cái Alphabet từ A tới Z.</li>
+          <li><a href="tienich/boc-tham-online.html">Tạo bốc thăm online</a>: Tương tự như chọn tên ở trên</li>
+          <li><a href="tienich/vong-quay-trung-the-cao.html">Vòng quay trúng thẻ</a>: Bạn muốn tặng khách hàng thẻ cào nhưng muốn tăng sự hấp dẫn cho khách hàng, hãy để họ tự quay và nhận ngẫu nhiên thẻ cào mà họ quay được.</li>
+        </ul>
+        <p>
+          Hay hơn nữa là khi <strong>rủ bạn gái đi chơi</strong> mà không biết đi đâu thì vào đây chắc chắn các anh có lợi <span class="text-danger" style="width:24px;height:24px;" data-feather="smile"></span>, bạn có thể tạo các <strong>FUN QUIZ</strong> các <strong>trò chơi quay xem ai trúng thưởng</strong>,... với chủ đề không giới hạn theo ý tưởng của bạn. Bạn có thể chơi mọi lúc, mọi nơi trên máy tính/ điện thoại của bạn với giao diện cực đơn giản, load nhanh và đặc biệt đây là <a
+          href="tienich/vong-quay-mien-phi.html">vòng quay miễn phí không cần đăng nhập</a>, không cần cái đặt phần mềm hay app nào cả.</p>
+        <h2 class="h3 mb-3">* Đặc điểm</h2>
+        <table class="table table-striped mb-3">
+          <tbody>
+          <tr>
+            <th width="150">Giá:</th>
+            <td>Miễn phí mãi mãi</td>
+          </tr>
+          <tr>
+            <th>Ngôn ngữ:</th>
+            <td>Tiếng Việt, tiếng Anh và 100+ ngôn ngữ khác</td>
+          </tr>
+          <tr>
+            <th>Chức năng:</th>
+            <td>Tạo vòng quay random miễn phí, tùy chỉnh nhạc, ảnh nền, lựa chọn các chủ đề có sẵn, tạo chủ đề riêng để dùng nhiều lần, tạo mã nhúng lên website cá nhân, chia sẻ link, sao lưu tự động, tùy chỉnh thời gian quay, bắn pháo hoa khi kết thúc, tùy chọn popup thông báo,...</td>
+          </tr>
+          <tr>
+            <th>Nền tảng:</th>
+            <td>Android, IOS, Máy tính (Window, Macbook),...</td>
+          </tr>
+          <tr>
+            <th>Nguyên lý hoạt động:</th>
+            <td>Ngẫu nhiên (bạn nhập vào một danh sách rồi ấn quay, vòng quay sẽ quay và chọn ngẫu nhiên một đối tượng trong danh sách đầu vào của bạn).</td>
+          </tr>
+          <tr>
+            <th>Lượt quay:</th>
+            <td>Không giới hạn</td>
+          </tr>
+          <tr>
+            <th>Thêm chủ đề:</th>
+            <td>Không giới hạn</td>
+          </tr>
+          <tr>
+            <th>Nhạc nền:</th>
+            <td>
+              <ul>
+                <li><strong>Nhạc bắt đầu quay:</strong> tắt tiếng, ngẫu nhiên, xổ xố miền Bắc, chiếc nón kỳ diệu, âm thanh vòng quay (1,2,3), nhạc nền Olympia (1-5), nhạc đế chế AOE, tiếng công nông chạy,...</li>
+                <li><strong>Nhạc kết thúc:</strong> tắt tiếng, ngẫu nhiên, chúc mừng, Olympia trao giải (1-4), vỗ tay, vỗ tay PewPew, hooray, cười (1-3), đ..éo hiểu được PewPew, xạo chó PewPew, đ..éo tin PewPew, âm thanh oh nooo, oh-no-no-no, nhạc chiến đế chế chiến thắng, nhạc đế chế thua cuộc.</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <th>Mã nhúng:</th>
+            <td>Có</td>
+          </tr>
+          <tr>
+            <th>Fullscreen:</th>
+            <td>Có</td>
+          </tr>
+          </tbody>
+        </table>
+        <h2 class="h3 mb-3">* Lợi ích khi sử dụng vòng quay may mắn</h2>
+        <p>Có một số lợi ích khi sử dụng vòng quay may mắn như:</p>
+        <ul>
+          <li><strong>Tính công bằng:</strong> Vòng quay may mắn giúp đảm bảo rằng mỗi tùy chọn đều có cơ hội được chọn như nhau. Điều này đảm bảo tính công bằng khi đưa ra quyết định hoặc lựa chọn người chiến thắng cho các cuộc thi.</li>
+          <li><strong>Tiết kiệm thời gian:</strong> Vòng quay may mắn giúp tiết kiệm thời gian khi đưa ra quyết định hoặc chọn người chiến thắng. Thay vì phải chọn thủ công một tùy chọn hoặc chọn người chiến thắng, trình tạo vòng quay này có thể thực hiện điều đó một cách nhanh chóng và hiệu quả.</li>
+          <li><strong>Tạo hứng thú:</strong> Sử dụng vòng quay may mắn có thể thêm yếu tố phấn khích vào quá trình ra quyết định hoặc các cuộc thi. Cảm giác chờ đợi bánh xe quay và rơi vào một lựa chọn có thể rất hồi hộp.</li>
+        </ul>
+        <h2 class="h3 mb-3">* Ứng dụng của game vòng quay may mắn trong cuộc sống</h2>
+        <p>Ngoài những ứng dụng giải trí trên thì game vòng quay may mắn còn có một số ứng dụng hữu ích trong cuộc sống hàng ngày. Dưới đây là một số ví dụ về cách ứng dụng này có thể được sử dụng:</p>
+        <ul>
+          <li><strong>Quảng cáo và tiếp thị:</strong> Các doanh nghiệp có thể sử dụng game vòng quay may mắn để thu hút khách hàng và tạo ra sự tương tác. Việc cung cấp cho người chơi cơ hội để quay vòng và nhận phần thưởng có thể khuyến khích họ tham gia vào các chương trình khuyến mãi hoặc tìm hiểu về sản phẩm và dịch vụ.</li>
+          <li><strong>Khảo sát và nghiên cứu thị trường:</strong> Game vòng quay may mắn có thể được sử dụng để thu thập thông tin từ khách hàng thông qua việc yêu cầu họ điền vào thông tin cá nhân hoặc tham gia khảo sát. Điều này giúp doanh nghiệp có được những dữ liệu cần thiết để nghiên cứu thị trường và hiểu rõ hơn về ý kiến và sở thích của khách hàng.</li>
+          <li><strong>Giáo dục và đào tạo:</strong> Trong lĩnh vực giáo dục, game vòng quay may mắn có thể được sử dụng để tạo ra các hoạt động học tập thú vị và hấp dẫn. Việc thưởng người chơi khi hoàn thành một nhiệm vụ hay trả lời đúng câu hỏi có thể khích lệ học sinh hoặc người học tham gia tích cực và cải thiện quá trình học tập.</li>
+          <li><strong>Sự kiện và gây quỹ:</strong> Game vòng quay may mắn có thể được sử dụng để tăng tính tham gia và quyên góp trong các sự kiện gây quỹ hoặc hoạt động từ thiện. Người chơi có thể quay vòng để có cơ hội nhận được các phần thưởng nhỏ như vật phẩm hoặc phiếu giảm giá. Việc này có thể tạo động lực cho người tham gia gây quỹ và làm tăng số lượng quyên góp.</li>
+          <li><strong>Giải trí và thư giãn:</strong> Cuối cùng, game vòng quay may mắn có thể được sử dụng như một phương tiện giải trí và thư giãn trong cuộc sống hàng ngày. Người chơi có thể chơi game này để giải trí, xả stress hoặc thư giãn sau một ngày làm việc căng thẳng</li>
+        </ul>
+        <h2 class="h3 mb-3">* Video hướng dẫn tạo vòng quay may mắn</h2>
+        <div class="row mb-3">
+          <div class="col-lg-4 mb-3">
+
+          </div>
+          <div class="col-lg-8 mb-3">
+            <div class="ratio ratio-16x9 mb-3">
+              <iframe src="https://www.youtube.com/embed/e55y30pndlM" loading="lazy" title="<?php echo $meta_title; ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+
+        <h2 class="h3 mb-3">* Hướng dẫn nhúng vòng quay may mắn vào website</h2>
+        <p><strong>* Bước 1:</strong> Click vào mục <span data-feather="share-2"></span> Mã nhúng</p>
+        <p><strong>* Bước 2:</strong> Copy toàn bộ mã nhúng này </p>
+        <p class="text-center"><img src="tienich/uploads/images/ma-nhung-vong-quay.jpg" style="max-width:100%;height:auto;" alt="Mã nhúng vòng quay may mắn"></p>
+        <p><strong>* Bước 3:</strong> Dán mã này vào nơi bạn muốn hiển thị vòng quay này (chuyển sang chế độ html trước khi dán). Nếu web của bạn làm bằng Wordpress thì hãy chọn block html và chèn mã nhúng này vào đó.</p>
+        <p class="text-center"><img src="tienich/uploads/images/ma-nhung-vong-quay-2.jpg" style="max-width:100%;height:auto;" alt="Mã nhúng vòng quay may mắn 2"></p>
+        <p><strong>* Kết quả:</strong> Trên trang của bạn sẽ xuất hiện vòng quay có dạng tương tự như dưới đây. Ngoài ra bạn có thể tùy chọn nhạc bắt đầu/kết thúc, thời gian quay, màu nền, nội dung quay, popup và bắn hoa giấy khi thông báo kết quả trong mục cài đặt.</p>
+        <p class="text-center"><img src="tienich/uploads/images/vong-quay.jpg" alt="Vòng quay may mắn" width="400" height="400" loading="lazy" style="max-width:100%;height:auto;"></p>
+
+
+        <h2 class="h3 mb-3">* Hỏi đáp</h2>
+        <ol class="numbered-list">
+          <li><strong>Hỏi:</strong> Làm thế nào để tạo vòng quay may mắn của riêng bạn? <br>
+            <strong>Đáp:</strong> Rất đơn giản, hãy nhập các mục tham gia quay, mỗi mục trên một hàng rồi ấn nút Quay. Nếu bạn muốn lưu vòng quay này để dùng nhiều lần, hãy ấn nút <strong>Lưu thành chủ đề</strong> và lưu lại. Từ lần sau, bạn chỉ cần bấm vào Tab <strong>Chủ đề của bạn</strong> rồi chọn chủ đề vừa lưu là xong.
+          </li>
+          <li><strong>Hỏi:</strong> Làm thế nào để xóa các chủ đề tôi đã tạo? <br>
+            <strong>Đáp:</strong> Để xóa chủ đề bạn đã tạo bạn làm như sau: Bấm vào tab <strong>Chủ đề của bạn</strong> ⇢ chọn chủ đề bạn muốn xóa và bấm vào biểu tượng &times; ngay cạnh chủ đề muốn xóa để xóa.
+          </li>
+          <li><strong>Hỏi:</strong> Có thể tùy biến được vòng quay may mắn không? <br>
+            <strong>Đáp:</strong> Có, vòng quay có rất nhiều tùy chọn, bạn bấm vào nút <strong><span data-feather="settings"></span> Cài đặt</strong> để thay đổi nhạc bắt đầu, nhạc kết thúc, tốc độ quay, bắn pháo hoa, popup kết quả, ảnh nền cho phù hợp với nhu cầu của bạn.
+          </li>
+
+          <li><strong>Hỏi:</strong> Làm thế nào để gửi vòng quay may mắn tôi vừa tạo ra cho bạn bè? <br>
+            <strong>Đáp:</strong> Để gửi link cho bạn bè, bạn có 2 cách như sau: <br>
+            - Cách 1: Ấn vào <strong>Mã nhúng</strong> và sao chép phần <strong>Link</strong> rồi gửi cho bạn của bạn. <br>
+            - Cách 2: Bạn ấn vào nút <strong>Fullscreen</strong> rồi copy URL và gửi cho bạn của bạn.
+          </li>
+          <li><strong>Hỏi:</strong> Muốn xem lịch sử quay thì làm thế nào? <br>
+            <strong>Đáp:</strong> Cực đơn giản, ngay cạnh ô nhập có Tab <strong>Kết quả</strong>, bạn ấn vào tab đó và xem lại lịch sử các lượt đã quay.
+          </li>
+          <li><strong>Hỏi:</strong> Làm thế nào để sắp xếp nhanh các đối tượng trong vòng quay may mắn của tôi?<br>
+            <strong>Đáp:</strong> Sau khi nhập các mục trong vòng quay, bạn có thể sắp xếp lại chúng theo: <br>
+            - Sắp xếp ngẫu nhiên: Bấm vào biểu tượng <strong><img src="tienich/assets/icons/shuffle.png" class="custom-icon" width="16" height="16" alt="shuffle" loading="lazy"> Trộn</strong> <br>
+            - Sắp xếp AZ: Bấm vào biểu tượng <strong>⇣ AZ</strong> <br>
+            - Sắp xếp ZA: Bấm vào biểu tượng <strong>⇣ ZA</strong>
+          </li>
+          <li><strong>Hỏi:</strong> Đang nhập nội dung cho vòng quay thì chẳng may refresh trang mất hết nội dung vừa nhập xong. Làm cách nào để lấy lại được? <br>
+            <strong>Đáp:</strong> Bạn yên tâm, vòng quay may mắn này có tính năng <strong>tự động sao lưu</strong> khi bạn nhập nội dung. Do vậy nếu chẳng may bạn refresh trang thì lúc này ngay cạnh ô nhập sẽ hiển thị lên một popup nhỏ hỏi bạn có muốn <strong>Khôi phục bản sao lưu tự động không</strong>, bạn ấn vào <strong>Khôi phục</strong> là toàn bộ nội dung bạn vừa nhập sẽ lại hiện ra.
+          </li>
+          <li><strong>Hỏi:</strong> Làm thế nào để đưa vòng quay may mắn vào Powerpoint? <br>
+            <strong>Đáp:</strong> Sau khi tạo xong vòng quay của riêng bạn, bạn ấn vào nút <strong>Fullscreen</strong> rồi copy URL. Tiếp theo bạn xem video hướng dẫn nhúng URL đó vào Powerpoint tại đây <a href="https://www.youtube.com/watch?v=OVNEFB5Ae_Y" rel="nofollow" target="_blank">https://www.youtube.com/watch?v=OVNEFB5Ae_Y</a>
+          </li>
+          <li><strong>Hỏi:</strong> Số đối tượng tham gia quay tối đa là bao nhiêu? <br>
+            <strong>Đáp:</strong> Không giới hạn. Tuy nhiên, để nhìn thấy đối tượng tham gia quay trên vòng quay thì bạn nên đặt tối đa là <strong>150</strong>. Nếu bạn cần nhiều hơn, hãy tham khảo tiện ích <a href="tienich/chon-ten-ngau-nhien.html">chọn tên ngẫu nhiên</a> - tại đó bạn có thể nhập bao nhiêu mục cũng được.
+          </li>
+        </ol>
+
+        <p class="small text-muted"><span data-feather="tag"></span> công cụ, tiện ích, phần mềm, web, app, vòng quay may mắn, picker wheel, spin wheel, random name generator, vòng quay ngẫu nhiên, vòng quay tự ghi, vòng quay random, random wheel, random name picker, web tạo vòng quay, vòng quay tự lập tự chọn nội dung, random quay tròn, quay bánh xe may mắn, vòng quay bánh xe may mắn, bàn quay random, <a href="tienich/quay-so-may-man.html">quay số may mắn</a>,
+          vongquay, <a href="tienich/vong-quay-random-tuong-lien-quan.html">vongquay lienquan</a>, vong quay</p>
+      </div>
+
+      <div class="my-5 toggle-show-hide">
+        <p class="small text-muted py-2" style="border-top: #ccc double 5px;">Nguồn: <span style="-webkit-touch-callout: all;-webkit-user-select: all;-khtml-user-select: all;-moz-user-select: all;-ms-user-select: all;user-select: all; " id="source">tienich/vong-quay-may-man.html</span></p>
+        <p class="alert alert-warning mb-3">
+          <a href="https://www.facebook.com/groups/1148904845950591" rel="nofollow" target="_blank" class="btn btn-primary"> <span data-feather="facebook" style="width:22px;height:22px;"></span> Nhóm tiện ích Online <span data-feather="plus"></span> </a> Để thảo luận, góp ý, báo lỗi hoặc yêu cầu tiện ích mới
+        </p>
+
+        <h2 class="h3 mb-3">Tiện ích random khác</h2>
+        <div class="posts mb-4">
+          <a href="tienich/vong-quay-mien-phi.html" class="post">
+            <div class="post-image"><img src="tienich/assets/images/vong-quay-may-man.jpg" loading="lazy" width="327" height="170" alt="Vòng quay miễn phí không cần đăng nhập 2023"></div>
+            <h2 class="post-title">Vòng quay miễn phí không cần đăng nhập 2023</h2>
+          </a>
+          <a href="tienich/so-ngau-nhien.html" class="post">
+            <div class="post-image"><img src="tienich/assets/images/so-ngau-nhien.jpg" loading="lazy" width="327" height="170" alt="Quay số ngẫu nhiên online • Random Number Generator 2023"></div>
+            <h2 class="post-title">Quay số ngẫu nhiên online • Random Number Generator 2023</h2>
+          </a>
+          <a href="tienich/random-color-generator.html" class="post">
+            <div class="post-image"><img src="tienich/assets/images/random-color-generator.jpg" loading="lazy" width="327" height="170" alt="Random Color Generator 2023"></div>
+            <h2 class="post-title">Random Color Generator 2023</h2>
+          </a>
+          <a href="tienich/vong-quay-random-chu-cai.html" class="post">
+            <div class="post-image"><img src="tienich/assets/images/vong-quay-random-letter.jpg?ver=1.1" loading="lazy" width="327" height="170" alt="Vòng quay chữ cái - Letter Picker Wheel from A to Z 2023"></div>
+            <h2 class="post-title">Vòng quay chữ cái - Letter Picker Wheel from A to Z 2023</h2>
+          </a>
+          <a href="tienich/random-animals.html" class="post">
+            <div class="post-image"><img src="tienich/assets/images/random-animals.jpg" loading="lazy" width="327" height="170" alt="Random Animal Generator • Động vật ngẫu nhiên 2023"></div>
+            <h2 class="post-title">Random Animal Generator • Động vật ngẫu nhiên 2023</h2>
+          </a>
+          <a href="tienich/ho-so-ngau-nhien.html" class="post">
+            <div class="post-image"><img src="tienich/assets/images/random-profile.jpg" loading="lazy" width="327" height="170" alt="Tạo hồ sơ ngẫu nhiên: tên, địa chỉ, email, avatar 2023"></div>
+            <h2 class="post-title">Tạo hồ sơ ngẫu nhiên: tên, địa chỉ, email, avatar 2023</h2>
+          </a>
+          <a href="tienich/vong-quay-vietlott.html" class="post">
+            <div class="post-image"><img src="tienich/assets/images/vietlott2.jpg" loading="lazy" width="327" height="170" alt="Vòng quay Vietlott Power 6/45 & Mega 6/55 online 2023"></div>
+            <h2 class="post-title">Vòng quay Vietlott Power 6/45 & Mega 6/55 online 2023</h2>
+          </a>
+          <a href="tienich/vong-quay-trung-the-cao.html" class="post">
+            <div class="post-image"><img src="tienich/assets/images/vong-quay-trung-the-cao.jpg" loading="lazy" width="327" height="170" alt="Vòng quay may mắn trúng thẻ cào (cho Marketer) 2023"></div>
+            <h2 class="post-title">Vòng quay may mắn trúng thẻ cào (cho Marketer) 2023</h2>
+          </a>
+          <a href="tienich/random-so-de.html" class="post">
+            <div class="post-image"><img src="tienich/assets/images/random-so-de.jpg" loading="lazy" width="327" height="170" alt="Random số đề • số đề ngẫu nhiên 2023"></div>
+            <h2 class="post-title">Random số đề • số đề ngẫu nhiên 2023</h2>
+          </a>
+          <a href="tienich/vong-quay-random-ten.html" class="post">
+            <div class="post-image"><img src="tienich/assets/images/vong-quay-random-ten.jpg?ver=1.1" loading="lazy" width="327" height="170" alt="Vòng quay random tên - Chọn tên ngẫu nhiên - Random Name"></div>
+            <h2 class="post-title">Vòng quay random tên - Chọn tên ngẫu nhiên - Random Name</h2>
+          </a>
+          <a href="tienich/dau-dit-online.html" class="post">
+            <div class="post-image"><img src="tienich/assets/images/dau-dit-online.jpg" loading="lazy" width="327" height="170" alt="Đầu đít online | Hên xui nhưng rất vui 2023*"></div>
+            <h2 class="post-title">Đầu đít online | Hên xui nhưng rất vui 2023*</h2>
+          </a>
+          <a href="tienich/trua-nay-an-gi.html" class="post">
+            <div class="post-image"><img src="tienich/assets/images/an-gi.jpg" loading="lazy" width="327" height="170" alt="Trưa nay ăn gì? App chọn ngẫu nhiên, khỏi đau đầu 2023"></div>
+            <h2 class="post-title">Trưa nay ăn gì? App chọn ngẫu nhiên, khỏi đau đầu 2023</h2>
+          </a>
+        </div>
+        <div class="d-grid gap-2 mb-3">
+          <a href="tienich/random/" class="btn btn-outline-secondary">Xem thêm <span data-feather="arrow-down"></span> </a>
+        </div>
+        <div class="mb-3">
+
+        </div>
+
+      </div>
+      <script>
+        if (document.getElementById('nav-random')) {
+          document.getElementById('nav-random').classList.add("active");
+        }
+      </script>
+
+      <audio id="audio">
+        <source src="tienich/assets/sound/click.ogg" type="audio/ogg">
+        <source src="tienich/assets/sound/click.mp3" type="audio/mpeg">
+      </audio>
+      <audio id="audio2" volume="0">
+        <source id="cgr_ogg" src="tienich/assets/sound/first_click.ogg" type="audio/ogg">
+        <source id="cgr_mp3" src="tienich/assets/sound/first_click.mp3" type="audio/mpeg">
+      </audio>
+      <input type="hidden" id="start_sound_list" value="xoso,chiecnonkydieu,conquay,spinning-2,spinning-3,olympia-1,olympia-2,olympia-3,olympia-4,olympia-5,de-che-aoe-open,de-che-aoe-1,de-che-aoe-2,de-che-aoe-3,de-che-aoe-4,de-che-aoe-5,congnong">
+      <input type="hidden" id="end_sound_list" value="congratulation,olympia-trao-giai-1,olympia-trao-giai-2,olympia-trao-giai-3,olympia-trao-giai-4,votay,votayPewPew,hooray,cuoi,cuoi2,cuoi3,deohieuduoc,xaochoPewPew,deotin,oh-nooo,Oh-no-no-no,de-che-chien-thang,de-che-thua">
+
+      <div class="d-none">
+        <div id="ban_nhau">Uống 1/2 ly~~Bên trái uống~~Thoát nạn (khỏi uống)~~Bên phải uống~~Chỉ ai đó uống~~Quay lại~~Được ăn mồi~~Uống 2 ly~~Tất cả cùng uống~~Tìm người uống cùng~~Uống 1 ly</div>
+        <div id="trua_nay_an_gi">Ăn Phở~~ Ăn Bún~~Gà KFC~~Gà Lotteria~~Gà 36~~Tokyo Deli~~Lẩu Gogi~~Isushi~~Sumo BBQ~~Phố ngon 37~~Kichi-Kichi~~Ba con cừu~~Shogun~~MANWAH~~HUTONG~~DARUMA~~Quay lại</div>
+        <div id="ru_de_gai">Ôm rồi hôn~~Đi nhà nghỉ~~Về nhà ngủ~~Quay lại~~Ra công viên~~Ăn rồi ngủ~~Đi xem film~~Mua 2 trà sữa~~Mát xa cho em~~Chơi đuổi nhau~~Chơi chốn tìm</div>
+        <div id="chan_le">Chẵn~~Lẻ~~Chẵn~~Lẻ~~Quay lại~~Chẵn~~Lẻ~~Lẻ Chẵn~~Không tính</div>
+        <div id="ai_tra_tien">Bên phải~~Tên Cường~~Đeo kính~~Đối diện~~Bên trái~~Quay lại~~Nói nhiều~~Thằng quay~~Mồm to~~Vừa đi vệ sinh</div>
+        <div id="nhan_pham">Phẩm chất tốt~~Lối sống đồi bại~~Người trung thực~~Người nhân Ái~~Có trách nhiệm~~Suy đồi đạo đức~~Tham lam; dối trá~~Người thánh thiện~~Đang xuống dốc~~Xảo trá; lươn lẹo</div>
+        <div id="chon_ten">Tuấn~~Thông~~Sơn~~Dũng~~Phong~~Lan~~Quay lại~~Hương~~Hoa~~Mai~~Ngọc~~Hà~~Thành~~Thuận~~Trang~~Giang~~Tuyền~~Linh</div>
+        <div id="chu_cai">A~~ B~~ C~~ D~~ E~~ F~~ G~~ H~~ I~~ J~~ K~~ L~~ M~~ N~~ O~~ P~~ Q~~ R~~ S~~ T~~ U~~ V~~ W~~ X~~ Y~~ Z</div>
+        <div id="mau_sac">Xanh~~Đỏ~~Tím~~Vàng~~Nâu~~Đen~~Trắng~~Hồng~~Cam~~Lục~~Lam~~Xám~~Bạc~~Đồng~~Be</div>
+        <div id="chu_so">1~~2~~3~~4~~5~~6~~7~~8~~9~~10</div>
+        <div id="bong_da">🇻🇳 Việt Nam~~🇹🇭 Thái Lan~~🇲🇾 Malaysia~~🇮🇩 Indonesia~~🇸🇬 Singapore~~🇱🇦 Lào~~🇰🇭 Campuchia~~🇵🇭 Philippines~~🇲🇲 Myanmar</div>
+        <div id="phan_thuong">5k~~10k~~20k~~Quay lại~~50k~~30k~~100k~~Nhân đôi~~200k~~Chia đôi~~500k</div>
+        <div id="fashion">💍 Ring~~📿 Necklake~~👙 Bikini~~👗 Dress~~👚 blouse~~👕 T-shirt~~👘 Kimono~~️🎽 Runing shirt~~👖 Jean~~👠 High heels~~👢 Boot~~👞 Man's shoe~~👒 Hat~~🎩 Top hat~~👑 Crown</div>
+        <div id="animal">😽 Cat~~🐶 Puppy~~🐰 Bunny~~🐹 Hamster~~🦊 Fox~~🐻 Bear~~🐼 Panda~~🐨 Koala~~🐯 Tiger~~🦁 Lion~~🐮 Cow~~🐂 Ox~~🐷 Pig~~🐸 Frog~~🐵 Monkey~~🦍 Gorilla~~🐺 Wolf~~🐑 Sheep~~🐐 Goat~~🐏 Ram~~🦌 Deer~~🐪 Camel~~🐎 Horse~~🐊 Croccodile~~🐢 Turtle~~🐬 Dolphin~~🦈 Shark~~🐋 Whale~~🦐 Shrimp~~🦀 Crab~~🐙 Octopus~~🦑 Squid~~🐜 Ant~~🕷️ Spider~~🐞 Ladybug~~🦋 Butterfly~~🐝 Bee~~🐌 Snail~~🐲 Dragon~~🦉 Owl~~🐔 Chicken~~🐓 Rooster~~🐧 Penguin~~🦇 Bat~~🦏 Rhino</div>
+      </div>
+
+      <input type="hidden" id="lang" value="vi">
+      <span id="input_from_cookies">
+  <!-- hidden from cookie -->
+</span>
+      <input type="hidden" id="clear" value="">
+      <input type="hidden" id="extra_name" value="">
+
+      <div class="modal" id="myModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content" id="modal-content">
+            <div class="modal-header" id="modal-header">
+              <h5 class="modal-title" id="modal-title"></h5>
+              <button type="button" id="modal-close" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body py-3" id="modal-body">
+              <!-- content will fill in here -->
+            </div>
+            <div class="modal-footer" id="modal-footer"></div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="my-3" id="section-comment">
+      </div>
+
+      <div class="bg-secondary px-3 py-5 px-lg-5 mb-3 toggle-show-hide" id="search">
+        <form action="tienich/search.html" method="get" class="toggle-show-hide m-0 p-0">
+          <div class="input-group text-center">
+            <input type="text" class="form-control" id="q" name="q" placeholder="Nhập từ khoá vào đây để tìm nhanh" aria-label="search" aria-describedby="search btn">
+            <button type="submit" class="btn btn-primary"><span class="d-none d-sm-inline">Tìm kiếm</span> <span data-feather="search"></span></button>
+          </div>
+        </form>
+      </div>
+
+      <div class="mb-3 toggle-show-hide"><!-- DTPD - Tool -->
+
+      </div>
+
+      <div class="row d-flex align-items-center align-content-center toggle-show-hide">
+        <div class="col-sm-6 text-md-start">
+          <div class="h5 mb-2">Điều khoản và điều kiện</div>
+          <ul>
+            <li><a href="tienich/gioi-thieu.html">Giới thiệu</a></li>
+            <li><a href="tienich/chinh-sach-bao-mat.html">Chính sách bảo mật</a></li>
+            <li><a href="tienich/dieu-khoan-su-dung.html">Điều khoản sử dụng</a></li>
+            <li><a href="tienich/tu-choi-trach-nhiem.html">Từ chối trách nhiệm</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-6 text-start text-md-end">
+          <p>Theo dõi chúng tôi trên:</p>
+          <div class="text-centerx">
+            <a class="btn btn-primary" href="https://www.facebook.com/groups/1148904845950591" target="_blank" rel="nofollow noopener noreferrer" title="Theo dõi chúng tôi trên Facebook"><span data-feather="facebook"></span></a>
+            <a class="btn btn-info text-light" href="https://twitter.com/dtphuongdong" target="_blank" rel="nofollow noopener noreferrer" title="Theo dõi chúng tôi trên Twitter"><span data-feather="twitter"></span></a>
+            <a class="btn btn-danger" href="https://www.youtube.com/channel/UCTuEg8SQg7IX1ZGZUDSynuQ" target="_blank" rel="nofollow noopener noreferrer" title="Theo dõi chúng tôi trên Youtube"><span data-feather="youtube"></span></a>
+          </div>
+        </div>
+      </div>
+      <div class="row d-flex align-items-center align-content-center toggle-show-hide">
+        <div class="col-sm-6 text-center text-md-start">
+          <div style="width:220px;">
+            <div data-id="5262" data-score="5" data-count="55" style="display:none" class="kk-star-ratings kksr-bottom kksr-right">
+              <div class="kksr-legend" style="line-height:22px;font-size:14.666666666667px">
+                <div class="kksr-legend-score">5.0</div>
+                <div class="kksr-legend-meta">55</div>
+              </div>
+              <div class="kksr-stars">
+                <div class="kksr-inactive-stars">
+                  <div data-star="1" class="kksr-star">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <path d="M12 .587l3.668 7.568L24 9.306l-6.064 5.828 1.48 8.279L12 19.446l-7.417 3.967 1.481-8.279L0 9.306l8.332-1.151z"/>
+                    </svg>
+                  </div>
+                  <div data-star="2" class="kksr-star">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <path d="M12 .587l3.668 7.568L24 9.306l-6.064 5.828 1.48 8.279L12 19.446l-7.417 3.967 1.481-8.279L0 9.306l8.332-1.151z"/>
+                    </svg>
+                  </div>
+                  <div data-star="3" class="kksr-star">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <path d="M12 .587l3.668 7.568L24 9.306l-6.064 5.828 1.48 8.279L12 19.446l-7.417 3.967 1.481-8.279L0 9.306l8.332-1.151z"/>
+                    </svg>
+                  </div>
+                  <div data-star="4" class="kksr-star">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <path d="M12 .587l3.668 7.568L24 9.306l-6.064 5.828 1.48 8.279L12 19.446l-7.417 3.967 1.481-8.279L0 9.306l8.332-1.151z"/>
+                    </svg>
+                  </div>
+                  <div data-star="5" class="kksr-star">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <path d="M12 .587l3.668 7.568L24 9.306l-6.064 5.828 1.48 8.279L12 19.446l-7.417 3.967 1.481-8.279L0 9.306l8.332-1.151z"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="kksr-active-stars" style="width:130px">
+                  <div data-star="1" class="kksr-star">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <path d="M12 .587l3.668 7.568L24 9.306l-6.064 5.828 1.48 8.279L12 19.446l-7.417 3.967 1.481-8.279L0 9.306l8.332-1.151z"/>
+                    </svg>
+                  </div>
+                  <div data-star="2" class="kksr-star">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <path d="M12 .587l3.668 7.568L24 9.306l-6.064 5.828 1.48 8.279L12 19.446l-7.417 3.967 1.481-8.279L0 9.306l8.332-1.151z"/>
+                    </svg>
+                  </div>
+                  <div data-star="3" class="kksr-star">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <path d="M12 .587l3.668 7.568L24 9.306l-6.064 5.828 1.48 8.279L12 19.446l-7.417 3.967 1.481-8.279L0 9.306l8.332-1.151z"/>
+                    </svg>
+                  </div>
+                  <div data-star="4" class="kksr-star">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <path d="M12 .587l3.668 7.568L24 9.306l-6.064 5.828 1.48 8.279L12 19.446l-7.417 3.967 1.481-8.279L0 9.306l8.332-1.151z"/>
+                    </svg>
+                  </div>
+                  <div data-star="5" class="kksr-star">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <path d="M12 .587l3.668 7.568L24 9.306l-6.064 5.828 1.48 8.279L12 19.446l-7.417 3.967 1.481-8.279L0 9.306l8.332-1.151z"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <script type="application/ld+json">
+            {
+              "@context": "https://schema.org/",
+              "@type": "CreativeWorkSeries",
+              "name": "Tự tạo vòng quay may mắn random, online, miễn phí ²⁰²³",
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "5",
+                "ratingCount": "55",
+                "bestRating": "5",
+                "worstRating": "1"
+              }
+            }
+          </script>
+        </div>
+        <div class="col-sm-6 text-center text-md-end"><a class="dmca-badge" title="DMCA.com Protection Status" href="//www.dmca.com/Protection/Status.aspx?ID=3a2e5f91-2335-4b99-af00-38f10135d4d0"> <img src="https://images.dmca.com/Badges/DMCA_logo-grn-btn100w.png?ID=3a2e5f91-2335-4b99-af00-38f10135d4d0" alt="DMCA.com Protection Status" loading="lazy" width="120" height="43"/></a>
+          <script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"></script>
+        </div>
+      </div>
+    </main>
+
+  </div> <!-- end row -->
+</div>
+<a href="#top" class="btn btn-secondary position-fixed toggle-show-hide" style="bottom:30px;right:30px;">TOP <span data-feather="chevron-up" style="width:24px;height:24px;"></span></a>
+
+<div class="service-group" id="service-nav">
+  <a href="javascript:void(0);" onclick="javascript:el('service-nav').classList.toggle('open');" class="btn-toggle-service toggle-show-hide"> <span data-feather="settings"></span> <span class="service-title">Dịch vụ chính</span></a>
+  <div class="accordion">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="canhan-heading">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#canhan-collapse" aria-expanded="false" aria-controls="canhan-collapse">
+          <span data-feather="user"></span> &nbsp; Dịch vụ cá nhân
+        </button>
+      </h2>
+      <div id="canhan-collapse" class="accordion-collapse collapse" data-bs-parent="#service-nav" aria-labelledby="canhan-heading">
+        <div class="accordion-body">
+          <p><a href="dich-thuat-cong-chung/" target="_blank">Dịch thuật công chứng</a>:
+            <span class="text-muted small">Bằng đại học, bằng tốt nghiệp, bằng lái xe, giấy khai sinh, sổ hộ khẩu, hồ sơ du học, bảng điểm, học bạ, CMND/CCCD, thẻ sinh viên, gia phả,...</span></p>
+          <!-- <p> <span data-feather="phone-call"></span>  <a href="tel:0975.419.415">0964.333.933</a></p> -->
+          <p><span data-feather="mail"></span> &nbsp; <a href="mailto:contact@dichthuatphuongdong.com" title="contact@dichthuatphuongdong.com">Gửi Email</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="doanhnghiep-heading">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#doanhnghiep-collapse" aria-expanded="false" aria-controls="doanhnghiep-collapse">
+          <span data-feather="briefcase"></span> &nbsp; Dịch vụ doanh nghiệp
+        </button>
+      </h2>
+      <div id="doanhnghiep-collapse" class="accordion-collapse collapse" data-bs-parent="#service-nav" aria-labelledby="doanhnghiep-heading">
+        <div class="accordion-body">
+          <p><a href="dich-thuat/">Dịch thuật</a>: <span class="small"> <a href="dich-thuat-hop-dong/" title="Dịch hợp đồng" class="text-muted">hợp đồng</a>, <a href="dich-bao-cao-tai-chinh/" title="Dịch báo cáo tài chính" class="text-muted">báo cáo tài chính</a>, <a href="dich-thuat-bao-cao-thuong-nien/" title="Dịch báo cáo thường niên" class="text-muted">báo cáo thường niên</a>, <a
+            href="dich-chung-tu-ke-toan-sang-tieng-viet/" title="Dịch chứng từ kế toán sang tiếng Việt" class="text-muted">chứng từ kế toán</a>, <a href="dich-dieu-le-cong-ty/" title="Dịch điều lệ công ty" class="text-muted">điều lệ công ty</a>, <a href="dich-sach-huong-dan-su-dung/" title="Dịch sách hướng dẫn sử dụng" class="text-muted">sách hướng dẫn sử dụng</a>, <a
+            href="dich-ho-so-nang-luc/" title="Dịch hồ sơ năng lực" class="text-muted">hồ sơ năng lực</a>, <a href="dich-thuat-ho-so-thau/" title="Dịch hồ sơ thầu" class="text-muted">hồ sơ thầu</a>, <a href="dich-brochure-catalogue/" title="Dịch brochure, catalogue" class="text-muted">brochure, catalogue</a>, <a href="dich-thuat-website/" title="Dịch thuật website"
+                                                                                                                                                                                                                                                                                                                                                                                                                          class="text-muted">website</a>, <a
+            href="dich-thuat-phan-mem/" title="Dịch phần mềm, app" class="text-muted">phần mềm / app</a>, <a href="dich-thuat-game/" title="Dịch thuật game" class="text-muted">game</a> </span></p>
+          <p><a href="phien-dich/">Phiên dịch</a>: <span class="small"><a href="phien-dich-cabin/" class="text-muted">cabin</a>, <a href="phien-dich-chuyen-giao-cong-nghe/" class="text-muted">chuyển giao công nghệ</a>, <a href="phien-dich-hoi-thao/" class="text-muted">hội thảo</a>, <a href="phien-dich-dam-phan/" class="text-muted">đàm phán</a>, <a
+            href="mc-song-ngu/" class="text-muted">mc song ngữ</a>, <a href="phien-dich-online/" class="text-muted">phiên dịch online: zoom, microsoft team</a>, <a href="phien-dich-qua-dien-thoai/" class="text-muted">phiên dịch qua điện thoại</a></span></p>
+          <!-- <p> <span data-feather="phone-call"></span>  <a href="tel:0964.333.933">0964.333.933</a></p> -->
+          <p><span data-feather="mail"></span> &nbsp; <a href="mailto:contact@dichthuatphuongdong.com" title="contact@dichthuatphuongdong.com">Gửi Email</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="thuonghieu-heading">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#thuonghieu-collapse" aria-expanded="false" aria-controls="doanhnghiep-collapse">
+          <span data-feather="briefcase"></span> &nbsp; Dịch vụ thương hiệu
+        </button>
+      </h2>
+      <div id="thuonghieu-collapse" class="accordion-collapse collapse" data-bs-parent="#service-nav" aria-labelledby="thuonghieu-heading">
+        <div class="accordion-body">
+          <p><a href="https://www.saokim.com.vn/dich-vu/thiet-ke-logo/" class="text-muted" rel="noopener noreferrer" target="_blank">thiết kế logo</a>, <a href="https://saokim.digital/branding" class="text-muted" rel="noopener noreferrer" target="_blank">thiết kế thương hiệu</a>, <a href="https://saokim.digital/website" class="text-muted" rel="noopener noreferrer" target="_blank">thiết kế website</a>, <a href="https://saokim.digital/apps/" class="text-muted" rel="noopener noreferrer"
+                                                                                                                                                                                                                                                                                                                                                                                                                        target="_blank">thiết kế app</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="dichvukhac-heading">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#dichvukhac-collapse" aria-expanded="false" aria-controls="dichvukhac-collapse">
+          <span data-feather="hash"></span> &nbsp; Đặt quảng cáo?
+        </button>
+      </h2>
+      <div id="dichvukhac-collapse" class="accordion-collapse collapse" data-bs-parent="#service-nav" aria-labelledby="dichvukhac-heading">
+        <div class="accordion-body">
+          <p>Bạn muốn đặt quảng cáo trên trang này, vui lòng liên hệ:</p>
+          <p><span data-feather="phone-call"></span> &nbsp; <a href="tel:0946.960.210">0946.960.210</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="gopy-heading">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#gopy-collapse" aria-expanded="false" aria-controls="dichvukhac-collapse">
+          <span data-feather="message-square"></span> &nbsp; Góp ý
+        </button>
+      </h2>
+      <div id="gopy-collapse" class="accordion-collapse collapse" data-bs-parent="#service-nav" aria-labelledby="gopy-heading">
+        <div class="accordion-body">
+          <p>Mọi ý kiến đóng góp hoặc yêu cầu tiện ích, vui lòng chat với Admin:</p>
+          <p><span data-feather="message-square"></span> &nbsp; <a href="https://m.me/100000798538841" target="_blank">Chat ngay</a></p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<script>
+  /* check if click outside service-nav then hide it */
+  const service_nav = document.querySelector('#service-nav');
+  document.addEventListener('click', (event) => {
+    const service_nav_container = event.composedPath().includes(service_nav)
+    if (!service_nav_container) {
+      document.getElementById('service-nav').classList.remove('open');
+    }
+  });
+</script>
+<style>
+  /* Translate css */
+  /* #goog-gt-tt {display: none!important;}
+  .goog-te-banner-frame { display: none!important;}
+  .goog-te-menu-value:hover {text-decoration: none!important;}
+  .goog-text-highlight {background-color: transparent!important;box-shadow: none!important;}
+  body {top: 0!important;}
+  #google_translate_element2 {display: none!important;} */
+  .skiptranslate {
+    display: none !important;
+  }
+</style>
+<!-- <div id="google_translate_element2"></div> -->
+
+<script src="tienich/assets/js/feather.min.js"></script>
+<script src="tienich/assets/js/myapp.min-bk.js?ver=1.1.97"></script>
+<script async src="tienich/assets/js/switch.min.js?ver=1.5"></script>
+<script async src="tienich/assets/js/langs.min.js?ver=1.0.4"></script>
+<script src="tienich/assets/js/confetti/confetti.js"></script>
+<script src="tienich/assets/js/random/wheel.min-bk.js?ver=1.0.27"></script>
+<style>
+  .b-block {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 888;
+    width: 300px;
+    height: 250px;
+    /* min-width: 300px;
+    max-width: 100%;
+    min-height: 250px; */
+  }
+
+  .b-block.right {
+    left: unset;
+    right: 0;
+  }
+
+  .b-block.center {
+    left: 50%;
+    top: 50%;
+    bottom: unset;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
+  .b-block.tleft {
+    top: 100px;
+    left: 0;
+    bottom: unset;
+  }
+
+  .b-block.tright {
+    top: 100px;
+    right: 0;
+    bottom: unset;
+    left: unset;
+  }
+
+  .b-block.tcenter {
+    left: 50%;
+    top: 100px;
+    bottom: unset;
+    -webkit-transform: translate(-50%, 0);
+    -moz-transform: translate(-50%, 0);
+    -ms-transform: translate(-50%, 0);
+    -o-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
+  }
+
+  .b-block .close {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 999999 !important;
+    cursor: pointer;
+    width: 15px;
+    height: 15px;
+    line-height: 15px;
+    padding: 0;
+    text-align: center;
+    background-color: var(--bs-white);
+    color: var(--bs-primary);
+  }
+
+  .b-block .close.bl {
+    top: unset;
+    bottom: 0px;
+  }
+
+  .b-block .close.br {
+    top: unset;
+    left: unset;
+    bottom: 0px;
+    right: 0px;
+  }
+
+  /* search form */
+  .search-form {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 9999;
+  }
+
+  .search-form form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: calc(100% - 60px);
+    transform: translate(-50%);
+  }
+
+  .search-form form input {
+    text-align: center;
+  }
+
+  .closebtn {
+    display: block;
+    font-size: 60px;
+    color: #fff;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    cursor: pointer;
+  }
+
+  @media screen and (max-width: 767px) {
+    .search-form form {
+      width: calc(100% - 30px);
+    }
+  }
+</style>
+<div class="b-block toggle-show-hide d-none bg-whitex" id="b-block">
+  <span class="close d-none" onclick="el('b-block').classList.add('d-none');">&times;</span>
+</div>
+
+<div class="search-form d-none" id="search-form">
+  <span class="closebtn" onclick="el('search-form').classList.add('d-none');" title="Close Overlay">x</span>
+  <form action="tienich/search.html" method="get" class="m-0 p-0">
+    <div class="input-group text-center">
+      <input type="text" class="form-control fs-3" name="q" id="search-input" autocomplete="off" placeholder="Nhập từ khoá tìm kiếm..." aria-label="search" aria-describedby="search btn">
+      <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+    </div>
+  </form>
+</div>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    //if(!getCookie('bblock')){
+    // show close button
+    setTimeout(function() {
+      document.querySelector('.b-block .close').classList.remove('d-none');
+      var classes = ['tl', 'bl', 'br'],
+        cls = classes[Math.floor(Math.random() * classes.length)];
+      document.querySelector('.b-block .close').classList.add(cls);
+    }, 3000);
+
+    var poss = ['left', 'right']; //default
+    if (window.innerWidth > 767) {
+      poss = ['left', 'right', 'tright'];
+    } else {
+      var url = window.location.href;
+      if ((url.search("random-avatar") < 0) && (url.search("an-gi") < 0) && (url.search("ho-so-ngau-nhien") < 0)) {
+        poss = ['left', 'right', 'center', 'tleft', 'tright', 'tcenter'];
+      }
+    }
+
+    pos = poss[Math.floor(Math.random() * poss.length)];
+    el('b-block').classList.add(pos);
+
+    // show b-block
+    el('b-block').classList.remove('d-none');
+
+    // setcookie
+    setCookie('bblock', 1, 1 * (1 / 1440)); //2 minutes
+    //}
+  });
+</script>
+
+</body>
+</html>

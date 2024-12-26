@@ -1,0 +1,35 @@
+{{ header }}
+<main id="main-content">
+  <div class="container-lg pt-xl-10 pt-2">
+    {{ module_profile }}
+    <div class="row no-gutters border-top">
+      <div class="col-12 col-xl-3">{{ column_left }}</div>
+      <div class="wid_content_info block_invite_histories border-left col-12 col-xl-9 pl-0 pl-xl-10 py-6" ng-controller="AccountInviteCtrl" ng-init="init()" style="display: none" ng-style="{'display':inited?'':'none'}">
+        <div class="page-title font-weight-bold text-uppercase h4 mb-4"><a href="/account/invite"><span class="cursor-pointer fa fa-arrow-left"></span></a>&nbsp;&nbsp;{{ text_invite_histories }}</div>
+        <div class="text-center" ng-if="data.loading"><div class="spinner-border"></div></div>
+        <div class="pt-2 overflow-hidden" ng-if="data.items.length">
+          <table class="table border-bottom">
+            <thead>
+            <tr>
+              <th class="border-0 font-weight-normal">Ngày</th>
+              <th class="border-0 font-weight-normal">Tên</th>
+              <th class="border-0 font-weight-normal">Trạng thái</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in data.items">
+                <td ng-bind="(item.created_at)|formatDate"></td>
+                <td ng-bind="(item.first_name)"></td>
+                <td class="text-green" ng-if="item.order_status == 'completed'">Thành công</td>
+                <td class="text-primary" ng-if="['pending', 'processing', 'shipping'].includes(item.order_status)">Đang chờ</td>
+                <td class="text-red" ng-if="['canceled', 'returning', 'returned'].includes(item.order_status)">Thất bại</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="text-center" ng-if="!data.items.length && !data.loading">Hãy giới thiệu bạn bè mua hàng để nhận được Voucher</div>
+      </div>
+    </div>
+  </div>
+</main>
+{{ footer }}

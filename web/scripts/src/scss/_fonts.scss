@@ -1,0 +1,197 @@
+$fa-font-path: "../assets" !default;
+@import "../../vendor/font-awesome/scss/font-awesome";
+
+// Font App
+@import './fonts/style';
+@import './fonts/corinthia';
+@import './fonts/cormorant';
+@import './fonts/montserrat';
+
+.ff_corinthia {
+  font-family: 'Corinthia' !important;
+}
+
+.ff_cormorant {
+  font-family: 'Cormorant' !important;
+}
+
+.ff_montserrat {
+  font-family: 'Montserrat' !important;
+}
+
+.icon {
+  position: relative;
+  padding-left: 30px;
+  &:before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 0;
+  }
+}
+
+.icon-lg {
+  position: relative;
+  padding-left: 35px;
+  &:before {
+    content: '';
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    left: 0;
+  }
+}
+
+.icon-fixed {
+  position: relative;
+  padding-left: 35px;
+
+  &:before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+  }
+}
+
+.icon-location {
+  &:before {
+    background: url("#{$assets-path}/images/icons/location.svg") center center no-repeat;
+    background-size: contain;
+  }
+}
+
+.icon-people {
+  &:before {
+    background: url("#{$assets-path}/images/icons/people.svg") center center no-repeat;
+    background-size: contain;
+  }
+}
+
+.icon-card_id {
+  &:before {
+    background: url("#{$assets-path}/images/icons/card_id.svg") center center no-repeat;
+    background-size: contain;
+  }
+}
+
+.icon-price {
+  &:before {
+    background: url("#{$assets-path}/images/icons/price.svg") center center no-repeat;
+    background-size: contain;
+  }
+}
+
+.icon-calendar {
+  &:before {
+    background: url("#{$assets-path}/images/icons/calendar.svg") center center no-repeat;
+    background-size: contain;
+  }
+}
+
+.icon-clock {
+  &:before {
+    background: url("#{$assets-path}/images/icons/clock.svg") center center no-repeat;
+    background-size: contain;
+  }
+}
+
+.icon-search {
+  &:before {
+    background: url("#{$assets-path}/images/icons/search.svg") center center no-repeat;
+    background-size: contain;
+  }
+}
+
+.icon-location-p {
+  &:before {
+    background: url("#{$assets-path}/images/icons/location-p.svg") center center no-repeat;
+    background-size: contain;
+  }
+}
+
+.icon-fax-p {
+  &:before {
+    background: url("#{$assets-path}/images/icons/fax-p.svg") center center no-repeat;
+    background-size: contain;
+  }
+}
+
+.icon-phone-p {
+  &:before {
+    background: url("#{$assets-path}/images/icons/phone-p.svg") center center no-repeat;
+    background-size: contain;
+  }
+}
+
+.icon-mail-p {
+  &:before {
+    background: url("#{$assets-path}/images/icons/mail-p.svg") center center no-repeat;
+    background-size: contain;
+  }
+}
+
+.icon-cart {
+  &:before {
+    background: url("#{$assets-path}/images/icons/cart.svg") center center no-repeat;
+    background-size: contain;
+  }
+}
+
+.icon-sale {
+  &:before {
+    background: url("#{$assets-path}/images/icons/sale.svg") center center no-repeat;
+    background-size: contain;
+  }
+}
+
+.icon-phone {
+  &:before {
+    background: url("#{$assets-path}/images/icons/phone.svg") center center no-repeat;
+    background-size: contain;
+  }
+}
+
+.icon-email {
+  &:before {
+    background: url("#{$assets-path}/images/icons/email.svg") center center no-repeat;
+    background-size: contain;
+  }
+}
+
+.icon-cart-white {
+  &:before {
+    background: url("#{$assets-path}/images/icons/cart-white.svg") center center no-repeat;
+    background-size: 30px;
+  }
+}
+
+.icon-phone-white {
+  &:before {
+    background: url("#{$assets-path}/images/icons/phone-white.svg") center center no-repeat;
+    background-size: 30px;
+  }
+}
+
+.icon-sale-white {
+  &:before {
+    background: url("#{$assets-path}/images/icons/sale-white.svg") center center no-repeat;
+    background-size: 25px;
+  }
+}
+
+.icon-mail-white {
+  &:before {
+    background: url("#{$assets-path}/images/icons/mail-white.svg") center center no-repeat;
+    background-size: 30px;
+  }
+}
+
+.icon-download {
+  &:before {
+    background: url("#{$assets-path}/images/icons/download.svg") center center no-repeat;
+    background-size: contain;
+  }
+}

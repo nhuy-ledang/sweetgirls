@@ -1,0 +1,39 @@
+<div class="card">
+  <div class="card-header">
+    <div class="row justify-content-between align-items-center flex-grow-1">
+      <div class="col-sm">
+        <h4 class="card-title m-0">Lịch sử mua hàng</h4>
+      </div>
+      <div class="col-sm-auto"></div>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table m-0">
+      <thead>
+      <tr>
+        <th>Stt</th>
+        <th>Nội dung</th>
+        <th (click)="sortBy('id')" [attr.class]="sortClass('id')">Ngày tạo <span class="sort-indicator"></span></th>
+      </tr>
+      </thead>
+      <tbody class="text-dark">
+      <tr *ngIf="data.loading">
+        <td colspan="3" class="text-center">
+          <div class="spinner-border"><span class="sr-only">Loading...</span></div>
+        </td>
+      </tr>
+      <tr *ngIf="!data.loading && !data.items.length">
+        <td colspan="3" class="text-center">Tính năng đang phát triển</td>
+      </tr>
+      <tr *ngFor="let item of data.items; let i = index">
+        <td>{{ item.index + 1 }}</td>
+        <td>{{ item.message }}</td>
+        <td>{{ item.created_at|formatDate }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card-footer">
+    <ngx-pagination2 [page]="data.page" [pageSize]="data.pageSize" [totalItems]="data.totalItems" [maxSize]="data.maxSize" (change)="pageChanged($event)" (pageSizeChange)="pageSizeChanged($event)"></ngx-pagination2>
+  </div>
+</div>

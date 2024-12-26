@@ -1,0 +1,91 @@
+<div class="row align-items-center mb-3">
+  <div class="col-sm"><h5 class="m-0">&nbsp;</h5></div>
+  <div class="col-sm-auto">
+    <div class="btn-group mr-2" *ngIf="data.selectList.length">
+      <div class="d-flex align-items-center">
+        <span class="font-size-sm mr-3"><span [innerText]="data.selectList.length"></span> selected</span>
+        <a class="btn btn-outline-danger" href="javascript:;" (click)="removeAll()"><span class="fa fa-trash mr-1"></span>Xóa</a>
+      </div>
+    </div>
+    <div class="btn-group">
+      <button type="button" class="btn btn-secondary" (click)="create()"><span class="ic_plus"></span> <span>Thêm sản phẩm</span></button>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="table-responsive">
+    <table class="table m-0">
+      <thead>
+      <tr>
+        <th style="width: 1px">
+          <div class="table_tools d-flex justify-content-between align-items-center">
+            <div>
+              <div class="custom-control-wrapper">
+                <div class="custom-control custom-checkbox ml-0"><input type="checkbox" class="custom-control-input" [(ngModel)]="data.selectAll" (change)="selectAll()" id="tabContentSelect"><label class="custom-control-label cursor-pointer" for="tabContentSelect"></label></div>
+              </div>
+            </div>
+            <div>&nbsp;&nbsp;Stt</div>
+          </div>
+        </th>
+        <th>#</th>
+        <th>Tên sản phẩm</th>
+        <th>Giá đã giảm</th>
+        <th>SL còn lại</th>
+        <th>Đã bán</th>
+        <th></th>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td><span class="d-block" style="min-width: 150px; max-width: 350px"><input type="text" [(ngModel)]="data.data.q" (keyup)="onFilter($event)" class="form-control"></span></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </thead>
+      <tbody class="text-dark">
+      <tr *ngIf="data.loading">
+        <td colspan="7" class="text-center"><span class="spinner-border"><span class="sr-only">Loading...</span></span></td>
+      </tr>
+      <ng-container *ngFor="let item of data.items; let $index = index">
+        <tr *ngIf="!item.is_deleted" [ngClass]="{'odd':$index%2==0,'even':$index%2==1,'bg_selected':data.itemSelected&&data.itemSelected.id==item.id}">
+          <td>
+            <div class="table_tools d-flex justify-content-between align-items-center">
+              <div class="d-flex justify-content-start align-items-center">
+                <div>
+                  <div class="custom-control-wrapper">
+                    <div class="custom-control custom-checkbox ml-0"><input type="checkbox" class="custom-control-input" [(ngModel)]="item.checkbox" [attr.id]="'tabContentSelect'+$index" (click)="checkbox(item)"><label class="custom-control-label cursor-pointer" [attr.for]="'tabContentSelect'+$index"></label></div>
+                  </div>
+                </div>
+                <div><a (click)="edit(item)" class="btn btn-icon" href="javascript:;"><span class="ic_pencil_square"></span></a></div>
+                <!--<div>-->
+                  <!--<div class="dropdown" dropdown container="body" placement="bottom left">-->
+                    <!--<button type="button" dropdownToggle class="btn btn-icon"><span class="ic_three_dots_vertical"></span></button>-->
+                    <!--<div *dropdownMenu class="dropdown-menu">-->
+                      <!--&lt;!&ndash;<a class="dropdown-item" (click)="translate(item)" href="javascript:;">Dịch</a>-->
+                      <!--<div class="dropdown-divider"></div>&ndash;&gt;-->
+                      <!--<a class="dropdown-item text-danger" (click)="remove(item)" href="javascript:;">Xóa</a>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                <!--</div>-->
+              </div>
+              <div><span class="btn btn-icon w-auto fs-normal pl-1" [innerText]="$index + 1"></span></div>
+            </div>
+          </td>
+          <td [innerText]="item.id"></td>
+          <td><span class="d-block" style="min-width: 150px; max-width: 350px" [innerText]="item.product?.name"></span></td>
+          <td><span class="text-nowrap" [innerText]="(item.price|currencyFormat) + ' đ'"></span></td>
+          <td [innerText]="item.quantity"></td>
+          <td [innerText]="item.used"></td>
+          <td><a class="btn btn-sm btn-outline-danger fa fa-times" (click)="remove(item)" href="javascript:;"></a></td>
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
+  </div>
+  <div class="card-footer">
+    <ngx-pagination2 [page]="data.page" [pageSize]="data.pageSize" [totalItems]="data.totalItems" [maxSize]="data.maxSize" (change)="pageChanged($event)" (pageSizeChange)="pageSizeChanged($event)"></ngx-pagination2>
+  </div>
+</div>
+<ngx-pd-flashsale-value-form (onSuccess)="onFormSuccess($event)"></ngx-pd-flashsale-value-form>
+<ngx-modal-confirm (onConfirm)="onConfirm($event)"></ngx-modal-confirm>

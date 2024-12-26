@@ -1,0 +1,150 @@
+.account {
+  .page_tabs {
+    .nav-tabs {
+      display: inline-block;
+      >li {
+        display: inline-block;
+        float: left;
+      }
+      .nav-link {
+        background: transparent;
+        padding-bottom: 5px;
+        border-width: 2px;
+        border-bottom: solid 2px transparent;
+        transition: 0.2s ease-in-out;
+        &.active, &:hover {
+          border-color: var(--primary);
+          background: transparent;
+          color: var(--primary);
+        }
+      }
+    }
+  }
+
+  .block_login {
+    min-height: calc(100vh - 7.625rem);
+    display: flex;
+    align-items: center;
+  }
+
+  .login_box {
+    max-width: 26rem;
+    margin: 0 auto;
+    border-color: transparent;
+    background: transparent;
+    &.register {
+      ::placeholder {
+        color: $body-color !important;
+        opacity: 1; /* Firefox */
+      }
+
+      :-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color: $body-color !important;
+      }
+
+      ::-ms-input-placeholder { /* Microsoft Edge */
+        color: $body-color !important;
+      }
+    }
+    input, .form-control:focus {
+      background: transparent;
+    }
+    .has-danger .border-bottom {
+      border-color: var(--danger) !important;
+    }
+  }
+
+  // Account
+  .layout_account {
+    display: flex;
+    flex-wrap: wrap;
+    .navbar-nav {
+      padding-left: 0;
+      margin-bottom: 0;
+      list-style: none;
+    }
+    .menu-bar {
+      width: 23%;
+    }
+    .main_content {
+      width: 77%;
+      margin: 2.8125rem 0;
+      padding-left: 2.8125rem;
+    }
+
+    @media (max-width: 1023px) {
+      .menu-bar.menu-bar-sm {
+        width: 100%;
+        .nav-link {
+          color: #fff;
+        }
+        ~ .main_content {
+          width: 100%;
+          padding-left: 0;
+        }
+      }
+      .menu-fixed-mb {
+        position: fixed;
+        width: 100%;
+        max-height: calc(100vh - 5.625rem);
+        bottom: 0;
+        left: 0;
+        padding: 0 1.5625rem;
+        z-index: 996;
+        color: #fff;
+        margin: 0;
+        transform: translateY(100%);
+        transition: 0.4s ease-in-out;
+        background: var(--primary);
+        i {
+          transition: 0.4s ease-in-out;
+        }
+        &.active {
+          z-index: 9999;
+          transform: translateY(0) !important;
+          .button-menu-account i {
+            transform: rotateX(180deg);
+          }
+        }
+      }
+      .button-menu-account {
+        padding: 0.9375rem 0 1.875rem;
+      }
+      .navbar-nav {
+        flex-direction: column !important;
+        width: 100%;
+      }
+    }
+    overlay {
+      background: rgba(0,0,0,0.8);
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      position: fixed;
+      z-index: 995;
+      display: none;
+    }
+  }
+
+  .account-navbar {
+    .nav-link {
+      display: block;
+      padding: 0.9375rem 1rem;
+      padding-left: 2.1875rem;
+      &:hover, &.active {
+        color: var(--primary);
+      }
+    }
+    .nav-link-icon {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(calc(-50% - -2px));
+    }
+    [class^="ic_"], [class*=" ic_"] {
+      font-size: 1.25rem;
+      top: unset;
+    }
+  }
+}

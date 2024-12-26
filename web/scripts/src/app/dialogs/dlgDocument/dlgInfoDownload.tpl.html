@@ -1,0 +1,24 @@
+<div class="modal-header border-bottom-0">
+  <!--<h5 class="modal-title text-center text-primary" ng-bind-html="info.name|safe_html"></h5>-->
+  <div class="modal-title text-center w-100 font-weight-bold">{{ langText.fillform }}</div>
+</div>
+<div class="modal-body">
+  <div class="d-flex justify-content-center">
+    <form name="form" novalidate>
+      <div class="form-group" ng-class="{'has-error': form.phone_number.$invalid && form.phone_number.$touched}">
+        <input name="phone_number" type="number" ng-model="params.phone_number" class="form-control" placeholder="Phone" required>
+      </div>
+      <div class="form-group" ng-class="{'has-error': form.email.$invalid && form.email.$touched}">
+        <input name="email" type="email" ng-model="params.email" class="form-control" placeholder="Email" required>
+      </div>
+      <div class="row">
+        <div class="form-group col-6">
+          <button type="button" class="close btn btn-success text-center" ng-click="close()"><span class="icon back"></span>{{ langText.backform }}</button>
+        </div>
+        <div class="form-group col-6">
+          <button type="button" class="close btn btn-primary text-center" ng-click="submit(form)"><span>{{ langText.download }}</span><span class="icon icon-download"></span></button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

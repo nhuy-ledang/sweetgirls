@@ -1,0 +1,15 @@
+#location-layout1--container {
+  .box-location {
+    overflow: auto
+  }
+  .box-location .block-item {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
+  }
+  @media (max-width: 575px) {
+    .box-location {
+      max-height: 450px !important;
+      height: auto !important;
+      overflow: auto;
+    }
+  }
+}

@@ -1,0 +1,45 @@
+<style>
+  .avatar-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--secondary)
+  }
+  @media (min-width: 1280px) {
+    .modal-dialog {
+      max-width: 800px !important;
+    }
+  }
+</style>
+<div class="modal-body py-4 py-xl-8 px-5 py-xl-10">
+  <div class="modal-post-feed">
+    <div class="d-flex align-items-center mb-4">
+      <div class="avatar-img d-flex align-items-center justify-content-center mr-2">
+        <span ng-if="!currentUser" class="fa fa-user text-primary" style="font-size: 30px"></span>
+        <img ng-src="{{ currentUser.avatar_url }}" alt="" class="img-fluid rounded-circle" style="object-fit: contain">
+      </div>
+      <div class="text-left">
+        <span class="font-weight-bold">{{ currentUser.display }}</span>
+      </div>
+    </div>
+    <form name="form" novalidate enctype="multipart/form-data" role="form" accept-charset="utf-8">
+      <div class="form-group mb-4"><textarea name="link" ng-model="params.link" class="form-control" placeholder="{{ labels.entry_your_link }}" rows="4"></textarea></div>
+    </form>
+    <div class="text-primary mb-6">
+      <span class="fa fa-book"></span>
+      <a href="/huong-dan-dap-hop" target="_blank"><span style="text-decoration: underline">{{ labels.text_feed_guide_unbox }}</span></a>
+    </div>
+    <div class="note-content font-5 mb-6">
+      <h5 class="font-weight-bold">Những lưu ý cần biết để nhận 50.000đ + 150 Go Mart coin:</h5>
+      <ul class="p-0" style="list-style: inside;">
+        <li>Video hợp lệ là video được đăng tải ở chế độ công khai trên ứng dụng TikTok với nội dung: Unboxing đơn hàng Go Mart, hoặc review sản phẩm bạn mua tại Go Mart Beauty.</li>
+        <li>Chỉ ghi nhận 1 video đập hộp cho mỗi đơn hàng có giá trị tối thiểu 200.000đ. Caption cần đính kèm đầy đủ hashtag #Go Mart #unboxing #Go MartGWP</li>
+        <li>Sau khi đăng tải Video và thực hiện đúng yêu cầu trên, dán link video vào mục "chia sẻ link video đập hộp".</li>
+        <li>Go Mart sẽ kiểm duyệt video trong vòng 48 giờ làm việc (không tính Thứ 7, Chủ nhật). Nếu đạt yêu cầu, bạn sẽ được nhận ngay 50.000đ vào tài khoản Go Mart.</li>
+      </ul>
+    </div>
+    <div class="position-relative" style="z-index: 1">
+      <button type="button" class="cus_btn mx-auto w-50" ng-click="submit(form)" ng-disabled="envData.submitted"><span class="spinner-border spinner-border-sm align-baseline" ng-if="envData.submitted"></span><span ng-if="!envData.submitted">{{ labels.button_done }}</span></button>
+    </div>
+  </div>
+</div>

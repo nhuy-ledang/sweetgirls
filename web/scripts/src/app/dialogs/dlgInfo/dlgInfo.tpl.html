@@ -1,0 +1,10 @@
+<div class="modal-header">
+  <h5 class="modal-title" ng-bind-html="info.name|safe_html"></h5>
+  <button type="button" class="close cus-close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true" ng-click="close()">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <youtube-iframe ng-if="info.youtubeId" yid="info.youtubeId"></youtube-iframe>
+  <div class="desc-modal" ng-if="info.description" ng-bind-html="info.description|safe_html"></div>
+</div>

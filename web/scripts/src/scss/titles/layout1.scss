@@ -1,0 +1,32 @@
+.title_layout1 {
+  .section_title {
+    color: var(--title-color);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: var(--title-align, center);
+  }
+
+  .section_title img {
+    max-width: 6.6rem;
+  }
+
+  .section_title img.img_right {
+    transform: rotateY(180deg);
+  }
+
+  .section_sub_title {
+    /*font-weight: 700;*/
+    font-size: calc(var(--title-size) * 1.2);
+    color: var(--sub-title-color, var(--primary));
+    line-height: 0.8;
+    white-space: pre-wrap;
+  }
+
+  @media (max-width: 575px) {
+    .section_title img {
+      max-width: 5rem;
+    }
+  }
+
+}

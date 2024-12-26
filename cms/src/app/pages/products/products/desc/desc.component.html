@@ -1,0 +1,52 @@
+<ng-container *ngIf="info&&desc">
+  <form novalidate [formGroup]="form">
+    <div class="form-group" [ngClass]="{'has-error': (controls.name.invalid && (controls.name.touched || showValid))}">
+      <label class="input-label">Tên</label>
+      <input name="name" type="text" [formControl]="controls.name" class="form-control" (change)="onChangeName()">
+    </div>
+    <div class="form-group" [ngClass]="{'has-error': (controls.meta_title.invalid && (controls.meta_title.touched || showValid))}">
+      <label class="input-label">Meta Tag Title</label>
+      <input name="meta_title" type="text" [formControl]="controls.meta_title" class="form-control">
+    </div>
+    <div class="form-group" [ngClass]="{'has-error': (controls.meta_description.invalid && (controls.meta_description.touched || showValid))}">
+      <label class="input-label">Meta Tag Description</label>
+      <textarea name="description" [formControl]="controls.meta_description" rows="3" class="form-control"></textarea>
+    </div>
+    <div class="form-group" [ngClass]="{'has-error': (controls.meta_keyword.invalid && (controls.meta_keyword.touched || showValid))}">
+      <label class="input-label">Meta Tag Keywords</label>
+      <textarea name="description" [formControl]="controls.meta_keyword" rows="3" class="form-control"></textarea>
+    </div>
+    <div class="form-group" [ngClass]="{'has-error': (controls.alias.invalid && (controls.alias.touched || showValid))}">
+      <label class="input-label">Seo url
+        <small><br><span [innerText]="'Không sử dụng khoảng trống, thay vào đó bằng - và đảm bảo rằng URL SEO là độc nhất trên toàn cầu.'|translate"></span></small>
+      </label>
+      <input name="alias" type="text" [formControl]="controls.alias" class="form-control">
+    </div>
+    <!--<div class="form-group" [ngClass]="{'has-error': (controls.short_description.invalid && (controls.short_description.touched || showValid))}">
+      <label class="input-label">Mô tả ngắn</label>
+      <textarea [formControl]="controls.short_description" rows="3" class="form-control"></textarea>
+    </div>-->
+    <div class="form-group" [ngClass]="{'has-error': (controls.description.invalid && (controls.description.touched || showValid))}">
+      <label class="input-label">Thông tin sản phẩm</label>
+      <textarea ngxEditor name="description" [formControl]="controls.description" class="form-control"></textarea>
+      <!--<textarea name="description" [formControl]="controls.description" class="form-control"></textarea>-->
+      <!--<ngx-tiny-mce [value]="valueInit" (editorKeyup)="editorChangeHandler($event)"></ngx-tiny-mce>-->
+    </div>
+    <div class="form-group" [ngClass]="{'has-error': (controls.user_guide.invalid && (controls.user_guide.touched || showValid))}">
+      <label class="input-label">Hướng dẫn sử dụng</label>
+      <textarea ngxEditor name="user_guide" [formControl]="controls.user_guide" class="form-control"></textarea>
+    </div>
+    <div class="form-group" [ngClass]="{'has-error': (controls.properties.invalid && (controls.properties.touched || showValid))}">
+      <label class="input-label">Thành phần chính</label>
+      <textarea ngxEditor name="properties" [formControl]="controls.properties" class="form-control"></textarea>
+    </div>
+    <div class="form-group" [ngClass]="{'has-error': (controls.tag.invalid && (controls.tag.touched || showValid))}">
+      <label class="input-label">Tags</label>
+      <input type="text" name="tag" [formControl]="controls.tag" class="form-control">
+    </div>
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-secondary mr-1" type="button" (click)="onSubmit(form.value)" [disabled]="submitted"><span [innerText]="'Cập nhật'|translate">Cập nhật</span></button>
+      <button class="btn btn-secondary" type="button" (click)="onSubmit(form.value, true)" [disabled]="submitted"><span [innerText]="'Cập nhật & thoát'|translate">Cập nhật & thoát</span></button>
+    </div>
+  </form>
+</ng-container>

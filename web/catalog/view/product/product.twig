@@ -1,0 +1,231 @@
+{{ header }}
+<script>window['info']={{ infoData|json_encode }};</script>
+<div id="main-content">
+  <!--====== Banner Start ======-->
+  <div id="banners_breadcrumb-{{ layout }}--container" class="id_{{ id }}" style="{{ styles }}"><div id="flag-{{ id }}"></div>
+    <div class="{{ properties.cont?'container-'~properties.cont:'container-xl' }} position-relative">
+      <div class="container-lg mt-md-10 pt-2 pt-md-0">
+        <ol class="breadcrumb justify-content-start">
+          {% for item in breadcrumbs %}
+            <li class="breadcrumb-item"><a class="" href="{{ item.href }}">{{ item.text }}</a></li>
+          {% endfor %}
+        </ol>
+      </div>
+      </div>
+    </div>
+  </div>
+  <!--====== Banner End ======-->
+  <!-- Content -->
+  <div id="content" class="mt-2 pt-15 pt-md-0">
+    <!-- Popular Products -->
+    <section class="padding-top-100 padding-bottom-100 mb-15">
+      <div class="container-lg">
+        <!-- SHOP DETAIL -->
+        <div class="shop-detail border-top">
+          <div class="row no-gutters">
+            <!-- Popular Images Slider -->
+            <div class="col-sm-6 mx-auto">
+              <!-- Images Slider -->
+              <div class="images-slider">
+                <div class="row">
+                  <div class="col-12 col-md-9 col-xl-10 align-self-center order-md-last wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="swiper swiper_product_{{ id }}">
+                      <div class="swiper-wrapper gallery-slide">
+                        {% for item in product_images %}
+                          <div class="swiper-slide bg-white img_" data-src="{{ item.raw_url }}">
+                            <div class="embed-responsive embed-responsive-{{ frame?frame:'1by1' }}">
+                              <div class="embed-responsive-item"><img src="{{ item.raw_url }}" alt="{{ item.image_alt }}" class="img-fluid img-cover"></div>
+                            </div>
+                          </div>
+                        {% endfor %}
+                      </div>
+                      <div class="swiper_btn swiper-button-next"></div>
+                      <div class="swiper_btn swiper-button-prev"></div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-3 col-xl-2 align-self-center pr-md-2 mt-2 mt-md-0 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="swiper swiper_thumb_product_{{ id }}">
+                      <div class="swiper-wrapper">
+                        {% for item in product_images %}
+                          <div class="swiper-slide">
+                            <div class="img cursor-pointer">
+                              <div class="embed-responsive embed-responsive-{{ frame?frame:'1by1' }}">
+                                <div class="embed-responsive-item"><img src="{{ item.raw_url }}" alt="{{ item.image_alt }}" class="img-fluid img-cover"></div>
+                              </div>
+                            </div>
+                          </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <script>
+                $(document).ready(function() {
+                  let swiper1;
+                  let swiper2;
+                  if (window.matchMedia("(min-width: 768px)").matches) {
+                    var height = $('.swiper_product_{{ id }}').outerHeight();
+                    $('.swiper_thumb_product_{{ id }}').attr('style', 'height: ' + height + 'px');
+                  }
+
+                  function slider_{{ id }}() {
+                    swiper2 = new Swiper(".swiper_thumb_product_{{ id }}", {
+                      // spaceBetween: '5%',
+                      breakpoints: {0: {slidesPerView: 2.5, spaceBetween: 20,}, 768: {slidesPerView: 3, spaceBetween: 30, direction: "vertical", autoHeight: true,}, 1280: {slidesPerView: 'auto', spaceBetween: 10, direction: "vertical", autoHeight: true,},},
+                      freeMode: true,
+                      watchSlidesProgress: true,
+                      grabCursor: true,
+                    });
+
+                    swiper1 = new Swiper(".swiper_product_{{ id }}", {
+                      // slidesPerView: 1,
+                      spaceBetween: 0,
+                      loop: true,
+                      grabCursor: true,
+                      centeredSlides: true,
+                      freeMode: false,
+                      speed: 500,
+                      effect: "fade",
+                      // autoplay: {delay: 3000, disableOnInteraction: false},
+                      // coverflowEffect: {rotate: 5, stretch: 200, depth: 100, modifier: 1, slideShadows: true, scale: 0.8},
+                      thumbs: {
+                        swiper: swiper2,
+                      },
+                      navigation: {
+                        nextEl: ".swiper-button-next",
+                        prevEl: ".swiper-button-prev",
+                      },
+                    });
+                  };
+                  slider_{{ id }}();
+                  $(window).resize(function() {
+                    swiper1.destroy();
+                    swiper2.destroy();
+                    slider_{{ id }}();
+                  });
+                  $('.gallery-slide').lightGallery({
+                    thumbnail: true,
+                    selector: $('.swiper_product_{{ id }} .img_')
+                  });
+                });
+              </script>
+            </div>
+            <!-- COntent -->
+            <div class="col-12 col-xl-6 pl-xl-12  wid_content_{{ id }} overflow-hidden" ng-controller="ProductDetailCtr" ng-init="init()">
+              <div class="wid_detail pt-4 pt-md-6">
+                <div class="text-primary text-uppercase font-weight-bold mb-1">{{ info.category }}</div>
+                <h1 class="font-3 mt-2" ng-bind="info.name">{{ info.name }}</h1>
+                <div class="row no-gutters mb-1">
+                  <div class="pr-4">Mã sản phẩm: <span class="text-primary" ng-bind="info.model">{{ info.model?info.model:master_info.model }}</span></div>
+                  <div class="pr-4">Thương hiệu: <a href="{{ manufacturer_info.href }}" class="text-primary">{{ manufacturer_info.name }}</a></div>
+                  <div class="text-gray"><span>Trạng thái:<span class="text-primary"> {{ (master_info?master_info.stock_status:info.stock_status) == 'in_stock'? 'Còn hàng' : ((master_info?master_info.stock_status:info.stock_status) == 'pre_order' ? text_pre_order : 'Hết hàng') }} </span></span></div>
+                </div>
+                <!-- Item option -->
+                {#{% if cart_status %}#}
+                <script>window.product_options={{ product_options|json_encode }}</script>
+                <div id="product">
+                  <form>
+                    {% if product_options %}
+                      <div class="product_option">
+                        {% for option in unique_options %}
+                          <div class="form-group">
+                            <div id="input-option{{ option.option_id }}">
+                              <div class="row mb-4">
+                                {% for p in option.products %}
+                                  {% if option.type == 'color' %}
+                                    <div class="col-auto radio pr-0" style="max-width: 25%;">
+                                      <div class="position-relative">
+                                        <label class="custom_checked cursor-pointer mb-0" data-product="{{ p.id }}">
+                                          <input type="radio" ng-model="params.options[{{ option.option_id }}]" value="{{ p.id }}" name="{{ option.type }}" {{ id == p.id?'checked':'' }} id="input-p{{ p.option_value_id }}" ng-click="chooseProduct($event, '{{ option.option_id }}', '{{ p.option_value_id }}')">
+                                          <div class="color-option" style="width: 20px; height: 20px; border-radius: 50%; background-color: {{ p.option_value }};"></div>
+                                          <div class="custom_checked_color"></div>
+                                          <div class="option_name">{{ p.option_value_name }}</div>
+                                        </label>
+                                      </div>
+                                    </div>
+                                  {% else %}
+                                    <div class="col-auto radio pr-0" style="max-width: 25%;">
+                                      <div class="position-relative">
+                                        <label class="custom_checked cursor-pointer mb-0 px-3 py-1" data-product="{{ p.id }}" >
+                                          <input type="radio" ng-model="params.options[{{ option.option_id }}]" value="{{ p.id }}" name="{{ option.type }}" {{ id == p.id?'checked':'' }} id="input-p{{ p.option_value_id }}" ng-click="chooseProduct($event, '{{ option.option_id }}', '{{ p.option_value_id }}')">
+                                          <div class="value_option">{{ p.option_value_name }}</div>
+                                          <div class="custom_checked_label"></div>
+                                        </label>
+                                      </div>
+                                    </div>
+                                  {% endif %}
+                                {% endfor %}
+                              </div>
+                            </div>
+                          </div>
+                        {% endfor %}
+                      </div>
+                    {% endif %}
+                    <!-- Cart -->
+                    <input type="hidden" name="product_id" value="{{ info.id }}">
+                    {% if info.is_coin_exchange != 1 %}
+                      <div class="row mt-3">
+                        {% if not info.org_special or info.org_price %}
+                          <div class="col-10 col-sm-auto mb-3 mb-sm-0 wid_quantity">
+                            <div class="quantity">
+                              <div class="input-group input-group-lg justify-content-center">
+                                <div class="input-group-prepend">
+                                  <button class="btn btn-lg btn-outline-dark minus d-flex align-items-center justify-content-center rounded-0" type="button" ng-click="updateCart('minus')" style="width: 40px;">{#<span class="text-body ic_minus"></span>#}-</button>
+                                </div>
+                                <input type="text" name="quantity" ng-model="params.quantity" size="1" class="num_cart form-control form-control-lg text-center h-auto" style="max-width: 60px;">
+                                <div class="input-group-append">
+                                  <button class="btn btn-lg btn-outline-dark plus d-flex align-items-center justify-content-center rounded-0" type="button" ng-click="updateCart('plus')" style="width: 40px;">{#<span class="text-body ic_plus"></span>#}+</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          {% if info.stock_status != 'pre_order' %}
+                            <div class="col-6 col-sm-auto">
+                              {% if info.stock_status == 'out_of_stock' %}
+                                <button type="button" class="btn btn-lg btn-seconwid_detaildary w-100 rounded-0">{{ button_cart?button_cart:'Giỏ hàng' }}<!-- button_cart --></button>
+                              {% else %}
+                                <button type="button" id="button-cart" class="cus_btn btn_primary w-100" ng-click="addToCart()">Giỏ hàng</button>
+                              {% endif %}
+                            </div>
+                          {% endif %}
+                          <div class="col-6 col-sm-auto">
+                            {% if info.stock_status == 'out_of_stock' %}
+                              <button type="button" class="btn btn-lg btn-secondary w-100 rounded-0">Mua ngay</button>
+                            {% elseif info.stock_status == 'pre_order' %}
+                              <button type="button" class="cus_btn w-100" ng-click="buyNow()">Mua ngay</button>
+                            {% else %}
+                              <button type="button" class="cus_btn w-100" ng-click="buyNow()">Mua ngay</button>
+                            {% endif %}
+                          </div>
+                        {% endif %}
+                      </div>
+                    {% endif %}
+                  </form>
+                </div>
+                {#{% endif %}#}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+    $(window).load(function () {
+      if ($("table")) {
+        $("table").wrap("<div class=\"table-responsive\"></div>");
+      }
+    });
+
+    $('.slider-direct-nav > div:first-child').show();
+    $('.box-direct .menu:first-child .item_').addClass('active');
+    function showContent(id, e) {
+      $('.slider-direct-nav > div').hide();
+      $('.box-direct .item_').removeClass('active');
+      $(e).addClass('active');
+      $('.slider-direct-nav #content_' + id).fadeIn();
+    }
+  </script>
+</div>
+{{ footer }}

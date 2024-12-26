@@ -1,0 +1,36 @@
+.path--checkout-payment {
+  .cus-checkmark {
+    &.active {
+      border-color: var(--primary) !important;
+      background-color: #FAF7F4;
+    }
+    .checkmark {
+      left: auto;
+      right: 0;
+      &::after {
+        border: solid #0F1F2A;
+        border-width: 0 2px 1px 0;
+      }
+    }
+    input {
+      &:checked {
+        ~ .checkmark {
+          background: transparent;
+          border: 1px solid #E5E5E5;
+        }
+      }
+    }
+  }
+
+  .has-error {
+    label {
+      color: red;
+    }
+    .custom-control-label:before {
+      border-color: red;
+    }
+    .border {
+      border-color: red !important;
+    }
+  }
+}

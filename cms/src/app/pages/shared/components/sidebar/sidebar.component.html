@@ -1,0 +1,96 @@
+<div class="main-container">
+  <div class="sidebar-header">
+    <div class="navbar-brand-wrapper justify-content-between">
+      <a href="/" tabindex="0" class="navbar-brand" target="_blank"><img src="/assets/images/logos/logo.png" class="navbar-brand-logo"><img src="/assets/svg/logos/logo-short.svg" class="navbar-brand-logo-mini"></a>
+    </div>
+  </div>
+  <div class="scrollable">
+    <ul class="menu-items">
+      <ng-container *ngFor="let item of menuItems">
+        <li class="menu-item" [class.has-menu]="item.children&&item.children.length">
+          <ng-container *ngIf="!item.link">
+            <a [attr.title]="item.title" [class.active]="item.selected" (click)="$event.preventDefault();onToggleSubMenu(menuItems, item)" (mouseenter)="onHoverItem(item)" href="#">
+              <span class="menu-icon" *ngIf="item.icon"><span [ngClass]="item.icon"></span></span>
+              <span class="menu-title" [innerText]="item.title|translate"></span>
+              <span *ngIf="item.children&&item.children.length"><span [ngClass]="{'ic_angle_right':!item.expanded,'ic_angle_down':item.expanded }"></span></span>
+            </a>
+          </ng-container>
+          <ng-container *ngIf="item.link">
+            <a [attr.title]="item.title" [class.active]="item.selected" (click)="$event.preventDefault();onItemClick(menuItems, item)" (mouseenter)="onHoverItem(item)" [routerLink]="[item.link]"><span class="menu-icon" *ngIf="item.icon"><span [ngClass]="item.icon"></span></span><span class="menu-title" [innerText]="item.title|translate"></span></a>
+          </ng-container>
+          <ul *ngIf="item.children&&item.children.length" class="menu-items" [collapse]="!item.expanded">
+            <ng-container *ngFor="let lv2 of item.children">
+              <li class="menu-item" [class.has-menu]="lv2.children&&lv2.children.length">
+                <ng-container *ngIf="!lv2.link">
+                  <a [attr.title]="lv2.title" [class.active]="lv2.selected" (click)="$event.preventDefault();onToggleSubMenu(menuItems, lv2)" (mouseenter)="onHoverItem(item)" href="#">
+                    <span class="menu-title" [innerText]="lv2.title|translate"></span>
+                    <span *ngIf="lv2.children&&lv2.children.length"><span [ngClass]="{'ic_angle_right':!lv2.expanded,'ic_angle_down':lv2.expanded }"></span></span>
+                  </a>
+                </ng-container>
+                <ng-container *ngIf="lv2.link">
+                  <a [attr.title]="lv2.title" [class.active]="lv2.selected" (click)="$event.preventDefault();onItemClick(menuItems, lv2)" (mouseenter)="onHoverItem(lv2)" [routerLink]="[lv2.link]"><span class="menu-title" [innerText]="lv2.title|translate"></span></a>
+                </ng-container>
+                <ul *ngIf="lv2.children&&lv2.children.length" class="menu-items" [collapse]="!lv2.expanded">
+                  <ng-container *ngFor="let lv3 of lv2.children">
+                    <li class="menu-item">
+                      <a [attr.title]="lv3.title" [class.active]="lv3.selected" (click)="$event.preventDefault();onItemClick(menuItems, lv3)" (mouseenter)="onHoverItem(lv3)" [routerLink]="[lv3.link]"><span class="menu-icon"><span class="ic_circle"></span></span><span class="menu-title" [innerText]="lv3.title|translate"></span></a>
+                    </li>
+                  </ng-container>
+                </ul>
+              </li>
+            </ng-container>
+          </ul>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+  <!-- <div class="sidebar-footer">
+    <ul class="menu-items">
+      <li class="menu-item"><a title="POS" [routerLink]="['pos']" href="#" target="_blank"><span class="menu-icon"><span class="ic_cart"></span></span><span class="menu-title">POS</span></a></li>
+      <li class="menu-item" *ngIf="hasPermissionSetting()"><a title="Hệ thống" (click)="$event.preventDefault();onSetupOpenClick()" href="#"><span class="menu-icon"><span class="ic_setting"></span></span><span class="menu-title" [innerText]="'Hệ thống'|translate">Hệ thống</span></a></li>
+      <li class="menu-item"><a title="Trợ giúp" href="http://help.tedfast.vn/" target="_blank"><span class="menu-icon"><span class="ic_help"></span></span><span class="menu-title" [innerText]="'Trợ giúp'|translate">Trợ giúp</span></a></li>
+    </ul>
+  </div> -->
+</div>
+<!-- <div class="main-container setup-menu animated d-block fadeInLeft" [ngClass]="{'fadeOutLeft': !isSetup}">
+  <div class="scrollable">
+    <div class="scrollable_header">
+      <ul class="menu-items">
+        <li class="menu-item"><a (click)="$event.preventDefault();onSetupCloseClick()" href="#"><span class="menu-icon"><span class="ic_close_outlined"></span></span><span class="menu-title" [innerText]="'Hệ thống'|translate">Hệ thống</span></a></li>
+      </ul>
+    </div>
+    <div class="scrollable_body">
+      <ul class="menu-items">
+        <ng-container *ngFor="let item of setupItems">
+          <li class="menu-item" [class.has-menu]="item.children&&item.children.length">
+            <ng-container *ngIf="!item.link && item.children&&item.children.length">
+              <a [attr.title]="item.title" [class.active]="item.selected" (click)="$event.preventDefault();onToggleSubMenu(setupItems, item)" (mouseenter)="onHoverItem(item)" href="#"><span class="menu-icon" *ngIf="item.icon"><span [ngClass]="item.icon"></span></span><span class="menu-title" [innerText]="item.title|translate"></span><span><span [ngClass]="{'ic_angle_right':!item.expanded,'ic_angle_down':item.expanded }"></span></span></a>
+            </ng-container>
+            <ng-container *ngIf="item.link">
+              <a [attr.title]="item.title" [class.active]="item.selected" (click)="$event.preventDefault();onItemClick(setupItems, item)" (mouseenter)="onHoverItem(item)" [routerLink]="[item.link]"><span class="menu-icon" *ngIf="item.icon"><span [ngClass]="item.icon"></span></span><span class="menu-title" [innerText]="item.title|translate"></span></a>
+            </ng-container>
+            <ul *ngIf="item.children&&item.children.length" class="menu-items" [collapse]="!item.expanded">
+              <ng-container *ngFor="let lv2 of item.children">
+                <li class="menu-item" [class.has-menu]="lv2.children&&lv2.children.length">
+                  <ng-container *ngIf="!lv2.link && lv2.children&&lv2.children.length">
+                    <a [attr.title]="lv2.title" [class.active]="lv2.selected" (click)="$event.preventDefault();onToggleSubMenu(setupItems, lv2)" (mouseenter)="onHoverItem(item)" href="#"><span class="menu-title" [innerText]="lv2.title|translate"></span><span *ngIf="lv2.children&&lv2.children.length"><span [ngClass]="{'ic_angle_right':!lv2.expanded,'ic_angle_down':lv2.expanded }"></span></span></a>
+                  </ng-container>
+                  <ng-container *ngIf="lv2.link">
+                    <a [attr.title]="lv2.title" [class.active]="lv2.selected" (click)="$event.preventDefault();onItemClick(setupItems, lv2)" (mouseenter)="onHoverItem(lv2)" [routerLink]="[lv2.link]"><span class="menu-title" [innerText]="lv2.title|translate"></span></a>
+                  </ng-container>
+                  <ul *ngIf="lv2.children&&lv2.children.length" class="menu-items" [collapse]="!lv2.expanded">
+                    <ng-container *ngFor="let lv3 of lv2.children">
+                      <li class="menu-item">
+                        <a [attr.title]="lv3.title" [class.active]="lv3.selected" (click)="$event.preventDefault();onItemClick(setupItems, lv3)" (mouseenter)="onHoverItem(lv3)" [routerLink]="[lv3.link]"><span class="menu-icon"><span class="ic_circle"></span></span><span class="menu-title" [innerText]="lv3.title|translate"></span></a>
+                      </li>
+                    </ng-container>
+                  </ul>
+                </li>
+              </ng-container>
+            </ul>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+  </div>
+</div> -->

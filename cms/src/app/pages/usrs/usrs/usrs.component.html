@@ -1,0 +1,109 @@
+<div class="page-header no-gutter">
+  <div class="row align-items-end">
+    <div class="col-sm">
+      <h1 class="page-header-title">Danh sách quản trị</h1>
+      <nav>
+        <ol class="breadcrumb breadcrumb-no-gutter">
+          <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">Quản trị</a></li>
+          <li class="breadcrumb-item active">Quản trị</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-auto">
+      <div class="btn-group"><button type="button" class="btn btn-secondary" (click)="create()"><span class="ic_plus"></span> Thêm</button></div>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <div class="row justify-content-between align-items-center flex-grow-1">
+      <div class="col-12 col-sm">
+        <div class="input-group input-group-merge input-group-borderless">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><span class="ic_search"></span></div>
+          </div>
+          <input type="text" class="form-control" placeholder="Tìm kiếm" [(ngModel)]="data.data.q" (keyup)="onFilter($event)">
+        </div>
+      </div>
+      <div class="col-auto">
+        <div class="d-flex align-items-center">
+          <div class="btn-group mr-2">
+            <select class="form-control" [(ngModel)]="filters.group_id.value" [ngClass]="{'loading':groupData.loading}" (change)="onFilter()">
+              <option value="">Nhóm quản trị</option>
+              <option *ngFor="let item of groupData.items" [value]="item.id">{{ item.name }}</option>
+            </select>
+          </div>
+          <div class="btn-group">
+            <select class="form-control" [(ngModel)]="data.data.role_id" [ngClass]="{'loading':roleData.loading}" (change)="onFilter()">
+              <option value="">Phân quyền</option>
+              <option *ngFor="let item of roleData.items" [value]="item.id">{{ item.name }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table m-0">
+      <thead>
+      <tr>
+        <th>
+          <div class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" [(ngModel)]="data.selectAll" (change)="selectAll()" id="customSelect"><label class="custom-control-label" for="customSelect"></label></div>
+        </th>
+        <!--<th>Stt</th>-->
+        <th (click)="sortBy('id')" [attr.class]="sortClass('id')">#ID <span class="sort-indicator"></span></th>
+        <th (click)="sortBy('first_name')" [attr.class]="sortClass('first_name')">Quản trị <span class="sort-indicator"></span></th>
+        <th (click)="sortBy('phone_number')" [attr.class]="sortClass('phone_number')">Số ĐT <span class="sort-indicator"></span></th>
+        <th (click)="sortBy('email')" [attr.class]="sortClass('email')">Email <span class="sort-indicator"></span></th>
+        <th (click)="sortBy('group_id')" [attr.class]="sortClass('group_id')">Nhóm quản trị <span class="sort-indicator"></span></th>
+        <th>Phân quyền</th>
+        <th (click)="sortBy('status')" [attr.class]="sortClass('status')">Trạng thái <span class="sort-indicator"></span></th>
+        <th style="width: 1px"></th>
+      </tr>
+      </thead>
+      <tbody class="text-dark">
+      <tr *ngIf="data.loading"><td colspan="8" class="text-center"><span class="spinner-border"><span class="sr-only">Loading...</span></span></td></tr>
+      <ng-container *ngFor="let item of data.items; let $index = index">
+        <tr *ngIf="item.id != 1 || isSuperAdmin()" [ngClass]="{'odd':$index%2==0,'even':$index%2==1}">
+          <td><div class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" [(ngModel)]="item.checkbox" [attr.id]="'customSelect'+$index" (click)="checkbox(item)"><label class="custom-control-label" [attr.for]="'customSelect'+$index"></label></div></td>
+          <!--<td>{{ item.index + 1 }}</td>-->
+          <td [innerText]="item.id"></td>
+          <td>
+            <a class="d-block text-nowrap">{{item.display}}</a>
+            <div class="row-options">
+              <a href="javascript:;" (click)="edit(item)">Sửa</a>&nbsp; | &nbsp;<a href="javascript:;" (click)="remove(item)" class="text-danger">Xóa</a>
+              <br><a href="javascript:;" (click)="addRole(item)" class="hidden-xs text-muted">Phân quyền</a>
+            </div>
+          </td>
+          <td>{{ item.phone_number }}</td>
+          <td>{{ item.email }}</td>
+          <td><span [innerText]="item.group?.name"></span></td>
+          <td>
+            <ng-container *ngIf="item.roles && item.roles.length">
+              <ng-container *ngFor="let role of item.roles; let $i = index"><span *ngIf="$i!=0">, </span>{{role.name}}</ng-container>
+            </ng-container>
+          </td>
+          <td class="text-capitalize">{{ item.status }}</td>
+          <td class="text-nowrap">
+            <div class="dropdown-setting" dropdown container="body" placement="bottom right">
+              <a dropdownToggle class="dropdown-toggle btn-square-icon"><span class="ic_pencil_square_outline"></span></a>
+              <ul *dropdownMenu class="dropdown-menu dropdown-menu-setting dropdown-menu-right">
+                <li *ngIf="item.status != CONST.USER_STATUS_STARTER"><a class="dropdown-item" (click)="$event.preventDefault();banned(item)" href="#"><span class="ic"><span class="ic_pencil"></span></span>
+                  <span *ngIf="item.status == CONST.USER_STATUS_ACTIVATED">Khóa tài khoản</span>
+                  <span *ngIf="item.status == CONST.USER_STATUS_BANNED">Mở khóa tài khoản</span>
+                </a></li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
+  </div>
+  <div class="card-footer">
+    <ngx-pagination2 [page]="data.page" [pageSize]="data.pageSize" [totalItems]="data.totalItems" [maxSize]="data.maxSize" (change)="pageChanged($event)" (pageSizeChange)="pageSizeChanged($event)"></ngx-pagination2>
+  </div>
+</div>
+<ngx-usr-form (onSuccess)="onFormSuccess($event)"></ngx-usr-form>
+<ngx-usr-dlg-roles (onSuccess)="onRolesSuccess($event)"></ngx-usr-dlg-roles>
+<ngx-modal-confirm (onConfirm)="onConfirm($event)"></ngx-modal-confirm>

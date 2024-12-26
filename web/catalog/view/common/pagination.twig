@@ -1,0 +1,60 @@
+<div class="clearfix">
+  <ul class="pagination pull-right">
+    {% if prev %}
+      <li class="page-item"><a class="page-link" href="{{ prev }}"><i class="fa fa-angle-left"></i></a></li>
+    {% else %}
+      <li class="page-item disabled"><a class="page-link"><i class="fa fa-angle-left"></i></a></li>
+    {% endif %}
+    {% for link in links %}
+      {% if link.page == page %}
+        <li class="active"><a class="page-link">{{ link.page }}</a></li>
+      {% elseif link.page == '...' %}
+        <li class="disabled"><a class="page-link">{{ link.page }}</a></li>
+      {% else %}
+        <li class=""><a class="page-link" href="{{ link.href }}">{{ link.page }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if next %}
+      <li class="page-item"><a class="page-link" href="{{ next }}"><i class="fa fa-angle-right"></i></a></li>
+    {% else %}
+      <li class="page-item disabled"><a class="page-link"><i class="fa fa-angle-right"></i></a></li>
+    {% endif %}
+  </ul>
+</div>
+
+<style>
+    .pagination li a{
+        border-radius: 0;
+    }
+    .pagination > li:not(.page-item) > a {
+        border: 0;
+    }
+    .pagination {
+        border-radius: 0;
+    }
+    .pagination .active a {
+        color: var(--primary);
+        background-color: unset;
+        border-color: unset;
+    }
+    .pagination > li > a:hover, .pagination > li > a:focus, .pagination > li > span:hover, .pagination > li > span:focus {
+        background-color: unset;
+        border-color: #0F1F2A;
+        color: var(--primary);
+    }
+    .pagination > .active > a:hover {
+        background-color: unset;
+        color: var(--primary);
+    }
+    pagination li:last-child a{
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+    pagination li:first-child a{
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+    }
+    .pagination > li > a, .pagination > li > span {
+        border-color: #0F1F2A;
+    }
+</style>

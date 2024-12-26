@@ -1,0 +1,147 @@
+<ng-container *ngIf="info&&desc">
+  <form novalidate [formGroup]="form">
+    <div class="form-group" [ngClass]="{'has-error': (controls.name.invalid && (controls.name.touched || showValid))}">
+      <label class="input-label">Tên</label>
+      <input type="text" [formControl]="controls.name" class="form-control">
+    </div>
+    <div class="form-group" [ngClass]="{'has-error': (controls.title.invalid && (controls.title.touched || showValid))}">
+      <label class="input-label" [innerText]="'Tiêu đề'|translate">Tiêu đề</label>
+      <input type="text" [formControl]="controls.title" class="form-control">
+    </div>
+    <div class="form-group">
+      <label class="input-label" [innerText]="'Tiêu đề phụ'|translate"></label>
+      <input type="text" [formControl]="controls.sub_title" class="form-control">
+    </div>
+    <div *ngIf="info&&info.properties&&info.properties.menu" class="form-group">
+      <label class="input-label"><span [innerText]="'Tên menu'|translate"></span></label>
+      <input type="text" [formControl]="controls.menu_text" class="form-control">
+    </div>
+    <div *ngIf="info&&info.properties&&info.properties.button" class="form-group">
+      <label class="input-label">Tên Button</label>
+      <input type="text" [formControl]="controls.btn_text" class="form-control">
+    </div>
+    <div *ngIf="info&&info.properties&&info.properties.button" class="form-group">
+      <label class="input-label">Link Button</label>
+      <input type="text" [formControl]="controls.btn_link" class="form-control">
+    </div>
+    <div [hidden]="!configs.short_description" class="form-group">
+      <label class="input-label" [innerText]="'Tóm tắt'|translate">Tóm tắt</label>
+      <textarea [formControl]="controls.short_description" class="form-control" rows="3"></textarea>
+    </div>
+    <div [hidden]="!configs.description" class="form-group">
+      <label class="input-label">Mô tả</label>
+      <textarea ngxEditor [formControl]="controls.description" class="form-control" rows="3"></textarea>
+    </div>
+    <fieldset [hidden]="!configs.table_contents">
+      <legend>Table Contents</legend>
+      <table class="table mt-3">
+        <ng-container *ngFor="let item of tbcForm.controls; let i=index">
+          <tr *ngIf="i>0">
+            <td colspan="3" style="width: auto;border: 0;" class="p-0">
+              <hr>
+            </td>
+          </tr>
+          <tr>
+            <td style="width: auto;border: 0;" class="pt-0 pb-0">
+              <div class="row">
+                <div [hidden]="(isObject(configs.table_contents) && configs.table_contents.image1 === false)" class="col form-group">
+                  <label class="input-label" [innerText]="'Hình'|translate">Hình</label>
+                  <ngx-picture-uploader [options]="fileOpts1[i]" (onSelected)="onImageSelected(i, $event)" (onDeleted)="onImageDeleted(i, $event)"></ngx-picture-uploader>
+                </div>
+                <div [hidden]="(isObject(configs.table_contents) && configs.table_contents.image2 === false)" class="col form-group">
+                  <label class="input-label" [innerText]="'Hình'|translate">Hình</label>
+                  <ngx-picture-uploader [options]="fileOpts2[i]" (onSelected)="onImageSelected2(i, $event)" (onDeleted)="onImageDeleted2(i, $event)"></ngx-picture-uploader>
+                </div>
+                <div [hidden]="(isObject(configs.table_contents) && configs.table_contents.image3 === false)" class="col form-group">
+                  <label class="input-label" [innerText]="'Hình'|translate">Hình</label>
+                  <ngx-picture-uploader [options]="fileOpts3[i]" (onSelected)="onImageSelected3(i, $event)" (onDeleted)="onImageDeleted3(i, $event)"></ngx-picture-uploader>
+                </div>
+              </div>
+              <div [hidden]="(isObject(configs.table_contents) && configs.table_contents.name === false)" class="form-group" [ngClass]="{'has-error':(item.controls.name.invalid && (item.controls.name.touched || showValid))}">
+                <label class="input-label">Tên</label>
+                <input type="text" [formControl]="item.controls.name" class="form-control">
+              </div>
+              <div [hidden]="(isObject(configs.table_contents) && configs.table_contents.short_description === false)" class="form-group" [ngClass]="{'has-error':(item.controls.short_description.invalid && (item.controls.short_description.touched || showValid))}">
+                <label class="input-label" [innerText]="'Tóm tắt'|translate">Tóm tắt</label>
+                <input type="text" [formControl]="item.controls.short_description" class="form-control">
+              </div>
+              <div [hidden]="(isObject(configs.table_contents) && configs.table_contents.link === false)" class="form-group" [ngClass]="{'has-error':(item.controls.link.invalid && (item.controls.link.touched || showValid))}">
+                <label class="input-label" [innerText]="'Liên kết'|translate">Liên kết</label>
+                <input type="text" [formControl]="item.controls.link" class="form-control">
+              </div>
+              <div [hidden]="(isObject(configs.table_contents) && configs.table_contents.attach === false)" class="form-group">
+                <label class="input-label"><span [innerText]="'File đính kèm'|translate"></span></label>
+                <input type="file" (change)="onTbcAttach(i, $event)" accept="*">
+                <div class="small" *ngIf="item.controls.attach_url.value"><a [href]="item.controls.attach_url.value" target="_blank"><span [innerText]="'Xem file'|translate"></span></a>&nbsp;&nbsp;<a href="javascript:void(0)" class="text-danger" (click)="removeTbcAttach(i, $event, item.controls)"><span [innerText]="'Xóa file'|translate"></span></a></div>
+              </div>
+            </td>
+            <td [hidden]="(isObject(configs.table_contents) && configs.table_contents.description === false)" style="width: auto;border: 0;" class="pt-0 pb-0">
+              <div class="form-group" [ngClass]="{'has-error':(item.controls.description.invalid && (item.controls.description.touched || showValid))}">
+                <label class="input-label">Mô tả</label>
+                <textarea ngxEditor [opt]="editorOpt" [formControl]="item.controls.description" class="form-control" rows="3"></textarea>
+              </div>
+            </td>
+            <td rowspan="1" style="width: 1px;border: 0;vertical-align: middle;" class="pt-0 pb-0">
+              <button type="button" (click)="removeRow(i)" class="btn btn-sm btn-danger"><span class="ic_close"></span></button>
+            </td>
+          </tr>
+        </ng-container>
+        <tr>
+          <td colspan="3" style="width: auto;" class="text-right">
+            <button type="button" (click)="addRow()" class="btn btn-sm btn-primary"><span class="ic_plus"></span></button>
+          </td>
+        </tr>
+      </table>
+    </fieldset>
+    <fieldset [hidden]="!configs.table_images">
+      <legend>Table Images</legend>
+      <table class="table mt-3">
+        <ng-container *ngFor="let item of imgForm.controls; let i=index">
+          <tr *ngIf="i>0">
+            <td colspan="3" style="width: auto;border: 0;" class="p-0">
+              <hr>
+            </td>
+          </tr>
+          <tr>
+            <td style="width: auto;border: 0;" class="pt-0 pb-0">
+              <div [hidden]="(isObject(configs.table_images) && configs.table_images.image === false)" class="form-group">
+                <label class="input-label" [innerText]="'Hình'|translate">Hình</label>
+                <ngx-picture-uploader [options]="imgOpts[i]" (onSelected)="onImgSelected(i, $event)" (onDeleted)="onImgDeleted(i, $event)"></ngx-picture-uploader>
+              </div>
+              <div [hidden]="(isObject(configs.table_images) && configs.table_images.name === false)">
+                <label class="input-label">Tên</label>
+                <input type="text" [formControl]="item.controls.name" class="form-control">
+              </div>
+              <div [hidden]="(isObject(configs.table_images) && configs.table_images.short_description === false)">
+                <label class="input-label" [innerText]="'Tóm tắt'|translate">Tóm tắt</label>
+                <input type="text" [formControl]="item.controls.short_description" class="form-control">
+              </div>
+              <div [hidden]="(isObject(configs.table_images) && configs.table_images.link === false)">
+                <label class="input-label" [innerText]="'Liên kết'|translate">Liên kết</label>
+                <input type="text" [formControl]="item.controls.link" class="form-control">
+              </div>
+            </td>
+            <td [hidden]="(isObject(configs.table_images) && configs.table_images.description === false)" style="width: auto;border: 0;" class="pt-0 pb-0">
+              <div class="form-group" [ngClass]="{'has-error':(item.controls.description.invalid && (item.controls.description.touched || showValid))}">
+                <label class="input-label">Mô tả</label>
+                <textarea ngxEditor [opt]="editorOpt" [formControl]="item.controls.description" class="form-control" rows="3"></textarea>
+              </div>
+            </td>
+            <td rowspan="1" style="width: 1px;border: 0;vertical-align: middle;" class="pt-0 pb-0">
+              <button type="button" (click)="removeImgRow(i)" class="btn btn-sm btn-danger"><span class="ic_close"></span></button>
+            </td>
+          </tr>
+        </ng-container>
+        <tr>
+          <td colspan="3" style="width: auto;" class="text-right">
+            <button type="button" (click)="addImgRow()" class="btn btn-sm btn-primary"><span class="ic_plus"></span></button>
+          </td>
+        </tr>
+      </table>
+    </fieldset>
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-secondary mr-1" type="button" (click)="onSubmit(form.value)" [disabled]="submitted"><span [innerText]="'Cập nhật'|translate">Cập nhật</span></button>
+      <button class="btn btn-secondary" type="button" (click)="onSubmit(form.value, true)" [disabled]="submitted"><span [innerText]="'Cập nhật & thoát'|translate">Cập nhật & thoát</span></button>
+    </div>
+  </form>
+</ng-container>

@@ -1,0 +1,41 @@
+.button_layout10 {
+  display: flex;
+  justify-content: var(--button-align, center);
+  position: relative;
+  z-index: 1;
+  .wid_button{
+    position: relative;
+    display: block;
+    overflow: hidden;
+    height: max-content;
+    width: max-content;
+    text-transform: uppercase;
+    border: 1px solid currentColor;
+    color: var(--button-color, var(--primary));
+    padding: 17px 44px;
+    box-sizing: border-box;
+    transition: 0.5s;
+    span{
+      position: absolute;
+      display: block;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background-color: var(--button-hover-color, var(--primary));
+      transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
+      transform: translate(-50%, -50%);
+      z-index: -1;
+    }
+    &:hover {
+      color: var(--text-btn-hover-color, var(--white));
+      border-color: var(--button-hover-color, var(--primary));
+      span {
+        width: 225%;
+        height: calc(225%*2.25);
+      }
+    }
+    &:active {
+      background-color: var(--button-hover-color, var(--primary));
+    }
+  }
+}

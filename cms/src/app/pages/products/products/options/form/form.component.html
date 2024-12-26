@@ -1,0 +1,26 @@
+<div bsModal #modal="bs-modal" [config]="{backdrop:'static'}" class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-sm modal-dialog-centered" style="z-index: 99999">
+    <div class="modal-content">
+      <form novalidate [formGroup]="form">
+        <div class="modal-header">
+          <h4 class="modal-title"><span [innerText]="!info?'Thêm':'Cập nhật'"></span> tùy chọn</h4>
+          <a class="close" (click)="hide()"><span class="ic_close"></span></a>
+        </div>
+        <div class="modal-body">
+          <div class="form-group" [ngClass]="{'has-error': (controls.option_id.invalid && (controls.option_id.touched || showValid))}">
+            <label class="input-label"><span [innerText]="'Tùy chọn'"></span></label>
+            <select class="form-control" [formControl]="controls.option_id" [ngClass]="{'loading':optionData.loading}">
+              <option value="">Không</option>
+              <ng-container *ngFor="let item of optionData.items">
+                <option [value]="item.id">{{ item.name }}</option>
+              </ng-container>
+            </select>
+          </div>
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-secondary" type="button" (click)="onSubmit(form.value)" [disabled]="submitted"><span class="spinner-border spinner-border-sm" *ngIf="submitted"></span> Hoàn tất</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<div bsModal #modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" (onHidden)="onHidden()" style="z-index: 9999999">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal" style="z-index: 99999">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" *ngIf="title" [innerHTML]="title"></h4>
+        <a class="close float-right" (click)="hide()"><span class="ic_close"></span></a>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <div class="alert alert-{{ type }}">
+            <ng-container *ngFor="let item of messages; let $index = index">
+              <div [ngClass]="{'mt-2':$index>0}" [innerHTML]="item"></div>
+            </ng-container>
+            <ul class="m-0 pl-3" *ngIf="contentList&&contentList.length">
+              <li *ngFor="let item of contentList;"><a [routerLink]="item.commands" [innerText]="item.name" target="_blank"></a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="d-flex align-items-center">
+          <div class="ml-auto">
+            <button class="btn btn-outline-secondary mr-2" (click)="hide()">Thoát</button>
+            <a *ngIf="btn&&btn.commands" class="btn btn-secondary text-white" (click)="goDetail()" [innerText]="btn.name?btn.name:'Chi tiết'">Chi tiết</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

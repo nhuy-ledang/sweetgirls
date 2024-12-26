@@ -1,0 +1,15 @@
+.v_scrollbar {
+  &::-webkit-scrollbar {
+    width: .3125rem;
+    background-color: #fff;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #e4e9f2;
+    cursor: pointer;
+    border-radius: .15625rem;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #e5e5e5;
+    border-radius: .15625rem;
+  }
+}

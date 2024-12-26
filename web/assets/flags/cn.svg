@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="31.012" height="20" viewBox="0 0 31.012 20">
+    <defs>
+        <style>
+            .prefix__cls-2{fill:#efbc2e}
+        </style>
+    </defs>
+    <g id="prefix__Group_3559" data-name="Group 3559" transform="translate(-1031.605 -288.844)">
+        <g id="prefix__Group_3558" data-name="Group 3558">
+            <rect id="prefix__Rectangle_962" width="31.012" height="20" fill="#aa494a" data-name="Rectangle 962" rx="1.25" transform="translate(1031.605 288.844)"/>
+            <path id="prefix__Path_4550" d="M1038.331 293.932l1.03 2.087 2.3.335-1.661 1.624.393 2.294-2.06-1.083-2.06 1.083.393-2.294-1.666-1.624 2.3-.335zm0 0" class="prefix__cls-2" data-name="Path 4550"/>
+            <path id="prefix__Path_4551" d="M1043.569 290.693l.4.8.885.129-.64.624.151.881-.792-.416-.792.416.152-.881-.641-.624.886-.129zm0 0" class="prefix__cls-2" data-name="Path 4551"/>
+            <path id="prefix__Path_4552" d="M1043.569 301.7l.4.8.885.128-.64.625.151.881-.792-.416-.792.416.152-.881-.641-.625.886-.128zm0 0" class="prefix__cls-2" data-name="Path 4552"/>
+            <path id="prefix__Path_4553" d="M1045.8 294.082l.4.8.884.128-.64.625.151.881-.792-.416-.792.416.152-.881-.641-.625.886-.128zm0 0" class="prefix__cls-2" data-name="Path 4553"/>
+            <path id="prefix__Path_4554" d="M1045.8 297.946l.4.8.884.129-.64.624.151.881-.792-.416-.792.416.152-.881-.641-.624.886-.129zm0 0" class="prefix__cls-2" data-name="Path 4554"/>
+        </g>
+        <path id="prefix__Path_4555" fill="#a04448" d="M1032.617 304.844v-16a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h29a1 1 0 0 0 1-1h-27a3 3 0 0 1-3-3zm0 0" data-name="Path 4555"/>
+    </g>
+</svg>

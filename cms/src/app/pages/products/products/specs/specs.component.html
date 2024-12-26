@@ -1,0 +1,55 @@
+<div class="row align-items-center mb-3">
+  <div class="col-sm"><h5 class="m-0" [innerText]="info?.name"></h5></div>
+  <div class="col-sm-auto">
+    <div class="btn-group">
+      <button type="button" class="btn btn-secondary" (click)="create()"><span class="ic_plus"></span> Thêm thông số</button>
+    </div>
+  </div>
+</div>
+<div class="mb-3" *ngIf="data.selectList.length">
+  <div class="d-flex align-items-center">
+    <span class="font-size-sm mr-3"><span [innerText]="data.selectList.length"></span> selected</span>
+    <a class="btn btn-outline-danger" href="javascript:;" (click)="removeAll()"><span class="fa fa-trash mr-1"></span>Xóa</a>
+  </div>
+</div>
+<div class="card">
+  <div class="table-responsive">
+    <table class="table m-0">
+      <thead>
+      <tr>
+        <th>
+          <div class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" [(ngModel)]="data.selectAll" (change)="selectAll()" id="tabPropSelect"><label class="custom-control-label" for="tabPropSelect"></label></div>
+        </th>
+        <th>Stt</th>
+        <th><span>Tên</span></th>
+        <th><span [innerText]="'Giá trị'|translate">Giá trị</span></th>
+        <th><span [innerText]="'Sắp xếp'|translate">Sắp xếp</span></th>
+      </tr>
+      </thead>
+      <tbody class="text-dark">
+      <tr *ngIf="data.loading">
+        <td colspan="4" class="text-center">
+          <div class="spinner-border"><span class="sr-only">Loading...</span></div>
+        </td>
+      </tr>
+      <tr *ngFor="let item of data.items; let $index = index">
+        <td>
+          <div class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" [(ngModel)]="item.checkbox" [attr.id]="'tabPropSelect'+$index" (click)="checkbox(item)"><label class="custom-control-label" [attr.for]="'tabPropSelect'+$index"></label></div>
+        </td>
+        <td [innerText]="item.index + 1"></td>
+        <td>
+          <div [innerHTML]="item.name"></div>
+          <div class="row-options">
+            <a href="javascript:;" (click)="edit(item)" [innerText]="'Sửa'|translate">Sửa</a>&nbsp; | &nbsp;<a href="javascript:;" class="text-danger" (click)="remove(item)" [innerText]="'Xóa'|translate">Xóa</a>
+          </div>
+        </td>
+        <td [innerHTML]="item.value"></td>
+        <td [innerText]="item.sort_order"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<ngx-pd-product-spec-form (onSuccess)="onFormSuccess($event)"></ngx-pd-product-spec-form>
+<ngx-pd-product-spec-desc (onSuccess)="onDescSuccess($event)"></ngx-pd-product-spec-desc>
+<ngx-modal-confirm (onConfirm)="onConfirm($event)"></ngx-modal-confirm>

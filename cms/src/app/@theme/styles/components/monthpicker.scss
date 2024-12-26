@@ -1,0 +1,79 @@
+.monthpicker {
+  @include clearfix;
+  min-width: 450px;
+  .bs-datepicker {
+    box-shadow: none;
+  }
+  .bs-datepicker-container {
+    padding: 0;
+  }
+  .ranges {
+    width: auto;
+    float: left;
+    padding-top: 15px;
+    ul {
+      list-style: none;
+      margin: 0 auto;
+      padding: 0;
+      width: 140px;
+    }
+    li {
+      font-size: $font-size-base;
+      padding: 4px 12px;
+      cursor: pointer;
+      line-height: 1;
+      white-space: nowrap;
+      list-style: none;
+      &:hover {
+        background-color: #eee;
+      }
+      &.active {
+        background-color: $primary;
+        color: #fff;
+      }
+    }
+  }
+  .drp-calendar {
+    border-left: 1px solid #ddd;
+    float: left;
+    padding: 15px;
+  }
+  .drp-buttons {
+    clear: both;
+    text-align: right;
+    padding: 8px;
+    border-top: 1px solid #ddd;
+    line-height: 12px;
+    vertical-align: middle;
+    display: block;
+    white-space: nowrap;
+    .btn {
+      margin-left: 8px;
+      font-size: $font-size-sm;
+      font-weight: $font-weight-bold;
+      padding: 4px 8px;
+    }
+  }
+  .drp-selected {
+    display: inline-block;
+    font-size: $font-size-sm;
+    padding-right: 8px;
+  }
+  &.customrange {
+    min-width: 740px;
+  }
+  &.no-drp {
+    min-width: 140px;
+    .ranges {
+      float: none;
+      padding: 0;
+      ul {
+        width: auto;
+        margin: 0;
+      }
+    }
+    .drp-calendar {
+      display: none;
+    }
+  }
+}

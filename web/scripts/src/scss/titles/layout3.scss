@@ -1,0 +1,10 @@
+.title_layout3 {
+  .section_title{
+    color: var(--title-color, var(--primary));
+    font-weight: 600;
+    text-transform: capitalize;
+    text-shadow: 0 0 1px var(--title-color, var(--primary)), 0 0 6px var(--title-color, var(--primary)), 0 0 8px var(--title-color, var(--primary)), 0 0 15px var(--title-color, var(--primary)), 0 0 30px var(--title-color, var(--primary)), 0 0 5px var(--title-color, var(--primary)), 0 0 48px var(--title-color, var(--primary));
+    position: relative;
+    letter-spacing: 5px;
+  }
+}

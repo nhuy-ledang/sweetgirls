@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="31" height="20" viewBox="0 0 31 20">
+    <defs>
+        <style>
+            .prefix__cls-2{fill:#f2f2f6}.prefix__cls-6{fill:#fff}
+        </style>
+    </defs>
+    <g id="prefix__Group_3554" data-name="Group 3554" transform="translate(-1032.294 -168.844)">
+        <path id="prefix__Path_4499" fill="#e5646e" d="M1062.294 168.844h-14l-15.455 10.7v8.89h29.455l1-.586v-1.857l-.651-.619v-1.756l.651-.483v-2.857l-.585-.56v-1.8l.585-.5v-2.857l-.585-.518v-1.574l.585-.765v-1.857a1 1 0 0 0-1-1zm0 0" data-name="Path 4499"/>
+        <path id="prefix__Rectangle_961" d="M0 0H15.48V2.857H0z" class="prefix__cls-2" data-name="Rectangle 961" transform="translate(1047.814 171.701)"/>
+        <path id="prefix__Path_4500" d="M1047.794 177.415l.5 2.857h15v-2.857zm0 0" class="prefix__cls-2" data-name="Path 4500"/>
+        <path id="prefix__Path_4501" fill="#db4655" d="M1033.294 184.844v-5.092l-1 .52v2.857l.424.362v1.877l-.424.619v1.857a1 1 0 0 0 1 1h29a1 1 0 0 0 1-1h-27a3 3 0 0 1-3-3zm0 0" data-name="Path 4501"/>
+        <path id="prefix__Path_4502" fill="#5055a0" d="M1048.294 168.844h-15l-.637 1 .637 10.428h15zm0 0" data-name="Path 4502"/>
+        <path id="prefix__Path_4503" fill="#3f3f8f" d="M1033.294 168.844a1 1 0 0 0-1 1v10.428h1zm0 0" data-name="Path 4503"/>
+        <path id="prefix__Path_4504" d="M1034.3 171.073a.5.5 0 1 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-6" data-name="Path 4504"/>
+        <path id="prefix__Path_4505" d="M1034.3 175.073a.5.5 0 1 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-6" data-name="Path 4505"/>
+        <path id="prefix__Path_4506" d="M1034.3 179.073a.5.5 0 1 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-6" data-name="Path 4506"/>
+        <path id="prefix__Path_4507" d="M1034.3 173.073a.5.5 0 1 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-2" data-name="Path 4507"/>
+        <path id="prefix__Path_4508" d="M1034.3 177.073a.5.5 0 1 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-2" data-name="Path 4508"/>
+        <path id="prefix__Path_4509" d="M1046.3 171.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-6" data-name="Path 4509"/>
+        <path id="prefix__Path_4510" d="M1046.3 175.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-6" data-name="Path 4510"/>
+        <path id="prefix__Path_4511" d="M1046.3 179.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-6" data-name="Path 4511"/>
+        <path id="prefix__Path_4512" d="M1046.3 173.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-2" data-name="Path 4512"/>
+        <path id="prefix__Path_4513" d="M1046.3 177.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-2" data-name="Path 4513"/>
+        <path id="prefix__Path_4514" d="M1037.3 171.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-2" data-name="Path 4514"/>
+        <path id="prefix__Path_4515" d="M1037.3 175.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-2" data-name="Path 4515"/>
+        <path id="prefix__Path_4516" d="M1037.3 179.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-2" data-name="Path 4516"/>
+        <path id="prefix__Path_4517" d="M1037.3 173.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-6" data-name="Path 4517"/>
+        <path id="prefix__Path_4518" d="M1037.3 177.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-6" data-name="Path 4518"/>
+        <path id="prefix__Path_4519" d="M1035.8 172.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-6" data-name="Path 4519"/>
+        <path id="prefix__Path_4520" d="M1035.8 176.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-6" data-name="Path 4520"/>
+        <path id="prefix__Path_4521" d="M1035.8 174.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-2" data-name="Path 4521"/>
+        <path id="prefix__Path_4522" d="M1035.8 178.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-2" data-name="Path 4522"/>
+        <path id="prefix__Path_4523" d="M1040.3 171.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-6" data-name="Path 4523"/>
+        <path id="prefix__Path_4524" d="M1040.3 175.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-6" data-name="Path 4524"/>
+        <path id="prefix__Path_4525" d="M1040.3 179.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-6" data-name="Path 4525"/>
+        <path id="prefix__Path_4526" d="M1040.3 173.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-2" data-name="Path 4526"/>
+        <path id="prefix__Path_4527" d="M1040.3 177.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-2" data-name="Path 4527"/>
+        <path id="prefix__Path_4528" d="M1038.8 172.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-2" data-name="Path 4528"/>
+        <path id="prefix__Path_4529" d="M1038.8 176.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-2" data-name="Path 4529"/>
+        <path id="prefix__Path_4530" d="M1038.8 174.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-6" data-name="Path 4530"/>
+        <path id="prefix__Path_4531" d="M1038.8 178.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-6" data-name="Path 4531"/>
+        <path id="prefix__Path_4532" d="M1043.294 171.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-2" data-name="Path 4532"/>
+        <path id="prefix__Path_4533" d="M1043.294 175.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-2" data-name="Path 4533"/>
+        <path id="prefix__Path_4534" d="M1043.294 179.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-2" data-name="Path 4534"/>
+        <path id="prefix__Path_4535" d="M1043.294 173.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-6" data-name="Path 4535"/>
+        <path id="prefix__Path_4536" d="M1043.294 177.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-6" data-name="Path 4536"/>
+        <path id="prefix__Path_4537" d="M1041.794 172.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-6" data-name="Path 4537"/>
+        <path id="prefix__Path_4538" d="M1041.794 176.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-6" data-name="Path 4538"/>
+        <path id="prefix__Path_4539" d="M1041.794 174.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-2" data-name="Path 4539"/>
+        <path id="prefix__Path_4540" d="M1041.794 178.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-2" data-name="Path 4540"/>
+        <path id="prefix__Path_4541" d="M1044.8 172.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-2" data-name="Path 4541"/>
+        <path id="prefix__Path_4542" d="M1044.8 176.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-2" data-name="Path 4542"/>
+        <path id="prefix__Path_4543" d="M1044.8 174.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-6" data-name="Path 4543"/>
+        <path id="prefix__Path_4544" d="M1044.8 178.073a.5.5 0 0 1-.005-1h.005a.5.5 0 0 1 0 1zm0 0" class="prefix__cls-6" data-name="Path 4544"/>
+        <path id="prefix__Path_4545" d="M1032.476 185.161l1.045.826h29.773v-2.858h-30zm0 0" class="prefix__cls-2" data-name="Path 4545"/>
+        <path id="prefix__Path_4546" fill="#e1e1e6" d="M1032.294 183.129v2.858h1.227a3 3 0 0 1-.227-1.143v-1.715zm0 0" data-name="Path 4546"/>
+    </g>
+</svg>

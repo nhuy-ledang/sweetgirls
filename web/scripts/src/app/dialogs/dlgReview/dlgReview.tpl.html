@@ -1,0 +1,148 @@
+<style>
+  .modal-content {
+    z-index: -2;
+  }
+
+  .delete-img {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    border-radius: 50%;
+  }
+  .image_upload .img, .upload-icon {
+    width: 100px;
+    height: 100px;
+  }
+  .upload-icon {
+    border: 1px solid #E5E5E5;
+    background: #E5E5E5;
+  }
+  .upload-icon .icon {
+    width: 60px;
+    height: 60px;
+    margin: 19px;
+    cursor: pointer;
+  }
+
+  .warning-note {
+    font-size: 11px;
+    color: #A5A5A5;
+  }
+  .close {
+    padding: 0 10px 0 0 !important;
+  }
+  @media (max-width: 767px) {
+    .product-info {
+      display: none;
+    }
+  }
+</style>
+<div class="modal-header border-bottom-0 text-center pt-5">
+  <h3 class="modal-title text-center w-100 font-weight-bold text-uppercase">{{ text_product_review?text_product_review:'Đánh giá sản phẩm' }}</h3>
+  <button type="button" class="close btn" data-dismiss="modal" aria-label="Close" ng-click="close()" style="font-size: 25px">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="d-flex justify-content-center" ng-show="envData.mode=='review'">
+    <form name="form" novalidate class="w-100" enctype="multipart/form-data" role="form"  accept-charset="utf-8">
+      <input type="hidden" name="product_id" ng-model="info.id">
+      <div class="row justify-content-center flex-column align-items-center product-info">
+        <div class="item_img" style="width: 200px;">
+          <div class="embed-responsive embed-responsive-{{ properties.imgFrame?properties.imgFrame:'1by1' }} bg-cover" data-src="{{ info.raw_url }}" style="background-image: url('{{ info.raw_url }}');"></div>
+        </div>
+        <span class="text-center mt-3">{{ info.long_name?info.long_name:info.name }}</span>
+      </div>
+      <div class="form-group row justify-content-center" ng-class="{'has-error': form.rating.$invalid &&envData.showValid}">
+        <div class="rating" style="--percent: 0%; font-size: 40px">
+          <div>
+            <span class="fa fa-star-o item-star" ng-click="onClickStart(1)"></span>
+            <span class="fa fa-star-o item-star" ng-click="onClickStart(2)"></span>
+            <span class="fa fa-star-o item-star" ng-click="onClickStart(3)"></span>
+            <span class="fa fa-star-o item-star" ng-click="onClickStart(4)"></span>
+            <span class="fa fa-star-o item-star" ng-click="onClickStart(5)"></span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group flex-column" ng-class="{'has-error': form.review.$invalid &&envData.showValid}">
+        <label class="font-weight-bold">Đánh giá của bạn</label>
+        <div class="">
+          <textarea name="review" ng-model="params.review" class="form-control" placeholder="Nhập ít nhất 8 từ" minlength="8" required rows="6"></textarea>
+        </div>
+      </div>
+      <div class="form-group flex-column">
+        <label class="font-weight-bold">Hình ảnh (Chọn tối đa 10 hình)</label>
+        <div class="row no-gutters">
+          <div class="col-auto pr-2 mb-1">
+            <div class="upload-icon d-flex justify-content-center align-items-center" ng-click="upload()">
+              <span class="fa fa-plus" style="color: #8f8f8f"></span>
+            </div>
+          </div>
+          <div class="col-auto pr-2 mb-1 image_upload" ng-repeat="f in files">
+            <div class="img position-relative">
+              <span class="embed-responsive embed-responsive-1by1 bg-cover" style="background-image: url('{{ f.thumb_url }}');"></span>
+              <a ng-click="removeFile($index)" class="delete-img position-absolute cursor-pointer bg-light">
+                <svg width="20" height="20" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"  viewBox="0 0 511.76 511.76" style="enable-background:new 0 0 511.76 511.76;" xml:space="preserve"><path d="M436.896,74.869c-99.84-99.819-262.208-99.819-362.048,0c-99.797,99.819-99.797,262.229,0,362.048 c49.92,49.899,115.477,74.837,181.035,74.837s131.093-24.939,181.013-74.837C536.715,337.099,536.715,174.688,436.896,74.869z M361.461,331.317c8.341,8.341,8.341,21.824,0,30.165c-4.16,4.16-9.621,6.251-15.083,6.251c-5.461,0-10.923-2.091-15.083-6.251 l-75.413-75.435l-75.392,75.413c-4.181,4.16-9.643,6.251-15.083,6.251c-5.461,0-10.923-2.091-15.083-6.251 c-8.341-8.341-8.341-21.845,0-30.165l75.392-75.413l-75.413-75.413c-8.341-8.341-8.341-21.845,0-30.165	c8.32-8.341,21.824-8.341,30.165,0l75.413,75.413l75.413-75.413c8.341-8.341,21.824-8.341,30.165,0	c8.341,8.32,8.341,21.824,0,30.165l-75.413,75.413L361.461,331.317z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <span class="warning-note">*Go Mart không chấp nhãn đánh giá có chứa mã giới thiệu bạn bè (Referral Code).</span>
+      </div>
+      <div class="row justify-content-center no-gutters">
+        <button type="button" class="cus_btn" ng-click="submit(form)" ng-disabled="envData.submitted"><span><span class="spinner-border spinner-border-sm" ng-if="envData.submitted"></span></span>Gửi đánh giá và có thêm 100 Go Mart Coin</button>
+      </div>
+    </form>
+  </div>
+  <div class="text-center" ng-show="envData.mode=='share'">
+    <span class="font-6">Cảm ơn bạn đã yêu thương, tin tưởng và lựa chọn mua hàng tại Go Mart. Go Mart mong bạn có thể giới thiệu người thân, bạn bè biết tới Go Mart trang mua hàng uy tín và chất lượng nhiều hơn trong tương lai.</span>
+    <div class="item_img mx-auto my-2" style="width: 200px;">
+      <div class="embed-responsive embed-responsive-{{ properties.imgFrame?properties.imgFrame:'1by1' }} bg-cover" data-src="{{ info.raw_url }}" style="background-image: url('{{ info.raw_url }}');"></div>
+    </div>
+    <p class="font-weight-bold" ng-bind="info.name"></p>
+    <div class="rating my-2" style="--percent: {{ params.rating/5*100 }}%; font-size: 40px; letter-spacing: 10px">
+      <div class="percent"><span class="fa fa-star" ng-repeat="index in [1,2,3,4,5]"></span></div>
+      <div><span class="fa fa-star-o" ng-repeat="index in [1,2,3,4,5]"></span></div>
+    </div>
+    <p ng-bind="params.review"></p>
+    <a class="btn btn-primary text-white" id="btn_share" ng-click="createShare(info.id)" href="https://www.facebook.com/sharer/sharer.php?u={{ info.href }}&hashtag=%23sweetgirlBeauty" target="_blank"><span class="fa fa-facebook mr-1"></span>Chia sẻ và nhận 100 sweetgirlCoin</a>
+  </div>
+</div>
+<script>
+  // Star Action
+  function starAction(e) {
+    var prevRow = $(e).prev('.item-star');
+    var nextRow = $(e).next('.item-star');
+
+    $('.item-star').removeClass('hover-star');
+    $(e).addClass('fa-star');
+    $(e).removeClass('fa-star-o');
+    // $('#show_text').html($(e).attr('text'));
+
+    while (nextRow.length === 1 && nextRow.hasClass('item-star')) {
+      nextRow.removeClass('fa-star');
+      nextRow.addClass('fa-star-o');
+      nextRow = nextRow.next('.item-star');
+    }
+
+    while (prevRow.length === 1 && prevRow.hasClass('item-star')) {
+      prevRow.removeClass('fa-star-o');
+      prevRow.addClass('fa-star');
+      prevRow = prevRow.prev('.item-star');
+    }
+  }
+
+  $('.item-star').click(function() {
+    starAction(this);
+    $('.item-star').off("mouseenter mouseleave")
+  });
+
+  $('.item-star').hover(function() {
+    starAction(this);
+  }, function() {
+    $('.item-star').addClass('fa-star-o');
+    $('.item-star').removeClass('fa-star');
+    $('#show_text').html('');
+  });
+
+</script>

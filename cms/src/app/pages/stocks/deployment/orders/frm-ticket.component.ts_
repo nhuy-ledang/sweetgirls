@@ -1,0 +1,28 @@
+import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormBuilder } from '@angular/forms';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+import { GlobalState } from '../../../../@core/utils';
+import { Security } from '../../../../@core/security';
+import { InvoicesRepository } from '../../../orders/shared/services';
+import { InvoiceFrmTicketComponent } from '../../../orders/invoices/invoices/frm-ticket/frm-ticket.component';
+
+@Component({
+  selector: 'ngx-sto-dep-order-frm-ticket',
+  templateUrl: '../../../orders/invoices/invoices/frm-ticket/frm-ticket.component.html',
+})
+export class DepOrderFrmTicketComponent extends InvoiceFrmTicketComponent implements OnInit, OnDestroy {
+  @ViewChild('modal', {static: true}) modal: ModalDirective;
+  @Output() onSuccess: EventEmitter<any> = new EventEmitter<any>();
+
+  constructor(fb: FormBuilder, router: Router, security: Security, state: GlobalState, repository: InvoicesRepository) {
+    super(fb, router, security, state, repository);
+  }
+
+  ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void {
+    super.destroy();
+  }
+}

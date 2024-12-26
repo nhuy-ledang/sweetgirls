@@ -1,0 +1,14 @@
+<div class="row justify-content-center justify-content-sm-between align-items-sm-center">
+  <div class="col-sm mb-2 mb-sm-0">
+    <div class="d-flex justify-content-center justify-content-sm-start align-items-center">
+      <span>Xem:</span>
+      <ng-select2 [(ngModel)]="pageSize" [data]="pageSizeList" [options]="options" (valueChanged)="pageSizeChanged($event)"></ng-select2>
+      <span><span [innerText]="(page-1)*pageSize+1">1</span> - <span [innerText]="totalItems<((page-1)*pageSize+pageSize)?totalItems:((page-1)*pageSize+pageSize)">25</span> của <span [innerText]="totalItems">100</span></span>
+    </div>
+  </div>
+  <div class="col-auto">
+    <div class="d-flex justify-content-center justify-content-sm-end">
+      <pagination *ngIf="totalItems>pageSize&&pageSize>=page" [(ngModel)]="page" [itemsPerPage]="pageSize" [totalItems]="totalItems" [maxSize]="maxSize" (pageChanged)="pageChanged($event)" previousText="Prev" nextText="Next"></pagination>
+    </div>
+  </div>
+</div>

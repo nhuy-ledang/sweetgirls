@@ -1,0 +1,24 @@
+<div bsModal #modal="bs-modal" [config]="{backdrop:'static'}" class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-sm modal-dialog-centered" style="z-index: 99999">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">
+          <span *ngIf="!info"><span [innerText]="'Cập nhật số lượng sản phẩm'|translate"></span></span>
+          <span *ngIf="info">Cập nhật số lượng sản phẩm</span>
+        </h4>
+        <a href="javascript:" (click)="hide()" class="close"><span class="ic_close"></span></a>
+      </div>
+      <div class="modal-body">
+        <form class="pt-3" novalidate [formGroup]="form">
+          <div class="form-group" [ngClass]="{'has-error': (controls.quantity.invalid && (controls.quantity.touched || showValid))}">
+            <label class="input-label">Số lượng</label>
+            <input name="quantity" type="text" [formControl]="controls.quantity" class="form-control">
+          </div>
+        </form>
+        <div class="d-flex justify-content-end" style="position: sticky; bottom: 0; padding:15px 0; background: #ffffff; z-index: 9">
+          <button type="button" (click)="onSubmit(form.value, true)" [disabled]="submitted" class="btn btn-secondary mr-1"><span [innerText]="'Cập nhật'|translate">Cập nhật</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<!-- <div class="scrollable-container">
+  <div class="layout-container">
+    <ngx-sidebar class="menu-sidebar" [menu]="menu" [setup]="setup" [toggleState]="toggleState" [ngClass]="{'compacted':toggleState,'expanded':!toggleState}"></ngx-sidebar>
+    <div class="ly_header"><nav><ngx-header></ngx-header></nav></div>
+    <div class="ly_content">
+      <div id="main-content" class="ly_main_content">
+        <div class="ly_content_fluid">
+          <div class="splitted_content">
+            <div class="splitted_content_main"><router-outlet></router-outlet></div>
+            <div class="splitted_content_mini d-flex flex-column" [ngClass]="{'md':miniStatus=='mini','lg':miniStatus=='extend'}"><ngx-minibar (toggle)="minibarToggle($event)"></ngx-minibar></div>
+          </div>
+        </div>
+      </div>
+      <div class="ly_footer"><nav><ngx-footer></ngx-footer></nav></div>
+    </div>
+  </div>
+</div>
+<ngx-dlg-password></ngx-dlg-password> -->
+<div class="scrollable-container">
+
+  <!-- Kiểm tra URL, nếu là /pages/pos thì ẩn layout-container -->
+  <div *ngIf="!isPosPage" class="layout-container">
+    <ngx-sidebar class="menu-sidebar" 
+      [menu]="menu" 
+      [setup]="setup" 
+      [toggleState]="toggleState" 
+      [ngClass]="{'compacted':toggleState,'expanded':!toggleState}">
+    </ngx-sidebar>
+    
+    <div class="ly_header"><nav><ngx-header></ngx-header></nav></div>
+    
+    <div class="ly_content">
+      <div id="main-content" class="ly_main_content">
+        <div class="ly_content_fluid">
+          <div class="splitted_content">
+            <div class="splitted_content_main"><router-outlet></router-outlet></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nếu URL là /pages/pos, chỉ hiển thị ly_content -->
+  <div *ngIf="isPosPage" class="ly_content">
+    <div id="main-content" class="ly_main_content">
+      <div class="ly_content_fluid">
+        <div class="splitted_content">
+          <div class="splitted_content_main1"><router-outlet></router-outlet></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<ngx-dlg-password></ngx-dlg-password>

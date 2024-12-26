@@ -1,0 +1,21 @@
+{
+    "Core": true,
+    "System": true,
+    "Notify": true,
+    "User": true,
+    "Usr": true,
+    "Media": true,
+    "Location": true,
+    "Blog": true,
+    "Project": true,
+    "Product": true,
+    "Recruit": true,
+    "Category": true,
+    "Page": true,
+    "Staff": true,
+    "Marketing": true,
+    "Order": true,
+    "Business": true,
+    "Affiliate": true,
+    "Stock": true
+}

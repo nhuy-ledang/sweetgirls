@@ -1,0 +1,73 @@
+/*******************
+Scafholding
+*******************/
+.font-size-sm {
+  font-size: $font-size-sm;
+}
+
+.fs-xs {
+  font-size: 0.625rem !important;
+}
+
+.fs-sm {
+  font-size: $font-size-sm !important;
+}
+
+.fs-lg {
+  font-size: $font-size-lg !important;
+}
+
+.fs-normal {
+  font-size: $font-size-base !important;
+}
+
+.fs-1 {
+  font-size: $h1-font-size; // 24px;
+}
+
+.fs-2 {
+  font-size: $h2-font-size; // 21px;
+}
+
+.fs-3 {
+  font-size: $h3-font-size; // 18px;
+}
+
+.fs-4 {
+  font-size: $h4-font-size; // 15.75px;
+}
+
+.fs-5 {
+  font-size: $h5-font-size; // 14px;
+}
+
+.fs-6 {
+  font-size: $h6-font-size; // 13px;
+}
+
+/*******************
+Limit text
+*******************/
+.limit-text-1 {
+  @include limit-text(1);
+}
+
+.limit-text-2 {
+  @include limit-text(2);
+}
+
+/*******************
+Utilities
+*******************/
+.z-index-2 {
+  z-index: 2;
+}
+
+// Width and height
+.min-w-100 {
+  min-width: 100%;
+}
+
+.min-h-100 {
+  min-height: 100%;
+}

@@ -1,0 +1,66 @@
+/*!
+ * In this scss you can overwrite all our scss, we suggested you to add your scss into this, so whenever the update comes it will not affect your code.
+ */
+
+// Modal background
+.modal-backdrop {
+  // Fade for backdrop
+  &.fade {
+    opacity: 0;
+  }
+  &.in {
+    opacity: $modal-backdrop-opacity;
+  }
+}
+
+// Boostrap3
+.open > .dropdown-menu {
+  display: block;
+}
+
+// Base class
+.tooltip {
+  &.in {
+    opacity: $tooltip-opacity;
+  }
+}
+
+.row-no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+  > [class*="col-"] {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+.embed-project:before {
+  padding-top: 68% !important;
+}
+
+.embed-responsive-item{
+  transition: .5s ease-in-out;
+}
+
+.breadcrumb {
+  &.text-white {
+    .breadcrumb-item {
+      &.active {
+        color: #fff;
+      }
+      + .breadcrumb-item::before {
+        color: #fff;
+      }
+    }
+  }
+  li {
+    color: #a5a5a5;
+    &:last-child {
+      color: #0f1f2a;
+    }
+  }
+}
+
+.has-danger .form-control {
+  border-color: $danger !important;
+}

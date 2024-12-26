@@ -1,0 +1,13 @@
+<div class="picture-uploader">
+  <div [attr.class]="'shadow embed-responsive embed-responsive-'+aspect_ratio">
+    <div class="embed-responsive-item">
+      <ng-container *ngIf="thumb_url"><img [src]="thumb_url" class="img-fluid" style="max-height: 100%;"></ng-container>
+    </div>
+  </div>
+  <input #fileUpload type="file" hidden="true" (change)="onFiles()" accept="image/*">
+  <div class="tb text-center">
+    <button type="button" class="btn btn-sm btn-info text-white" (click)="selector()"><i class="fa fa-upload"></i></button>&nbsp;&nbsp;
+    <button type="button" class="btn btn-sm btn-primary text-white" (click)="open()"><i class="fa fa-pencil"></i></button>&nbsp;&nbsp;
+    <button type="button" class="btn btn-sm btn-warning text-white" (click)="remove()"><i class="fa fa-trash"></i></button>
+  </div>
+</div>

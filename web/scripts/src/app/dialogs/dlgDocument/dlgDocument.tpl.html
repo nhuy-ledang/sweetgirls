@@ -1,0 +1,21 @@
+<div class="modal-header border-bottom-0">
+  <!--<h5 class="modal-title text-center text-primary" ng-bind-html="info.name|safe_html"></h5>-->
+  <div class="modal-title text-center" ng-bind-html="titleDocument|safe_html"></div>
+  <button type="button" class="close cus-close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true" ng-click="close()">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="row justify-content-center">
+    <div class="col-6 col-md-4 px-2 px-lg-5" ng-repeat="item in vm.info.documents">
+      <div class="block-document mb-5">
+        <a ng-click="saveInfo(item)">
+          <span class="block-img img-document  border-radius-3">
+            <span class="img"><span class="embed-responsive embed-responsive-1by1 bg-center" style="background-image: url('{{ item.thumb_url }}')"><span class="embed-responsive-item"></span></span></span>
+          </span>
+          <span class="name-product text-center mt-4"><h5 class=" limit-text-2" ng-bind-html="item.name|safe_html"></h5></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div bsModal #modal="bs-modal" [config]="{backdrop:'static'}" class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-sm modal-dialog-centered" style="z-index: 99999">
+    <div class="modal-content">
+      <form *ngIf="info" novalidate>
+        <div class="modal-header">
+          <h4 class="modal-title">Phân quyền cho quản trị {{info?.display}}</h4>
+          <a class="close" (click)="hide()"><span class="ic_close"></span></a>
+        </div>
+        <div class="modal-body">
+          <div class="form-group" *ngIf="modal.isShown">
+            <label class="input-label">Phân quyền</label>
+            <div class="card bg-light" style="max-height: 300px; overflow: auto;">
+              <div class="card-body pt-3 pb-2 pl-3 pr-3">
+                <div style="user-select: none;">
+                  <ng-container *ngFor="let item of roleList; let $index = index">
+                    <label *ngIf="item.id != 1 || isSuperAdmin()" class="form-check p-0 mb-2"><input name="roles_{{$index}}" type="checkbox" [(ngModel)]="item.checked" [attr.checked]="item.checked" (change)="onChange(item)"> {{item.name}}</label>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="text-right">
+            <button class="btn btn-secondary" type="submit" (click)="onSubmit($event)" [disabled]="submitted"><span class="spinner-border spinner-border-sm" *ngIf="submitted"></span> Cập nhật</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,276 @@
+@import "variables";
+
+@font-face {
+  font-family: '#{$icomoon-font-family}';
+  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?xmt5uo');
+  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?xmt5uo#iefix') format('embedded-opentype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?xmt5uo') format('truetype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?xmt5uo') format('woff'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?xmt5uo##{$icomoon-font-family}') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="ic_"], [class*=" ic_"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: '#{$icomoon-font-family}' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ic_person {
+  &:before {
+    content: $ic_person; 
+  }
+}
+.ic_feed {
+  &:before {
+    content: $ic_feed; 
+  }
+}
+.ic_book {
+  &:before {
+    content: $ic_book; 
+  }
+}
+.ic_gift {
+  &:before {
+    content: $ic_gift; 
+  }
+}
+.ic_shopping {
+  &:before {
+    content: $ic_shopping; 
+  }
+}
+.ic_check {
+  &:before {
+    content: $ic_check; 
+  }
+}
+.ic_edit {
+  &:before {
+    content: $ic_edit; 
+  }
+}
+.ic_address {
+  &:before {
+    content: $ic_address; 
+  }
+}
+.ic_info {
+  &:before {
+    content: $ic_info; 
+  }
+}
+.ic_eye_hidden {
+  &:before {
+    content: $ic_eye_hidden; 
+  }
+}
+.ic_eye {
+  &:before {
+    content: $ic_eye; 
+  }
+}
+.ic_allowance {
+  &:before {
+    content: $ic_allowance;     
+    color: #494949;
+  }
+}
+.ic_bonus {
+  &:before {
+    content: $ic_bonus;     
+    color: #494949;
+  }
+}
+.ic_business_fee {
+  &:before {
+    content: $ic_business_fee;     
+    color: #494949;
+  }
+}
+.ic_clock {
+  &:before {
+    content: $ic_clock; 
+  }
+}
+.ic_educate {
+  &:before {
+    content: $ic_educate;     
+    color: #494949;
+  }
+}
+.ic_health_care {
+  &:before {
+    content: $ic_health_care;     
+    color: #494949;
+  }
+}
+.ic_insurance {
+  &:before {
+    content: $ic_insurance;     
+    color: #494949;
+  }
+}
+.ic_laptop {
+  &:before {
+    content: $ic_laptop; 
+  }
+}
+.ic_salary_increase {
+  &:before {
+    content: $ic_salary_increase;     
+    color: #494949;
+  }
+}
+.ic_seniority_allowances {
+  &:before {
+    content: $ic_seniority_allowances;     
+    color: #494949;
+  }
+}
+.ic_travel {
+  &:before {
+    content: $ic_travel;     
+    color: #494949;
+  }
+}
+.ic_uniform {
+  &:before {
+    content: $ic_uniform;     
+    color: #494949;
+  }
+}
+.ic_vacation_mode {
+  &:before {
+    content: $ic_vacation_mode;     
+    color: #494949;
+  }
+}
+.ic_wage {
+  &:before {
+    content: $ic_wage; 
+  }
+}
+.ic_arrow_left_long {
+  &:before {
+    content: $ic_arrow_left_long; 
+  }
+}
+.ic_arrow_right_long {
+  &:before {
+    content: $ic_arrow_right_long; 
+  }
+}
+.ic_cart {
+  &:before {
+    content: $ic_cart; 
+  }
+}
+.ic_angle_down {
+  &:before {
+    content: $ic_angle_down; 
+  }
+}
+.ic_angle_up {
+  &:before {
+    content: $ic_angle_up; 
+  }
+}
+.ic_angle_left {
+  &:before {
+    content: $ic_angle_left; 
+  }
+}
+.ic_angle_right {
+  &:before {
+    content: $ic_angle_right; 
+  }
+}
+.ic_search {
+  &:before {
+    content: $ic_search; 
+  }
+}
+.ic_location {
+  &:before {
+    content: $ic_location; 
+  }
+}
+.ic_global {
+  &:before {
+    content: $ic_global; 
+  }
+}
+.ic_phone {
+  &:before {
+    content: $ic_phone; 
+  }
+}
+.ic_hotline {
+  &:before {
+    content: $ic_hotline; 
+  }
+}
+.ic_email {
+  &:before {
+    content: $ic_email; 
+  }
+}
+.ic_facebook2 {
+  &:before {
+    content: $ic_facebook2; 
+  }
+}
+.ic_facebook {
+  &:before {
+    content: $ic_facebook; 
+  }
+}
+.ic_youtube2 {
+  &:before {
+    content: $ic_youtube2; 
+  }
+}
+.ic_youtube {
+  &:before {
+    content: $ic_youtube; 
+  }
+}
+.ic_zalo2 {
+  &:before {
+    content: $ic_zalo2; 
+  }
+}
+.ic_zalo {
+  &:before {
+    content: $ic_zalo; 
+  }
+}
+.ic_instagram2 {
+  &:before {
+    content: $ic_instagram2; 
+  }
+}
+.ic_linkedin {
+  &:before {
+    content: $ic_linkedin; 
+  }
+}
+.ic_alibaba {
+  &:before {
+    content: $ic_alibaba; 
+  }
+}
+

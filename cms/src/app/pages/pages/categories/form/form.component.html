@@ -1,0 +1,38 @@
+<div bsModal #modal="bs-modal" [config]="{backdrop:'static'}" class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered" style="z-index: 99999">
+    <div class="modal-content">
+      <form novalidate [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+        <div class="modal-header">
+          <h4 class="modal-title"><span *ngIf="!info" [innerText]="'Thêm mới'|translate">Thêm mới</span><span *ngIf="info" [innerText]="'Sửa'|translate">Sửa</span>&nbsp;<span [innerText]="'danh mục'|translate">danh mục</span></h4>
+          <a class="close" (click)="hide()"><span class="ic_close"></span></a>
+        </div>
+        <div class="modal-body">
+          <div class="form-group" [ngClass]="{'has-error': (controls.name.invalid && (controls.name.touched || showValid))}">
+            <label class="input-label">Tên</label>
+            <input name="name" type="text" [formControl]="controls.name" class="form-control">
+          </div>
+          <div class="form-group" [ngClass]="{'has-error': (controls.parent_id.invalid && (controls.parent_id.touched || showValid))}">
+            <label class="input-label"><span [innerText]="'Danh mục cha'|translate">Danh mục cha</span></label>
+            <select class="form-control" [formControl]="controls.parent_id" [ngClass]="{'loading':parentData.loading}">
+              <option value="">{{'Không'|translate}}</option>
+              <ng-container *ngFor="let item of parentData.items">
+                <option [value]="item.id">{{ item.name }}</option>
+              </ng-container>
+            </select>
+          </div>
+          <div class="form-group" [ngClass]="{'has-error': (controls.sort_order.invalid && (controls.sort_order.touched || showValid))}">
+            <label class="input-label" [innerText]="'Sắp xếp'|translate">Sắp xếp</label>
+            <input name="sort_order" type="number" [formControl]="controls.sort_order" class="form-control">
+          </div>
+          <div class="form-group" [ngClass]="{'has-error': (controls.status.invalid && (controls.status.touched || showValid))}">
+            <label class="input-label">Trạng thái</label>
+            <ngx-toggle-switch [formControl]="controls.status"></ngx-toggle-switch>
+          </div>
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-secondary" type="submit" [disabled]="submitted"><span class="spinner-border spinner-border-sm" *ngIf="submitted"></span> <span *ngIf="!info" [innerText]="'Thêm mới'|translate">Thêm mới</span><span *ngIf="info" [innerText]="'Cập nhật'|translate">Cập nhật</span></button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

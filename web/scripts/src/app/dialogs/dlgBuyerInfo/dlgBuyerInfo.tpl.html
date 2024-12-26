@@ -1,0 +1,57 @@
+<style>
+  .input-container {
+    position: relative;
+  }
+  .input-field {
+    display: block;
+    width: 100%;
+    padding: 8px 0 5px;
+    font-weight: 300;
+    font-size: 14px;
+    border: none;
+    height: auto !important;
+    border-bottom: .96px solid #e4e4ea;
+    outline: none;
+    background-color: transparent;
+  }
+  .input-label {
+    font-weight: 600;
+    font-size: 13px;
+    color: #3e4048;
+  }
+  .btn-submit {
+    background-color: #3e4048;
+    border-radius: 8px;
+    color: rgb(255, 255, 255);
+  }
+  .btn-submit:hover {
+    background-color: #757779;
+    color: rgb(255, 255, 255);
+  }
+  @media (min-width: 576px) {
+    .modal-dialog {
+      max-width: 400px !important;
+    }
+  }
+</style>
+<div class="modal-header border-bottom-0 text-center py-2 px-5 align-items-center">
+  <h5 class="modal-title text-center w-100 font-weight-bold" ng-bind="labels.text_customer_info"></h5><!-- text_customer_info -->
+  <a class="cursor-pointer" ng-click="close()" style="font-size: 25px"><span aria-hidden="true">&times;</span></a>
+</div>
+<div class="modal-body">
+  <form name="form" novalidate autocomplete="off" ng-submit="submit(form)">
+    <div class="form-row">
+      <div ng-if="!currentUser" class="input-container col-12 pb-3" ng-class="{'has-danger':form.email.$invalid&&envData.showValid}">
+        <label class="input-label">Email</label>
+        <input name="email" type="email" ng-model="params.email" class="input-field form-control rounded-0" placeholder="Nhập email người mua" required>
+      </div>
+      <div class="input-container col-12 pb-3" ng-class="{'has-danger':form.phone_number.$invalid&&envData.showValid}">
+        <label class="input-label" ng-bind="labels.text_phone"></label>
+        <input name="phone_number" type="text" ng-model="params.phone_number" class="input-field form-control rounded-0" placeholder="{{ labels.entry_customer_phone }}" required>
+      </div>
+      <div class="col-12 mx-auto mt-4">
+        <button type="submit" class="btn btn-submit w-100"><span ng-bind="labels.button_update"></span></button>
+      </div>
+    </div>
+  </form>
+</div>

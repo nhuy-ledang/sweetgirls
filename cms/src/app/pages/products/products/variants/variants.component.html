@@ -1,0 +1,116 @@
+<div class="row align-items-center mb-3">
+  <div class="col-sm"><h5 *ngIf="showTitle" class="m-0" [innerText]="info?.name"></h5></div>
+  <div class="col-sm-auto">
+    <div *ngIf="!showDetail" class="btn-group">
+      <button type="button" class="btn btn-secondary" (click)="create()"><span class="ic_plus"></span>&nbsp;<span [innerText]="'Thêm biến thể'"></span></button>
+    </div>
+    <div *ngIf="showDetail" class="btn-group"><a class="btn btn-outline-secondary" (click)="toggleView()"><span class="ic_angle_left"></span></a></div>
+  </div>
+</div>
+<div *ngIf="data.loading" class="text-center"><span class="spinner-border"><span class="sr-only">Loading...</span></span></div>
+<div *ngIf="!data.loading && !showDetail" class="card">
+  <div class="table-responsive">
+    <ng-container *ngIf="d.variants.length==2">
+      <table class="table m-0">
+        <thead>
+        <tr>
+          <th style="width: 1px"></th>
+          <ng-container *ngFor="let variant of d.values[0].values">
+            <th class="text-nowrap" [innerText]="variant.name"></th>
+          </ng-container>
+        </tr>
+        </thead>
+        <tbody class="text-dark">
+        <ng-container *ngFor="let item of d.values">
+          <tr>
+            <td class="text-nowrap font-weight-bold" [innerText]="item.name"></td>
+            <ng-container *ngFor="let variant of item.values">
+              <td>
+                <ng-container *ngIf="variant.product">
+                  <div class="row align-items-center">
+                    <div class="col-sm" [tooltip]="variant.product.name">
+                      <div class="d-none" [innerText]="variant.product.name"></div>
+                      <div><b>Giá bán:</b>&nbsp;
+                        <span *ngIf="variant.product.special"><strike [innerText]="variant.product.price|currencyFormat"></strike>&nbsp;<span class="text-danger" [innerText]="variant.product.special|currencyFormat"></span></span>
+                        <span *ngIf="!variant.product.special" [innerText]="variant.product.price|currencyFormat"></span>
+                      </div>
+                      <div><b>Coin:</b>&nbsp;<span [innerText]="variant.product.coins|number"></span></div>
+                      <div><b>Cân nặng:</b>&nbsp;<span [innerText]="variant.product.weight|number"></span></div>
+                      <div><b>Kích thước:</b>&nbsp;<span [innerText]="variant.product.length|number"></span>x<span [innerText]="variant.product.width|number"></span>x<span [innerText]="variant.product.height|number"></span></div>
+                      <div><b>Trạng thái:</b>&nbsp;<span [innerText]="variant.product.status?'bật':'tắt'"></span><br><span *ngIf="variant.product.stock_status == 'in_stock'" class="text-success">Sẵn hàng</span><span *ngIf="variant.product.stock_status == 'out_of_stock'" class="text-danger">Hết hàng</span></div>
+                    </div>
+                    <div class="col-sm-auto">
+                      <a (click)="edit(variant, item)" href="javascript:;"><span class="ic_pencil_square"></span></a>
+                      <br>
+                      <!--<a (click)="detail(variant)" href="javascript:;"><span class="ic_visible_outlined"></span></a>-->
+                      <a (click)="select(variant.product)" href="javascript:;"><span class="ic_visible_outlined"></span></a>
+                      <br>
+                      <a class="text-danger" (click)="remove(variant)" href="javascript:;"><span class="ic_trash_outline"></span></a>
+                    </div>
+                  </div>
+                </ng-container>
+              </td>
+            </ng-container>
+          </tr>
+        </ng-container>
+        </tbody>
+      </table>
+    </ng-container>
+    <ng-container *ngIf="d.variants.length==1">
+      <table class="table m-0">
+        <thead>
+        <tr>
+          <th style="width: 1px" [innerText]="d.variants[0].name"></th>
+          <th>Giá bán</th>
+          <th>Coin</th>
+          <th>Cân nặng</th>
+          <th>Kích thước</th>
+          <th>Trạng thái</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody class="text-dark">
+        <ng-container *ngFor="let variant of d.values">
+          <tr>
+            <td class="text-nowrap font-weight-bold" [innerText]="variant.name"></td>
+            <td>
+              <ng-container *ngIf="variant.product">
+                <span *ngIf="variant.product.special"><strike [innerText]="variant.product.price|currencyFormat"></strike>&nbsp;<span class="text-danger" [innerText]="variant.product.special|currencyFormat"></span></span>
+                <span *ngIf="!variant.product.special" [innerText]="variant.product.price|currencyFormat"></span>
+              </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="variant.product"><span [innerText]="variant.product.coins|number"></span></ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="variant.product"><span [innerText]="variant.product.weight|number"></span></ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="variant.product"><span [innerText]="variant.product.length|number"></span>x<span [innerText]="variant.product.width|number"></span>x<span [innerText]="variant.product.height|number"></span></ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="variant.product"><span [innerText]="variant.product.status?'bật':'tắt'"></span><br><span *ngIf="variant.product.stock_status == 'in_stock'" class="text-success">Sẵn hàng</span><span *ngIf="variant.product.stock_status == 'out_of_stock'" class="text-danger">Hết hàng</span></ng-container>
+            </td>
+            <td class="text-right">
+              <ng-container *ngIf="variant.product">
+                <a (click)="edit(variant)" href="javascript:;"><span class="ic_pencil_square"></span></a>
+                &nbsp;
+                <!--<a (click)="detail(variant)" href="javascript:;"><span class="ic_visible_outlined"></span></a>-->
+                <a (click)="select(variant.product)" href="javascript:;"><span class="ic_visible_outlined"></span></a>
+                &nbsp;
+                <a class="text-danger" (click)="remove(variant)" href="javascript:;"><span class="ic_trash_outline"></span></a>
+              </ng-container>
+            </td>
+          </tr>
+        </ng-container>
+        </tbody>
+      </table>
+    </ng-container>
+  </div>
+</div>
+<div *ngIf="showDetail">
+  <ngx-pd-product-detail [product]="data.itemSelected"></ngx-pd-product-detail>
+</div>
+<ngx-pd-product-variant-form (onSuccess)="onFormSuccess($event)"></ngx-pd-product-variant-form>
+<ngx-pd-product-variant-edit-form (onSuccess)="onEditFormSuccess($event)"></ngx-pd-product-variant-edit-form>
+<ngx-modal-confirm (onConfirm)="onConfirm($event)"></ngx-modal-confirm>

@@ -1,0 +1,78 @@
+<ol class="breadcrumb justify-content-start py-xl-2 py-2 mb-0 wow fadeInUp" data-wow-delay="0.3s">
+  {% for item in breadcrumbs %}
+    <li class="breadcrumb-item"><a class="" href="{{ item.href }}">{{ item.text }}</a></li>
+  {% endfor %}
+</ol>
+<div class="wid_points row no-gutters border-top" ng-controller="ProfileFormCtrl" ng-init="init()" style="display: none" ng-style="{'display':inited?'':'none'}">
+  <div class="col-12 col-xl-3 py-4 py-xl-6">
+    <div class="d-flex justify-content-center justify-content-xl-start">
+      <label for="user_avatar">
+        <div class="avatar_img rounded-circle d-flex align-items-center justify-content-center mr-3 mr-xl-6 overflow-hidden wow fadeInUp" data-wow-delay="0.3s">
+          <div class="personal_img cursor-pointer position-relative w-100 h-100">
+            <span class="embed-responsive embed-responsive-1by1 rounded-circle bg-cover" style="background-image: url('{{ '{{ params.avatar_url }}' }}')"></span>
+            <div class="icon_change_img"><img src="/assets/images/icons/icon_camera.png" alt=""></div>
+          </div>
+        </div>
+      </label>
+      <input type="file" id="user_avatar" name="avatar" style="display: none;" accept="image/png,image/jpeg" onchange="angular.element(this).scope().changeAvatar(this)">
+      <div class="d-flex flex-column justify-content-between align-items-start text-left wow fadeInUp" data-wow-delay="0.4s">
+        <div class="account_lv">
+          <div class="pb-1"><span class="font-4 font-weight-bold">{{ userInfo.display }}</span></div>
+          <div class="cus_badge badge_{{ userInfo.level_id }} text-uppercase font-weight-bold font-13"><span class="lv_text">{{ userInfo.level_name }}</span></div>
+        </div>
+        <div class="cursor-pointer text-gray font-weight-bold"><a href="/account/points#benefit_table" id="benefit_link" style="text-decoration: underline;">{{ text_membership_benefit }}<!-- text_membership_benefit --></a><span class="fa fa-angle-right ml-1"></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-xl-3 py-4 py-xl-6 px-xl-10 border-left">
+    <div class="your_points w-100 h-100 d-flex flex-column justify-content-between">
+      <h4 class="text-uppercase font-4 font-weight-bold">Bạn đang có</h4>
+      <div class="font-weight-bold"><span class="text-primary font-3">{{ userInfo.coins|number_format(0, '', '.') }} </span>{{ text_points }}</div>
+      <span class="font-13">{{ text_points_noti }}<!-- text_points_noti --> <span class="fa fa-info-circle text-gray"></span></span>
+    </div>
+  </div>
+  <div class="col-12 col-xl-6 border-left">
+    <div class="wid_redeem pl-xl-10 py-4 py-xl-6 wow fadeInUp" data-wow-delay="0.3s">
+      <div class="d-flex justify-content-between">
+        <a href="account/points/redeem"><button type="button" class="cus_btn px-5 px-xl-10">{{ text_redeem_now }}<!-- text_redeem_now --></button></a>
+        <div class="cursor-pointer text-gray font-weight-bold"><a href="/account/points/histories" style="text-decoration: underline;">{{ text_points_histories }}</a><span class="fa fa-angle-right ml-1"></span></div>
+      </div>
+      <div class="mt-1">
+        <div class="percent_text d-flex flex-end">
+          {% if levelInfo.levelPercents < 90 %}<span class="text-right" style="flex-basis: {{ levelInfo.levelPercents }}">{{ userInfo.points|number_format(0,'.','.') }}</span>{% endif %}
+          <span class="text-right" style="flex: 1 1 auto;">{{ levelInfo.nextMilestone|number_format(0,'.','.') }}</span>
+        </div>
+        <div class="progress progress_level">
+          <div class="progress-bar bg-primary" style="width: {{ levelInfo.levelPercents }};"></div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-between mt-2 font-13">
+        <span class="text-uppercase font-weight-bold text-left">{{ userInfo.level_name }}</span>
+        <span class="text-center text-gray">{{ userInfo.points >= levelInfo.nextMilestone ? 'Bạn đã đạt hạng tối đa' : 'Kiếm thêm '~ (levelInfo.nextMilestone - userInfo.points)|number_format(0,'.','.')  ~ ' điểm nữa để lên hạng' }}</span>
+        {% if levelInfo.nextLevel is not null %}<span class="text-uppercase font-weight-bold text-right">{{ levelInfo.nextLevel }}</span>{% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function() {
+    $('main').css('min-height', 'calc(100vh - ' + ($('.box_header').outerHeight() + $('footer').outerHeight()) + 'px)');
+
+    function handleHashScroll() {
+      if (window.location.hash) {
+        let hash = window.location.hash.replace('/', '');
+        $('html, body').animate({
+          scrollTop: $(hash).offset().top - 150
+        }, 1000);
+      }
+    }
+
+    window.onload = function() {
+      handleHashScroll();
+    };
+
+    $('#benefit_link').click(function() {
+      handleHashScroll();
+    });
+  });
+</script>

@@ -1,0 +1,57 @@
+.button_layout4 {
+  display: flex;
+  justify-content: var(--button-align, center);
+  .wid_button {
+    position: relative;
+    width: max-content;
+    height: max-content;
+    background: none;
+    cursor: pointer;
+    color: var(--text-btn-color, var(--primary));
+    padding: 10px;
+    box-sizing: content-box;
+    border: 2px solid transparent;
+    &:before, &:after, span:before, span:after {
+      display: block;
+      content: "";
+      width: 5px;
+      height: 5px;
+      position: absolute;
+      transition: 1s;
+    }
+    &:before {
+      top: -2px;
+      left: -2px;
+      border-top: 2px solid var(--button-color, var(--primary));
+      border-left: 2px solid var(--button-color, var(--primary));
+    }
+    &:after {
+      top: -2px;
+      right: -2px;
+      border-top: 2px solid var(--button-color, var(--primary));
+      border-right: 2px solid var(--button-color, var(--primary));
+    }
+    span {
+      &:before {
+        bottom: -2px;
+        left: -2px;
+        border-bottom: 2px solid var(--button-color, var(--primary));
+        border-left: 2px solid var(--button-color, var(--primary));
+      }
+      &:after {
+        bottom: -2px;
+        right: -2px;
+        border-bottom: 2px solid var(--button-color, var(--primary));
+        border-right: 2px solid var(--button-color, var(--primary));
+      }
+    }
+    &:hover {
+      color: var(--text-btn-hover-color, var(--primary));
+      &:before, &:after, span:before, span:after {
+        width: 50%;
+        height: 50%;
+        border-color: var(--button-hover-color, var(--primary));
+      }
+    }
+  }
+}

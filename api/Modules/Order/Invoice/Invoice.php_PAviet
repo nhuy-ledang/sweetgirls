@@ -1,0 +1,308 @@
+<?php
+
+namespace Modules\Order\Invoice;
+
+use Modules\Order\Invoice\Http\ArrayLogger;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
+
+class Invoice {
+    /**
+     * @var string Base URL of all API requests
+     */
+    protected $url = 'https://cpanel.hoadon30s.vn/api';
+
+    /**
+     * @var string URL used to request an access token
+     */
+    protected $tokenUri = 'https://cpanel.hoadon30s.vn/oauth/token';
+
+    /**
+     * @var string
+     */
+    protected $clientId;
+
+    /**
+     * @var string
+     */
+    protected $clientSecret;
+
+    /**
+     * @var boolean Determines if API calls should be logged
+     */
+    protected $debug = false;
+
+    /**
+     * @var Http\ClientInterface
+     */
+    protected $httpClient;
+
+    /**
+     * @var \Psr\Log\LoggerInterface
+     */
+    protected $httpLogAdapter;
+
+    /**
+     * @var Token
+     */
+    protected $token;
+
+    public function __construct() {
+        $this->clientId = config('invoice.clientId', '');
+        $this->clientSecret = config('invoice.clientSecret', '');
+    }
+
+    /**
+     * Write Token To Log
+     *
+     * @param string $scope
+     * @param string $token
+     */
+    protected function setLogToken($scope = 'create-invoice', $token) {
+        $filepath = storage_path("app/invoice-{$scope}.log");
+        // Create file
+        if (!file_exists($filepath)) {
+            $handle = fopen($filepath, "w+");
+            fclose($handle);
+            chmod($filepath, 0777);
+        }
+        // Empty file
+        $handle = fopen($filepath, 'w+');
+        fclose($handle);
+        // Write data
+        $handle = fopen($filepath, 'a+');
+        fwrite($handle, serialize($token));
+        fclose($handle);
+    }
+
+    /**
+     * Read Token From Log
+     *
+     * @param string $scope
+     * @return mixed|string
+     */
+    protected function getLogToken($scope = 'create-invoice') {
+        $filepath = storage_path("app/invoice-{$scope}.log");
+        // Create file
+        if (!file_exists($filepath)) {
+            $handle = fopen($filepath, "w+");
+            fclose($handle);
+            chmod($filepath, 0777);
+        }
+        $handle = fopen($filepath, 'r');
+        flock($handle, LOCK_SH);
+        $size = filesize($filepath);
+        $token = $size > 0 ? unserialize(trim(fread($handle, $size))) : '';
+        flock($handle, LOCK_UN);
+        fclose($handle);
+
+        return $token;
+    }
+
+    /**
+     * @return Token
+     */
+    protected function getToken() {
+        return $this->token;
+    }
+
+    /**
+     * @param Token $token
+     */
+    protected function setToken($token) {
+        $this->token = $token;
+    }
+
+    /**
+     * @return LoggerInterface
+     */
+    protected function getHttpLogAdapter() {
+        // If a log adapter hasn't been set, we default to the null adapter
+        if (!$this->httpLogAdapter) $this->httpLogAdapter = new ArrayLogger();
+
+        return $this->httpLogAdapter;
+    }
+
+    /**
+     * @return Http\ClientInterface
+     */
+    protected function getHttpClient() {
+        if (!$this->httpClient) return new Http\GuzzleHttpClient($this->debug, $this->getHttpLogAdapter());
+
+        return $this->httpClient;
+    }
+
+    /**
+     * Get access_token
+     *
+     * @param string $scope
+     * @return Token
+     */
+    protected function requestAccessToken($scope = 'create-invoice') {
+        $tokenArr = json_decode($this->getLogToken($scope), true);
+        if ($tokenArr) {
+            $token = new Token($tokenArr);
+            if ($token->isExpired()) $tokenArr = null;
+        }
+        if (!$tokenArr) {
+            $params = ['client_id' => $this->clientId, 'client_secret' => $this->clientSecret, 'grant_type' => 'client_credentials', 'scope' => $scope];
+            $client = $this->getHttpClient();
+            $tokenInfo = $client->call('POST', $this->tokenUri, ['body' => http_build_query($params), 'headers' => ['Content-Type' => 'application/x-www-form-urlencoded']]);
+            $tokenArr = json_decode($tokenInfo, true);
+            if (!$tokenArr) throw new \InvalidArgumentException('Xác thực oauth2 thất bại!');
+            $tokenArr['created_at'] = time();
+            $this->setLogToken($scope, json_encode($tokenArr, true));
+        }
+        $this->setToken(new Token($tokenArr));
+        return $this->getToken();
+    }
+
+    /**
+     * Checks if the current token is null or expired
+     *
+     * @return boolean
+     */
+    protected function isTokenExpired() {
+        $token = $this->getToken();
+
+        if (!is_object($token)) return true;
+
+        return $token->isExpired();
+    }
+
+    /**
+     * @param string $method
+     * @param string $url
+     * @param array $params
+     *
+     * @throws TokenExpiredException
+     * @return mixed
+     */
+    protected function restfulRequest($method, $url, $params = []) {
+        // Before making the request, we can make sure that the token is still
+        // valid by doing a check on the end of life.
+        $token = $this->getToken();
+        if ($this->isTokenExpired()) throw new TokenExpiredException;
+        $client = $this->getHttpClient();
+        $full_params = [];
+        if (strtolower($method) === 'get' || strtolower($method) === 'delete') {
+            $url = $url . '?' . http_build_query($params);
+        } else {
+            $full_params['body'] = json_encode($params);
+        }
+        $full_params['headers'] = ['Authorization' => 'Bearer ' . $token->getAccessToken(), 'Content-Type' => 'application/json'];
+        $response = (string)$client->call($method, $url, $full_params);
+
+        return $response ? json_decode($response, true) : null;
+    }
+
+    /**
+     * Create invoice
+     *
+     * @param array $params
+     * @return mixed
+     * @throws TokenExpiredException
+     */
+    public function createInvoice($params = []) {
+        $this->requestAccessToken('create-invoice');
+        /*$detail = [[
+            'num'            => 1, // int Số thứ tự các mục hàng hoá
+            'name'           => 'Sản phẩm test', // string	Tên hàng hoá
+            'code'           => 'M11', // string Mã sản phẩm
+            'unit'           => 'Số lượng', // string Đơn vị tính
+            'quantity'       => 1, // double ố lượng
+            'price'          => 100000, // string Đơn giá hàng hoá
+            'total'          => 100000, // string Thành tiền (=price* quantity)
+            'discount'       => 0, // int % chiết khấu
+            'discountAmount' => 0, // string Số tiền chiết khấu
+            'feature'        => 1, // int Tính chất - 1: HH, DV, 2: KM, 3: CK, 4: Ghi chú
+        ]];*/
+        $params = array_merge([
+            'date_export'  => date('Y-m-d'),
+            'currency'     => 'VND',
+            //'vat_rate'        => 5,
+            //'vat_amount'      => 10000, // Tiền thuế GTGT của hàng hóa
+            //'total'           => 100000, // Tổng tiền hàng hoá chưa thuế
+            //'amount'          => 110000, // Tổng tiền hàng hoá đã cộng tiền thuế và các phí khác (nếu có)
+            //'amount_in_words' => 'Một trăm mười nghìn đồng',
+            //'round'           => false, // true: không làm tròn, false: có làm tròn, Mặc đinh: false
+            'payment_type' => 2, // 1: Tiền mặt 2: Chuyển khoản, 3: Tiền mặt/chuyển khoản, 4: Đối trừ công nợ, 5: Không thu tiền, 6: khác
+            //'cus_taxCode', // MST người mua - min:10 ký tự, max:14 ký tự
+            //'cus_buyer', // Tên người mua hàng
+            //'cus_name', // Tên đơn vị
+            //'cus_address', // Địa chỉ
+            //'cus_bank_no', // Số tài khoản ngân hàng: max 30 ký tự
+            //'cus_bank_name', // Tên ngân hàng
+            //'cus_phone', // Điện thoại: max 20 ký tự
+            //'cus_email', // Email người mua hàng: max 50 ký tự
+            //'detail' => $detail, // List product
+        ], $params, [
+            'action' => 'create',
+        ]);
+
+        return $this->restfulRequest('post', 'https://cpanel.hoadon30s.vn/api/invoice/create', $params);
+    }
+
+    /**
+     * Update invoice
+     *
+     * @param string $id_attr
+     * @param array $params
+     * @return mixed
+     * @throws TokenExpiredException
+     */
+    public function updateInvoice($id_attr, $params = []) {
+        $this->requestAccessToken('create-invoice');
+        $params = array_merge([
+            'date_export'  => date('Y-m-d'),
+            'currency'     => 'VND',
+            'payment_type' => 2,
+        ], $params, [
+            'id_attr' => $id_attr,
+            'action'  => 'update',
+        ]);
+
+        return $this->restfulRequest('post', 'https://cpanel.hoadon30s.vn/api/invoice/create', $params);
+    }
+
+    /**
+     * Sync data invoice
+     *
+     * @param string $id_attr
+     * @return mixed
+     * @throws TokenExpiredException
+     */
+    public function syncInvoice($id_attr) {
+        $this->requestAccessToken('create-invoice');
+
+        return $this->restfulRequest('post', "https://cpanel.hoadon30s.vn/api/invoice/sync-data?id_attr=$id_attr&type=HDGTGT");
+    }
+
+    /**
+     * Lookup
+     *
+     * @param string $q
+     * @return mixed
+     * @throws TokenExpiredException
+     */
+    public function lookup($q) {
+        $this->requestAccessToken('invoice-lookup');
+        $params = ['matracuu' => $q];
+
+        return $this->restfulRequest('post', 'https://cpanel.hoadon30s.vn/api/invoice/lookup', $params);
+    }
+
+    /**
+     * Get Xml Sign
+     *
+     * @param string $id_attr
+     * @return mixed
+     * @throws TokenExpiredException
+     */
+    public function getXmlSign($id_attr) {
+        $this->requestAccessToken('xml-signed');
+        $params = ['id_attr' => $id_attr, 'type' => 'HDGTGT', 'xmlSigned' => '1'];
+
+        return $this->restfulRequest('post', 'https://cpanel.hoadon30s.vn/api/invoice/xml-sign', $params);
+    }
+}

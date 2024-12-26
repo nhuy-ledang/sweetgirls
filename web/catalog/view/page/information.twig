@@ -1,0 +1,37 @@
+{{ header }}
+<style>
+  .page-content {
+    min-height: calc(100vh - 40.3rem);
+  }
+</style>
+<!--====== Banner Start ======-->
+<div class="banner" style="background-image: url('{{ info.raw_url }}'); background-position: 50% 0">
+  <div class="container">
+    <ol class="breadcrumb text-white justify-content-start py-xl-6 py-4 mb-0 wow fadeInUp" data-wow-delay="0.3s">
+      {% for item in breadcrumbs %}
+        <li class="breadcrumb-item"><a class="" href="{{ item.href }}">{{ item.text }}</a></li>
+      {% endfor %}
+    </ol>
+  </div>
+  <div class="title container">
+    <div class="col-12 col-md-8 px-0">
+      <div class="position-relative text-left wow fadeInUp" data-wow-delay="0.3s">
+        <h1 class="section_heading mb-6" data-title="{{ info.name }}"><span>{{ info.name }}</span></h1>
+        {% if info.short_description %}<div class="font-4 lh-35 limit-text-3">{{ info.short_description }}</div>{% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(window).scroll(function() {
+    var scroll = $(window).scrollTop();
+    $('.banner').css('background-position', '50% ' + parseInt(scroll / 2) + 'px')
+  });
+</script>
+<!--====== Banner End ======-->
+<div class="page-content pt-5 pb-7">
+    <div class="container my-10">
+      <div class="page-desc m-auto editor_reset">{{ info.description }}</div>
+    </div>
+</div>
+{{ footer }}

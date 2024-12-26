@@ -1,0 +1,168 @@
+<div class="page-header no-gutter">
+  <div class="row align-items-end">
+    <div class="col-sm">
+      <h1 class="page-header-title"><span [innerText]="'Quản lý file'|translate"></span></h1>
+      <nav>
+        <ol class="breadcrumb breadcrumb-no-gutter">
+          <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;"><span [innerText]="'Đa phương tiện'|translate"></span></a></li>
+          <li class="breadcrumb-item active"><span [innerText]="'Quản lý file'|translate"></span></li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-sm-auto"></div>
+  </div>
+</div>
+<div class="card">
+  <div class="d-none"><input #fileUpload type="file" hidden="true" (change)="onFiles()" accept="image/*,video/*" multiple></div>
+  <div class="card-header">
+    <div class="row justify-content-between align-items-center flex-grow-1">
+      <div class="col-12 col-sm">
+        <div class="input-group input-group-merge input-group-borderless">
+          <div class="input-group-prepend"><span class="input-group-text"><span class="ic_search"></span></span></div>
+          <input type="text" class="form-control" placeholder="Tìm kiếm" [(ngModel)]="data.data.q" (keyup)="onFilter($event)">
+        </div>
+      </div>
+      <div class="col-auto">
+        <div class="d-flex align-items-center">
+          <!--<div class="btn-group mr-2"><a href="javascript:;" (click)="actParent()" title="Parent" class="btn btn-sm btn-light"><span class="ic_arrow_left"></span></a></div>-->
+          <div class="btn-group mr-2"><a href="javascript:;" (click)="actRefresh()" title="" class="btn btn-sm btn-light"><span [innerText]="'Làm mới'|translate"></span>&nbsp;<span class="ic_sync"></span></a></div>
+          <div class="btn-group mr-2"><a href="javascript:;" (click)="actMove()" title="" class="btn btn-sm btn-success"><span [innerText]="'Di chuyển'|translate"></span>&nbsp;<i class="fa fa-arrows"></i></a></div>
+          <div class="btn-group mr-2"><a href="javascript:;" (click)="actUpload()" title="" class="btn btn-sm btn-primary text-white"><span [innerText]="'Tải lên'|translate"></span>&nbsp;<span class="ic_upload"></span></a></div>
+          <div class="btn-group mr-2"><a href="javascript:;" (click)="actFolder()" title="" class="btn btn-sm btn-secondary"><span [innerText]="'Thư mục mới'|translate"></span>&nbsp;<span class="ic_folder_plus"></span></a></div>
+          <div class="btn-group mr-2"><a href="javascript:;" (click)="actSelectAll()" title="" class="btn btn-sm btn-info text-white"><span [innerText]="'Chọn tất cả'|translate"></span>&nbsp;<span class="ic_check_square"></span></a></div>
+          <div class="btn-group"><a href="javascript:;" (click)="actDelete()" title="" class="btn btn-sm btn-danger"><span [innerText]="'Xóa'|translate"></span>&nbsp;<span class="ic_bin"></span></a></div>
+          <!--<button id="button-delete" type="button" title="Xóa" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt fa-fw"></i></button>-->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <ol *ngIf="resultData.breadcrumbs" class="breadcrumb p-0">
+      <li *ngFor="let item of resultData.breadcrumbs" class="breadcrumb-item"><a href="javascript:;" (click)="selectBreadcrumb(item)">{{ item.text }}</a></li>
+    </ol>
+    <div class="row">
+      <div class="col-12 text-center" *ngIf="data.loading">
+        <div class="spinner-border"><span class="sr-only">Loading...</span></div>
+      </div>
+      <ng-container *ngIf="resultData.folders">
+        <div *ngFor="let item of resultData.folders" class="col-lg-2 col-sm-3 col-6 mb-3 text-center">
+          <div class="h-100">
+            <a href="javascript:;" class="mb-1" (click)="selectFolder(item)"><i class="fa fa-folder fa-5x"></i></a>
+            <div class="my-1" style="display:block;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;"><input type="checkbox" name="folders[]" [(ngModel)]="item.checkbox" (change)="onTickFolder()">&nbsp;<a href="javascript:;" (click)="actEdit(item)">{{ item.name }}</a></div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="resultData.files">
+        <div *ngFor="let item of resultData.files" class="col-lg-2 col-sm-3 col-6 mb-3 text-center">
+          <div class="h-100">
+            <ng-container *ngIf="item.type=='video'">
+              <a [href]="item.raw_url" target="_blank" class="mb-1"><i class="fa fa-file-video-o fa-5x"></i></a>
+              <div class="my-1" style="display:block;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;"><input type="checkbox" name="files[]" [(ngModel)]="item.checkbox" (change)="onTickFile()">&nbsp;<a href="javascript:;" (click)="actEdit(item)">{{ item.name }}</a></div>
+            </ng-container>
+            <ng-container *ngIf="item.type!='video'">
+              <a [href]="item.raw_url" target="_blank" class="mb-1"><img [src]="item.small_url" class="img-fluid" style="filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.2));box-shadow: rgba(0, 0, 0, .12) 0 0 2px 0;"></a>
+              <div class="my-1" style="display:block;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;"><input type="checkbox" name="files[]" [(ngModel)]="item.checkbox" (change)="onTickFile()">&nbsp;<a href="javascript:;" (click)="actEdit(item)">{{ item.name }}</a><br><span class="small">({{ item.width }} x {{ item.height }})</span></div>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="card-footer">
+    <ngx-pagination2 [page]="data.page" [pageSize]="data.pageSize" [totalItems]="data.totalItems" [maxSize]="data.maxSize" (change)="pageChanged($event)" (pageSizeChange)="pageSizeChanged($event)"></ngx-pagination2>
+  </div>
+</div>
+<ngx-modal #modalFolder size="sm modal-dialog-centered">
+  <div class="modal-header">
+    <h4 class="modal-title"><span [innerText]="'Tạo thư mục mới'|translate"></span></h4>
+    <a class="close" (click)="actFolderClose()"><span class="ic_close"></span></a>
+  </div>
+  <div class="modal-body" *ngIf="form">
+    <form novalidate [formGroup]="form">
+      <div class="form-group" [ngClass]="{'has-error': (controls.name.invalid && (controls.name.touched || showValid))}">
+        <label class="input-label"><span [innerText]="'Tên thư mục'|translate"></span></label>
+        <input type="text" [formControl]="controls.name" class="form-control">
+      </div>
+      <div class="d-flex justify-content-end">
+        <button type="button" (click)="actFolderSubmit(form.value)" [disabled]="submitted" class="btn btn-secondary"><span class="spinner-border spinner-border-sm" *ngIf="submitted"></span> <span *ngIf="!info" [innerText]="'Thêm mới'|translate">Thêm mới</span><span *ngIf="info" [innerText]="'Cập nhật'|translate">Cập nhật</span></button>
+      </div>
+    </form>
+  </div>
+</ngx-modal>
+<ngx-modal #mvModal size="sm modal-dialog-centered">
+  <div class="modal-header">
+    <h4 class="modal-title"><span [innerText]="'Di chuyển đến'|translate"></span></h4>
+    <a class="close" (click)="actMoveClose()"><span class="ic_close"></span></a>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label class="input-label"><span [innerText]="'Chọn folder'|translate"></span></label>
+      <select [(ngModel)]="temps.folder_id" class="form-control" [ngClass]="{'loading':data.loading}">
+        <option value=""><span [innerText]="'Không'|translate"></span></option>
+        <option value="-1"><span [innerText]="'Thư mục cha'|translate"></span></option>
+        <ng-container *ngIf="resultData.folders">
+          <ng-container *ngFor="let item of resultData.folders">
+            <option [value]="item.id">{{ item.name }}</option>
+          </ng-container>
+        </ng-container>
+      </select>
+    </div>
+    <div class="d-flex justify-content-end">
+      <button type="button" (click)="actMoveSubmit()" [disabled]="submitted" class="btn btn-secondary"><span class="spinner-border spinner-border-sm" *ngIf="submitted"></span> <span [innerText]="'Di chuyển'|translate"></span></button>
+    </div>
+  </div>
+</ngx-modal>
+<ngx-modal #edModal size="sm modal-dialog-centered">
+  <div class="modal-header">
+    <h4 class="modal-title"><span [innerText]="'Cập nhật file'|translate"></span> {{data.itemSelected?.name}}</h4>
+    <a class="close" (click)="actEditClose()"><span class="ic_close"></span></a>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label class="input-label"><span [innerText]="'Tên mới'|translate"></span></label>
+      <input type="text" [(ngModel)]="temps.name" class="form-control">
+    </div>
+    <div *ngIf="data.itemSelected && data.itemSelected.type == 'image'" class="form-group">
+      <label class="input-label"><span [innerText]="'Đóng watermark'|translate"></span></label>
+      <ngx-toggle-switch [(ngModel)]="temps.watermark"></ngx-toggle-switch>
+    </div>
+    <ng-container *ngIf="temps.watermark">
+      <div class="form-group">
+        <label class="input-label"><span [innerText]="'Vị trí'"></span></label>
+        <select [(ngModel)]="temps.position" class="form-control">
+          <option *ngFor="let item of positionList" [value]="item.id">{{ item.name }}</option>
+        </select>
+      </div>
+      <div class="row">
+        <div class="form-group col-6">
+          <label class="input-label">X</label>
+          <input type="number" [(ngModel)]="temps.x" min="0" class="form-control">
+        </div>
+        <div class="form-group col-6">
+          <label class="input-label">Y</label>
+          <input type="number" [(ngModel)]="temps.y" min="0" class="form-control">
+        </div>
+      </div>
+    </ng-container>
+    <div class="d-flex justify-content-end">
+      <button type="button" (click)="actEditSubmit()" [disabled]="submitted" class="btn btn-secondary"><span class="spinner-border spinner-border-sm" *ngIf="submitted"></span> <span [innerText]="'Cập nhật'|translate"></span></button>
+    </div>
+  </div>
+</ngx-modal>
+<ngx-modal #delModal size="sm modal-dialog-centered">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title"><span [innerText]="'Xác nhận'|translate"></span></h4>
+      <a class="close float-right" (click)="actDeleteClose()"><span class="ic_close"></span></a>
+    </div>
+    <div class="modal-body">
+      <div class="form-group"><span [innerText]="'Bạn có chắc chắn muốn xóa mục này?'|translate"></span></div>
+      <div class="d-flex align-items-center">
+        <div class="ml-auto">
+          <button type="button" (click)="actDeleteClose()" class="btn btn-outline-secondary mr-2"><span [innerText]="'Không'|translate"></span></button>
+          <button type="button" (click)="actDeleteSubmit()" [disabled]="submitted" class="btn btn-secondary"><span class="spinner-border spinner-border-sm" *ngIf="submitted"></span> <span [innerText]="'Đồng ý'|translate"></span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ngx-modal>

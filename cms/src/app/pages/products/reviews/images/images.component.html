@@ -1,0 +1,34 @@
+<div class="row align-items-center mb-3">
+  <div class="col-sm"><h5 class="m-0" [innerText]="'ID: ' + info?.id"></h5></div>
+  <div class="col-sm-auto">
+    <div class="btn-group">
+      <button type="button" class="btn btn-secondary" (click)="create()"><span class="ic_plus"></span> <span [innerText]="'Thêm hình'"></span></button>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="table-responsive">
+    <table class="table m-0">
+      <thead>
+      <tr>
+        <th style="width: 115px"><span>Hình</span></th>
+      </tr>
+      </thead>
+      <tbody class="text-dark">
+      <tr *ngIf="data.loading">
+        <td colspan="3" class="text-center">
+          <div class="spinner-border"><span class="sr-only">Loading...</span></div>
+        </td>
+      </tr>
+      <tr *ngFor="let item of data.items; let $index = index">
+        <td style="width: 115px">
+          <ng-container *ngIf="item.thumb_url"><img [src]="item.thumb_url" style="width: 100px"></ng-container>
+          <div class="row-options"><a href="javascript:;" (click)="edit(item)" [innerText]="'Sửa'">Sửa</a>&nbsp; | &nbsp;<a href="javascript:;" class="text-danger" (click)="remove(item)" [innerText]="'Xóa'">Xóa</a></div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<ngx-rvw-image-form (onSuccess)="onFormSuccess($event)"></ngx-rvw-image-form>
+<ngx-modal-confirm (onConfirm)="onConfirm($event)"></ngx-modal-confirm>

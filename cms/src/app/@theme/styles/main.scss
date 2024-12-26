@@ -1,0 +1,21 @@
+//@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
+// Theme functions, variables, mixins
+@import './variables';
+@import './mixins';
+// Fonts
+@import './fonts';
+@import './icons';
+// Boostrap
+@import './bootstrap/bootstrap';
+// themes - our custom or/and out of the box themes
+@import '~@angular/cdk/overlay-prebuilt';
+@import './themes';
+@import './plugins';
+// New styles
+@import './scafholding';
+@import './components';
+@import './layout';
+@import './overrides';
+@import './styles';
+@import './responsive';
+@import './scrollbar';

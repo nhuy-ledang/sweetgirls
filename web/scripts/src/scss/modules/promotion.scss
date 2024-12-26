@@ -1,0 +1,56 @@
+#promotion-layout1--container {
+  .coupon_item {
+    background-color: var(--secondary-color, #F4F4F4);
+  }
+  .coupon_code {
+    border-right: 2px dashed var(--success-color, #fff);
+    color: var(--primary-color, var(--dark));
+  }
+  .coupon_code:before, .coupon_info:after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 50%;
+    transform: translateY(50%);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    z-index: 2;
+    background-color: var(--success-color, #fff);
+  }
+  .coupon_info:after {
+    right: -20px;
+  }
+  .coupon_code:before {
+    left: -20px;
+  }
+
+  .box-share {
+    /*transition: all 0.5s;*/
+    span {
+      width: 2.5rem;
+      height: 2.5rem;
+      border: 1px solid #e5e5e5;
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      margin: auto;
+      &.ic_facebook {
+        color: #1b79f2;
+      }
+      &.ic_twitter {
+        font-size: 0.6875rem;
+        color: #5da9dd;
+      }
+      &.ic_linkedin {
+        color: #449bc9;
+      }
+
+    }
+    div > a {
+      &:not(:first-child) {
+        margin-left: -1px;
+      }
+    }
+  }
+}

@@ -1,0 +1,50 @@
+// max-width: 1365px
+/*@media (max-width: map-get($grid-breakpoints, "xxl") - 1) {
+
+}*/
+
+// max-width: 1279px
+@media (max-width: map-get($grid-breakpoints, "xl") - 1) {
+
+}
+
+// max-width: 991px
+@media (max-width: map-get($grid-breakpoints, "lg") - 1) {
+
+}
+
+// max-width: 767px
+@media (max-width: map-get($grid-breakpoints, "md") - 1) {
+
+}
+
+// max-width: 575px
+@media (max-width: map-get($grid-breakpoints, "sm") - 1) {
+
+}
+
+// min-width 576px
+@include media-breakpoint-up(sm) {
+
+}
+
+// min-width: 768px
+@include media-breakpoint-up(md) {
+
+}
+
+// min-width: 992px
+@include media-breakpoint-up(lg) {
+
+}
+
+// min-width: 1280px
+@include media-breakpoint-up(xl) {
+
+}
+
+// min-width: 1366px
+/*@include media-breakpoint-up(xxl) {
+
+}*/
+

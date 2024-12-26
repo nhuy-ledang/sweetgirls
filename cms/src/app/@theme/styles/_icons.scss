@@ -1,0 +1,39 @@
+[class^="ici_"], [class*=" ici_"] {
+  position: relative;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  &:before {
+    display: inline-block;
+    content: ' ';
+    width: 20px;
+    height: 20px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+  }
+}
+
+.ici_excel {
+  &:before {
+    background-image: url("../../../assets/icons/excel.png");
+  }
+}
+
+.ici_word {
+  &:before {
+    background-image: url("../../../assets/icons/word.png");
+  }
+}
+
+.ici_pdf {
+  &:before {
+    background-image: url("../../../assets/icons/pdf.png");
+  }
+}
+
+.ici_photo {
+  &:before {
+    background: url("../../../assets/icons/photo.png");
+  }
+}

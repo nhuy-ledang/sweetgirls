@@ -1,0 +1,66 @@
+<div class="page-header no-gutter">
+  <div class="row align-items-end">
+    <div class="col-sm">
+      <h1 class="page-header-title">Danh sách widget</h1>
+      <nav>
+        <ol class="breadcrumb breadcrumb-no-gutter">
+          <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;"><span [innerText]="'Trang'|translate"></span></a></li>
+          <li class="breadcrumb-item active">Widget</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-sm-auto">
+      <div class="btn-group">
+        <button type="button" class="btn btn-secondary" (click)="updateConfigs()">Cập nhật cấu hình</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="table-responsive">
+    <table class="table m-0">
+      <thead>
+      <tr>
+        <th style="width: auto">#ID</th>
+        <th><span>Tên</span></th>
+        <th>Mã</th>
+        <th>Hình</th>
+      </tr>
+      </thead>
+      <tbody class="text-dark">
+      <tr *ngIf="data.loading">
+        <td colspan="4" class="text-center"><span class="spinner-border"><span class="sr-only">Loading...</span></span></td>
+      </tr>
+      <tr *ngFor="let item of data.items; let $index = index">
+        <td style="width: auto" [innerText]="$index+1"></td>
+        <td>
+          <a href="javascript:;" class="d-block" [ngClass]="{'text-danger': item.removed, 'text-strikethrough':(item.removed||!item.id)}" [innerText]="item.name"></a>
+          <div class="row-options">
+            <ng-container *ngIf="item.id">
+              <a href="javascript:;" (click)="edit(item)" [innerText]="'Sửa'|translate">Sửa</a>&nbsp; | &nbsp;<a href="javascript:;" class="text-danger" (click)="remove(item)" [innerText]="'Xóa'|translate">Xóa</a>
+              <br><a (click)="updateConfig(item)" class="text-muted" href="javascript:;" [innerText]="'Cập nhật cấu hình'|translate">Cập nhật cấu hình</a>
+            </ng-container>
+            <ng-container *ngIf="!item.id"><a href="javascript:;" (click)="create(item)" [innerText]="'Cài đặt'|translate">Cài đặt</a></ng-container>
+          </div>
+        </td>
+        <td [innerText]="item.idx?item.idx:item.code"></td>
+        <td>
+          <!--<div class="text-center d-inline-block">
+            <a [href]="item.preview" target="_blank"><img [src]="item.preview" style="max-width: 150px"></a>
+            <div class="fs-sm"><a class="text-info" href="javascript:;" (click)="uploadFile(item)">Upload (640*360)</a></div>
+          </div>-->
+          <div *ngIf="item.cf_data&&item.cf_data.classes">
+            <div class="float-left mr-1 mb-1 text-center d-inline-block" *ngFor="let cl of item.cf_data.classes">
+              <a [href]="cl.preview" target="_blank"><img [src]="cl.preview" style="max-width: 150px"></a>
+              <div class="fs-sm"><a href="javascript:;" [innerText]="cl.name"></a><!--<br><a class="text-info" href="javascript:;" (click)="uploadFile(item, ly)">Upload (640*360)</a>--></div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="d-none"><input #fileUpload type="file" hidden="true" (change)="onFiles()" accept="image/jpg,image/jpeg"></div>
+<ngx-pg-widget-form (onSuccess)="onFormSuccess($event)"></ngx-pg-widget-form>
+<ngx-modal-confirm (onConfirm)="onConfirm($event)"></ngx-modal-confirm>

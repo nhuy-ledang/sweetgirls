@@ -1,0 +1,110 @@
+<div class="row gx-2 gx-lg-3 h-100">
+  <div class="col-sm-4 mb-3">
+    <div class="card card-hover-shadow h-100">
+      <div class="p-2">
+        <div class="row align-items-start">
+          <div class="col-sm">
+            <h6 class="text-uppercase text-muted">Tổng đơn hàng</h6>
+            <span class="h1 lh-1">{{ statData.order_total.now|number }}</span>
+          </div>
+          <div class="col-sm-auto text-sm-right">
+            <div>
+              <ngx-trending [value]="statData.order_total.percent"></ngx-trending>
+            </div>
+            <div class="fs-sm font-weight-bold">Kỳ trước<br><span>{{ statData.order_total.last|number }}</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4 mb-3">
+    <div class="card card-hover-shadow h-100">
+      <div class="p-2">
+        <div class="row align-items-start">
+          <div class="col-sm">
+            <h6 class="text-uppercase text-muted">Đơn hủy</h6>
+            <span class="h1 lh-1">{{ statData.order_cancel_total.now|number }}</span>
+          </div>
+          <div class="col-sm-auto text-sm-right">
+            <div>
+              <ngx-trending [value]="statData.order_cancel_total.percent"></ngx-trending>
+            </div>
+            <div class="fs-sm font-weight-bold">Kỳ trước<br><span>{{ statData.order_cancel_total.last|number }}</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4 mb-3">
+    <div class="card card-hover-shadow h-100">
+      <div class="p-2">
+        <div class="row align-items-start">
+          <div class="col-sm">
+            <h6 class="text-uppercase text-muted">Tổng thu affiliate</h6>
+            <span class="h1 lh-1">{{ statData.affiliate_total.now|number }}đ</span>
+          </div>
+          <div class="col-sm-auto text-sm-right">
+            <div>
+              <ngx-trending [value]="statData.affiliate_total.percent"></ngx-trending>
+            </div>
+            <div class="fs-sm font-weight-bold">Kỳ trước<br><span>{{ statData.affiliate_total.last|number }}</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4 mb-3">
+    <div class="card card-hover-shadow h-100">
+      <div class="p-2">
+        <div class="row align-items-start">
+          <div class="col-sm">
+            <h6 class="text-uppercase text-muted">Tổng lượt truy cập</h6>
+            <span class="h1 lh-1">{{ statData.visit_total.now|number }}</span>
+          </div>
+          <div class="col-sm-auto text-sm-right">
+            <div>
+              <ngx-trending [value]="statData.visit_total.percent"></ngx-trending>
+            </div>
+            <div class="fs-sm font-weight-bold">Kỳ trước<br><span>{{ statData.visit_total.last|number }}</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4 mb-3">
+    <div class="card card-hover-shadow h-100">
+      <div class="p-2">
+        <div class="row align-items-start">
+          <div class="col-sm">
+            <h6 class="text-uppercase text-muted">Tổng lượt xem</h6>
+            <span class="h1 lh-1">{{ statData.view_total.now|number }}</span>
+          </div>
+          <div class="col-sm-auto text-sm-right">
+            <div>
+              <ngx-trending [value]="statData.view_total.percent"></ngx-trending>
+            </div>
+            <div class="fs-sm font-weight-bold">Kỳ trước<br><span>{{ statData.view_total.last|number }}</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4 mb-3">
+    <div class="card card-hover-shadow h-100">
+      <div class="p-2">
+        <div class="row align-items-start">
+          <div class="col-sm">
+            <h6 class="text-uppercase text-muted">Tỉ lệ chuyển đổi</h6>
+            <span class="h1 lh-1">{{ statData.conversion_total.now|number }}%</span>
+          </div>
+          <div class="col-sm-auto text-sm-right">
+            <div>
+              <ngx-trending [value]="statData.conversion_total.percent"></ngx-trending>
+            </div>
+            <div class="fs-sm font-weight-bold">Kỳ trước<br><span>{{ statData.conversion_total.last|number }}</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

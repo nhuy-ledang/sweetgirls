@@ -1,0 +1,14 @@
+{
+  "name": "motila/motila",
+  "description": "Motila",
+  "homepage": "https://motila.vn/",
+  "config": {
+    "vendor-dir": "./vendor/"
+  },
+  "require": {
+    "leafo/scssphp": "0.7.7",
+    "php": ">=7.1.0",
+    "twig/twig": "^2.4.8",
+    "meyfa/php-svg": "^0.9.0"
+  }
+}

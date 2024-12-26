@@ -1,0 +1,46 @@
+#land_banners-layout2--container {
+  .wid_img {
+    will-change: transform;
+    transition: var(--transition) !important;
+  }
+  .wid_info {
+    position: absolute;
+    width: 60%;
+    height: auto;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--text-color, var(--white)) !important;
+  }
+  .wid_name {
+    font-size: var(--heading-size);
+  }
+  @media (max-width: 1279px) {
+    .wid_name {
+      --heading-size: 1.5rem;
+    }
+    .wid_info {
+      width: 60%;
+    }
+    .editor_reset {
+      p, span{
+        font-size: 13px !important;
+      }
+    }
+  }
+  @media (max-width: 575px) {
+    .wid_info {
+      position: absolute;
+      width: 100%;
+    }
+    .embed-responsive-21by9::before {
+      padding-top: 60%;
+    }
+    .wid_info {
+      width: 100%;
+    }
+    .editor_reset span strong{
+      font-weight: 500 !important;
+    }
+  }
+}

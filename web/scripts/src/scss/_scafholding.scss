@@ -1,0 +1,199 @@
+// scafholding
+
+/*******************
+Padding margin property 
+*******************/
+$vertical-property-map: (m-t-: margin-top, m-b-: margin-bottom, m-r-: margin-right, m-l-: margin-left, p-t-: padding-top, p-b-: padding-bottom, p-r-: padding-right, p-l-: padding-left, p-: padding, m-:margin);
+$sizes-list: 5 10 15 20 25 30 40;
+@each $size in $sizes-list {
+  $val: $size + 0px;
+  @each $keyword,
+  $property in $vertical-property-map {
+    .#{$keyword}#{$size} {
+      #{$property}: $val !important;
+    }
+  }
+}
+
+/*** Zero ***/
+$zero-property-map: (m-0: margin, m-t: margin-top, m-r: margin-right, m-b: margin-bottom, m-l: margin-left, p-0: padding, p-t: padding-top, p-r: padding-right, p-b: padding-bottom, p-l: padding-left);
+@each $keyword,
+$property in $zero-property-map {
+  .#{$keyword}-0 {
+    #{$property}: 0 !important;
+  }
+}
+
+/*******************
+font weight
+*******************/
+.font-bold {
+  font-weight: 600;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.font-normal {
+  font-weight: 400;
+}
+
+.font-light {
+  font-weight: 300;
+}
+
+.font-1 {
+  font-size: $h1-font-size;
+}
+
+.font-2 {
+  font-size: $h2-font-size;
+}
+
+.font-3 {
+  font-size: $h3-font-size;
+}
+
+.font-4 {
+  font-size: $h4-font-size;
+}
+
+.font-5 {
+  font-size: $h5-font-size;
+}
+
+.font-6 {
+  font-size: $h6-font-size;
+}
+
+.font-10 {
+  font-size: 10px;
+}
+
+.font-12 {
+  font-size: 12px;
+}
+
+.font-13 {
+  font-size: 13px;
+}
+
+.font-14 {
+  font-size: 14px;
+}
+
+.font-16 {
+  font-size: 16px;
+}
+
+.font-18 {
+  font-size: 18px;
+}
+
+.font-20 {
+  font-size: 20px;
+}
+
+.display-5 {
+  font-size: 3rem;
+}
+
+.display-6 {
+  font-size: 2.5rem;
+}
+
+$widths-list: 25 50 75 100;
+@each $size in $widths-list {
+  $val: $size + 0%;
+  .w-#{$size} {
+    width: $val !important;
+  }
+  .mw-#{$size} {
+    max-width: $val !important;
+  }
+}
+
+.font-size-sm {
+  font-size: $font-size-sm;
+}
+
+.fs-xs {
+  font-size: 0.625rem !important;
+}
+
+.fs-sm {
+  font-size: $font-size-sm !important;
+}
+
+.fs-lg {
+  font-size: $font-size-lg !important;
+}
+
+.fs-normal {
+  font-size: $font-size-base !important;
+}
+
+.fs-1 {
+  font-size: $h1-font-size; // 24px;
+}
+
+.fs-2 {
+  font-size: $h2-font-size; // 21px;
+}
+
+.fs-3 {
+  font-size: $h3-font-size; // 18px;
+}
+
+.fs-4 {
+  font-size: $h4-font-size; // 15.75px;
+}
+
+.fs-5 {
+  font-size: $h5-font-size; // 14px;
+}
+
+.fs-6 {
+  font-size: $h6-font-size; // 13px;
+}
+
+///*******************
+//Grid
+//*******************/
+//.col-20 {
+//  float: left;
+//  position: relative;
+//  // Prevent columns from collapsing when empty
+//  min-height: 1px;
+//  // Inner gutter via padding
+//  padding-right: (($grid-gutter-width / 2));
+//  padding-left: (($grid-gutter-width / 2));
+//}
+//
+//.col-20 {
+//  width: 20%;
+//}
+
+///*******************
+//Limit text
+//*******************/
+.limit-text-1 {
+  @include limit-text(1);
+}
+
+.limit-text-2 {
+  @include limit-text(2);
+}
+
+.limit-text-3 {
+  @include limit-text(3);
+}
+
+.limit-text-4 {
+  @include limit-text(4);
+}
+
+.limit-text-5 {
+  @include limit-text(5);
+}

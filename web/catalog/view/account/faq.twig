@@ -1,0 +1,30 @@
+{{ header }}
+<main id="main-content" ng-controller="ProfileCtrl">
+  {{ module_profile }}
+  <div class="">
+    <div class="container">
+      <div class="layout_account">
+        {{ column_left }}
+        <div class="main_content" ng-controller="ProfileFaqCtrl">
+          <div class="page-title font-weight-bold text-capitalize h4 mb-7">{{ heading_title }}</div>
+          <div class="faq" id="faq">
+            {% for item in faqs %}
+              <div class="card mb-4">
+                <div class="card-header border" id="heading-{{ loop.index }}">
+                  <div class="icon px-7 cursor-pointer collapsed" ng-class="{'collapsed':!collapsed_{{ loop.index }}}" ng-click="collapse('collapsed_{{ loop.index }}')">
+                    <span class="ic_question text-primary"></span>
+                    <span class="mb-0 h4">{{ item.name }}</span>
+                  </div>
+                </div>
+                <div id="collapse-{{ loop.index }}" class="collapse" uib-collapse="!collapsed_{{ loop.index }}">
+                  <div class="card-body">{{ item.description }}</div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{{ footer }}

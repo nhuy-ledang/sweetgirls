@@ -1,0 +1,64 @@
+.rotate_90 {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+  -ms-transform: rotate(90deg);
+  /* IE 9 */
+  -webkit-transform: rotate(90deg);
+  /* Safari */
+  transform: rotate(90deg);
+}
+
+.rotate_180 {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+  -ms-transform: rotate(180deg);
+  /* IE 9 */
+  -webkit-transform: rotate(180deg);
+  /* Safari */
+  transform: rotate(180deg);
+}
+
+.rotate_270 {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+  -ms-transform: rotate(270deg);
+  /* IE 9 */
+  -webkit-transform: rotate(270deg);
+  /* Safari */
+  transform: rotate(270deg);
+}
+
+.flip_y {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0);
+  -ms-transform: scale(-1, 1);
+  /* IE 9 */
+  -webkit-transform: scale(-1, 1);
+  /* Safari */
+  transform: scale(-1, 1);
+}
+
+.flip_x {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+  -ms-transform: scale(1, -1);
+  /* IE 9 */
+  -webkit-transform: scale(1, -1);
+  /* Safari */
+  transform: scale(1, -1);
+}
+
+[class^="ics_"], [class*=" ics_"] {
+  display: inline-block;
+  position: relative;
+}
+
+[class^="ics_"]:before, [class*=" ics_"]:before {
+  display: inline-block;
+  content: ' ';
+  width: 40px;
+  height: 40px;
+  background: url("icon_sprite.png") top left no-repeat;
+  float: left;
+}
+
+.ics_leaves:before {
+  width: 90px;
+  height: 34px;
+  background-position: 0 0;
+}

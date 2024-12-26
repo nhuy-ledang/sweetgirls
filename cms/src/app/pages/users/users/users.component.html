@@ -1,0 +1,191 @@
+<div class="page-header no-gutter">
+  <div class="row align-items-end">
+    <div class="col-sm">
+      <h1 class="page-header-title">Danh sách khách hàng</h1>
+      <nav>
+        <ol class="breadcrumb breadcrumb-no-gutter">
+          <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">Bán hàng & CSKH</a></li>
+          <li class="breadcrumb-item active">Khách hàng</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-auto-sm">
+      <div class="btn-group mr-2">
+        <button type="button" (click)="create()" class="btn btn-secondary d-flex align-items-center"><span class="mr-1 ic ic_plus"></span><span>Thêm mới</span></button>
+      </div>
+      <div class="btn-group">
+        <button type="button" (click)="exportExcel()" class="btn btn-outline-secondary bg-white"><span class="ic_share mr-1"></span>Xuất excel</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Stats -->
+<div class="row d-none">
+  <div class="col-sm-6 col-lg-3 mb-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <h6 class="card-subtitle mb-2 text-uppercase">Tổng số khách hàng</h6>
+        <div class="row align-items-center gx-2">
+          <div class="col">
+            <span class="js-counter display-4 text-dark" data-value="24">24</span>
+          </div>
+          <div class="col-auto"><span class="badge badge-success p-1"><span class="ic_trending_up"></span> 5.0%</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-3 mb-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <h6 class="card-subtitle mb-2 text-uppercase">Khách ngưng hoạt động</h6>
+        <div class="row align-items-center gx-2">
+          <div class="col">
+            <span class="js-counter display-4 text-dark" data-value="12">12</span>
+          </div>
+          <div class="col-auto"><span class="badge badge-success p-1"><span class="ic_trending_up"></span> 1.2%</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-3 mb-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <h6 class="card-subtitle mb-2 text-uppercase">Khách không hoạt động</h6>
+        <div class="row align-items-center gx-2">
+          <div class="col">
+            <span class="js-counter display-4 text-dark" data-value="56">56</span>
+            <span class="display-4 text-dark">%</span>
+          </div>
+          <div class="col-auto"><span class="badge badge-danger p-1"><span class="ic_trending_down"></span> 2.8%</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-3 mb-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <h6 class="card-subtitle mb-2 text-uppercase">Đăng nhập hôm nay</h6>
+        <div class="row align-items-center gx-2">
+          <div class="col">
+            <span class="js-counter display-4 text-dark" data-value="28">28</span>
+            <span class="display-4 text-dark">%</span>
+          </div>
+          <div class="col-auto"><span class="badge badge-secondary p-1">0.0%</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Stats -->
+<div class="card">
+  <div class="table-responsive">
+    <table class="table m-0">
+      <thead>
+      <tr>
+        <th style="width: 1px">
+          <div class="table_tools d-flex justify-content-between align-items-center">
+            <div>
+              <div class="custom-control-wrapper">
+                <div class="custom-control custom-checkbox ml-0"><input type="checkbox" class="custom-control-input" [(ngModel)]="data.selectAll" (change)="selectAll()" id="customSelect"><label class="custom-control-label cursor-pointer" for="customSelect"></label></div>
+              </div>
+            </div>
+            <div>&nbsp;&nbsp;Stt</div>
+          </div>
+        </th>
+        <th [hidden]="!columns.id" (click)="sortBy('id')" [attr.class]="sortClass('id')">Mã KH <span class="sort-indicator"></span></th>
+        <th [hidden]="!columns.first_name" (click)="sortBy('first_name')" [attr.class]="sortClass('first_name')">Khách hàng <span class="sort-indicator"></span></th>
+        <th [hidden]="!columns.email" (click)="sortBy('email')" [attr.class]="sortClass('email')">Email <span class="sort-indicator"></span></th>
+        <th [hidden]="!columns.total_orders" (click)="sortBy('total_orders')" [attr.class]="sortClass('total_orders')">Tổng chi tiêu <span class="sort-indicator"></span></th>
+        <th [hidden]="!columns.phone_number" (click)="sortBy('phone_number')" [attr.class]="sortClass('phone_number')">Số ĐT <span class="sort-indicator"></span></th>
+        <th [hidden]="!columns.source" (click)="sortBy('source')" [attr.class]="sortClass('source')">Kênh/nguồn <span class="sort-indicator"></span></th>
+        <th [hidden]="!columns.group" (click)="sortBy('group_id')" [attr.class]="sortClass('group_id')">Phân loại <span class="sort-indicator"></span></th>
+        <th [hidden]="!columns.last_login" (click)="sortBy('last_login')" [attr.class]="sortClass('last_login')">Đăng nhập <span class="sort-indicator"></span></th>
+        <th [hidden]="!columns.created_at" (click)="sortBy('created_at')" [attr.class]="sortClass('created_at')">Ngày tạo <span class="sort-indicator"></span></th>
+      </tr>
+      <tr>
+        <td>
+          <div class="dropdown" dropdown container="body" placement="bottom left" [insideClick]="true">
+            <button type="button" dropdownToggle class="btn btn-secondary dropdown-toggle no_arrow d-flex align-items-center"><span class="mr-1 ic ic_visible_outlined"></span><span>Hiển thị</span></button>
+            <div *dropdownMenu class="dropdown-menu dropdown-menu-sm dropdown-menu-left">
+              <div class="dropdown-item" *ngFor="let item of columnList">
+                <div class="custom-control custom-checkbox"><input type="checkbox" [attr.id]="'columnShow'+item.id" [(ngModel)]="item.checkbox" class="custom-control-input" [disabled]="item.disabled" (change)="columnCheckbox()"><label [attr.for]="'columnShow'+item.id" class="custom-control-label d-block" [innerText]="item.name"></label></div>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td [hidden]="!columns.id"></td>
+        <td [hidden]="!columns.first_name"><span class="d-block" style="min-width: 150px; max-width: 350px"><input type="text" [(ngModel)]="data.data.q" (keyup)="onFilter($event)" class="form-control"></span></td>
+        <td [hidden]="!columns.email"></td>
+        <td [hidden]="!columns.total_orders"></td>
+        <td [hidden]="!columns.phone_number"></td>
+        <td [hidden]="!columns.source"></td>
+        <td [hidden]="!columns.group">
+          <div style="min-width: 150px; max-width: 350px">
+            <select [(ngModel)]="filters.group_id.value" (change)="onFilter()" class="form-control" [ngClass]="{'loading':groupData.loading}">
+              <option value="">Phân loại</option>
+              <option *ngFor="let item of groupData.items" [value]="item.id" [selected]="item.id == filters.group_id.value">{{ item.name }}</option>
+            </select>
+          </div>
+        </td>
+        <td [hidden]="!columns.last_login"></td>
+        <td [hidden]="!columns.created_at"></td>
+      </tr>
+      </thead>
+      <tbody class="text-dark">
+      <tr *ngIf="data.loading">
+        <td colspan="10" class="text-center"><span class="spinner-border"><span class="sr-only">Loading...</span></span></td>
+      </tr>
+      <ng-container *ngFor="let item of data.items; let $index = index">
+        <tr *ngIf="!item.is_deleted" [ngClass]="{'odd':$index%2==0,'even':$index%2==1}">
+          <td>
+            <div class="table_tools d-flex justify-content-between align-items-center">
+              <div class="d-flex justify-content-start align-items-center">
+                <div>
+                  <div class="custom-control-wrapper">
+                    <div class="custom-control custom-checkbox ml-0"><input type="checkbox" class="custom-control-input" [(ngModel)]="item.checkbox" [attr.id]="'customSelect'+$index" (click)="checkbox(item)"><label class="custom-control-label cursor-pointer" [attr.for]="'customSelect'+$index"></label></div>
+                  </div>
+                </div>
+                <div><a (click)="edit(item)" class="btn btn-icon" href="javascript:;"><span class="ic_pencil_square"></span></a></div>
+                <div>
+                  <div class="dropdown" dropdown container="body" placement="bottom left">
+                    <button type="button" dropdownToggle class="btn btn-icon"><span class="ic_three_dots_vertical"></span></button>
+                    <div *dropdownMenu class="dropdown-menu">
+                      <a class="dropdown-item text-danger" (click)="remove(item)" href="javascript:;">Xóa</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div><span class="btn btn-icon w-auto fs-normal pl-1" [innerText]="$index + 1"></span></div>
+            </div>
+          </td>
+          <td [hidden]="!columns.id">{{ item.no }}</td>
+          <td [hidden]="!columns.first_name"><a class="d-block" style="min-width: 150px; max-width: 350px" (click)="detail(item)" href="javascript:;" [innerText]="item.display"></a></td>
+          <td [hidden]="!columns.email">{{ item.email }}</td>
+          <td [hidden]="!columns.total_orders">{{ (item.total_orders|currencyFormat) + 'đ' }}</td>
+          <td [hidden]="!columns.phone_number">{{ item.phone_number }}</td>
+          <td [hidden]="!columns.source">{{ item.source?.name }}</td>
+          <td [hidden]="!columns.group">{{ item.group?.name }}</td>
+          <td [hidden]="!columns.last_login">{{ item.last_login|formatDate }}</td>
+          <td [hidden]="!columns.created_at">{{ item.created_at|formatDate }}</td>
+          <!--<td class="text-nowrap">
+            <div class="dropdown-setting" dropdown container="body" placement="bottom right">
+              <a dropdownToggle class="dropdown-toggle btn-square-icon"><span class="ic_pencil_square_outline"></span></a>
+              <ul *dropdownMenu class="dropdown-menu dropdown-menu-setting dropdown-menu-right">
+                <li *ngIf="item.status != CONST.USER_STATUS_STARTER"><a class="dropdown-item" (click)="$event.preventDefault();banned(item)" href="#"><span class="ic"><span class="ic_pencil"></span></span>
+                  <span *ngIf="item.status == CONST.USER_STATUS_ACTIVATED">Khóa tài khoản</span>
+                  <span *ngIf="item.status == CONST.USER_STATUS_BANNED">Mở khóa tài khoản</span>
+                </a></li>
+              </ul>
+            </div>
+          </td>-->
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
+  </div>
+  <div class="card-footer">
+    <ngx-pagination2 [page]="data.page" [pageSize]="data.pageSize" [totalItems]="data.totalItems" [maxSize]="data.maxSize" (change)="pageChanged($event)" (pageSizeChange)="pageSizeChanged($event)"></ngx-pagination2>
+  </div>
+</div>
+<ngx-user-form (onSuccess)="onFormSuccess($event)"></ngx-user-form>
+<ngx-modal-confirm (onConfirm)="onConfirm($event)"></ngx-modal-confirm>

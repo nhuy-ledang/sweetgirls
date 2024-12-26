@@ -1,0 +1,58 @@
+<div class="bg_top">
+  <div class="row justify-content-between align-items-end">
+    <h1 class="col-sm text-white">Dashboard</h1>
+    <div class="col-sm-auto">
+      <div class="btn-group dropdown" dropdown container="body" placement="bottom right" [insideClick]="true" #ddMonthPicker="bs-dropdown">
+        <button type="button" dropdownToggle class="btn btn-sm dropdown-toggle text-white fs-4"><span class="ic_calendar"></span><span class="ml-1" [innerText]="daterange.label">Feb 9 - Feb 9, 2022</span></button>
+        <div *dropdownMenu class="dropdown-menu dropdown-menu-right">
+          <div class="monthpicker" [ngClass]="{'customrange':bsData.mode=='customRange','no-drp':bsData.mode=='all'}">
+            <div class="ranges">
+              <ul>
+                <li (click)="bsSelectMode('day')" [ngClass]="{'active':bsData.mode=='day'}">Theo ngày</li>
+                <li (click)="bsSelectMode('week')" [ngClass]="{'active':bsData.mode=='week'}">Theo tuần</li>
+                <li (click)="bsSelectMode('month')" [ngClass]="{'active':bsData.mode=='month'}">Theo tháng</li>
+                <li (click)="bsSelectMode('year')" [ngClass]="{'active':bsData.mode=='year'}">Theo năm</li>
+                <li (click)="bsSelectMode('customRange')" [ngClass]="{'active':bsData.mode=='customRange'}">Khoảng thời gian</li>
+              </ul>
+            </div>
+            <div class="drp-calendar">
+              <bs-datepicker-inline *ngIf="bsData.mode=='day'||bsData.mode=='week'" [bsConfig]="{minMode: 'day', startingDay: 1, containerClass: 'theme-red'}" [bsValue]="bsData.value" (bsValueChange)="onBsValueChange($event)"></bs-datepicker-inline>
+              <bs-datepicker-inline *ngIf="bsData.mode=='month'" [bsConfig]="{minMode: 'month',containerClass: 'theme-red'}" [bsValue]="bsData.value" (bsValueChange)="onBsValueChange($event)"></bs-datepicker-inline>
+              <bs-datepicker-inline *ngIf="bsData.mode=='year'" [bsConfig]="{minMode: 'year', containerClass: 'theme-red'}" [bsValue]="bsData.value" (bsValueChange)="onBsValueChange($event)"></bs-datepicker-inline>
+              <bs-daterangepicker-inline *ngIf="bsData.mode=='customRange'" [bsConfig]="{showPreviousMonth: true, containerClass: 'theme-red'}" [bsValue]="bsInlineRangeValue" (bsValueChange)="onBsRangeValueChange($event)"></bs-daterangepicker-inline>
+            </div>
+            <div class="drp-buttons">
+                <span class="drp-selected">
+                  <ng-container *ngIf="bsData.mode=='day'"><span [innerText]="bsData.start|formatDate"></span></ng-container>
+                  <ng-container *ngIf="bsData.mode=='week'||bsData.mode=='month'||bsData.mode=='year'"><span [innerText]="bsData.start|formatDate"></span> - <span [innerText]="bsData.end|formatDate"></span></ng-container>
+                </span>
+              <button class="cancelBtn btn btn-sm btn-light" type="button" (click)="ddMonthPicker.isOpen=false">Cancel</button>
+              <button class="applyBtn btn btn-sm btn-primary" type="button" (click)="bsApply();ddMonthPicker.isOpen=false">Apply</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <tabset class="nav-tabs-light">
+    <tab (selectTab)="onSelectTab('accountant')" *ngIf="isSuperAdmin() || isCRUD('db_sale', 'view')" [active]="tabs.accountant">
+      <ng-template tabHeading>Kế toán</ng-template>
+      <div class="pt-5" *ngIf="tabs.accountant">
+        <ngx-db-tab-orders [filter]="daterange"></ngx-db-tab-orders>
+      </div>
+    </tab>
+    <tab (selectTab)="onSelectTab('marketing')" *ngIf="isSuperAdmin() || isCRUD('db_marketing', 'view')" [active]="tabs.marketing">
+      <ng-template tabHeading>Marketing</ng-template>
+      <div class="pt-5" *ngIf="tabs.marketing">
+        <ngx-db-tab-marketing [filter]="daterange"></ngx-db-tab-marketing>
+      </div>
+    </tab>
+    <tab (selectTab)="onSelectTab('networks')" *ngIf="isSuperAdmin() || isCRUD('db_networks', 'view')" [active]="tabs.networks">
+      <ng-template tabHeading>Networks</ng-template>
+      <div class="pt-5" *ngIf="tabs.networks">
+        <ngx-db-tab-networks [filter]="daterange"></ngx-db-tab-networks>
+      </div>
+    </tab>
+  </tabset>
+
+</div>

@@ -1,0 +1,58 @@
+<div bsModal #modal="bs-modal" [config]="{backdrop:'static'}" class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-xl" style="z-index: 99999">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Xác nhận danh sách dữ liệu cần nhập</h4>
+        <a class="close" (click)="hide()"><span class="ic_close"></span></a>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive">
+          <table class="table table-bordered table-default text-nowrap">
+            <thead>
+            <tr>
+              <th width="80">Stt</th>
+              <th>Mã hàng</th>
+              <th>Số lượng cuối kỳ</th>
+              <th>Ngày</th>
+            </tr>
+            </thead>
+            <tbody *ngIf="importData.valid.length" class="text-primary">
+            <tr>
+              <th colspan="3" class="text-left">Các dòng sẽ được nhập</th>
+            </tr>
+            <tr *ngFor="let item of importData.valid; let i = index">
+              <td [innerText]="i+1"></td>
+              <td><span *ngIf="item.insertData.idx" [innerText]="item.idx">Mã hàng</span></td>
+              <td><span *ngIf="item.insertData.quantity" [innerText]="item.quantity">Số lượng cuối kỳ</span></td>
+              <td><span *ngIf="item.insertData.created_at" [innerText]="item.created_at">Ngày</span></td>
+            </tr>
+            </tbody>
+            <tbody *ngIf="importData.invalid.length" class="text-danger">
+            <tr>
+              <th colspan="3" class="text-left">Các dòng sẽ không được nhập</th>
+            </tr>
+            <ng-container *ngFor="let item of importData.invalid; let i = index" class="text-danger">
+              <tr>
+                <td [innerText]="i+1"></td>
+                <td [innerText]="item.idx">Mã hàng</td>
+                <td [innerText]="item.quantity">Số lượng cuối kỳ</td>
+                <td [innerText]="item.created_at">Ngày</td>
+              </tr>
+              <tr *ngIf="item.errors">
+                <td colspan="3">
+                  <div class="text-danger" *ngFor="let error of item.errors"><span class="badge badge-pill badge-danger mr-2">Lỗi</span><span [innerText]="error.errorMessage"></span></div>
+                </td>
+              </tr>
+            </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="text-right">
+          <button class="btn btn-primary" type="button" (click)="onSubmit()">Nhập ngay</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

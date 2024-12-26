@@ -1,0 +1,61 @@
+<?php
+
+namespace Modules\User\Entities;
+
+use Modules\Core\Entities\Eloquent\CoreModel;
+use Modules\Place\Entities\Place;
+
+class CollectionFolder extends CoreModel {
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'user__collection_folders';
+
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = true;
+
+    protected $fillable = [
+        'user_id',
+        'name',
+        'status'
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array
+     */
+    protected $hidden = [
+    ];
+
+    /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'id'           => 'integer',
+        'user_id'      => 'integer',
+        'status'       => 'boolean',
+        'total_childs' => 'integer',
+    ];
+
+    /**
+     * Relationship
+     */
+    public function user() {
+        return $this->belongsTo('Modules\User\Entities\Sentinel\User');
+    }
+
+    public function getFirstPlace() {
+        return Place::rightJoin('user__collections', function($join) {
+            $join->on('place__places.id', 'user__collections.object_id')->where('object', 'place');
+        })->where('user__collections.folder_id', $this->id)->selectRaw('`place__places`.*')->first();
+    }
+}

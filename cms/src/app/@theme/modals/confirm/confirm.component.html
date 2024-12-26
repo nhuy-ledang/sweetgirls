@@ -1,0 +1,19 @@
+<div bsModal #modal="bs-modal" class="modal fade" tabindex="-1" (onHidden)="onHidden()" style="z-index: 9999999">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal" [ngClass]="[customClass]" style="z-index: 99999">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" [innerHTML]="title"></h2>
+        <a class="close float-right" (click)="hide()"><span class="ic_close"></span></a>
+      </div>
+      <div class="modal-body">
+        <div class="form-group" [innerHTML]="message"></div>
+        <div class="d-flex align-items-center">
+          <div class="ml-auto">
+            <button *ngIf="type !== 'alert'" type="button" (click)="hide()" class="btn btn-outline-secondary mr-2">{{ btnCancelText }}</button>
+            <button type="button" (click)="confirm()" class="btn btn-secondary">{{ btnConfirmText }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

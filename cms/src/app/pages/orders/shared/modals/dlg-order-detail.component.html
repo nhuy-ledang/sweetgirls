@@ -1,0 +1,82 @@
+<div bsModal #modal="bs-modal" [config]="{backdrop:'static'}" class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered" style="z-index: 99999">
+    <div *ngIf="info" class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Chi tiết đơn hàng (#{{ info.no }})</h4>
+        <a href="javascript:" (click)="hide()" class="close"><span class="ic_close"></span></a>
+      </div>
+      <div class="modal-body">
+        <div class="row align-items-center">
+          <div class="col-sm mb-2">
+            <div class="btn-group text-nowrap">
+              <button type="button" class="btn btn-outline-primary" [ngClass]="{'active':info.order_status=='pending'}">Chờ xác nhận</button>
+              <button type="button" class="btn btn-outline-primary" [ngClass]="{'active':info.order_status=='processing'}" (click)="changeOrderStatus('processing')">Đang xử lý</button>
+              <button type="button" class="btn btn-outline-primary" [ngClass]="{'active':info.order_status=='shipping'}" (click)="changeOrderStatus('shipping')">Đang giao hàng</button>
+              <button type="button" class="btn btn-outline-primary" [ngClass]="{'active':info.order_status=='completed'}" (click)="changeOrderStatus('completed')">Hoàn tất</button>
+              <button type="button" class="btn btn-outline-primary" [ngClass]="{'active':info.order_status=='canceled'}" (click)="changeOrderStatus('canceled')">Hủy đơn</button>
+            </div>
+          </div>
+          <div class="col-sm-auto mb-2"></div>
+        </div>
+        <hr>
+        <div class="row justify-content-lg-between">
+          <div class="col-sm order-2 order-sm-1 mb-3">
+            <h4>{{info.no}}</h4>
+            <span class="s-status" [ngClass]="info.status">{{info.status_name}}</span>
+            <!--<address>CÔNG TY CỔ PHẦN MOTILA<br> 49 Bùi Đình Túy, Phường 24, Bình Thạnh, Tp.HCM<br> Điện thoại: 0866 777 917<br> Email: motila@motila.vn<br> MST: 0315745824</address>-->
+          </div>
+          <div class="col-sm-auto order-1 order-sm-2 text-sm-right mb-3">
+            <h4>#{{ info.master_id }}</h4>
+            <div><b>Khách hàng:</b>&nbsp;<a [routerLink]="['/pages/customers', info.user_id, 'info']" [innerText]="info.display" target="_blank"></a></div>
+            <div><b>Thời gian:</b> {{ info.created_at|formatDate }}</div>
+          </div>
+        </div>
+        <div class="mb-3" *ngIf="info.is_invoice">
+          <h4>Thông tin xuất hóa đơn</h4>
+          <div><b>Tên công ty:</b> {{ info.company }}</div>
+          <div><b>Mã số thuế:</b> {{ info.tax_code }}</div>
+          <div><b>Địa chỉ:</b> {{ info.address }}</div>
+        </div>
+        <div class="card mb-3">
+          <div class="table-responsive">
+            <table class="table m-0">
+              <thead>
+              <tr>
+                <th class="w-auto">Tên sản phẩm</th>
+                <th>Giá</th>
+                <th>Số lượng</th>
+                <th class="text-right">Tông cộng</th>
+              </tr>
+              </thead>
+              <tbody class="text-dark">
+              <tr *ngIf="data.loading">
+                <td colspan="4" class="text-center">
+                  <div class="spinner-border"><span class="sr-only">Loading...</span></div>
+                </td>
+              </tr>
+              <tr *ngFor="let item of data.items">
+                <td>{{ item.name }}</td>
+                <td>{{ item.price|currencyFormat }}</td>
+                <td>{{ item.quantity }}</td>
+                <td class="text-right">{{ item.total|currencyFormat }}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row justify-content-md-end mb-3">
+          <div class="col-md-8 col-lg-7">
+            <table class="table table-sm d-inline-block w-auto table-borderless text-right text-nowrap float-right">
+              <tbody>
+              <tr>
+                <td><span class="font-weight-bold">Thành tiền:</span></td>
+                <td>{{info.total|currencyFormat}}đ</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

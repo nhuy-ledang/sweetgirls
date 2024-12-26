@@ -1,0 +1,105 @@
+<div class="page-header no-gutter">
+  <div class="row align-items-end">
+    <div class="col-sm">
+      <h1 class="page-header-title"><span [innerText]="'Thương hiệu'"></span></h1>
+      <nav>
+        <ol class="breadcrumb breadcrumb-no-gutter">
+          <li class="breadcrumb-item"><span [innerText]="'Sản phẩm'">Sản phẩm</span></li>
+          <li class="breadcrumb-item active"><span [innerText]="'Thương hiệu'"></span></li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-auto">
+      <div class="btn-group">
+        <button type="button" class="btn btn-secondary" (click)="create()"><span class="ic_plus"></span>&nbsp;<span>Thêm mới</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-header">
+    <div class="row justify-content-between align-items-center flex-grow-1">
+      <div class="col-12 col-sm">
+        <div class="input-group input-group-merge input-group-borderless">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><span class="ic_search"></span></div>
+          </div>
+          <input type="text" class="form-control" placeholder="Tìm kiếm" [(ngModel)]="data.data.q" (keyup)="onFilter($event)">
+        </div>
+      </div>
+      <div class="col-auto">
+        <div class="d-flex align-items-center"></div>
+      </div>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table m-0">
+      <thead>
+      <tr>
+        <th style="width: 1px">
+          <div class="table_tools d-flex justify-content-between align-items-center">
+            <div>
+              <div class="custom-control-wrapper">
+                <div class="custom-control custom-checkbox ml-0"><input type="checkbox" class="custom-control-input" [(ngModel)]="data.selectAll" (change)="selectAll()" id="customSelect"><label class="custom-control-label cursor-pointer" for="customSelect"></label></div>
+              </div>
+            </div>
+            <div>&nbsp;&nbsp;Stt</div>
+          </div>
+        </th>
+        <th>#</th>
+        <th><span>Hình</span></th>
+        <th><span>Tên</span></th>
+        <th><span>Hoa hồng</span></th>
+        <th><span [innerText]="'Sắp xếp'">Sắp xếp</span></th>
+        <th><span>Trạng thái</span></th>
+      </tr>
+      </thead>
+      <tbody class="text-dark">
+      <tr *ngIf="data.loading">
+        <td colspan="7" class="text-center"><span class="spinner-border"><span class="sr-only">Loading...</span></span></td>
+      </tr>
+      <ng-container *ngFor="let item of data.items; let $index = index">
+        <tr *ngIf="!item.is_deleted" [ngClass]="{'odd':$index%2==0,'even':$index%2==1}">
+          <td>
+            <div class="table_tools d-flex justify-content-between align-items-center">
+              <div class="d-flex justify-content-start align-items-center">
+                <div>
+                  <div class="custom-control-wrapper">
+                    <div class="custom-control custom-checkbox ml-0"><input type="checkbox" class="custom-control-input" [(ngModel)]="item.checkbox" [attr.id]="'customSelect'+$index" (click)="checkbox(item)"><label class="custom-control-label cursor-pointer" [attr.for]="'customSelect'+$index"></label></div>
+                  </div>
+                </div>
+                <div><a (click)="edit(item)" class="btn btn-icon" href="javascript:;"><span class="ic_pencil_square"></span></a></div>
+                <div>
+                  <div class="dropdown" dropdown container="body" placement="bottom left">
+                    <button type="button" dropdownToggle class="btn btn-icon"><span class="ic_three_dots_vertical"></span></button>
+                    <div *dropdownMenu class="dropdown-menu">
+                      <a class="dropdown-item text-danger" (click)="remove(item)" href="javascript:">Xóa</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div><span class="btn btn-icon w-auto fs-normal pl-1" [innerText]="$index + 1"></span></div>
+            </div>
+          </td>
+          <td [innerText]="item.id"></td>
+          <td>
+            <ng-container *ngIf="item.thumb_url"><img [src]="item.thumb_url" style="width: 100px"></ng-container>
+          </td>
+          <td><span class="d-block" style="min-width: 150px;" [innerText]="item.name"></span></td>
+          <td><span [innerText]="item.commission"></span>%</td>
+          <td [innerText]="item.sort_order"></td>
+          <td><label class="toggle-switch toggle-switch-sm">
+            <input type="checkbox" class="toggle-switch-input" [checked]="item.status" disabled>
+            <span class="toggle-switch-label checked-disabled"><span class="toggle-switch-indicator"></span></span>
+          </label></td>
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
+  </div>
+  <div class="card-footer">
+    <ngx-pagination2 [page]="data.page" [pageSize]="data.pageSize" [totalItems]="data.totalItems" [maxSize]="data.maxSize" (change)="pageChanged($event)" (pageSizeChange)="pageSizeChanged($event)"></ngx-pagination2>
+  </div>
+</div>
+<ngx-pd-manufacturer-form (onSuccess)="onFormSuccess($event)"></ngx-pd-manufacturer-form>
+<ngx-modal-confirm (onConfirm)="onConfirm($event)"></ngx-modal-confirm>

@@ -1,0 +1,12 @@
+<div class="modal-header justify-content-center" ng-if="data.title"><h4 class="modal-title" ng-bind-html="data.title|safe_html"></h4></div>
+<div class="modal-body text-center">
+  <div ng-if="data.summary" class="modal-summary" ng-class="{'mb-1':data.message||data.style}" ng-bind-html="data.summary|safe_html"></div>
+  <div ng-if="data.message" class="font-18 py-2" ng-class="{'mb-3':data.style}" ng-bind-html="data.message|safe_html"></div>
+  <div ng-if="data.style" class="clearfix">
+    <div ng-if="data.style == 'ok'"><button class="btn btn-primary px-10" ng-click="ok(data.url)">Ok</button></div>
+    <div class="float-right" ng-if="data.style == 'yesNo'">
+      <button class="btn btn-danger" ng-click="ok(data.url)">Yes</button>
+      <button class="btn btn-light" ng-click="cancel()">No</button>
+    </div>
+  </div>
+</div>

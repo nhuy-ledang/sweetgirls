@@ -1,0 +1,54 @@
+-- Remove module marketing
+DELETE FROM `migrations` WHERE `migration` = '2022_09_20_200000_update_campaigns_table';
+DELETE FROM `migrations` WHERE `migration` = '2022_09_20_102831_create_category_descs_table';
+DELETE FROM `migrations` WHERE `migration` = '2022_09_20_033721_create_categories_table';
+DELETE FROM `migrations` WHERE `migration` = '2022_08_12_190722_update_leads_table';
+DELETE FROM `migrations` WHERE `migration` = '2022_07_12_093004_update_campaigns_table';
+DELETE FROM `migrations` WHERE `migration` = '2022_07_12_054057_create_campaign_module_desc_table';
+DELETE FROM `migrations` WHERE `migration` = '2022_07_12_054048_create_campaign_modules_table';
+DELETE FROM `migrations` WHERE `migration` = '2022_06_10_114829_create_redirects_table';
+DELETE FROM `migrations` WHERE `migration` = '2021_10_06_102938_create_lead_sources_table';
+DELETE FROM `migrations` WHERE `migration` = '2021_10_06_102837_create_leads_table';
+DELETE FROM `migrations` WHERE `migration` = '2021_10_06_102831_create_campaign_descs_table';
+DELETE FROM `migrations` WHERE `migration` = '2021_10_06_102830_create_campaigns_table';
+DROP TABLE IF EXISTS `mkt__category_descs`;
+DROP TABLE IF EXISTS `mkt__categories`;
+DROP TABLE IF EXISTS `mkt__camp_module_desc`;
+DROP TABLE IF EXISTS `mkt__camp_module_descs`;
+DROP TABLE IF EXISTS `mkt__camp_modules`;
+DROP TABLE IF EXISTS `mkt__redirects`;
+DROP TABLE IF EXISTS `mkt__sources`;
+DROP TABLE IF EXISTS `mkt__leads`;
+DROP TABLE IF EXISTS `mkt__campaign_descs`;
+DROP TABLE IF EXISTS `mkt__campaigns`;
+-- Remove module image
+DELETE FROM `migrations` WHERE `migration` = '2023_04_18_152747_update_media_category0418_table';
+DELETE FROM `migrations` WHERE `migration` = '2022_12_21_152747_update3_media_file_table';
+DELETE FROM `migrations` WHERE `migration` = '2022_11_19_061251_update2_media_files_table';
+DELETE FROM `migrations` WHERE `migration` = '2020_08_31_151832_update_media_files_table';
+DELETE FROM `migrations` WHERE `migration` = '2022_08_03_153838_create_image_images_table';
+DELETE FROM `migrations` WHERE `migration` = '2022_08_03_153752_create_image_desc_table';
+DELETE FROM `migrations` WHERE `migration` = '2022_08_03_153751_create_images_table';
+DELETE FROM `migrations` WHERE `migration` = '2022_08_03_153737_create_category_desc_table';
+DELETE FROM `migrations` WHERE `migration` = '2022_08_03_153736_create_categories_table';
+DROP TABLE IF EXISTS `med__image_images`;
+DROP TABLE IF EXISTS `med__image_desc`;
+DROP TABLE IF EXISTS `med__images`;
+DROP TABLE IF EXISTS `med__category_desc`;
+DROP TABLE IF EXISTS `med__categories`;
+-- Remove module recruit
+DELETE FROM `migrations` WHERE `migration` = '2022_05_06_162208_create_contacts_table';
+DROP TABLE IF EXISTS `rec__recruit_images`;
+DROP TABLE IF EXISTS `rec__recruit_desc`;
+DROP TABLE IF EXISTS `rec__contacts`;
+DROP TABLE IF EXISTS `rec__recruits`;
+DROP TABLE IF EXISTS `rec__category_desc`;
+DROP TABLE IF EXISTS `rec__categories`;
+-- Remove module project
+DELETE FROM `migrations` WHERE `migration` = '2022_07_10_210821_update_project_category_table';
+DELETE FROM `migrations` WHERE `migration` = '2022_07_10_205046_update_project_desc_table';
+DROP TABLE IF EXISTS `prj__project_images`;
+DROP TABLE IF EXISTS `prj__project_desc`;
+DROP TABLE IF EXISTS `prj__projects`;
+DROP TABLE IF EXISTS `prj__category_desc`;
+DROP TABLE IF EXISTS `prj__categories`;

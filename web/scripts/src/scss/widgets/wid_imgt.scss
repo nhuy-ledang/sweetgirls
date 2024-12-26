@@ -1,0 +1,99 @@
+$wid-imgt-color: $gray-700 !default; // $card-border-color
+
+.wid_imgt {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0; // See https://github.com/twbs/bootstrap/pull/22740#issuecomment-305868106
+  word-wrap: break-word;
+  background-color: $card-bg;
+  background-clip: border-box;
+  @include border-radius(.1rem);
+  .wid_img {
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .wid_body {
+    padding: 1rem 0.5rem;
+    width: 100%;
+  }
+  .wid_title {
+  }
+  .wid_text {
+    padding-right: 10px;
+  }
+  .wid_more {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    line-height: 20px;
+    text-align: right;
+    color: $orange;
+  }
+}
+
+.wid_imgt_fluid {
+  .embed-responsive-16by9::before {
+    padding-top: 125%; // 4by5
+  }
+  .wid_body {
+    position: absolute;
+    color: #ffffff;
+    bottom: 0;
+    background-color: rgba($wid-imgt-color, .8);
+  }
+  &.bg_gradient {
+    .wid_body {
+      background-color: transparent;
+      background-image: linear-gradient(to bottom, rgba($wid-imgt-color, .05), rgba($wid-imgt-color, .8));
+    }
+  }
+}
+
+.wid_imgt_brd {
+  border: $card-border-width solid $wid-imgt-color;
+}
+
+.wid_imgt_bg {
+  background-color: $wid-imgt-color;
+  color: #ffffff;
+}
+
+.wid_imgt_img_pd {
+  .wid_img {
+    padding: 5px;
+  }
+}
+
+.wid_imgt_img_brd {
+  .wid_img {
+    border: 5px solid $wid-imgt-color;
+  }
+}
+
+// Color override
+/*$wid-imgt-color2: $green !default;
+.wid_imgt_fluid .wid_body {
+  background-color: rgba($wid-imgt-color2, .8);
+}
+
+.wid_imgt_fluid.bg_gradient .wid_body {
+  background-image: linear-gradient(to bottom, rgba($wid-imgt-color2, .05), rgba($wid-imgt-color2, .8));
+}
+
+.wid_imgt_brd {
+  border-color: $wid-imgt-color2;
+}
+
+.wid_imgt_bg {
+  background-color: $wid-imgt-color2;
+}
+
+.wid_imgt_img_brd .wid_img {
+  border-color: $wid-imgt-color2;
+}*/

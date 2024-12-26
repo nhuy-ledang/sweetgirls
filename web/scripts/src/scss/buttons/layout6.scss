@@ -1,0 +1,119 @@
+.button_layout6 {
+  display: flex;
+  justify-content: var(--button-align, center);
+  .wid_button {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    padding-left: 0;
+    position: relative;
+    cursor: pointer;
+    span {
+      background-color: transparent;
+      color: var(--text-btn-color, var(--primary));
+      position: relative;
+      transition: all 0.3s ease-in-out;
+      cursor: pointer;
+      border: 0;
+      padding-left: 20px;
+      left: 0;
+      overflow: hidden;
+      /*line*/
+      &:before {
+        content: "";
+        background-color: var(--button-color, var(--primary));
+        width: 3px;
+        height: 100%;
+        position: absolute;
+        z-index: 2;
+        left: 0px;
+        top: 0px;
+        border-radius: 50px;
+        transition: all 0.3s ease-in-out;
+        animation: 0.7s hover_out_btn_layout6 forwards;
+      }
+      /*arrow*/
+      &:after {
+        content: "";
+        opacity: 0;
+        width: 14.3px;
+        height: 15px;
+        display: flex;
+        align-items: center;
+        position: absolute;
+        border: solid 3px var(--button-color, var(--white));
+        border-left: 0;
+        border-bottom: 0;
+        top: calc(50% - 7px);
+        border-radius: 2px;
+        transform: translateX(-42px) rotate(45deg);
+        transition: all 0.3s 0.2s ease-in-out;
+      }
+    }
+    /* bg button */
+    &:before {
+      content: "";
+      background-color: var(--button-hover-color, var(--primary));
+      width: 0;
+      height: 100%;
+      position: absolute;
+      right: 0;
+      top: 0px;
+      border-radius: 3px;
+      transition: all 0.4s 0.3s ease-in-out;
+    }
+    &:hover {
+      &:before {
+        width: 100%;
+        height: 100%;
+        left: 0;
+        bottom: 0px;
+      }
+      span {
+        padding-left: 50px;
+        color: var(--text-btn-hover-color, var(--white));
+        &:before {
+          background-color: var(--text-btn-hover-color, var(--white));
+          left: 18px;
+          animation: 0.7s hover_in_btn_layout6 forwards;
+        }
+        &:after {
+          opacity: 1 !important;
+          transition-delay: 0.6s !important;
+          transform: translate(-34px) rotate(45deg);
+          border: solid 3px var(--text-btn-hover-color, var(--white));
+          border-left: 0;
+          border-bottom: 0;
+        }
+      }
+    }
+  }
+  @keyframes hover_in_btn_layout6 {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0);
+    }
+    51% {
+      transform: scale(0) rotate(90deg);
+    }
+    100% {
+      transform: scale(1) rotate(90deg);
+    }
+  }
+  @keyframes hover_out_btn_layout6 {
+    0% {
+      transform: scale(1) rotate(90deg);
+    }
+    50% {
+      transform: scale(0) rotate(90deg);
+    }
+    51% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+}

@@ -1,0 +1,43 @@
+<div bsModal #modal="bs-modal" [config]="{backdrop:'static'}" class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-sm modal-dialog-centered" style="z-index: 99999">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"><span [innerText]="!info?'Thêm':'Cập nhật'"></span> thương hiệu</h4>
+        <a href="javascript:" (click)="hide()" class="close"><span class="ic_close"></span></a>
+      </div>
+      <div class="modal-body">
+        <form novalidate [formGroup]="form">
+          <div class="form-group" [ngClass]="{'has-error': (controls.name.invalid && (controls.name.touched || showValid))}">
+            <label class="input-label">Tên</label>
+            <input type="text" [formControl]="controls.name" class="form-control" (change)="onChangeName()">
+          </div>
+          <div class="form-group" [ngClass]="{'has-error': (controls.commission.invalid && (controls.commission.touched || showValid))}">
+            <label class="input-label">Hoa hồng</label>
+            <input type="number" [formControl]="controls.commission" class="form-control">
+            <small>Hoa hồng từ 1-100</small>
+          </div>
+          <div class="form-group" *ngIf="modal.isShown">
+            <label class="input-label" [innerText]="'Hình'">Hình</label>
+            <ngx-picture-uploader [options]="fileOpt" (onSelected)="onFileSelected($event)" (onDeleted)="onFileDeleted($event)"></ngx-picture-uploader>
+          </div>
+          <div class="form-group" [ngClass]="{'has-error': (controls.sort_order.invalid && (controls.sort_order.touched || showValid))}">
+            <label class="input-label" [innerText]="'Sắp xếp'">Sắp xếp</label>
+            <input type="number" [formControl]="controls.sort_order" class="form-control">
+          </div>
+          <div class="form-group" [ngClass]="{'has-error': (controls.alias.invalid && (controls.alias.touched || showValid))}">
+            <label class="input-label">Seo url</label>
+            <input name="alias" type="text" [formControl]="controls.alias" class="form-control">
+            <small><br><span [innerText]="'Không sử dụng khoảng trống, thay vào đó bằng - và đảm bảo rằng URL SEO là độc nhất trên toàn cầu.'|translate"></span></small>
+          </div>
+          <div class="form-group" [ngClass]="{'has-error': (controls.status.invalid && (controls.status.touched || showValid))}">
+            <label class="input-label">Trạng thái</label>
+            <ngx-toggle-switch [formControl]="controls.status"></ngx-toggle-switch>
+          </div>
+          <div class="d-flex justify-content-end">
+            <button type="button" (click)="onSubmit(form.value)" [disabled]="submitted" class="btn btn-secondary"><span class="spinner-border spinner-border-sm" *ngIf="submitted"></span> Hoàn tất</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

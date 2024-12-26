@@ -1,0 +1,39 @@
+<div class="row align-items-center mb-3">
+  <div class="col-sm"><h5 class="m-0" [innerText]="info?.name"></h5></div>
+  <div class="col-sm-auto">
+    <div class="btn-group">
+      <button type="button" class="btn btn-secondary" (click)="create()"><span class="ic_plus"></span>&nbsp;<span>Thêm mới</span></button>
+    </div>
+  </div>
+</div>
+<div class="mb-3" *ngIf="data.selectList.length">
+  <div class="d-flex align-items-center">
+    <span class="font-size-sm mr-3"><span [innerText]="data.selectList.length"></span> selected</span>
+    <a class="btn btn-outline-danger" href="javascript:;" (click)="removeAll()"><span class="fa fa-trash mr-1"></span><span [innerText]="'Xóa'|translate">Xóa</span></a>
+  </div>
+</div>
+<div class="card">
+  <div class="table-responsive">
+    <table class="table m-0">
+      <thead>
+      <tr>
+        <th><span [innerText]="'Thuộc tính'"></span></th>
+        <!--<th><span [innerText]="'Giá trị'|translate">Giá trị</span></th>-->
+      </tr>
+      </thead>
+      <tbody class="text-dark">
+      <tr *ngIf="data.loading">
+        <td colspan="3" class="text-center">
+          <div class="spinner-border"><span class="sr-only">Loading...</span></div>
+        </td>
+      </tr>
+      <tr *ngFor="let item of data.items; let $index = index">
+        <td><span [innerHTML]="item.name"></span></td>
+        <!--<td><small [innerHTML]="item.value_name"></small></td>-->
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<ngx-pd-category-property-form (onSuccess)="onFormSuccess($event)"></ngx-pd-category-property-form>
+<ngx-modal-confirm (onConfirm)="onConfirm($event)"></ngx-modal-confirm>

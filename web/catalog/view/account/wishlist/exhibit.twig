@@ -1,0 +1,20 @@
+{% if exhibits %}
+  <div class="row justify-content-between boxes-exhibit">
+    {% for item in exhibits %}
+      <div class="col-4">
+        <div class="tile">
+          <div class="avatar"><a href="{{ item.href }}"><span class="rounded-sm embed-responsive embed-responsive-16by9"><span class="embed-responsive-item"><img src="{{ img_placeholder }}" data-src="{{ item.thumb_url }}" class="lazyload w-100 h-100"></span></span></a></div>
+          <div class="tile-bottom">
+            <span class="badge badge-danger">{{ item.country }}</span>
+            <div class="name"><a href="{{ item.href }}">{{ item.name }}</a></div>
+            <div class="date">{{ item.date_time }}</div>
+            <a href="{{ item.href }}" class="btn-link">{{ text_view_detail }}</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  {{ pagination }}
+{% else %}
+  <div class="text-center text-muted">{{ text_empty }}</div>
+{% endif %}

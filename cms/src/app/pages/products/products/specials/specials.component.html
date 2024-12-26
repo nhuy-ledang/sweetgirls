@@ -1,0 +1,42 @@
+<div class="row align-items-center mb-3">
+  <div class="col-sm"><h5 *ngIf="showTitle" class="m-0" [innerText]="info?.name"></h5></div>
+  <div class="col-sm-auto">
+    <div class="btn-group">
+      <button type="button" class="btn btn-secondary" (click)="create()"><span class="ic_plus"></span> Thêm khuyến mãi</button>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="table-responsive">
+    <table class="table m-0">
+      <thead>
+      <tr>
+        <th style="width: 1px"></th>
+        <th>Giá bán</th>
+        <th>Độ ưu tiên</th>
+        <th>Ngày bắt đầu</th>
+        <th>Ngày kết thúc</th>
+      </tr>
+      </thead>
+      <tbody class="text-dark">
+      <tr *ngIf="data.loading">
+        <td colspan="5" class="text-center"><span class="spinner-border"><span class="sr-only">Loading...</span></span></td>
+      </tr>
+      <tr *ngFor="let item of data.items">
+        <td>
+          <div class="table_tools d-flex justify-content-start align-items-center">
+            <div><a (click)="edit(item)" class="btn btn-icon" href="javascript:;"><span class="ic_pencil_square"></span></a></div>
+            <div><a (click)="remove(item)" class="btn btn-icon text-danger" href="javascript:;"><span class="ic_trash_outline"></span></a></div>
+          </div>
+        </td>
+        <td [innerText]="item.price|currencyFormat"></td>
+        <td [innerText]="item.priority"></td>
+        <td [innerText]="item.start_date|formatDate:'dd/mm/yyyy - HH:MM'"></td>
+        <td [innerText]="item.end_date|formatDate:'dd/mm/yyyy - HH:MM'"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<ngx-pd-special-form (onSuccess)="onFormSuccess($event)"></ngx-pd-special-form>
+<ngx-modal-confirm (onConfirm)="onConfirm($event)"></ngx-modal-confirm>

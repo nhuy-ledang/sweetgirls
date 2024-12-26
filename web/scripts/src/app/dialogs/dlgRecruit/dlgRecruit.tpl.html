@@ -1,0 +1,71 @@
+<div class="modal-header border-bottom-0 text-center pt-5">
+  <h3 class="modal-title text-center text-primary w-100 font-weight-bold">{{ langText.applyform }}</h3>
+</div>
+<div class="modal-body">
+  <div class="d-flex justify-content-center">
+    <form name="form" novalidate class="w-100" enctype="multipart/form-data" role="form"  accept-charset="utf-8">
+      <input type="hidden" name="recruit_id" ng-model="info.id">
+      <div class="form-group row">
+      <label class="d-flex align-items-center col-3 mb-0">Vị trí</label>
+      <div class="col-9">
+        <input type="text" value="{{ info.name }}" disabled class="form-control">
+      </div>
+      </div>
+      <div class="form-group row" ng-class="{'has-error': form.name.$invalid&&envData.showValid}">
+        <label class="d-flex align-items-center col-3 mb-0">{{ langText.fullname }}</label>
+        <div class="col-9">
+        <input name="name" type="text" ng-model="params.name" class="form-control" required>
+        </div>
+      </div>
+      <div class="form-group row" ng-class="{'has-error': form.email.$invalid&&envData.showValid}">
+        <label class="d-flex align-items-center col-3 mb-0">{{ langText.email }}</label>
+        <div class="col-9">
+        <input name="email" type="email" ng-model="params.email" class="form-control" required>
+        </div>
+      </div>
+      <div class="form-group row" ng-class="{'has-error': form.phone.$invalid &&envData.showValid}">
+        <label class="d-flex align-items-center col-3 mb-0">{{ langText.phone }}</label>
+        <div class="col-9">
+        <input name="phone" type="number" ng-model="params.phone" class="form-control" required>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="d-flex align-items-center col-3 mb-0">{{ langText.birthday }}</label>
+        <span class="col-9 col-md-5" ng-class="{'has-error': form.birthday.$invalid&&envData.showValid}">
+        <input name="birthday" type="date" ng-model="params.birthday" class="form-control w-100" required>
+        </span>
+        <label class="d-flex align-items-center col-3 col-md-2 mb-0 justify-content-md-end mt-4 mt-md-0">{{ langText.gender }}</label>
+        <div class="col-9 col-md-2 pl-md-0 mt-4 mt-md-0">
+        <select name="gender" id="" class="form-control pr-0" ng-model="params.gender" required>
+          <option value="1">{{ langText.male }}</option>
+          <option value="2">{{ langText.female }}</option>
+        </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="d-flex align-items-center col-3 mb-0">{{ langText.linkportfolio }}</label>
+        <div class="col-9">
+        <input name="portfolio" type="text" ng-model="params.portfolio" class="form-control">
+        </div>
+      </div>
+      <div class="form-group row" ng-class="{'has-error': form.filename.$invalid&&envData.showValid}">
+        <input type="hidden" name="filename" ng-model="params.filename" required>
+        <label class="d-flex align-items-center col-3 mb-0">{{ langText.filecv }}</label>
+        <div class="col-9">
+          <div class="custom-input-file">
+            <input name="file" type="file" onchange="angular.element(this).scope().change(this)" class="form-control" accept='.doc,.docx,.pdf,.png,.jpg,.svg'>
+            <i class="fa fa-paperclip"></i> <span class="name-file" ng-bind-html="params.filename|safe_html"></span>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-between no-gutters">
+        <div class="form-group col">
+          <a href="{{ downloadForm }}" target="_blank" class="download-form btn btn-primary text-center"><span class="pr-3">{{ langText.downform }}</span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" version="1.1" width="25" height="25" x="0" y="0" viewBox="0 0 488 488" style="enable-background:new 0 0 25 25" xml:space="preserve" class=""><g><g xmlns="http://www.w3.org/2000/svg"><g><g><path d="M460,319.392c-4.418,0-8,3.582-8,8V472H36V327.392c0-4.418-3.582-8-8-8s-8,3.582-8,8V480c0,4.418,3.582,8,8,8h432     c4.418,0,8-3.582,8-8V327.392C468,322.974,464.418,319.392,460,319.392z" fill="#ffffff" data-original="#000000" style="" class=""/><path d="M238.344,405.656c3.12,3.128,8.186,3.135,11.314,0.014c0.005-0.005,0.01-0.01,0.014-0.014l104-104     c3.07-3.178,2.982-8.242-0.196-11.312c-3.1-2.995-8.016-2.995-11.116,0L252,380.688V8c0-4.418-3.582-8-8-8s-8,3.582-8,8v372.688     l-90.344-90.344c-3.178-3.07-8.242-2.982-11.312,0.196c-2.994,3.1-2.994,8.015,0,11.116L238.344,405.656z" fill="#ffffff" data-original="#000000" style="" class=""/></g></g></g></a>
+        </div>
+        <div class="form-group col text-right">
+          <button type="button" class="close btn btn-primary text-center px-4" ng-click="submit(form)" ng-disabled="envData.submitted"><span><span class="spinner-border spinner-border-sm" ng-if="envData.submitted"></span>{{ langText.btnapply }}</span></button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

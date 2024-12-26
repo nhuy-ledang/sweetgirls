@@ -1,0 +1,36 @@
+#why-layout5--container {
+  @media (max-width: 575px) {
+    .wid_block {
+      padding: calc(var(--spacing-col-mb, 20px) / 2);
+    }
+    .wid_info {
+      padding-left: calc(var(--spacing-col-mb, 20px) / 2);
+    }
+  }
+  @media (min-width: 576px) {
+    .wid_block {
+      padding: calc(var(--spacing-col-mb, 20px) * 1.4 / 2);
+    }
+    .wid_info {
+      padding-left: calc(var(--spacing-col-mb, 20px) * 1.4);
+    }
+  }
+  @media (min-width: 1280px) {
+    .wid_block {
+      padding: calc(var(--spacing-col, 20px) / 2);
+    }
+    .wid_info {
+      padding-left: var(--spacing-col, 20px);
+    }
+  }
+}
+
+#why-layout6--container {
+  .bg-primary {
+    background-color: var(--primary-color, var(--primary)) !important;
+  }
+  .bg-primary span {
+    color: var(--secondary-color, var(--white)) !important;
+  }
+
+}

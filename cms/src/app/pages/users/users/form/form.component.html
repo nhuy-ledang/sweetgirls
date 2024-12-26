@@ -1,0 +1,80 @@
+<div bsModal #modal="bs-modal" [config]="{backdrop:'static'}" class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-lg" style="z-index: 99999">
+    <div class="modal-content">
+      <form novalidate [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+        <div class="modal-header">
+          <h4 class="modal-title">
+            <span *ngIf="!info">Thêm khách hàng</span>
+            <span *ngIf="info">Cập nhật khách hàng</span>
+          </h4>
+          <a class="close" (click)="hide()"><span class="ic_close"></span></a>
+        </div>
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="col-sm-6">
+              <div class="form-group" [ngClass]="{'has-error': (controls.first_name.invalid && (controls.first_name.touched || showValid))}">
+                <label class="input-label">Tên khách hàng</label>
+                <input name="first_name" type="text" [formControl]="controls.first_name" class="form-control">
+              </div>
+              <div class="form-group" [ngClass]="{'has-error': (controls.email.invalid && (controls.email.touched || showValid))}">
+                <label class="input-label">Email</label>
+                <input name="email" type="email" [formControl]="controls.email" class="form-control">
+              </div>
+              <div class="form-group" [ngClass]="{'has-error': (controls.phone_number.invalid && (controls.phone_number.touched || showValid))}">
+                <label class="input-label">Số điện thoại</label>
+                <input name="phone_number" type="text" [formControl]="controls.phone_number" class="form-control">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group" *ngIf="modal.isShown">
+                <label class="input-label" [innerText]="'Hình'|translate">Hình</label>
+                <ngx-picture-uploader #uploaderEl [options]="fileOpt" (onSelected)="onFileSelected($event)" (onDeleted)="onFileDeleted($event)"></ngx-picture-uploader>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-sm-6" [ngClass]="{'has-error': (controls.password.invalid && (controls.password.touched || showValid))}">
+              <label class="input-label">Mật khẩu</label>
+              <div class="input-group input-group-merge">
+                <input name="password" [formControl]="controls.password" [attr.type]="passType" class="form-control" placeholder="Yêu cầu 6+ ký tự">
+                <div class="input-group-append"><a class="input-group-text pointer" (click)="changePassType()"><span class="ic_visible_outlined" [ngClass]="{'ic_visible_outlined':passType=='password','ic_hidden_outlined':passType=='text'}"></span></a></div>
+              </div>
+            </div>
+            <div class="form-group col-sm-6">
+              <label class="input-label">Giới tính</label>
+              <select name="gender" class="form-control" [formControl]="controls.gender">
+                <option *ngFor="let item of genderList" [value]="item.id">{{ item.name }}</option>
+              </select>
+            </div>
+            <div class="form-group col-sm-6" [ngClass]="{'has-error': (controls.birthday.invalid && (controls.birthday.touched || showValid))}">
+              <label class="input-label">Ngày sinh</label>
+              <div class="input-group">
+                <input name="birthday" type="text" [formControl]="controls.birthday" bsDatepicker [bsConfig]="bsConfig" #birthday="bsDatepicker" class="form-control">
+                <div class="input-group-append">
+                  <span class="input-group-text" (click)="birthday.toggle()" [attr.aria-expanded]="birthday.isOpen"><span class="ic_timetable"></span></span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-sm-6" [ngClass]="{'has-error': (controls.group_id.invalid && (controls.group_id.touched || showValid))}">
+              <label class="input-label">Phân loại</label>
+              <select name="group_id" class="form-control" [formControl]="controls.group_id" [ngClass]="{'loading':groupData.loading}">
+                <option value="">{{'Không'|translate}}</option>
+                <option *ngFor="let item of groupData.items" [value]="item.id" [selected]="item.id == controls.group_id.value">{{ item.name }}</option>
+              </select>
+            </div>
+            <div class="form-group col-sm-6" [ngClass]="{'has-error': (controls.source_id.invalid && (controls.source_id.touched || showValid))}">
+              <label class="input-label">Kênh/nguồn</label>
+              <select name="source_id" class="form-control" [formControl]="controls.source_id" [ngClass]="{'loading':sourceData.loading}">
+                <option value="">{{'Không'|translate}}</option>
+                <option *ngFor="let item of sourceData.items" [value]="item.id" [selected]="item.id == controls.source_id.value">{{ item.name }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="d-flex justify-content-end">
+            <button type="button" (click)="onSubmit(form.value)" [disabled]="submitted" class="btn btn-secondary"><span class="spinner-border spinner-border-sm" *ngIf="submitted"></span> <span *ngIf="!info" [innerText]="'Thêm mới'|translate">Thêm mới</span><span *ngIf="info" [innerText]="'Cập nhật'|translate">Cập nhật</span></button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

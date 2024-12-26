@@ -1,0 +1,22 @@
+@import './account';
+@import './account2';
+
+.btn_white_to_primary {
+  background: #fff;
+  color: var(--primary);
+  transition: 0.3s ease-in-out;
+  &:hover {
+    background: var(--primary);
+    color: #fff;
+  }
+}
+
+.btn_primary_to_white {
+  background: var(--primary);
+  color: #fff;
+  transition: 0.3s ease-in-out;
+  &:hover {
+    background: #fff;
+    color:  var(--primary);
+  }
+}

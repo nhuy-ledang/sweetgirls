@@ -1,0 +1,36 @@
+.button_layout12 {
+  display: flex;
+  justify-content: var(--button-align, center);
+  .wid_button {
+    position: relative;
+    z-index: 1;
+    display: block;
+    overflow: hidden;
+    height: max-content;
+    width: max-content;
+    color: var(--button-color, var(--primary));
+    border: 1px solid currentColor;
+    border-radius: 5px;
+    padding: 13.5px 36px;
+    transition: 0.5s;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: var(--button-hover-color, var(--primary));
+      transform: translateY(101%);
+      transition: .5s ease-in-out;
+      z-index: -1;
+    }
+    &:hover {
+      color: var(--text-btn-hover-color, var(--white));
+      border-color: var(--button-hover-color, var(--primary));
+      &:before {
+        transform: translateY(0);
+      }
+    }
+  }
+}

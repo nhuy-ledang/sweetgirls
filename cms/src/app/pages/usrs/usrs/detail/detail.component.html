@@ -1,0 +1,21 @@
+<div class="page-header">
+  <div class="row align-items-end">
+    <div class="col-sm">
+      <h1 class="page-header-title">Danh sách quản trị</h1>
+      <nav>
+        <ol class="breadcrumb breadcrumb-no-gutter">
+          <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">Quản trị</a></li>
+          <li class="breadcrumb-item"><a class="breadcrumb-link" (click)="back()" href="javascript:;">Khách hàng</a></li>
+          <li class="breadcrumb-item active">Tên quản trị</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-auto"></div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    Chi tiết
+  </div>
+</div>
+<ngx-modal-confirm (onConfirm)="onConfirm($event)"></ngx-modal-confirm>

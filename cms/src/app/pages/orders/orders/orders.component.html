@@ -1,0 +1,421 @@
+<div class="page-header no-gutter">
+  <div class="header_top_view d-flex justify-content-between align-items-center">
+    <div>
+      <!--<div>
+        <button type="button" class="btn dropdown-toggle no_arrow p-0 fs-xs font-weight-bold text-uppercase">Xem theo dạng <span class="ic_arrow_down"></span></button>
+      </div>-->
+    </div>
+    <div>
+      <div class="btn-group dropdown" dropdown container="body" placement="bottom right" [insideClick]="true" #ddMonthPicker="bs-dropdown">
+        <button type="button" dropdownToggle class="btn btn-sm dropdown-toggle text-secondary fs-4"><span class="ic_calendar"></span><span class="ml-1" [innerText]="daterange.label">Feb 9 - Feb 9, 2022</span></button>
+        <div *dropdownMenu class="dropdown-menu dropdown-menu-right">
+          <div class="monthpicker" [ngClass]="{'customrange':bsData.mode=='customRange','no-drp':bsData.mode=='all'}">
+            <div class="ranges">
+              <ul>
+                <li (click)="bsSelectMode('all')" [ngClass]="{'active':bsData.mode=='all'}">Tất cả</li>
+                <li (click)="bsSelectMode('day')" [ngClass]="{'active':bsData.mode=='day'}">Theo ngày</li>
+                <li (click)="bsSelectMode('week')" [ngClass]="{'active':bsData.mode=='week'}">Theo tuần</li>
+                <li (click)="bsSelectMode('month')" [ngClass]="{'active':bsData.mode=='month'}">Theo tháng</li>
+                <li (click)="bsSelectMode('year')" [ngClass]="{'active':bsData.mode=='year'}">Theo năm</li>
+                <li (click)="bsSelectMode('customRange')" [ngClass]="{'active':bsData.mode=='customRange'}">Khoảng thời gian</li>
+              </ul>
+            </div>
+            <div class="drp-calendar">
+              <bs-datepicker-inline *ngIf="bsData.mode=='day'||bsData.mode=='week'" [bsConfig]="{minMode: 'day', startingDay: 1, containerClass: 'theme-red'}" [bsValue]="bsData.value" (bsValueChange)="onBsValueChange($event)"></bs-datepicker-inline>
+              <bs-datepicker-inline *ngIf="bsData.mode=='month'" [bsConfig]="{minMode: 'month',containerClass: 'theme-red'}" [bsValue]="bsData.value" (bsValueChange)="onBsValueChange($event)"></bs-datepicker-inline>
+              <bs-datepicker-inline *ngIf="bsData.mode=='year'" [bsConfig]="{minMode: 'year', containerClass: 'theme-red'}" [bsValue]="bsData.value" (bsValueChange)="onBsValueChange($event)"></bs-datepicker-inline>
+              <bs-daterangepicker-inline *ngIf="bsData.mode=='customRange'" [bsConfig]="{showPreviousMonth: true, containerClass: 'theme-red'}" [bsValue]="bsInlineRangeValue" (bsValueChange)="onBsRangeValueChange($event)"></bs-daterangepicker-inline>
+            </div>
+            <div class="drp-buttons">
+              <span class="drp-selected">
+                <ng-container *ngIf="bsData.mode=='day'"><span [innerText]="bsData.start|formatDate"></span></ng-container>
+                <ng-container *ngIf="bsData.mode=='week'||bsData.mode=='month'||bsData.mode=='year'||bsData.mode=='customRange'"><span [innerText]="bsData.start|formatDate"></span> - <span [innerText]="bsData.end|formatDate"></span></ng-container>
+              </span>
+              <button class="cancelBtn btn btn-sm btn-light" type="button" (click)="ddMonthPicker.isOpen=false">Cancel</button>
+              <button class="applyBtn btn btn-sm btn-primary" type="button" (click)="bsApply();ddMonthPicker.isOpen=false">Apply</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row align-items-end">
+    <div class="col-sm-auto">
+      <h1 class="page-header-title">Danh sách đơn hàng</h1>
+      <nav>
+        <ol class="breadcrumb breadcrumb-no-gutter">
+          <li class="breadcrumb-item">Giao dịch</li>
+          <li class="breadcrumb-item active">Đơn hàng</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-sm-auto ml-auto">
+      <div class="btn-group mr-2" *ngIf="data.selectList.length">
+        <div class="d-flex align-items-center">
+          <span class="fs-sm">Chọn <span [innerText]="data.selectList.length"></span> dòng</span>
+          <a class="btn btn-secondary d-flex align-items-center ml-2" (click)="changePaymentsStatus()" href="javascript:;"><span class="mr-1 ic ic_checked"></span><span>Đã thanh toán</span></a>
+          <a class="btn btn-secondary d-flex align-items-center ml-2" (click)="createStoRequests()" href="javascript:;"><span class="mr-1 ic ic_plus"></span><span>Tạo yêu cầu xuất kho</span></a>
+          <!--<a class="btn btn-secondary d-flex align-items-center ml-2" (click)="createShippingOrders()" href="javascript:;"><span class="mr-1 ic ic_plus"></span><span>Tạo đơn vận chuyển</span></a>-->
+        </div>
+      </div>
+      <div class="btn-group mr-2" *ngIf="data.itemSelected"><a class="btn btn-outline-secondary" (click)="toggleView()"><span class="ic_angle_right"></span></a></div>
+      <div class="btn-group mr-2">
+        <button type="button" (click)="create()" class="btn btn-secondary d-flex align-items-center"><span class="mr-1 ic ic_plus"></span><span>Thêm mới</span></button>
+      </div>
+      <!--<div class="btn-group mr-2">
+        <button type="button" (click)="exportExcelProduct()" class="btn btn-outline-secondary bg-white"><span class="ic_share mr-1"></span>Xuất excel mặt hàng</button>
+      </div>-->
+      <div class="btn-group mr-2">
+        <button type="button" (click)="exportExcel()" class="btn btn-outline-secondary bg-white"><span class="ic_share mr-1"></span>Xuất excel</button>
+      </div>
+      <div class="btn-group">
+        <button type="button" (click)="exportExcelDetail()" [disabled]="exportLoading" class="btn btn-outline-secondary bg-white card-hover-shadow"><span *ngIf="exportLoading" class="spinner-border spinner-border-sm"><span class="sr-only">Loading...</span></span><span *ngIf="!exportLoading" class="ic_share"></span><span class="ml-1">Xuất file chi tiết</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Stats -->
+<!--<div class="row">
+  <div class="col-sm-12">
+    <div class="dropdown simple-bootstrap-select mb-2" dropdown [insideClick]="true">
+      <a dropdownToggle class="dropdown-toggle">{{ years.join(', ') }}</a>
+      <div *dropdownMenu class="dropdown-menu">
+        <ng-container *ngFor="let item of yearList">
+          <a class="dropdown-item" [ngClass]="{'selected':years.includes(item.year)}" href="javascript:;" (click)="onYearClick(item)">{{ item.year }}</a>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-3 mb-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <h6 class="card-subtitle mb-2 text-uppercase">Tổng doanh thu</h6>
+        <div class="row align-items-center gx-2">
+          <div class="col"><span class="display-4 text-dark" [innerText]="stats.total|currencyFormat">0</span></div>
+          &lt;!&ndash;<div class="col-auto"><span class="badge badge-success p-1"><span class="ic_trending_up"></span> 5.0%</span></div>&ndash;&gt;
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-3 mb-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <h6 class="card-subtitle mb-2 text-uppercase">Exhibition</h6>
+        <div class="row align-items-center gx-2">
+          <div class="col"><span class="display-4 text-dark" [innerText]="stats.exhibit|currencyFormat">0</span></div>
+          &lt;!&ndash;<div class="col-auto"><span class="badge badge-success p-1"><span class="ic_trending_up"></span> 1.2%</span></div>&ndash;&gt;
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-3 mb-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <h6 class="card-subtitle mb-2 text-uppercase">Activities</h6>
+        <div class="row align-items-center gx-2">
+          <div class="col"><span class="display-4 text-dark" [innerText]="stats.activity|currencyFormat">0</span>&lt;!&ndash;<span class="display-4 text-dark">%</span>&ndash;&gt;</div>
+          &lt;!&ndash;<div class="col-auto"><span class="badge badge-danger p-1"><span class="ic_trending_down"></span> 2.8%</span></div>&ndash;&gt;
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-3 mb-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <h6 class="card-subtitle mb-2 text-uppercase">Boutique</h6>
+        <div class="row align-items-center gx-2">
+          <div class="col"><span class="display-4 text-dark" [innerText]="stats.product|currencyFormat">0</span>&lt;!&ndash;<span class="display-4 text-dark">%</span>&ndash;&gt;</div>
+          &lt;!&ndash;<div class="col-auto"><span class="badge badge-secondary p-1">0.0%</span></div>&ndash;&gt;
+        </div>
+      </div>
+    </div>
+  </div>
+</div>-->
+<div class="row">
+  <div class="col-md-5" [ngClass]="{'col-md-5': data.itemSelected,'col-md-12': !data.itemSelected}">
+    <div class="card">
+      <div class="table-responsive">
+        <table class="table m-0">
+          <thead>
+          <tr>
+            <th style="width: 1px">
+              <div class="table_tools d-flex justify-content-between align-items-center">
+                <div>
+                  <div class="custom-control-wrapper">
+                    <div class="custom-control custom-checkbox ml-0"><input type="checkbox" class="custom-control-input" [(ngModel)]="data.selectAll" (change)="selectAll()" id="customSelect"><label class="custom-control-label cursor-pointer" for="customSelect"></label></div>
+                  </div>
+                </div>
+                <div>&nbsp;&nbsp;Stt</div>
+              </div>
+            </th>
+            <ng-container *ngFor="let f of reorder">
+              <th *ngIf="f=='id'" [hidden]="!columns[f]" (click)="sortBy('id')" [attr.class]="sortClass('id')">#ID <span class="sort-indicator"></span></th>
+              <th *ngIf="f=='idx'" [hidden]="!columns[f]">Mã hóa đơn</th>
+              <th *ngIf="f=='sub_total'" [hidden]="!columns[f]" (click)="sortBy('sub_total')" [attr.class]="sortClass('sub_total')">Tạm tính <span class="sort-indicator"></span></th>
+              <th *ngIf="f=='discount_total'" [hidden]="!columns[f]" (click)="sortBy('discount_total')" [attr.class]="sortClass('discount_total')">Giảm giá <span class="sort-indicator"></span></th>
+              <!-- <th *ngIf="f=='shipping_fee'" [hidden]="!columns[f]">Phí vận chuyển</th> -->
+              <th *ngIf="f=='total'" [hidden]="!columns[f]" (click)="sortBy('total')" [attr.class]="sortClass('total')">Tổng tiền <span class="sort-indicator"></span></th>
+              <th *ngIf="f=='created_at'" [hidden]="!columns[f]||data.itemSelected" (click)="sortBy('created_at')" [attr.class]="sortClass('created_at')">Thời gian <span class="sort-indicator"></span></th>
+              <th *ngIf="f=='customer'" [hidden]="!columns[f]||data.itemSelected">Khách hàng</th>
+              <th *ngIf="f=='vat'" [hidden]="!columns[f]||data.itemSelected">Xuất VAT</th>
+              <!-- <th *ngIf="f=='wheel'" [hidden]="!columns[f]">VQMM</th> -->
+              <!-- <th *ngIf="f=='tags'" [hidden]="!columns[f]">Tags</th> -->
+              <!--<th ngIf="f=='supervisor'" [hidden]="!columns[f]||data.itemSelected">Phụ trách</th>-->
+              <th *ngIf="f=='payment_status'" [hidden]="!columns[f]||data.itemSelected">Trạng thái<br>thanh toán</th>
+              <th *ngIf="f=='shipping_status'" [hidden]="!columns[f]||data.itemSelected">Trạng thái<br>vận chuyển</th>
+              <th *ngIf="f=='order_status'" [hidden]="!columns[f]||data.itemSelected">Trạng thái<br>đơn hàng</th>
+              <th *ngIf="f=='payment_at'" [hidden]="!columns[f]||data.itemSelected" (click)="sortBy('payment_at')" [attr.class]="sortClass('payment_at')">Ngày thanh toán <span class="sort-indicator"></span></th>
+              <th *ngIf="f=='payment_method'" [hidden]="!columns[f]||data.itemSelected">Phương thức<br>thanh toán</th>
+              <th *ngIf="f=='affiliate'" [hidden]="!columns[f]">Affiliate</th>
+            </ng-container>
+          </tr>
+          <tr>
+            <td>
+              <div class="dropdown" dropdown container="body" placement="bottom left" [insideClick]="true">
+                <button type="button" dropdownToggle class="btn btn-secondary dropdown-toggle no_arrow d-flex align-items-center"><span class="mr-1 ic ic_visible_outlined"></span><span>Hiển thị</span></button>
+                <div *dropdownMenu class="dropdown-menu dropdown-menu-sm dropdown-menu-left">
+                  <div class="js-sortable" [sortablejs]="columnList" [sortablejsOptions]="optReorder">
+                    <div class="dropdown-item" *ngFor="let item of columnList">
+                      <div class="custom-control custom-checkbox"><input type="checkbox" [attr.id]="'columnShow'+item.id" [(ngModel)]="item.checkbox" class="custom-control-input" [disabled]="item.disabled" (change)="columnCheckbox()"><label [attr.for]="'columnShow'+item.id" class="custom-control-label d-block" [innerText]="item.name" style="cursor: grab"></label></div>
+                    </div>
+                  </div>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item text-center text-primary" (click)="columnReset()" href="javascript:;"><i class="fa fa-refresh pr-1"></i> Phục hồi</a>
+                </div>
+              </div>
+            </td>
+            <ng-container *ngFor="let f of reorder">
+              <td *ngIf="f=='id'" [hidden]="!columns[f]"></td>
+              <td *ngIf="f=='idx'" [hidden]="!columns[f]"><span class="d-block" style="min-width: 100px; max-width: 200px"><input type="text" [(ngModel)]="data.data.invoice_no" (keyup)="onFilter($event)" class="form-control"></span></td>
+              <td *ngIf="f=='sub_total'" [hidden]="!columns[f]"></td>
+              <td *ngIf="f=='discount_total'" [hidden]="!columns[f]"></td>
+              <!-- <td *ngIf="f=='shipping_fee'" [hidden]="!columns[f]"></td> -->
+              <td *ngIf="f=='total'" [hidden]="!columns[f]"></td>
+              <td *ngIf="f=='created_at'" [hidden]="!columns[f]||data.itemSelected"></td>
+              <td *ngIf="f=='customer'" [hidden]="!columns[f]||data.itemSelected"><span class="d-block" style="min-width: 100px; max-width: 200px"><input type="text" [(ngModel)]="data.data.q" (keyup)="onFilter($event)" class="form-control"></span></td>
+              <td *ngIf="f=='vat'" [hidden]="!columns[f]||data.itemSelected">
+                <div style="min-width: 100px; max-width: 200px">
+                  <select [(ngModel)]="data.data.is_invoice" (change)="onFilter($event)" class="form-control">
+                    <option value="">Tất cả</option>
+                    <option value="1">Xuất VAT</option>
+                  </select>
+                </div>
+              </td>
+              <!-- <td *ngIf="f=='wheel'" [hidden]="!columns[f]"></td> -->
+              <!-- <td *ngIf="f=='tags'" [hidden]="!columns[f]"><span class="d-block" style="min-width: 100px; max-width: 200px"><input type="text" [(ngModel)]="data.data.tags" (keyup)="onFilter($event)" class="form-control"></span></td> -->
+              <!--<td *ngIf="f=='supervisor'" [hidden]="!columns[f]||data.itemSelected"></td>-->
+              <td *ngIf="f=='payment_status'" [hidden]="!columns[f]||data.itemSelected">
+                <div style="min-width: 100px; max-width: 200px">
+                  <select [(ngModel)]="data.data.payment_status" (ngModelChange)="onFilter($event)" class="form-control">
+                    <option value="">Tất cả</option>
+                    <ng-container *ngFor="let item of paymentStatusList">
+                      <option [value]="item.id">{{ item.name }}</option>
+                    </ng-container>
+                  </select>
+                </div>
+              </td>
+              <td *ngIf="f=='shipping_status'" [hidden]="!columns[f]||data.itemSelected">
+                <div style="min-width: 100px; max-width: 200px">
+                  <select [(ngModel)]="data.data.shipping_status" (ngModelChange)="onFilter($event)" class="form-control">
+                    <option value="">Tất cả</option>
+                    <ng-container *ngFor="let item of shippingStatusList">
+                      <option [value]="item.id">{{ item.name }}</option>
+                    </ng-container>
+                  </select>
+                </div>
+              </td>
+              <td *ngIf="f=='order_status'" [hidden]="!columns[f]||data.itemSelected">
+                <div style="min-width: 100px; max-width: 200px">
+                  <select [(ngModel)]="data.data.order_status" (ngModelChange)="onFilter($event)" class="form-control">
+                    <option value="">Tất cả</option>
+                    <ng-container *ngFor="let item of orderStatusList">
+                      <option [value]="item.id">{{ item.name }}</option>
+                    </ng-container>
+                  </select>
+                </div>
+              </td>
+              <td *ngIf="f=='payment_at'" [hidden]="!columns[f]||data.itemSelected"></td>
+              <td *ngIf="f=='payment_method'" [hidden]="!columns[f]||data.itemSelected">
+                <div style="min-width: 100px; max-width: 200px">
+                  <select [(ngModel)]="data.data.payment_code" (ngModelChange)="onFilter($event)" class="form-control">
+                    <option value="">Tất cả</option>
+                    <ng-container *ngFor="let item of paymentCodeList">
+                      <option [value]="item.id">{{ item.name }}</option>
+                    </ng-container>
+                  </select>
+                </div>
+              </td>
+              <td *ngIf="f=='affiliate'" [hidden]="!columns[f]"><span class="d-block" style="min-width: 100px; max-width: 200px"><input type="text" [(ngModel)]="data.data.affiliate" (keyup)="onFilter($event)" class="form-control"></span></td>
+            </ng-container>
+          </tr>
+          </thead>
+          <tbody class="text-dark">
+          <tr *ngIf="data.loading">
+            <td colspan="13" class="text-center"><span class="spinner-border"><span class="sr-only">Loading...</span></span></td>
+          </tr>
+          <ng-container *ngFor="let item of data.items; let $index = index">
+            <tr *ngIf="!item.is_deleted" [ngClass]="{'odd':$index%2==0,'even':$index%2==1,'bg_selected':data.itemSelected&&data.itemSelected.id==item.id}">
+              <td>
+                <div class="table_tools d-flex justify-content-between align-items-center">
+                  <div class="d-flex justify-content-start align-items-center">
+                    <div>
+                      <div class="custom-control-wrapper">
+                        <div class="custom-control custom-checkbox ml-0"><input type="checkbox" class="custom-control-input" [(ngModel)]="item.checkbox" [attr.id]="'customSelect'+$index" (click)="checkbox(item)"><label class="custom-control-label cursor-pointer" [attr.for]="'customSelect'+$index"></label></div>
+                      </div>
+                    </div>
+                    <!--<div><a (click)="edit(item)" class="btn btn-icon" href="javascript:;"><span class="ic_pencil_square"></span></a></div>-->
+                    <div>
+                      <div class="dropdown" dropdown container="body" placement="bottom left">
+                        <button type="button" dropdownToggle class="btn btn-icon"><span class="ic_three_dots_vertical"></span></button>
+                        <div *dropdownMenu class="dropdown-menu">
+                          <a class="dropdown-item" (click)="detail(item)" href="javascript:;">Chi tiết</a>
+                          <!--<div class="dropdown-divider"></div>-->
+                          <!--<a class="dropdown-item" (click)="changeSupervisor(item)" href="javascript:;"><span>Gán người phụ trách</span></a>-->
+                          <div class="dropdown-divider"></div>
+                          <!--<ng-container *ngIf="(item.is_invoice&&!item.invoiced&&item.order_status=='completed')">
+                            <a class="dropdown-item" (click)="changeInvoiced(item)" href="javascript:;"><span>Xuất VAT</span></a>
+                            <div class="dropdown-divider"></div>
+                          </ng-container>-->
+                          <a class="dropdown-item text-danger" (click)="remove(item)" href="javascript:">Xóa</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div><span class="btn btn-icon w-auto fs-normal pl-1" [innerText]="$index + 1"></span></div>
+                </div>
+              </td>
+              <ng-container *ngFor="let f of reorder">
+                <td *ngIf="f=='id'" [hidden]="!columns[f]" [innerText]="item.id"></td>
+                <td *ngIf="f=='idx'" [hidden]="!columns[f]"><a class="d-block" style="min-width: 150px; max-width: 350px" (click)="select(item)" href="javascript:" [innerText]="item.no"></a></td>
+                <td *ngIf="f=='sub_total'" [hidden]="!columns[f]" [innerText]="item.sub_total|currencyFormat"></td>
+                <td *ngIf="f=='discount_total'" [hidden]="!columns[f]"><span [innerText]="(item.discount_total+item.voucher_total)|currencyFormat"></span><div [innerText]="item.discount_code"></div><div [innerText]="item.voucher_code"></div></td>
+                <!-- <td *ngIf="f=='shipping_fee'" [hidden]="!columns[f]">
+                  <span *ngIf="item.shipping_discount"><strike [innerText]="item.shipping_fee|currencyFormat"></strike><br><span [innerText]="(item.shipping_fee - item.shipping_discount)|currencyFormat"></span></span>
+                  <span *ngIf="!item.shipping_discount" [innerText]="item.shipping_fee|currencyFormat"></span>
+                </td> -->
+                <td *ngIf="f=='total'" [hidden]="!columns[f]" [innerText]="item.total|currencyFormat"></td>
+                <td *ngIf="f=='created_at'" [hidden]="!columns[f]||data.itemSelected"><span [innerText]="(item.created_at | formatDate: 'dd/mm/yyyy')"></span> <br> <small [innerText]="item.created_at|formatDate:'HH:MM'"></small></td>
+                <td *ngIf="f=='customer'" [hidden]="!columns[f]||data.itemSelected">
+                  <ng-container *ngIf="item.user_id">
+                    <a class="d-block" [routerLink]="['/pages/users', item.user_id, 'info']" [innerText]="item.display" target="_blank"></a>
+                    <span *ngIf="item.phone_number" class="d-block font-size-sm text-body" [innerText]="item.phone_number"></span>
+                  </ng-container>
+                  <ng-container *ngIf="!item.user_id && item.display"><span [innerText]="item.display"></span></ng-container>
+                </td>
+                <td *ngIf="f=='vat'" [hidden]="!columns[f]||data.itemSelected">
+                  <ng-container *ngIf="item.is_invoice">
+                    <label class="toggle-switch toggle-switch-sm cursor-default">
+                      <input type="checkbox" class="toggle-switch-input" [checked]="item.invoiced" disabled>
+                      <span class="toggle-switch-label checked-disabled"><span class="toggle-switch-indicator"></span></span>
+                    </label>
+                  </ng-container>
+                </td>
+                <!-- <td *ngIf="f=='wheel'" [hidden]="!columns[f]"><span *ngIf="item.has_wheel" class="badge badge-pill font-weight-normal badge-success">Đã quay</span></td>
+                <td *ngIf="f=='tags'" [hidden]="!columns[f]"><span class="badge font-weight-normal badge-info mr-1" *ngFor="let tag of item.tags;"><span [innerText]="tag"></span></span></td> -->
+                <!-- <td *ngIf="f=='supervisor'" [hidden]="!columns[f]||data.itemSelected">{{ item.usr?.display }}</td> -->
+                <td *ngIf="f=='payment_status'" [hidden]="!columns[f]||data.itemSelected"><span *ngIf="item.payment_status" class="s-status" [ngClass]="item.payment_status" [innerText]="item.payment_status_name"></span></td>
+                <td *ngIf="f=='shipping_status'" [hidden]="!columns[f]||data.itemSelected"><span *ngIf="item.shipping_status" class="s-status" [ngClass]="item.shipping_status" [innerText]="item.shipping_status_name"></span></td>
+                <td *ngIf="f=='order_status'" [hidden]="!columns[f]||data.itemSelected"><span *ngIf="item.order_status" class="s-status" [ngClass]="item.order_status" [innerText]="item.order_status_name"></span></td>
+                <td *ngIf="f=='payment_at'" [hidden]="!columns[f]||data.itemSelected">{{ item.payment_at|formatDate }}</td>
+                <td *ngIf="f=='payment_method'" [hidden]="!columns[f]||data.itemSelected"><span *ngIf="item.payment_method" [innerText]="item.payment_method"></span></td>
+                <td *ngIf="f=='affiliate'" [hidden]="!columns[f]">
+                  <ng-container *ngIf="item.affiliate">
+                    <a class="d-block" [routerLink]="['/pages/aff/partners', item.affiliate_id, 'info']" [innerText]="item.affiliate.fullname"></a>
+                    <small [innerText]="item.affiliate.email"></small>
+                  </ng-container>
+                </td>
+              </ng-container>
+            </tr>
+          </ng-container>
+          </tbody>
+        </table>
+      </div>
+      <div class="card-footer">
+        <ngx-pagination2 [page]="data.page" [pageSize]="data.pageSize" [totalItems]="data.totalItems" [maxSize]="data.maxSize" (change)="pageChanged($event)" (pageSizeChange)="pageSizeChanged($event)"></ngx-pagination2>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-7" *ngIf="data.itemSelected">
+    <div class="card">
+      <tabset class="tabcard_right">
+        <tab (selectTab)="onSelectTab($event, 'info')">
+          <ng-template tabHeading>Thông tin</ng-template>
+          <div class="card-body">
+            <div class="row align-items-start">
+              <div class="col-sm mb-2">
+                <div>
+                  <div class="btn-group text-nowrap">
+                    <button type="button" class="btn btn-outline-primary" [ngClass]="{'active':data.itemSelected.payment_status=='in_process'}">Đang thanh toán</button>
+                    <button type="button" class="btn btn-outline-primary" [ngClass]="{'active':data.itemSelected.payment_status=='paid'}" (click)="changePaymentStatus(data.itemSelected, 'paid')">Đã thanh toán</button>
+                    <button type="button" class="btn btn-outline-primary" [ngClass]="{'active':data.itemSelected.payment_status=='canceled'}" (click)="changePaymentStatus(data.itemSelected, 'canceled')">Hủy thanh toán</button>
+                  </div>
+                </div>
+                <div class="mt-1">
+                  <div class="btn-group text-nowrap">
+                    <button type="button" class="btn btn-outline-primary" [ngClass]="{'active':data.itemSelected.order_status=='pending'}">Chờ xác nhận</button>
+                    <button type="button" class="btn btn-outline-primary" [ngClass]="{'active':data.itemSelected.order_status=='processing'}" (click)="changeOrderStatus(data.itemSelected, 'processing')">Đang xử lý</button>
+                    <button type="button" class="btn btn-outline-primary" [ngClass]="{'active':data.itemSelected.order_status=='shipping'}" (click)="changeOrderStatus(data.itemSelected, 'shipping')">Đang giao hàng</button>
+                    <button type="button" class="btn btn-outline-primary" [ngClass]="{'active':data.itemSelected.order_status=='completed'}" (click)="changeOrderStatus(data.itemSelected, 'completed')">Hoàn tất</button>
+                    <button type="button" class="btn btn-outline-primary" [ngClass]="{'active':data.itemSelected.order_status=='canceled'}" (click)="changeOrderStatus(data.itemSelected, 'canceled')">Hủy đơn</button>
+                  </div>
+                </div>
+                <div *ngIf="!data.itemSelected.shipping && data.itemSelected.sto_request_id" class="mt-1">
+                  <ng-container *ngIf="!data.itemSelected.shipping">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-outline-primary" (click)="createShipping(data.itemSelected)">Tạo đơn vận chuyển</button>
+                    </div>
+                  </ng-container>
+                  <!--<ng-container *ngIf="data.itemSelected.shipping">
+                    <div class="btn-group text-nowrap">
+                      <button type="button" class="btn btn-outline-primary" [ngClass]="{'active':data.itemSelected.shipping_status=='create_order'}" (click)="changeShippingStatus(data.itemSelected, 'create_order')">Đơn đã tạo</button>
+                      <button type="button" class="btn btn-outline-primary" [ngClass]="{'active':data.itemSelected.shipping_status=='delivering'}" (click)="changeShippingStatus(data.itemSelected, 'delivering')">Đang vận chuyển</button>
+                      <button type="button" class="btn btn-outline-primary" [ngClass]="{'active':data.itemSelected.shipping_status=='delivered'}" (click)="changeShippingStatus(data.itemSelected, 'delivered')">Đã giao hàng</button>
+                      <button type="button" class="btn btn-outline-primary" [ngClass]="{'active':data.itemSelected.shipping_status=='return'}" (click)="changeShippingStatus(data.itemSelected, 'return')">Trả hàng</button>
+                    </div>
+                  </ng-container>-->
+                </div>
+              </div>
+              <div class="col-sm-auto mb-2">
+                <div class="d-flex align-items-center">
+                  <div class="btn-group mr-1">
+                    <button type="button" (click)="print(data.itemSelected)" class="btn btn-outline-secondary"><span class="ic_pdf"></span> In đơn</button>
+                  </div>
+                  <!--<div class="btn-group mr-1">
+                    <button class="btn btn-outline-secondary" (click)="sendMail()"><span class="ic_email"></span></button>
+                  </div>-->
+                  <div class="btn-group dropdown" dropdown placement="bottom" [ngClass]="{'mr-1':data.itemSelected.status != 'completed'&&data.itemSelected.status != 'paid'}">
+                    <button type="button" dropdownToggle class="btn btn-outline-secondary dropdown-toggle">Xem thêm</button>
+                    <div *dropdownMenu class="dropdown-menu">
+                      <!--<a class="dropdown-item" (click)="changeSupervisor(data.itemSelected)" href="javascript:;"><span>Gán người phụ trách</span></a>-->
+                      <a class="dropdown-item text-danger" (click)="remove(data.itemSelected)" href="javascript:;">Xóa</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <ngx-ord-detail [item]="data.itemSelected"></ngx-ord-detail>
+          </div>
+        </tab>
+        <tab (selectTab)="onSelectTab($event, 'histories')">
+          <ng-template tabHeading>Lịch sử giao dịch</ng-template>
+          <div class="card-body" *ngIf="tabs.histories">
+            <ngx-ord-order-histories [info]="data.itemSelected"></ngx-ord-order-histories>
+          </div>
+        </tab>
+        <tab (selectTab)="onSelectTab($event, 'shipping_histories')">
+          <ng-template tabHeading>Lịch sử vận đơn</ng-template>
+          <div class="card-body" *ngIf="tabs.shipping_histories">
+            <ngx-ord-order-shipping-histories [info]="data.itemSelected"></ngx-ord-order-shipping-histories>
+          </div>
+        </tab>
+      </tabset>
+    </div>
+  </div>
+</div>
+<ngx-ord-frm-product (onSuccess)="onFormProductSuccess($event)"></ngx-ord-frm-product>
+<ngx-ord-frm-order-status (onSuccess)="onOrderStatusSuccess($event)"></ngx-ord-frm-order-status>
+<ngx-ord-frm-invoiced (onSuccess)="onFrmInvoicedSuccess($event)"></ngx-ord-frm-invoiced>
+<ngx-dlg-staff-select [limit]="1" (onSuccess)="onSelectStaffs($event)"></ngx-dlg-staff-select>
+<ngx-ord-dlg-notify (onSuccess)="onSendMailSuccess($event)"></ngx-ord-dlg-notify>
+<ngx-modal-confirm (onConfirm)="onConfirm($event)"></ngx-modal-confirm>

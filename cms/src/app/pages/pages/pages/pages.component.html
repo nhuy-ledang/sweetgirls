@@ -1,0 +1,134 @@
+<div class="page-header no-gutter">
+  <div class="row align-items-end">
+    <div class="col-sm">
+      <h1 class="page-header-title"><span [innerText]="'Danh sách trang'|translate"></span></h1>
+      <nav>
+        <ol class="breadcrumb breadcrumb-no-gutter">
+          <li class="breadcrumb-item"><a class="breadcrumb-link" [routerLink]="['/pages/pages/pages']"><span [innerText]="'Danh mục trang'|translate"></span></a></li>
+          <li class="breadcrumb-item active"><span [innerText]="'Danh sách trang'|translate"></span></li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-sm-auto">
+      <div class="btn-group mr-2" *ngIf="data.itemSelected">
+        <a class="btn btn-outline-secondary" (click)="toggleView()"><span class="ic_angle_right"></span></a>
+      </div>
+      <div class="btn-group">
+        <button type="button" class="btn btn-secondary" (click)="create()"><span class="ic_plus"></span>&nbsp;<span>Thêm mới</span></button>
+        <button type="button" class="btn btn-info text-white" (click)="openLib()"><span class="ic_plus"></span> <span [innerText]="'Thư viện'|translate"></span></button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-5" [ngClass]="{'col-md-5': data.itemSelected,'col-md-12': !data.itemSelected}">
+    <div class="card">
+      <div class="card-header">
+        <div class="row justify-content-between align-items-center flex-grow-1">
+          <div class="col-12 col-sm">
+            <div class="input-group input-group-merge input-group-borderless">
+              <div class="input-group-prepend"><span class="input-group-text"><span class="ic_search"></span></span></div>
+              <input type="text" class="form-control" placeholder="Tìm kiếm" [(ngModel)]="data.data.q" (keyup)="onFilter($event)">
+            </div>
+          </div>
+          <div class="col-auto">
+            <div class="d-flex align-items-center">
+              <div class="btn-group mr-2">
+                <select [(ngModel)]="filters.category_id.value" (change)="onFilter($event)" class="form-control" [ngClass]="{'loading':categoryData.loading}">
+                  <option value="">{{'Tất cả nhóm'|translate}}</option>
+                  <option *ngFor="let item of categoryData.items" [value]="item.id">{{ item.name }}</option>
+                </select>
+              </div>
+              <div class="btn-group mr-2">
+                <select [(ngModel)]="filters.status.value" (change)="onFilter($event)" class="form-control">
+                  <option value="">{{'Tất cả tình trạng'|translate}}</option>
+                  <ng-container *ngFor="let item of statusList">
+                    <option [value]="item.id">{{ item.name }}</option>
+                  </ng-container>
+                </select>
+              </div>
+              <div class="dropdown" dropdown container="body" placement="bottom right" [insideClick]="true">
+                <button dropdownToggle class="btn btn-outline-secondary dropdown-toggle"><span class="ic_visible_outlined mr-1"></span><span [innerText]="'Hiển thị'|translate">Hiển thị</span></button>
+                <div *dropdownMenu class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+                  <div class="dropdown-item" *ngFor="let item of columnList">
+                    <div class="custom-control custom-checkbox"><input type="checkbox" [attr.id]="'columnShow'+item.id" [(ngModel)]="item.checkbox" class="custom-control-input" [disabled]="item.disabled" (change)="columnCheckbox()"><label [attr.for]="'columnShow'+item.id" class="custom-control-label" [innerText]="item.name|translate"></label></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="table m-0">
+          <thead>
+          <tr>
+            <th>
+              <div class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" [(ngModel)]="data.selectAll" (change)="selectAll()" id="customSelect"><label class="custom-control-label" for="customSelect"></label></div>
+            </th>
+            <!--<th>Stt</th>-->
+            <th (click)="sortBy('id')" [attr.class]="sortClass('id')">#ID <span class="sort-indicator"></span></th>
+            <th (click)="sortBy('name')" [attr.class]="sortClass('name')"><span>Tên</span> <span class="sort-indicator"></span></th>
+            <th [hidden]="!columns.category"><span>Danh mục</span></th>
+            <th><span [innerText]="'Trang chủ'|translate">Trang chủ</span></th>
+            <th [hidden]="!columns.sort_order" (click)="sortBy('sort_order')" [attr.class]="sortClass('sort_order')"><span [innerText]="'Sắp xếp'|translate">Sắp xếp</span> <span class="sort-indicator"></span></th>
+            <th [hidden]="!columns.status"><span>Trạng thái</span></th>
+          </tr>
+          </thead>
+          <tbody class="text-dark">
+          <tr *ngIf="data.loading">
+            <td colspan="11" class="text-center"><span class="spinner-border"><span class="sr-only">Loading...</span></span></td>
+          </tr>
+          <ng-container *ngFor="let item of data.items; let $index = index">
+            <tr [ngClass]="{'bg_selected':data.itemSelected&&data.itemSelected.id==item.id}">
+              <td>
+                <div class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" [(ngModel)]="item.checkbox" [attr.id]="'customSelect'+$index" (click)="checkbox(item)"><label class="custom-control-label" [attr.for]="'customSelect'+$index"></label></div>
+              </td>
+              <!--<td>{{ item.index + 1 }}</td>-->
+              <td>{{ item.id }}</td>
+              <td>
+                <a href="javascript:void(0)" (click)="select(item)" class="d-block" style="min-width: 150px;">{{item.name}}</a>
+                <div class="row-options">
+                  <a href="javascript:;" (click)="edit(item)" [innerText]="'Sửa'|translate">Sửa</a>&nbsp; | &nbsp;<a href="javascript:;" class="text-info" (click)="copy(item)">Copy</a>&nbsp; | &nbsp;<a href="javascript:;" class="text-danger" (click)="remove(item)" [innerText]="'Xóa'|translate">Xóa</a>
+                  <br><a href="javascript:;" (click)="copyToLayout(item)">Copy đến mẫu</a>&nbsp; | &nbsp;<a href="javascript:;" class="hidden-xs text-muted" (click)="preview(item)" [innerText]="'Xem trước'|translate">Xem trước</a>
+                </div>
+              </td>
+              <td [hidden]="!columns.category">{{ item.category?.name }}</td>
+              <td>
+                <ngx-toggle-switch [(ngModel)]="item.home" (change)="changeProp(item, 'home')"></ngx-toggle-switch>
+              </td>
+              <td [hidden]="!columns.sort_order">{{ item.sort_order }}</td>
+              <td [hidden]="!columns.status">
+                <ngx-toggle-switch [(ngModel)]="item.status" (change)="changeProp(item, 'status')"></ngx-toggle-switch>
+              </td>
+            </tr>
+          </ng-container>
+          </tbody>
+        </table>
+      </div>
+      <div class="card-footer">
+        <ngx-pagination2 [page]="data.page" [pageSize]="data.pageSize" [totalItems]="data.totalItems" [maxSize]="data.maxSize" (change)="pageChanged($event)" (pageSizeChange)="pageSizeChanged($event)"></ngx-pagination2>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-7" *ngIf="data.itemSelected">
+    <div class="card">
+      <tabset>
+        <tab>
+          <ng-template tabHeading><span [innerText]="'Danh sách module'|translate"></span></ng-template>
+          <ng-container *ngIf="data.itemSelected">
+            <div class="card-body">
+              <ngx-pg-pg-contents [page]="data.itemSelected"></ngx-pg-pg-contents>
+            </div>
+            <div class="card-body">
+              <ngx-pg-pg-modules [page]="data.itemSelected"></ngx-pg-pg-modules>
+            </div>
+          </ng-container>
+        </tab>
+      </tabset>
+    </div>
+  </div>
+</div>
+<ngx-pg-form (onSuccess)="onFormSuccess($event)"></ngx-pg-form>
+<ngx-dlg-layout-select (onSuccess)="onLayoutSelect($event)" [limit]="3"></ngx-dlg-layout-select>
+<ngx-modal-confirm (onConfirm)="onConfirm($event)"></ngx-modal-confirm>

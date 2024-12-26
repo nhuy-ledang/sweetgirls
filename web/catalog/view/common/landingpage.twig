@@ -1,0 +1,753 @@
+{{ header }}
+
+
+<div class="container my-12">
+  <div class="row">
+    <div class="col-12 col-md-6 pr-md-10">
+      <div class="swiper swiper_1 px-10">
+        <div class="swiper-wrapper">
+          {% for i in 0..5 %}
+            <div class="swiper-slide">
+              <span class="embed-responsive embed-responsive-3by4 bg-cover" style="background-image: url('/upload/assets/2022/0105/ar/75.jpg')"></span>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 px-11 pr-md-0 pl-md-11 mt-10 mt-md-0">
+      <div class="h1 font-weight-bolder text-primary text-uppercase mb-5 mb-md-10">Lorem ipsum dolor sit amet.</div>
+      <div class="h4 font-weight-bolder mb-6">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore nisi quidem vero voluptatum? Culpa, magnam.</div>
+      <div class="h4 lh-30 mb-4 overflow-hidden" style="height: 345px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus adipisci aliquid amet cumque est, eum facere impedit iste magnam minus modi necessitatibus nesciunt nihil obcaecati odit officiis praesentium quam quas quia quibusdam quo quos repellat sed temporibus tenetur unde veniam vero. A aliquid dolores enim explicabo fuga fugiat ipsum magnam, molestias necessitatibus obcaecati porro repudiandae rerum sapiente sint, voluptate. Consectetur consequatur, debitis dicta eius in inventore ipsa iste iusto numquam recusandae similique totam vel vero, voluptatibus voluptatum! A accusamus architecto cupiditate doloremque eos, facilis harum id, in iusto minima nam nemo nihil nobis officiis provident quos repellat sit vel velit.</div>
+    </div>
+  </div>
+
+  <style>
+    .swiper_1 .swiper-pagination-bullet {
+      width: 15px;
+      height: 7px;
+      text-align: center;
+      line-height: 20px;
+      font-size: 12px;
+      color: #000;
+      opacity: 1;
+      background: #fff;
+      border-radius: 0;
+      transition: 0.3s ease-in-out;
+    }
+
+    .swiper_1 .swiper-pagination-bullet-active {
+      color: #fff;
+      background: var(--primary);
+      height: 15px;
+    }
+  </style>
+  <script>
+    $(document).ready(function() {
+      var swiper = new Swiper(".swiper_1", {
+        slidesPerView: "auto",
+        spaceBetween: 0,
+        loop: true,
+        grabCursor: true,
+        centeredSlides: true,
+        freeMode: false,
+        effect: "coverflow",
+        speed: 500,
+        autoplay: {delay: 3000, disableOnInteraction: false},
+        coverflowEffect: {rotate: 5, stretch: 200, depth: 100, modifier: 1, slideShadows: true, scale: 0.8},
+        pagination: {el: ".swiper-pagination", dynamicBullets: false, clickable: true},
+      });
+    })
+  </script>
+</div>
+
+
+<div class="container my-12">
+  <div class="h1 section-title" data-tile=""><span>Lorem ipsum</span></div>
+  <div class=" h4 section-desc"  >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum dignissimos eum possimus quisquam vero? Adipisci fugiat praesentium soluta unde voluptatum.</div>
+  <div class="row">
+    {% for item in data %}
+      <div class="col-6 col-md-4 px-2 px-md-5 mb-5">
+        <div class="embed-responsive embed-responsive-4by3 bg-cover" style="background-image: url('assets/demo/home-new-3.png');"></div>
+        <div class="h4 font-weight-bolder text-primary mt-4 mb-0 text-center">Lorem ipsum </div>
+        <div class="h4 text-center">Lorem ipsum dolor sit amet.</div>
+      </div>
+    {% endfor %}
+    <div class="col-12 mt-8 d-flex justify-content-center">
+      <a href="{{ news_category.href }}" class="view-more-btn-1 ls-3 text-uppercase font-weight-bolder d-md-block">{{ text_more }}</a>
+    </div>
+  </div>
+</div>
+
+<div class="py-12 bg-light">
+  <div class="container">
+    <div class="h1 section-title" data-tile=""><span>Lorem ipsum</span></div>
+    <div class=" h4 section-desc"  >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum dignissimos eum possimus quisquam vero? Adipisci fugiat praesentium soluta unde voluptatum.</div>
+    <div class="row">
+      {% for item in data %}
+        <div class="col-6 col-md-4 px-2 px-md-5 mb-5">
+          <div class="embed-responsive embed-responsive-4by3 bg-cover" style="background-image: url('assets/demo/home-new-3.png');"></div>
+          <div class="h4 font-weight-bolder text-primary mt-4 mb-0 text-center">Lorem ipsum </div>
+          <div class="h4 text-center">Lorem ipsum dolor sit amet.</div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+
+<div class="my-12">
+  <div class="container">
+    <div class="h1 section-title" data-tile=""><span>Lorem ipsum</span></div>
+    <div class=" h4 section-desc"  >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum dignissimos eum possimus quisquam vero? Adipisci fugiat praesentium soluta unde voluptatum.</div>
+  </div>
+  <div class="swiper swiper_3 h-100">
+    <div class="swiper-wrapper">
+      {% for item in data %}
+        <div class="swiper-slide">
+          <div class="col-12">
+            <div class="prj-home-item"><div class="img" data-src="assets/demo/home-new-3.png"><span class="embed-responsive embed-responsive-16by9 bg-cover" style="background-image: url('assets/demo/home-new-3.png')"><img src="assets/demo/home-new-3.png" class="d-none" alt="{{ item.image_alt?item.image_alt:item.table_contents.image_alt }}"></span></div><div class="block-overlay"></div><a class="full-link"><span class="limit-text-2 mt-5 font-weight-bold h4 text-uppercase">{{ item.image_alt?item.image_alt:item.table_contents.image_alt }}</span></a></div>
+            <h4 class="font-weight-bolder mb-md-8 mb-5 text-capitalize"><span class=" liner linel">Lorem ipsum dolor sit amet.</span></h4>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      var swiper = new Swiper(".swiper_3", {
+        slidesPerView: 3,
+        spaceBetween: 35,
+        loop: false,
+        grabCursor: true,
+        centeredSlides: false,
+        freeMode: true,
+        effect: false,
+        speed: 500,
+        autoplay: {delay: 3000, disableOnInteraction: false},
+        coverflowEffect: {rotate: 5, stretch: 200, depth: 100, modifier: 1, slideShadows: true, scale: 0.8},
+      });
+    })
+  </script>
+</div>
+
+
+<div class="bg-light py-12">
+  <div class="container">
+    <div class="h1 font-weight-bolder text-uppercase mb-10" data-title=""><span>Lorem ipsum</span></div>
+    <div class="h4 mb-12 limit-text-2 lh-30" style="width: 70%;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis ipsam libero porro quaerat similique. Nihil reprehenderit similique voluptas. Aspernatur consectetur ipsa maxime pariatur, saepe sapiente tempore! Deserunt dolores neque voluptatum. </div>
+
+    <div class="row no-gutters">
+      <div class="col-4 pr-4 pb-5">
+        <div class="w-100 h-100 bg-cover" style="background-image: url('assets/demo/home-new-3.png');"></div>
+      </div>
+      <div class="col-8 pl-1 pb-5">
+        <div class="row no-gutters">
+          <div class="col-12 d-flex justify-content-end">
+            <div class="" style="width: 75%;">
+              <div class="mb-10 d-flex">
+                {% for item in data %}
+                  <a class="border-dark border py-2 px-4 font-weight-bolder mr-3" href="">{{ loop.index }}</a>
+                {% endfor %}
+              </div>
+              <div>
+                <div class="swiper swiper_4 h-100">
+                  <div class="swiper-wrapper">
+                    {% for item in data %}
+                      <div class="swiper-slide">
+                        <div class="h4 font-weight-bolder lh-30 mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis eos laborum laudantium optio sapiente velit?</div>
+                        <div class="h4 mb-2 limit-text-4 lh-30">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis ipsam libero porro quaerat similique. Nihil reprehenderit similique voluptas. Aspernatur consectetur ipsa maxime pariatur, saepe sapiente tempore! Deserunt dolores neque voluptatum. </div>
+                      </div>
+                    {% endfor %}
+                  </div>
+                  <div class="swiper-pagination"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 pr-3 pt-10"><div class="embed-responsive embed-responsive-4by3 bg-cover" style="background-image: url('assets/demo/home-new-3.png');"></div></div>
+          <div class="col-6 pl-3 pt-10"><div class="embed-responsive embed-responsive-4by3 bg-cover" style="background-image: url('assets/demo/home-new-3.png');"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      var swiper = new Swiper(".swiper_4", {
+        slidesPerView: 1,
+        spaceBetween: 0,
+        loop: false,
+        grabCursor: true,
+        centeredSlides: true,
+        freeMode: false,
+        effect: false,
+        speed: 500,
+        autoplay: {delay: 3000, disableOnInteraction: false},
+        coverflowEffect: {rotate: 5, stretch: 200, depth: 100, modifier: 1, slideShadows: true, scale: 0.8},
+      });
+    })
+  </script>
+</div>
+
+
+<div class="">
+  <div class="row no-gutters group-image-2">
+    <div class="col-12 col-md-6 py-12 banner-blur position-relative" style="background-image: url('assets/demo/bg.jpg')">
+      <div class="h1 text-white section-title"><span>Lorem ipsum</span></div>
+    </div>
+    <div class="col-12 col-md-6 py-12" style="background: #2E2E2E">
+      <div class="ml-xxl-15 pl-5 pl-md-11 text-white content-title" style="width: 60%;">
+        <div>
+          <div class="swiper swiper_5 h-100">
+            <div class="swiper-wrapper">
+              {% for item in data %}
+                <div class="swiper-slide">
+                  <div class="h4 font-weight-bolder lh-30 mb-5 limit-text-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis eos laborum laudantium optio sapiente velit?</div>
+                  <div class="h4 mb-2 limit-text-4 lh-30">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis ipsam libero porro quaerat similique. Nihil reprehenderit similique voluptas. Aspernatur consectetur ipsa maxime pariatur, saepe sapiente tempore! Deserunt dolores neque voluptatum. </div>
+                </div>
+              {% endfor %}
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+
+      </div>
+      <div class="container position-relative mt-11 img" style="left: -30%;">
+        <div class="row no-gutters">
+          <div class="col-12 col-md-8">
+            <div class="embed-responsive embed-responsive-16by9 bg-cover" style="background-image: url('assets/demo/home-new-3.png');"></div>
+          </div>
+          <div class="col-12 col-md-4 text-white d-flex align-items-end justify-content-end" style="font-size: 1.4rem">
+            <div class="">
+              {% for item in data %}
+                <div class="d-flex justify-content-end mt-8 w-100" ><a class="font-weight-bolder pb-2" href="" style="border-bottom: 5px solid #06175C"> Kiểu {{ loop.index }}</a></div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    @media (max-width: 767px) {
+      .group-image-2 .content-title{
+        width: 100% !important;
+      }
+      .group-image-2 .img{
+        left: 0% !important;
+      }
+    }
+  </style>
+  <script>
+    $(document).ready(function() {
+      var swiper = new Swiper(".swiper_5", {
+        slidesPerView: 1,
+        spaceBetween: 10,
+        loop: false,
+        grabCursor: true,
+        centeredSlides: true,
+        freeMode: false,
+        effect: false,
+        speed: 500,
+        autoplay: {delay: 3000, disableOnInteraction: false},
+        coverflowEffect: {rotate: 5, stretch: 200, depth: 100, modifier: 1, slideShadows: true, scale: 0.8},
+      });
+    })
+  </script>
+</div>
+
+
+<div class="my-12 container icon-section">
+  <div class="h1 section-title" data-tile=""><span>Lorem ipsum</span></div>
+  <div class=" h4 section-desc"  >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum dignissimos eum possimus quisquam vero? Adipisci fugiat praesentium soluta unde voluptatum.</div>
+  
+  <div class="row no-gutters row-cus">
+    {% for item in data %}
+      <div class="col-6 col-md-4 text-center mb-11">
+        <div class="mb-10"><img style="width: 120px;" src="assets/demo/w2.png" alt=""></div>
+        <div class="h4 font-weight-bolder mb-3">Lorem ipsum dolor sit</div>
+        <div class="h4 limit-text-3 lh-30">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum eligendi error facere in non tenetur.</div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+<div class="py-12 bg-light">
+  <div class=" container">
+    <div class="h1 section-title" data-tile=""><span>Lorem ipsum</span></div>
+    <div class=" h4 section-desc"  >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum dignissimos eum possimus quisquam vero? Adipisci fugiat praesentium soluta unde voluptatum.</div>
+
+    <div class="row no-gutter">
+      <div class="col-12 col-md-3 text-center pr-md-7">
+        <div class="row no-gutters">
+          <div class="col-6 col-md-12 mb-10 mb-md-12">
+            <div class="">
+              <div class="mb-11"><img style="width: 120px;" src="assets/demo/w2.png" alt=""></div>
+              <div class="h4 font-weight-bolder mb-3">Lorem ipsum dolor sit</div>
+              <div class="h4 limit-text-3 lh-30">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum eligendi error facere in non tenetur.</div>
+            </div>
+          </div>
+          <div class="col-6 col-md-12">
+            <div class="">
+              <div class="mb-11"><img style="width: 120px;" src="assets/demo/w2.png" alt=""></div>
+              <div class="h4 font-weight-bolder mb-3">Lorem ipsum dolor sit</div>
+              <div class="h4 limit-text-3 lh-30">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum eligendi error facere in non tenetur.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <div class="w-100 h-100 bg-cover" style="min-height: 400px; background-image: url('assets/demo/home-new-3.png');"></div>
+      </div>
+
+      <div class="col-12 col-md-3 text-center mt-10 mt-md-0 pl-md-7">
+        <div class="row no-gutters">
+          <div class="col-6 col-md-12 mb-10 mb-md-12">
+            <div class="">
+              <div class="mb-11"><img style="width: 120px;" src="assets/demo/w2.png" alt=""></div>
+              <div class="h4 font-weight-bolder mb-3">Lorem ipsum dolor sit</div>
+              <div class="h4 limit-text-3 lh-30">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum eligendi error facere in non tenetur.</div>
+            </div>
+          </div>
+          <div class="col-6 col-md-12">
+            <div class="">
+              <div class="mb-11"><img style="width: 120px;" src="assets/demo/w2.png" alt=""></div>
+              <div class="h4 font-weight-bolder mb-3">Lorem ipsum dolor sit</div>
+              <div class="h4 limit-text-3 lh-30">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum eligendi error facere in non tenetur.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="my-12 container">
+  <div class="h1 section-title" data-tile=""><span>Lorem ipsum</span></div>
+  <div class=" h4 section-desc"  >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum dignissimos eum possimus quisquam vero? Adipisci fugiat praesentium soluta unde voluptatum.</div>
+
+  <div class="row no-gutters row-cus">
+    <div class="col-12 col-md-6">
+      <div class="swiper swiper_image px-10">
+        <div class="swiper-wrapper">
+          {% for i in data %}
+            <div class="swiper-slide">
+              <span class="embed-responsive embed-responsive-3by4 bg-cover" style="background-image: url('/upload/assets/2022/0105/ar/75.jpg')"></span>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6 pl-md-11 mt-10 mt-md-0">
+      <div class="overflow-hidden" style="height: 675px;">
+        <div class="swiper swiper_content px-md-10">
+          <div class="swiper-wrapper">
+            {% for i in data %}
+              <div class="swiper-slide">
+                <div class="d-flex py-5 px-5 mb-12 swiper_desc">
+                  <img style="width: 120px;" src="assets/demo/w2.png" alt="">
+                  <div class="pl-10">
+                    <div class="h4 font-weight-bolder mb-3">Lorem ipsum dolor sit</div>
+                    <div class="h4 limit-text-3 lh-30">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum eligendi error facere in non tenetur.</div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <style>
+    .swiper_image .swiper-pagination-bullet {
+      width: 15px;
+      height: 7px;
+      text-align: center;
+      line-height: 20px;
+      font-size: 12px;
+      color: #000;
+      opacity: 1;
+      background: #fff;
+      border-radius: 0;
+      transition: 0.3s ease-in-out;
+    }
+
+    .swiper_image .swiper-pagination-bullet-active {
+      color: #fff;
+      background: var(--primary);
+      height: 15px;
+    }
+
+    .swiper-slide.swiper-slide-active .swiper_desc{
+      box-shadow: 5px 10px 20px 5px #00000029;"
+    }
+    .swiper-slide { // for custom transition
+    position: relative;
+      overflow: hidden;
+    }
+  </style>
+  <script>
+    $(document).ready(function() {
+      var swiper_image = new Swiper(".swiper_image", {
+        slidesPerView: "auto",
+        spaceBetween: 0,
+        loop: true,
+        grabCursor: true,
+        centeredSlides: true,
+        freeMode: false,
+        effect: "coverflow",
+        speed: 500,
+        autoplay: {delay: 3000, disableOnInteraction: false},
+        coverflowEffect: {rotate: 5, stretch: 200, depth: 100, modifier: 1, slideShadows: true, scale: 0.8},
+        pagination: {el: ".swiper-pagination", dynamicBullets: false, clickable: true},
+      });
+
+
+      var contentSwiper = new Swiper('.swiper_content', {
+        direction: "vertical",
+        effect: "slide",
+        //autoHeight: true,
+        loop: false, // Not recommended to enable!!!
+        allowTouchMove: true,
+        slidesPerView: "auto",
+        spaceBetween: 0,
+        grabCursor: true,
+        centeredSlides: false,
+        freeMode: false,
+      });
+
+      swiper_image.controller.control = this.contentSwiper;
+    })
+  </script>
+
+</div>
+
+
+
+<div class="product__document py-5 mt-15 mb-12 position-relative bg-light" style="/*color: var(--color_text)*/">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-12 col-md-6 mr-auto pr-md-4">
+        <div class="h1 font-weight-bolder text-uppercase mb-10" data-title=""><span>Lorem ipsum</span></div>
+        <div class="h4 mb-10 limit-text-4 lh-30">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis ipsam libero porro quaerat similique. Nihil reprehenderit similique voluptas. Aspernatur consectetur ipsa maxime pariatur, saepe sapiente tempore! Deserunt dolores neque voluptatum. </div>
+        <a href="{{ news.download }}" class="view-more-btn-1 ls-3 text-uppercase font-weight-bolder d-md-block" target="_blank" {#ng-click="openDocument({{ news.id }})"#}>{{ text_more }}</a>
+      </div>
+      <div class="col-12 col-md-6 pl-sm-5 pt-5 pt-sm-0 order-first order-md-last">
+        <div class="product__block">
+          <div class="img" {#ng-click="openDocument({{ news.id }})"#}><span class="embed-responsive embed-responsive-4by3 bg-cover" style="background-image: url('assets/demo/2.png')"><span class="embed-responsive-item"></span></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    @media (max-width: 767px) {
+      .product__block .img{
+        width: 80% !important;
+      }
+    }
+  </style>
+</div>
+
+
+
+<div class="container my-12">
+  <div class="h1 section-title" data-tile=""><span>Lorem ipsum</span></div>
+  <div class=" h4 section-desc"  >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum dignissimos eum possimus quisquam vero? Adipisci fugiat praesentium soluta unde voluptatum.</div>
+
+  <div class="row mt-6 mt-md-10 mb-md-10 improve slider-history">
+    {% for item in data %}
+      <div class="col-12 d-flex flex-wrap">
+        <div class="col-12 col-md-6 pr-md-10 pr-xl-13">
+          <div class="embed-responsive embed-responsive-16by9" style="background: url('assets/demo/home-new-3.png') no-repeat center / cover"></div>
+        </div>
+        <div class="col-12 col-md-6 dev-desc mt-10 mt-md-0">
+          <div class="h3 font-weight-bolder text-primary mb-xl-10">Lorem ipsum dolor sit amet.</div>
+          <div class="h4 lh-30 mb-10 mb-xl-0 mt-5 mt-md-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab nesciunt officiis, optio pariatur quae velit.{{ loop.index }}</div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="thumb-slider-history position-relative px-0" style="margin-top: -7px">
+    <div class="container px-0">
+      <div class="thumb-slider position-relative" style="opacity: 0;transition: all 0.5s ease-in-out 1s;">
+        {% for item in data %}
+          <div class="item-thumb-slider">
+            <div class="h0 font-weight-bolder text-center">0{{ loop.index }}</div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .thumb-slider-history .item-thumb-slider{
+      padding-top: 2rem;
+      position: relative;
+    }
+    .thumb-slider-history .item-thumb-slider:before{
+      content: '';
+      position: absolute;
+      width: 1.25rem;
+      height: 1.25rem;
+      border-radius: 50%;
+      background: #e8e8e8;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .thumb-slider-history .item-thumb-slider.slick-current .h1{
+      color: var(--primary);
+    }
+    .thumb-slider-history .item-thumb-slider.slick-current:before{
+      background: var(--primary);
+    }
+  </style>
+
+  <script>
+    $(window).load(function () {
+      $('.slider-history').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+        fade: true,
+        asNavFor: '.thumb-slider'
+      });
+      $('.thumb-slider').slick({
+        slidesToShow: 6,
+        slidesToScroll: 1,
+        asNavFor: '.slider-history',
+        dots: false,
+        arrows: false,
+        centerMode: {{ images|length < 6 ? 'false': 'true' }},
+        focusOnSelect: true,
+        responsive: [
+          {
+            breakpoint: 960,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 1,
+              infinite: true,
+            }
+          },
+          {
+            breakpoint: 768,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 1,
+              infinite: true,
+              centerMode: true,
+              centerPadding: '25px',
+              arrows:false,
+            }
+          }
+        ]
+      });
+      $('.slider-history, .thumb-slider').css('opacity',1).css('transition','0.5s ease-in-out 1s');
+    })
+  </script>
+
+</div>
+
+
+<div class="bg-light py-12">
+  <div class="container">
+    <div class="h1 section-title" data-tile=""><span>Lorem ipsum</span></div>
+    <div class=" h4 section-desc"  >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum dignissimos eum possimus quisquam vero? Adipisci fugiat praesentium soluta unde voluptatum.</div>
+
+    <div class="row no-gutters  mt-6 mt-md-10 mb-md-10">
+      <div class="col-10">
+        <div class="row improve slider-history-2">
+          {% for item in data %}
+            <div class="col-12 d-flex flex-wrap">
+              <div class="col-12 col-md-6 pr-md-10 pr-xl-12">
+                <div class="embed-responsive embed-responsive-4by3" style="background: url('assets/demo/home-new-3.png') no-repeat center / cover"></div>
+              </div>
+              <div class="col-12 col-md-6 dev-desc pr-5 mt-5 mt-md-0">
+                <div class="h3 font-weight-bolder text-primary mb-md-10">Lorem ipsum dolor sit amet.</div>
+                <div class="h4 lh-30 mt-5 mt-md-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab nesciunt officiis, optio pariatur quae velit.{{ loop.index }}</div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="thumb-slider-history-2 pl-1 pl-md-10 overflow-hidden" style="height: 305px;">
+          <div class="thumb-slider-2 position-relative" style="opacity: 0;transition: all 0.5s ease-in-out 1s;width: 100%;">
+            {% for item in data %}
+              <div class="item-thumb-slider-2 mb-10">
+                <div class="h0 font-weight-bolder text-center">0{{ loop.index }}</div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <style>
+      .thumb-slider-2:before{
+        content: '';
+        position: absolute;
+        top: 0.5rem;
+        left: 0;
+        width: 1px;
+        height: 100%;
+        background: #3F3F3F;
+      }
+      .thumb-slider-history-2 .item-thumb-slider-2{
+        padding-left: 1.5rem;
+        position: relative;
+      }
+      .thumb-slider-history-2 .item-thumb-slider-2:before{
+        content: '';
+        position: absolute;
+        width: 1.25rem;
+        height: 1.25rem;
+        border-radius: 50%;
+        background: #e8e8e8;
+        top: 35%;
+        left: 0%;
+        transform: translateX(-50%);
+      }
+      .thumb-slider-history-2 .item-thumb-slider-2.slick-current .h0{
+        color: var(--primary);
+      }
+      .thumb-slider-history-2 .item-thumb-slider-2.slick-current:before{
+        background: var(--primary);
+      }
+    </style>
+
+    <script>
+      $(window).load(function () {
+        $('.slider-history-2').slick({
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows: false,
+          fade: true,
+          asNavFor: '.thumb-slider-2'
+        });
+        $('.thumb-slider-2').slick({
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          asNavFor: '.slider-history-2',
+          dots: false,
+          vertical: true,
+          arrows: false,
+          centerMode: false,
+          focusOnSelect: true,
+          verticalSwiping:true,
+          responsive: [
+            {
+              breakpoint: 960,
+              settings: {
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                infinite: true,
+              }
+            },
+            {
+              breakpoint: 768,
+              settings: {
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                infinite: true,
+                centerMode: true,
+                centerPadding: '25px',
+                arrows:false,
+              }
+            }
+          ]
+        });
+        $('.slider-history-2, .thumb-slider-2').css('opacity',1).css('transition','0.5s ease-in-out 1s');
+      })
+    </script>
+
+  </div>
+</div>
+
+
+<div class="container my-12">
+  <div class="h1 section-title" data-tile=""><span>Lorem ipsum</span></div>
+  {% for item in data %}
+    <div class="px-5 py-4 mb-1 faq-tab{{ loop.index }}" style="box-shadow: 0px 2px 3px #00000029;">
+      <div class="row no-gutters">
+        <div class="col-11 h4 text-primary font-weight-bolder d-flex align-items-center">Lorem ipsum dolor sit amet, consectetur.</div>
+        <div class="col-1 d-flex justify-content-center"><a href="" target="{{ loop.index }}" class="plus-more-big"></a></div>
+        <div class="col-11 h5 lh-30 faq-content{{ loop.index }}" style="display: none">
+          <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur atque consequatur dolorum facere harum id, illum impedit laudantium magni minus nam nostrum possimus quaerat reprehenderit sit temporibus vel vero voluptatibus.</div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+
+  <style>
+    .faq-tab.active{
+      box-shadow: 5px 5px 10px #00000029 !important;
+    }
+    .plus-more-big{
+      display: block;
+      width: 40px;
+      height: 40px;
+      position: relative;
+      text-decoration: none;
+      background-color: transparent;
+      color: var(--primary);
+    }
+    .plus-more-big:after, .plus-more-big:before {
+      content: '';
+      position: absolute;
+      background: var(--primary);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(0deg);
+      z-index: 1;
+    }
+    .plus-more-big:before{
+      height: 4px;
+      width: 25px;
+      border-radius: 50px;
+    }
+    .plus-more-big:after{
+      width: 4px;
+      height: 25px;
+      border-radius: 50px;
+    }
+
+    .plus-more-big.active:after{
+      opacity: 0%;
+    }
+  </style>
+
+  <script>
+    $('.plus-more-big').click(function(){
+      var index = $(this).attr("target");
+      if($('.faq-tab'+ index).hasClass("active")){
+        $('.faq-content'+ index).css({"display": "none"});
+        $('.faq-tab'+ index).removeClass("active");
+        $(this).removeClass("active");
+      }else{
+        $('.faq-content'+ index).css({"display": "block"});
+        $('.faq-tab'+ index).addClass("active");
+        $(this).addClass("active");
+      }
+    });
+  </script>
+</div>
+
+
+{{ footer }}

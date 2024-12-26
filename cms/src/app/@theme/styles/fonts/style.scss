@@ -1,0 +1,887 @@
+@import "variables";
+
+@font-face {
+  font-family: '#{$icomoon-font-family}';
+  src: url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?rb9y98');
+  src: url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?rb9y98#iefix') format('embedded-opentype'),
+  url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?rb9y98') format('truetype'),
+  url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?rb9y98') format('woff'),
+  url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?rb9y98##{$icomoon-font-family}') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="ic_"], [class*=" ic_"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: '#{$icomoon-font-family}' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ic_pricetags_outline {
+  &:before {
+    content: $ic_pricetags_outline;
+  }
+}
+
+.ic_folder_outline {
+  &:before {
+    content: $ic_folder_outline;
+  }
+}
+
+.ic_phone {
+  &:before {
+    content: $ic_phone;
+  }
+}
+
+.ic_star {
+  &:before {
+    content: $ic_star;
+  }
+}
+
+.ic_star_outline {
+  &:before {
+    content: $ic_star_outline;
+  }
+}
+
+.ic_delivery {
+  &:before {
+    content: $ic_delivery;
+  }
+}
+
+.ic_operating {
+  &:before {
+    content: $ic_operating;
+  }
+}
+
+.ic_box_arrow_up_right {
+  &:before {
+    content: $ic_box_arrow_up_right;
+  }
+}
+
+.ic_box_arrow_down_right {
+  &:before {
+    content: $ic_box_arrow_down_right;
+  }
+}
+
+.ic_brightness_alt_high {
+  &:before {
+    content: $ic_brightness_alt_high;
+  }
+}
+
+.ic_file_earmark_text {
+  &:before {
+    content: $ic_file_earmark_text;
+  }
+}
+
+.ic_message_square_outline {
+  &:before {
+    content: $ic_message_square_outline;
+  }
+}
+
+.ic_message_circle_outline {
+  &:before {
+    content: $ic_message_circle_outline;
+  }
+}
+
+.ic_phone_call_outline {
+  &:before {
+    content: $ic_phone_call_outline;
+  }
+}
+
+.ic_email_outline {
+  &:before {
+    content: $ic_email_outline;
+  }
+}
+
+.ic_email {
+  &:before {
+    content: $ic_email;
+  }
+}
+
+.ic_email_notify {
+  &:before {
+    content: $ic_email_notify;
+  }
+}
+
+.ic_business {
+  &:before {
+    content: $ic_business;
+  }
+}
+
+.ic_headset {
+  &:before {
+    content: $ic_headset;
+  }
+}
+
+.ic_administrative {
+  &:before {
+    content: $ic_administrative;
+  }
+}
+
+.ic_grid {
+  &:before {
+    content: $ic_grid;
+  }
+}
+
+.ic_view_list {
+  &:before {
+    content: $ic_view_list;
+  }
+}
+
+.ic_funnel {
+  &:before {
+    content: $ic_funnel;
+  }
+}
+
+.ic_funnel_fill {
+  &:before {
+    content: $ic_funnel_fill;
+  }
+}
+
+.ic_arrow_clockwise {
+  &:before {
+    content: $ic_arrow_clockwise;
+  }
+}
+
+.ic_location {
+  &:before {
+    content: $ic_location;
+  }
+}
+
+.ic_map_marker {
+  &:before {
+    content: $ic_map_marker;
+  }
+}
+
+.ic_projects {
+  &:before {
+    content: $ic_projects;
+  }
+}
+
+.ic_system {
+  &:before {
+    content: $ic_system;
+  }
+}
+
+.ic_setting {
+  &:before {
+    content: $ic_setting;
+  }
+}
+
+.ic_setup {
+  &:before {
+    content: $ic_setup;
+  }
+}
+
+.ic_media {
+  &:before {
+    content: $ic_media;
+  }
+}
+
+.ic_menus {
+  &:before {
+    content: $ic_menus;
+  }
+}
+
+.ic_chance {
+  &:before {
+    content: $ic_chance;
+  }
+}
+
+.ic_products {
+  &:before {
+    content: $ic_products;
+  }
+}
+
+.ic_design {
+  &:before {
+    content: $ic_design;
+  }
+}
+
+.ic_information {
+  &:before {
+    content: $ic_information;
+  }
+}
+
+.ic_recruit {
+  &:before {
+    content: $ic_recruit;
+  }
+}
+
+.ic_blog {
+  &:before {
+    content: $ic_blog;
+  }
+}
+
+.ic_category {
+  &:before {
+    content: $ic_category;
+  }
+}
+
+.ic_sync {
+  &:before {
+    content: $ic_sync;
+  }
+}
+
+.ic_folder_plus {
+  &:before {
+    content: $ic_folder_plus;
+  }
+}
+
+.ic_check_square {
+  &:before {
+    content: $ic_check_square;
+  }
+}
+
+.ic_permission {
+  &:before {
+    content: $ic_permission;
+  }
+}
+
+.ic_like {
+  &:before {
+    content: $ic_like;
+  }
+}
+
+.ic_multichannel {
+  &:before {
+    content: $ic_multichannel;
+  }
+}
+
+.ic_product {
+  &:before {
+    content: $ic_product;
+  }
+}
+
+.ic_regulation {
+  &:before {
+    content: $ic_regulation;
+  }
+}
+
+.ic_shipping {
+  &:before {
+    content: $ic_shipping;
+  }
+}
+
+.ic_attachment {
+  &:before {
+    content: $ic_attachment;
+  }
+}
+
+.ic_contact {
+  &:before {
+    content: $ic_contact;
+  }
+}
+
+.ic_contract {
+  &:before {
+    content: $ic_contract;
+  }
+}
+
+.ic_cost {
+  &:before {
+    content: $ic_cost;
+  }
+}
+
+.ic_debt {
+  &:before {
+    content: $ic_debt;
+  }
+}
+
+.ic_estimate {
+  &:before {
+    content: $ic_estimate;
+  }
+}
+
+.ic_invoice {
+  &:before {
+    content: $ic_invoice;
+  }
+}
+
+.ic_reminder {
+  &:before {
+    content: $ic_reminder;
+  }
+}
+
+.ic_note {
+  &:before {
+    content: $ic_note;
+  }
+}
+
+.ic_proposal {
+  &:before {
+    content: $ic_proposal;
+  }
+}
+
+.ic_proposed {
+  &:before {
+    content: $ic_proposed;
+  }
+}
+
+.ic_request {
+  &:before {
+    content: $ic_request;
+  }
+}
+
+.ic_supplier {
+  &:before {
+    content: $ic_supplier;
+  }
+}
+
+.ic_cooperate {
+  &:before {
+    content: $ic_cooperate;
+  }
+}
+
+.ic_globe {
+  &:before {
+    content: $ic_globe;
+  }
+}
+
+.ic_logistics {
+  &:before {
+    content: $ic_logistics;
+  }
+}
+
+.ic_marketing {
+  &:before {
+    content: $ic_marketing;
+  }
+}
+
+.ic_produce {
+  &:before {
+    content: $ic_produce;
+  }
+}
+
+.ic_gps {
+  &:before {
+    content: $ic_gps;
+  }
+}
+
+.ic_result {
+  &:before {
+    content: $ic_result;
+  }
+}
+
+.ic_dolar {
+  &:before {
+    content: $ic_dolar;
+  }
+}
+
+.ic_revenue_plus {
+  &:before {
+    content: $ic_revenue_plus;
+  }
+}
+
+.ic_revenue_minus {
+  &:before {
+    content: $ic_revenue_minus;
+  }
+}
+
+.ic_attend_o {
+  &:before {
+    content: $ic_attend_o;
+  }
+}
+
+.ic_calendar {
+  &:before {
+    content: $ic_calendar;
+  }
+}
+
+.ic_calendar_outline {
+  &:before {
+    content: $ic_calendar_outline;
+  }
+}
+
+.ic_timetable {
+  &:before {
+    content: $ic_timetable;
+  }
+}
+
+.ic_clocko {
+  &:before {
+    content: $ic_clocko;
+  }
+}
+
+.ic_checked {
+  &:before {
+    content: $ic_checked;
+  }
+}
+
+.ic_tick {
+  &:before {
+    content: $ic_tick;
+  }
+}
+
+.ic_three_dots {
+  &:before {
+    content: $ic_three_dots;
+  }
+}
+
+.ic_three_dots_vertical {
+  &:before {
+    content: $ic_three_dots_vertical;
+  }
+}
+
+.ic_clock {
+  &:before {
+    content: $ic_clock;
+  }
+}
+
+.ic_discount {
+  &:before {
+    content: $ic_discount;
+  }
+}
+
+.ic_menu {
+  &:before {
+    content: $ic_menu;
+  }
+}
+
+.ic_share {
+  &:before {
+    content: $ic_share;
+  }
+}
+
+.ic_filter {
+  &:before {
+    content: $ic_filter;
+  }
+}
+
+.ic_import {
+  &:before {
+    content: $ic_import;
+  }
+}
+
+.ic_circle {
+  &:before {
+    content: $ic_circle;
+  }
+}
+
+.ic_sales {
+  &:before {
+    content: $ic_sales;
+  }
+}
+
+.ic_cart {
+  &:before {
+    content: $ic_cart;
+  }
+}
+
+.ic_cart_o {
+  &:before {
+    content: $ic_cart_o;
+  }
+}
+
+.ic_price {
+  &:before {
+    content: $ic_price;
+  }
+}
+
+.ic_statistic {
+  &:before {
+    content: $ic_statistic;
+  }
+}
+
+.ic_tachometer {
+  &:before {
+    content: $ic_tachometer;
+  }
+}
+
+.ic_task {
+  &:before {
+    content: $ic_task;
+  }
+}
+
+.ic_attend {
+  &:before {
+    content: $ic_attend;
+  }
+}
+
+.ic_person {
+  &:before {
+    content: $ic_person;
+  }
+}
+
+.ic_user_group {
+  &:before {
+    content: $ic_user_group;
+  }
+}
+
+.ic_lock {
+  &:before {
+    content: $ic_lock;
+  }
+}
+
+.ic_pdf {
+  &:before {
+    content: $ic_pdf;
+  }
+}
+
+.ic_word {
+  &:before {
+    content: $ic_word;
+  }
+}
+
+.ic_openoffice {
+  &:before {
+    content: $ic_openoffice;
+  }
+}
+
+.ic_excel {
+  &:before {
+    content: $ic_excel;
+  }
+}
+
+.ic_download {
+  &:before {
+    content: $ic_download;
+  }
+}
+
+.ic_upload {
+  &:before {
+    content: $ic_upload;
+  }
+}
+
+.ic_file_att {
+  &:before {
+    content: $ic_file_att;
+  }
+}
+
+.ic_img_outline {
+  &:before {
+    content: $ic_img_outline;
+  }
+}
+
+.ic_send {
+  &:before {
+    content: $ic_send;
+  }
+}
+
+.ic_search {
+  &:before {
+    content: $ic_search;
+  }
+}
+
+.ic_bell {
+  &:before {
+    content: $ic_bell;
+  }
+}
+
+.ic_help {
+  &:before {
+    content: $ic_help;
+  }
+}
+
+.ic_info {
+  &:before {
+    content: $ic_info;
+  }
+}
+
+.ic_arrow_left {
+  &:before {
+    content: $ic_arrow_left;
+  }
+}
+
+.ic_arrow_right {
+  &:before {
+    content: $ic_arrow_right;
+  }
+}
+
+.ic_chevron_double_down {
+  &:before {
+    content: $ic_chevron_double_down;
+  }
+}
+
+.ic_chevron_double_up {
+  &:before {
+    content: $ic_chevron_double_up;
+  }
+}
+
+.ic_left_chevron {
+  &:before {
+    content: $ic_left_chevron;
+  }
+}
+
+.ic_right_chevron {
+  &:before {
+    content: $ic_right_chevron;
+  }
+}
+
+.ic_angle_down {
+  &:before {
+    content: $ic_angle_down;
+  }
+}
+
+.ic_angle_up {
+  &:before {
+    content: $ic_angle_up;
+  }
+}
+
+.ic_angle_left {
+  &:before {
+    content: $ic_angle_left;
+  }
+}
+
+.ic_angle_right {
+  &:before {
+    content: $ic_angle_right;
+  }
+}
+
+.ic_arrow_down {
+  &:before {
+    content: $ic_arrow_down;
+  }
+}
+
+.ic_arrow_up {
+  &:before {
+    content: $ic_arrow_up;
+  }
+}
+
+.ic_plus {
+  &:before {
+    content: $ic_plus;
+  }
+}
+
+.ic_plus_round {
+  &:before {
+    content: $ic_plus_round;
+  }
+}
+
+.ic_plus_round_fill {
+  &:before {
+    content: $ic_plus_round_fill;
+  }
+}
+
+.ic_close {
+  &:before {
+    content: $ic_close;
+  }
+}
+
+.ic_close_outlined {
+  &:before {
+    content: $ic_close_outlined;
+  }
+}
+
+.ic_close_circle {
+  &:before {
+    content: $ic_close_circle;
+  }
+}
+
+.ic_sort {
+  &:before {
+    content: $ic_sort;
+  }
+}
+
+.ic_pencil {
+  &:before {
+    content: $ic_pencil;
+  }
+}
+
+.ic_pencil_square {
+  &:before {
+    content: $ic_pencil_square;
+  }
+}
+
+.ic_pencil_square_outline {
+  &:before {
+    content: $ic_pencil_square_outline;
+  }
+}
+
+.ic_trash_outline {
+  &:before {
+    content: $ic_trash_outline;
+  }
+}
+
+.ic_hidden {
+  &:before {
+    content: $ic_hidden;
+  }
+}
+
+.ic_hidden_outlined {
+  &:before {
+    content: $ic_hidden_outlined;
+  }
+}
+
+.ic_visible {
+  &:before {
+    content: $ic_visible;
+  }
+}
+
+.ic_visible_outlined {
+  &:before {
+    content: $ic_visible_outlined;
+  }
+}
+
+.ic_trending_up {
+  &:before {
+    content: $ic_trending_up;
+  }
+}
+
+.ic_trending_down {
+  &:before {
+    content: $ic_trending_down;
+  }
+}
+
+.ic_trending_up_long {
+  &:before {
+    content: $ic_trending_up_long;
+  }
+}
+
+.ic_trending_down_long {
+  &:before {
+    content: $ic_trending_down_long;
+  }
+}
+

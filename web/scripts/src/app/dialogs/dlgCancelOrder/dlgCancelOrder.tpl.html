@@ -1,0 +1,25 @@
+<div class="modal-header border-bottom-0 text-center pt-5">
+  <h3 class="modal-title text-center w-100 font-weight-bold text-uppercase">Hủy đơn hàng</h3>
+  <button type="button" class="close btn" data-dismiss="modal" aria-label="Close" ng-click="close()" style="font-size: 25px">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="d-flex justify-content-center">
+    <form name="form" novalidate class="w-100" enctype="multipart/form-data" role="form" accept-charset="utf-8">
+      <input type="hidden" name="order_id" ng-model="id">
+      <div class="form-group flex-column">
+        <label class="font-weight-bold">Lý do hủy đơn</label>
+        <div class="d-flex align-items-start mb-2" ng-repeat="reason in listReason">
+          <div class="radio-button cursor-pointer" style="margin-top: 3px"><input type="radio" ng-value="reason" name="reason" id="reason_{{$index}}" ng-model="params.reason" required><span class="radio"></span></div>
+          <label class="ml-1" for="reason_{{$index}}">
+            <span class="cursor-pointer"><span ng-bind="reason"></span></span>
+          </label>
+        </div>
+      </div>
+      <div class="row justify-content-center no-gutters">
+        <button type="button" class="cus_btn" ng-click="submit(form)" ng-disabled="envData.submitted"><span><span class="spinner-border spinner-border-sm" ng-if="envData.submitted"></span></span>Hoàn tất</button>
+      </div>
+    </form>
+  </div>
+</div>

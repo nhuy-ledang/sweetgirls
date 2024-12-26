@@ -1,0 +1,26 @@
+#tab_icon-layout1--container {
+  .holder {
+    text-align: center;
+  }
+  .holder a {
+    color: black;
+  }
+  .holder a:hover {
+    color: var(--primary-color, var(--primary));
+  }
+  .holder a .icon {
+    display: block;
+    height: 70px;
+    width: 70px;
+  }
+  .holder .title {
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .center-all {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

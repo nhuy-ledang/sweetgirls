@@ -1,0 +1,72 @@
+<div class="row align-items-center mb-3">
+  <div class="col-sm font-weight-bold">
+    <div class="d-flex align-items-center"><span class="d-inline-block" [innerText]="'Module chân trang'|translate"></span>&nbsp;<span class="d-inline-block"><ngx-toggle-switch [(ngModel)]="bottom" (change)="onChangeBottom()"></ngx-toggle-switch></span></div>
+  </div>
+  <div class="col-sm-auto" [ngClass]="{'visible':bottom, 'invisible':!bottom}">
+    <div class="btn-group mr-2" *ngIf="data.selectList.length">
+      <div class="d-flex align-items-center">
+        <span class="font-size-sm mr-3"><span [innerText]="data.selectList.length"></span> selected</span>
+        <a class="btn btn-outline-danger" href="javascript:;" (click)="removeAll()"><span class="fa fa-trash mr-1"></span>Xóa</a>
+      </div>
+    </div>
+    <div *ngIf="isSuperAdmin()" class="btn-group">
+      <button type="button" class="btn btn-secondary" (click)="create()"><span class="ic_plus"></span> <span [innerText]="'Thêm mới'|translate"></span></button>
+      <button type="button" class="btn btn-info text-white" (click)="openLib()"><span class="ic_plus"></span> <span [innerText]="'Thư viện'|translate"></span></button>
+    </div>
+  </div>
+</div>
+<div *ngIf="bottom" class="card">
+  <div class="table-responsive">
+    <table class="table m-0">
+      <thead>
+      <tr>
+      <tr>
+        <th>
+          <div class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" [(ngModel)]="data.selectAll" (change)="selectAll()" id="tabModuleSelect"><label class="custom-control-label" for="tabModuleSelect"></label></div>
+        </th>
+        <th>Stt</th>
+        <th><span>Tên</span></th>
+        <th><span>Hình</span></th>
+        <th><span [innerText]="'Sắp xếp'|translate">Sắp xếp</span></th>
+        <th><span>Trạng thái</span></th>
+      </tr>
+      </thead>
+      <tbody class="text-dark">
+      <tr *ngIf="data.loading"><td colspan="6" class="text-center"><div class="spinner-border"><span class="sr-only">Loading...</span></div></td></tr>
+      <tr *ngIf="!data.loading && !data.items.length"><td colspan="6" class="text-center">Chưa có dữ liệu</td></tr>
+      <ng-container *ngIf="!data.loading">
+        <tr *ngFor="let item of data.items; let $index = index">
+          <td>
+            <div class="custom-control custom-checkbox"><input type="checkbox" class="custom-control-input" [(ngModel)]="item.checkbox" [attr.id]="'tabModuleSelect'+$index" (click)="checkbox(item)"><label class="custom-control-label" [attr.for]="'tabModuleSelect'+$index"></label></div>
+          </td>
+          <td [innerText]="$index + 1"></td>
+          <td>
+            <span class="d-block" [innerText]="item.name"></span>
+            <div class="row-options"><a href="javascript:;" (click)="edit(item)" [innerText]="'Sửa'|translate">Sửa</a>&nbsp; <span>| &nbsp;<a href="javascript:;" class="text-danger" (click)="remove(item)" [innerText]="'Xóa'|translate">Xóa</a></span>
+              <br><a *ngIf="isSuperAdmin()" href="javascript:;" (click)="copyToPattern(item)" class="hidden-xs text-muted">Copy đến mẫu</a></div>
+          </td>
+          <td>
+            <div class="text-center">
+              <a [href]="item.preview" target="_blank"><img [src]="item.preview" alt="" style="width: 150px"></a>
+              <a href="javascript:;" (click)="openPreview(item)" class="d-block">Xem trước</a>
+            </div>
+          </td>
+          <td>
+            <div class="btn-group">
+              <a (click)="sortOrder(item, $index, '-')" href="javascript:;" class="btn btn-outline-secondary"><span class="ic_angle_up"></span></a>
+              <a (click)="sortOrder(item, $index, '+')" href="javascript:;" class="btn btn-outline-secondary"><span class="ic_angle_down"></span></a>
+            </div>
+          </td>
+          <td class="text-center">
+            <ngx-toggle-switch [(ngModel)]="item.status" (change)="changeProp(item, 'status')"></ngx-toggle-switch>
+          </td>
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>
+<ngx-pg-pg-module-form (onSuccess)="onFormSuccess($event)"></ngx-pg-pg-module-form>
+<ngx-dlg-module-select (onSuccess)="onModuleSelect($event)"></ngx-dlg-module-select>
+<ngx-dlg-pattern-select (onSuccess)="onPatternSelect($event)"></ngx-dlg-pattern-select>
+<ngx-modal-confirm (onConfirm)="onConfirm($event)"></ngx-modal-confirm>

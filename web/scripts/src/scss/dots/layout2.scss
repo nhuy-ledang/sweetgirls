@@ -1,0 +1,28 @@
+.dot_layout2 {
+  .swiper-pagination {
+    text-align: var(--dot-align, center);
+    bottom: var(--dot-mb, 10px) !important;
+  }
+  .swiper-pagination-bullet {
+    width: 2.8125rem !important;;
+    height: 2.8125rem !important;;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    line-height: 20px;
+    font-size: 1.3125rem;
+    color: var(--text-dot-color, var(--dark)) !important;;
+    opacity: 1 !important;;
+    background: transparent !important;;
+    border: 1px solid var(--dot-color, var(--dark)) !important;;
+    border-radius: 0 !important;;
+    font-weight: 500;
+    transition: 0.3s ease-in-out;
+  }
+  .swiper-pagination-bullet-active {
+    color: var(--text-dot-active-color, #fff) !important;
+    background: var(--dot-active-color, var(--primary)) !important;;
+    border-color: var(--dot-active-color, var(--primary)) !important;;
+  }
+}
