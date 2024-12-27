@@ -60,7 +60,6 @@ class ManufacturerController extends ApiBaseModuleController {
     protected function rulesForCreate() {
         return [
             'name'       => 'required',
-            'commission' => 'required|integer|min:0|max:100',
             'sort_order' => 'integer',
         ];
     }
@@ -74,7 +73,6 @@ class ManufacturerController extends ApiBaseModuleController {
     protected function rulesForUpdate($id) {
         return [
             'name'       => 'required',
-            'commission' => 'required|integer|min:0|max:100',
             'sort_order' => 'integer',
         ];
     }
@@ -177,43 +175,6 @@ class ManufacturerController extends ApiBaseModuleController {
     }
 
     /**
-     * Update Seo Url
-     * @param $id
-     * @param $lang
-     * @param $input
-     * @return bool|\Illuminate\Support\Facades\Response|mixed
-     */
-    private function updateSeoUrl($id, $lang, &$input) {
-        $alias = $this->request->get('alias');
-        if ($alias) {
-            $query = "manufacturer_id=$id";
-            $seo_urls = $this->seo_url_repository->getSeoUrlsByKeyword($alias);
-            $errorKey = '';
-            foreach ($seo_urls as $item) {
-                if (!($item->query == $query)) {
-                    $errorKey = 'keyword.exists';
-                    break;
-                }
-            }
-            if ($errorKey) return [$errorKey, false];
-            $seo_url = $this->seo_url_repository->getSeoUrlByQuery($query, $lang);
-            if ($seo_url) {
-                if ($seo_url->keyword != $alias && $seo_url->keyword != seo_url($alias)) {
-                    $input['alias'] = seo_url($alias);
-                    $this->seo_url_repository->getModel()->where('id', $seo_url->id)->update(['keyword' => $input['alias']]);
-                } else {
-                    $input['alias'] = $seo_url->keyword;
-                }
-            } else {
-                $input['alias'] = seo_url($alias);
-                $seo_url = $this->seo_url_repository->create(['lang' => $lang, 'query' => $query, 'keyword' => $input['alias'], 'push' => "route=product/manufacturer&$query"]);
-            }
-            return [$errorKey, $seo_url];
-        }
-        return [false, false];
-    }
-
-    /**
      * @OA\Post(
      *   path="/backend/pd_manufacturers",
      *   summary="Create Manufacturer",
@@ -251,10 +212,6 @@ class ManufacturerController extends ApiBaseModuleController {
             }
             // Create model
             $model = $this->model_repository->create($input);
-            // Update seo url
-            $input = [];
-            list($errorKey, $seo_url) = $this->updateSeoUrl($model->id, 'vi', $input);
-            if (!$errorKey && !empty($input)) $model = $this->model_repository->update($model, $input);
             // Upload image
             $file_path = $this->request->get('file_path');
             if ($file_path) {
@@ -302,9 +259,6 @@ class ManufacturerController extends ApiBaseModuleController {
             // Check Valid
             $validatorErrors = $this->getValidator($input, $this->rulesForUpdate($id));
             if (!empty($validatorErrors)) return $this->respondWithError($validatorErrors);
-            // Update seo url
-            list($errorKey, $seo_url) = $this->updateSeoUrl($id, 'vi', $input);
-            if ($errorKey) return $this->errorWrongArgs($errorKey);
             // Check file
             $file_path = $this->request->get('file_path');
             if ($file_path) {
@@ -326,7 +280,6 @@ class ManufacturerController extends ApiBaseModuleController {
                     }
                 }
             }
-            // Update Model
             // Update Model
             $model = $this->model_repository->update($model, $input);
 

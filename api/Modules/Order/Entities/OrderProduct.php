@@ -56,7 +56,6 @@ class OrderProduct extends CoreModel {
         'order_num'  => 'integer',
         'coins'      => 'integer',
         'weight'     => 'double',
-        'commission' => 'integer',
     ];
 
     public function getThumbUrlAttribute() {

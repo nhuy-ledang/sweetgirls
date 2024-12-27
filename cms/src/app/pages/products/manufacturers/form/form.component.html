@@ -9,12 +9,7 @@
         <form novalidate [formGroup]="form">
           <div class="form-group" [ngClass]="{'has-error': (controls.name.invalid && (controls.name.touched || showValid))}">
             <label class="input-label">Tên</label>
-            <input type="text" [formControl]="controls.name" class="form-control" (change)="onChangeName()">
-          </div>
-          <div class="form-group" [ngClass]="{'has-error': (controls.commission.invalid && (controls.commission.touched || showValid))}">
-            <label class="input-label">Hoa hồng</label>
-            <input type="number" [formControl]="controls.commission" class="form-control">
-            <small>Hoa hồng từ 1-100</small>
+            <input type="text" [formControl]="controls.name" class="form-control">
           </div>
           <div class="form-group" *ngIf="modal.isShown">
             <label class="input-label" [innerText]="'Hình'">Hình</label>
@@ -23,11 +18,6 @@
           <div class="form-group" [ngClass]="{'has-error': (controls.sort_order.invalid && (controls.sort_order.touched || showValid))}">
             <label class="input-label" [innerText]="'Sắp xếp'">Sắp xếp</label>
             <input type="number" [formControl]="controls.sort_order" class="form-control">
-          </div>
-          <div class="form-group" [ngClass]="{'has-error': (controls.alias.invalid && (controls.alias.touched || showValid))}">
-            <label class="input-label">Seo url</label>
-            <input name="alias" type="text" [formControl]="controls.alias" class="form-control">
-            <small><br><span [innerText]="'Không sử dụng khoảng trống, thay vào đó bằng - và đảm bảo rằng URL SEO là độc nhất trên toàn cầu.'|translate"></span></small>
           </div>
           <div class="form-group" [ngClass]="{'has-error': (controls.status.invalid && (controls.status.touched || showValid))}">
             <label class="input-label">Trạng thái</label>

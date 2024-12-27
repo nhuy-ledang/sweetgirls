@@ -80,24 +80,24 @@ class ControllerStartupStartup extends Controller {
         $this->registry->set('language', $language);*/
 
         // Language
-        $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "core__languages` WHERE `status` = 1 ORDER BY `sort_order` ASC");
-        $language_list = $query->rows;
-        $this->config->set('core_language_list', $language_list);
-        $language_code = $this->config->get('language_code_default');
-        if (isset($this->request->get['_route_'])) {
-            $parts = explode('/', $this->request->get['_route_']);
-            // Remove any empty arrays from trailing
-            if (utf8_strlen(end($parts)) == 0) array_pop($parts);
-            if (!empty($parts) && in_array($parts[0], array_column($language_list,'code'))) $language_code = $parts[0];
-        } else {
-            if (isset($this->request->get['lang']) && in_array($this->request->get['lang'], array_column($language_list,'code'))) $language_code = $this->request->get['lang'];
-        }
-        $language_key = array_search($language_code, array_column($this->config->get('language_list'), 'code'));
-        $language_directory = $language_list[array_search($this->config->get('config_language'), array_column($language_list, 'code'))]['filename'];
-        $this->config->set('config_language', $language_code);
-        $language = new Language($language_directory);
-        $language->load($language_directory);
-        $this->registry->set('language', $language);
+        // $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "core__languages` WHERE `status` = 1 ORDER BY `sort_order` ASC");
+        // $language_list = $query->rows;
+        // $this->config->set('core_language_list', $language_list);
+        // $language_code = $this->config->get('language_code_default');
+        // if (isset($this->request->get['_route_'])) {
+        //     $parts = explode('/', $this->request->get['_route_']);
+        //     // Remove any empty arrays from trailing
+        //     if (utf8_strlen(end($parts)) == 0) array_pop($parts);
+        //     if (!empty($parts) && in_array($parts[0], array_column($language_list,'code'))) $language_code = $parts[0];
+        // } else {
+        //     if (isset($this->request->get['lang']) && in_array($this->request->get['lang'], array_column($language_list,'code'))) $language_code = $this->request->get['lang'];
+        // }
+        // $language_key = array_search($language_code, array_column($this->config->get('language_list'), 'code'));
+        // $language_directory = $language_list[array_search($this->config->get('config_language'), array_column($language_list, 'code'))]['filename'];
+        // $this->config->set('config_language', $language_code);
+        // $language = new Language($language_directory);
+        // $language->load($language_directory);
+        // $this->registry->set('language', $language);
 
         // Global variables
         $global = [];
@@ -155,7 +155,7 @@ class ControllerStartupStartup extends Controller {
 		$this->registry->set('url', new Url($this->config->get('config_url')));
 
         // Language
-        $this->config->set('config_language', $language_code);
+        // $this->config->set('config_language', $language_code);
 
 		// Encryption
 		$this->registry->set('encryption', new Encryption());

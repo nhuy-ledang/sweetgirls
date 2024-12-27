@@ -102,29 +102,29 @@ class ControllerCommonHeader extends Controller {
         } else {
             $format = 0;
         }
-        foreach ($language_list as $item) {
-            $code = $item['code'];
-            if ($format == 1) {
-                if ($code == $this->config->get('language_code_default')) {
-                    $href = rtrim(str_replace("/$language_code_default/", "/", "$current_link/"), '/');
-                } else {
-                    $href = rtrim(str_replace("/$language_code_default/", "/$code/", "$current_link/"), '/');
-                }
-            } else if ($format == 2) {
-                $href = str_replace("lang=$language_code_default", "lang=$code", $current_link);
-            } else {
-                if ($code == $this->config->get('language_code_default')) {
-                    $href = $this->config->get('config_url') . trim($this->request->server['REQUEST_URI'], '/');
-                } else {
-                    $href = $this->config->get('config_url') . $code . rtrim($this->request->server['REQUEST_URI'], '/');
-                }
-            }
-            $data['languages'][] = array_merge($item, ['href' => $href]);
-            if ($code == $language_code_default) {
-                $data['current_language'] = $item;
-            }
-        }
-        $data['language_code_default'] = $language_code_default;
+        // foreach ($language_list as $item) {
+        //     $code = $item['code'];
+        //     if ($format == 1) {
+        //         if ($code == $this->config->get('language_code_default')) {
+        //             $href = rtrim(str_replace("/$language_code_default/", "/", "$current_link/"), '/');
+        //         } else {
+        //             $href = rtrim(str_replace("/$language_code_default/", "/$code/", "$current_link/"), '/');
+        //         }
+        //     } else if ($format == 2) {
+        //         $href = str_replace("lang=$language_code_default", "lang=$code", $current_link);
+        //     } else {
+        //         if ($code == $this->config->get('language_code_default')) {
+        //             $href = $this->config->get('config_url') . trim($this->request->server['REQUEST_URI'], '/');
+        //         } else {
+        //             $href = $this->config->get('config_url') . $code . rtrim($this->request->server['REQUEST_URI'], '/');
+        //         }
+        //     }
+        //     $data['languages'][] = array_merge($item, ['href' => $href]);
+        //     if ($code == $language_code_default) {
+        //         $data['current_language'] = $item;
+        //     }
+        // }
+        // $data['language_code_default'] = $language_code_default;
 
         $url_prefix = $this->config->get('config_language') != $this->config->get('language_code_default') ? $this->config->get('config_language') . '/' : '';
 
@@ -151,20 +151,20 @@ class ControllerCommonHeader extends Controller {
         $data['userData'] = $this->registry->get('userData');
 
         // Labels
-        $data['labels'] = ['lang' => $this->language->get('code')];
-        $directory = $language_list[array_search($this->config->get('config_language'), array_column($language_list, 'code'))]['filename'];
-        $file = DIR_LANGUAGE . $directory . '/js.php';
-        if (file_exists($file)) {
-            $_ = [];
-            require($file);
-            foreach ($_ as $key => $value) {
-                $data['labels'][$key] = $value;
-            }
-            /*$onepay_terms = $this->config->get('config_onepay_terms');
-            if ($onepay_terms && is_array($onepay_terms) && $onepay_terms[$this->config->get('config_language')]) {
-                $data['labels']['text_onepay_terms'] = $onepay_terms[$this->config->get('config_language')];
-            }*/
-        }
+        // $data['labels'] = ['lang' => $this->language->get('code')];
+        // $directory = $language_list[array_search($this->config->get('config_language'), array_column($language_list, 'code'))]['filename'];
+        // $file = DIR_LANGUAGE . $directory . '/js.php';
+        // if (file_exists($file)) {
+        //     $_ = [];
+        //     require($file);
+        //     foreach ($_ as $key => $value) {
+        //         $data['labels'][$key] = $value;
+        //     }
+        //     /*$onepay_terms = $this->config->get('config_onepay_terms');
+        //     if ($onepay_terms && is_array($onepay_terms) && $onepay_terms[$this->config->get('config_language')]) {
+        //         $data['labels']['text_onepay_terms'] = $onepay_terms[$this->config->get('config_language')];
+        //     }*/
+        // }
 
         $data['compiled'] = $this->load->view('common/compiled');
 

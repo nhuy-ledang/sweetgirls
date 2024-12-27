@@ -45,10 +45,7 @@
             <th>#</th>
             <th><span>Hình</span></th>
             <th><span>Tên</span></th>
-            <th><span>Giao diện</span></th>
-            <th><span [innerText]="'Mô tả ngắn'|translate"></span></th>
             <th><span>Sắp xếp</span></th>
-            <th class="text-center"><span [innerText]="'Hiển thị'|translate">Hiển thị</span></th>
             <th class="text-center"><span>Trạng thái</span></th>
           </tr>
           </thead>
@@ -69,18 +66,7 @@
                   <br><a href="javascript:;" class="hidden-xs text-muted" (click)="preview(item)" [innerText]="'Xem trước'|translate">Xem trước</a></div>
               </div>
             </td>
-            <td>
-              <ng-container *ngIf="item.preview"><img [src]="item.preview" style="width: 100px"></ng-container>
-            </td>
-            <td [innerHTML]="item.short_description"></td>
             <td class="text-center" [innerText]="item.sort_order"></td>
-            <!-- <td class="text-center"><label class="toggle-switch toggle-switch-sm">
-             <input type="checkbox" class="toggle-switch-input" [checked]="item.status" disabled>
-             <span class="toggle-switch-label checked-disabled"><span class="toggle-switch-indicator"></span></span>
-           </label></td> -->
-            <td class="text-center">
-              <ngx-toggle-switch [(ngModel)]="item.show" (change)="changeProp(item, 'show')"></ngx-toggle-switch>
-            </td>
             <td class="text-center">
               <ngx-toggle-switch [(ngModel)]="item.status" (change)="changeProp(item, 'status')"></ngx-toggle-switch>
             </td>

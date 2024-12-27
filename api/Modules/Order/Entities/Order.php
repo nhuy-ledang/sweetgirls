@@ -156,11 +156,6 @@ class Order extends CoreModel {
             ->select(['order__products.*', 'p.weight', 'p.image', 'p.alias', 'p.short_description', 'p.name as p__name']);
     }
 
-    public function commissions() {
-        return $this->hasMany('\Modules\Order\Entities\OrderProduct')->leftJoin('pd__products as p', 'p.id', 'product_id')
-            ->select(['order__products.*', \DB::raw('(select commission from `pd__products` as p left join pd__manufacturers as m on (m.id = p.manufacturer_id) where p.id = order__products.product_id limit 1) as commission')]);
-    }
-
     /**
      * The Products relationship.
      *

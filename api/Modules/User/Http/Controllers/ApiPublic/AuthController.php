@@ -1056,7 +1056,7 @@ class AuthController extends ApiBaseModuleController {
      *       required={"clientId","code","redirectUri"},
      *       @OA\Property(property="clientId", type="string", example="devmanage.hocdau.vn"),
      *       @OA\Property(property="code", type="string", example=""),
-     *       @OA\Property(property="redirectUri", type="string", example="http://local.sweetgirl.vn/oauth/acallback.html"),
+     *       @OA\Property(property="redirectUri", type="string", example="http://local.sweetgirls.vn/oauth/acallback.html"),
      *       @OA\Property(property="name", type="string", example="Galaxy J7"),
      *       @OA\Property(property="model", type="string", example="SM-J710F"),
      *       @OA\Property(property="device_id", type="string", example="8e43475dcc200477"),

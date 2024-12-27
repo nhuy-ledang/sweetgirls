@@ -30,7 +30,7 @@ class Manufacturer extends CoreModel {
      *
      * @var array
      */
-    protected $fillable = ['name', 'commission', 'image', 'sort_order', 'status', 'alias'];
+    protected $fillable = ['name', 'image', 'sort_order', 'status'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -53,7 +53,6 @@ class Manufacturer extends CoreModel {
      */
     protected $casts = [
         'id'         => 'integer',
-        'commission' => 'integer',
         'sort_order' => 'integer',
         'status'     => 'boolean',
     ];

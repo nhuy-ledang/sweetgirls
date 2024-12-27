@@ -12,7 +12,6 @@ class ControllerPagePage extends Controller {
         } else {
             $info = $this->model_page_page->getPage($id);
         }
-        // var_dump($info);exit();
         if ($info) {
             $this->document->setTitle($info['meta_title'] ? $info['meta_title'] : $info['name']);
             $this->document->setDescription($info['meta_description']);

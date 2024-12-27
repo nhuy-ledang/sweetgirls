@@ -506,12 +506,6 @@
                   <a href="javascript:{}" class="px-4 d-block break-spaces-xl text-center" ng-click="outside()" onclick="toggleActive(this)">{{ userData.info.display }}</a>
                   <div class="wid_account_block">
                     <a href="/account/profile" class="px-2 py-4">Tài khoản</a>
-                    <a href="/account/points" class="px-2 py-4">Go Mart coin</a>
-                    {% if userData.affiliate %}
-                      <a href="/affiliate/config" class="px-2 py-4">Quản lý Affiliate</a>
-                    {% else %}
-                      <a href="/affiliate/register" class="px-2 py-4">Đăng ký Affiliate</a>
-                    {% endif %}
                     <a href="{{ global.home_url }}/logout" class="px-2 py-4">Đăng xuất</a>
                   </div>
                 {% else %}

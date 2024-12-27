@@ -144,14 +144,14 @@ class ModelPagePage extends Model {
 
     public function getPageHome() {
         $fields = ['p.*'];
-        if ($this->config->get('config_language') != $this->config->get('language_code_default')) {
-            $fields[] = 'd.name as d__name';
-            $fields[] = 'd.meta_title as d__meta_title';
-            $fields[] = 'd.meta_description as d__meta_description';
-            $fields[] = 'd.meta_keyword as d__meta_keyword';
-            $fields[] = 'd.description as d__description';
-            $fields[] = 'd.alias as d__alias';
-        }
+        // if ($this->config->get('config_language') != $this->config->get('language_code_default')) {
+        //     $fields[] = 'd.name as d__name';
+        //     $fields[] = 'd.meta_title as d__meta_title';
+        //     $fields[] = 'd.meta_description as d__meta_description';
+        //     $fields[] = 'd.meta_keyword as d__meta_keyword';
+        //     $fields[] = 'd.description as d__description';
+        //     $fields[] = 'd.alias as d__alias';
+        // }
         $sql = "select " . implode(', ', $fields) . " from " . $this->table . " p";
         
         $sql .= " where p.home = 1";

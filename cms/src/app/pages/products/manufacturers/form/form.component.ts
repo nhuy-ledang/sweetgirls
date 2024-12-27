@@ -17,11 +17,9 @@ export class ManufacturerFormComponent extends AppForm implements OnInit, OnDest
   info: any|boolean;
   controls: {
     name?: AbstractControl,
-    commission?: AbstractControl,
     sort_order?: AbstractControl,
     status?: AbstractControl,
     image?: AbstractControl,
-    alias?: AbstractControl,
   };
 
   constructor(fb: FormBuilder, router: Router, security: Security, state: GlobalState, repository: ManufacturersRepository) {
@@ -29,11 +27,9 @@ export class ManufacturerFormComponent extends AppForm implements OnInit, OnDest
 
     this.form = fb.group({
       name: ['', Validators.compose([Validators.required])],
-      commission: [''],
       sort_order: [1],
       status: [true],
       image: [''],
-      alias: [''],
     });
     this.controls = this.form.controls;
   }
@@ -61,7 +57,7 @@ export class ManufacturerFormComponent extends AppForm implements OnInit, OnDest
       this.setInfo(info);
     } else {
       _.each(this.controls, (val, key) => {
-        if (this.controls.hasOwnProperty(key) && !_.includes(['commission', 'sort_order', 'status'], key)) this.controls[key].setValue('');
+        if (this.controls.hasOwnProperty(key) && !_.includes(['sort_order', 'status'], key)) this.controls[key].setValue('');
       });
       this.controls.sort_order.setValue(0);
       this.controls.sort_order.setValue(1);
@@ -93,18 +89,5 @@ export class ManufacturerFormComponent extends AppForm implements OnInit, OnDest
       }
     }
     console.log(params);
-  }
-
-  onChangeName(): void {
-    if (!this.info || (this.info && !this.info.meta_title)) {
-      if (!this.controls.name.touched) {
-        this.controls.name.setValue(this.controls.name.value);
-      }
-    }
-    if (!this.info || (this.info && !this.info.alias)) {
-      if (!this.controls.alias.touched) {
-        this.controls.alias.setValue(this.utilityHelper.toAlias(this.controls.name.value));
-      }
-    }
   }
 }

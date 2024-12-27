@@ -21,7 +21,7 @@ export class CategoriesComponent extends AppList implements OnInit, OnDestroy, A
     this.data.pageSize = 100;
     this.data.sort = 'id';
     this.data.order = 'asc';
-    this.data.data = {q: '', embed: 'descs'};
+    this.data.data = {q: '', embed: ''};
   }
 
   ngOnInit(): void {

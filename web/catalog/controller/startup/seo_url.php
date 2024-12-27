@@ -37,15 +37,15 @@ class ControllerStartupSeoUrl extends Controller {
             $parts = explode('/', $this->request->get['_route_']);
             // Remove any empty arrays from trailing
             if (utf8_strlen(end($parts)) == 0) array_pop($parts);
-            if (!empty($parts) && in_array($parts[0], array_column($this->config->get('core_language_list'),'code'))) {
-                $this->request->get['lang'] = $parts[0];
-                unset($parts[0]);
-                if (empty($parts)) {
-                    unset($this->request->get['_route_']);
-                } else {
-                    $this->request->get['_route_'] = implode('/', $parts);
-                }
-            }
+            // if (!empty($parts) && in_array($parts[0], array_column($this->config->get('core_language_list'),'code'))) {
+            //     $this->request->get['lang'] = $parts[0];
+            //     unset($parts[0]);
+            //     if (empty($parts)) {
+            //         unset($this->request->get['_route_']);
+            //     } else {
+            //         $this->request->get['_route_'] = implode('/', $parts);
+            //     }
+            // }
         }
         // Decode URL
         if (isset($this->request->get['_route_'])) {

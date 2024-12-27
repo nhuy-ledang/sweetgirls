@@ -27,14 +27,14 @@
                     <a class="d-block mb-1 mr-1" href="{{ '{{ product.href }}' }}" ng-repeat="product in item.order.products" ng-if="!product.is_included"><span class="box_img embed-responsive embed-responsive-cms bg-cover border" ng-style="{'background-image': 'url(' + product.thumb_url + ')'}" style="--img-frame: 50/35; height: 35px;"></span></a>
                   </div>
                 </td>
-                <td class="text-green text-right" width="13%" ng-if="item.coins >= 0" ng-bind="'+' + (item.coins|number) + ' GoMartCoin'"></td>
-                <td class="text-red text-right" width="13%" ng-if="item.coins < 0" ng-bind="(item.coins|number)+' GoMartCoin'"></td>
-                <td class="text-green text-right" width="13%" ng-bind="(item.total|number)+' GoMartCoin'" ng-class="item.coins < 0 ? 'text-red':'text-green'"></td>
+                <td class="text-green text-right" width="13%" ng-if="item.coins >= 0" ng-bind="'+' + (item.coins|number) + ' sweetgirlsCoin'"></td>
+                <td class="text-red text-right" width="13%" ng-if="item.coins < 0" ng-bind="(item.coins|number)+' sweetgirlsCoin'"></td>
+                <td class="text-green text-right" width="13%" ng-bind="(item.total|number)+' sweetgirlsCoin'" ng-class="item.coins < 0 ? 'text-red':'text-green'"></td>
               </tr>
             </tbody>
           </table>
         </div>
-        <div class="text-center" ng-if="!data.items.length && !data.loading">Hãy nhanh tay mua hàng để nhận được GoMartCoin</div>
+        <div class="text-center" ng-if="!data.items.length && !data.loading">Hãy nhanh tay mua hàng để nhận được sweetgirlsCoin</div>
       </div>
     </div>
   </div>

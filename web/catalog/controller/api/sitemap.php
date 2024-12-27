@@ -20,7 +20,7 @@ class ControllerApiSitemap extends Controller {
             // may also be using PUT, PATCH, HEAD etc
             if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'])) header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 
-            if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS'])) header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
+            if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS'])) header("Access-Control-Allow-Headers: '{$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}'");
 
             exit(0);
         }
@@ -97,10 +97,10 @@ class ControllerApiSitemap extends Controller {
         $root->setAttribute('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
         $xml->appendChild($root);
 
-        $results = $this->model_page_page->getPages();
-        foreach ($results as $result) {
-            $this->createNode($xml, $root, $result['href']);
-        }
+        // $results = $this->model_page_page->getPages();
+        // foreach ($results as $result) {
+        //     $this->createNode($xml, $root, $result['href']);
+        // }
 
         $xml->save(DIR_ROOT . 'sitemap/sitemap' . (++$this->count) . '.xml');
     }

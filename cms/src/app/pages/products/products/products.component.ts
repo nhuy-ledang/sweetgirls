@@ -45,7 +45,7 @@ export class ProductsComponent extends AppList implements OnInit, OnDestroy, Aft
     this.columnInt(cookie, 'pd_products');
     this.data.sort = 'created_at';
     this.data.order = 'desc';
-    this.data.data = {q: '', embed: 'category,descs,gift_set', category_id: ''};
+    this.data.data = {q: '', embed: 'category', category_id: ''};
     this.filters = {
       category_id: {operator: '=', value: ''},
       stock_status: {operator: '=', value: ''},

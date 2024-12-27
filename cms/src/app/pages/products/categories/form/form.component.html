@@ -1,5 +1,5 @@
 <div bsModal #modal="bs-modal" [config]="{backdrop:'static'}" class="modal fade" tabindex="-1">
-  <div class="modal-dialog modal-lg" style="z-index: 99999">
+  <div class="modal-dialog modal-sm" style="z-index: 99999">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title"><span *ngIf="!info">Thêm mới</span><span *ngIf="info" >Sửa</span>&nbsp;<span>danh mục</span></h4>
@@ -9,80 +9,19 @@
         <form class="pt-3" novalidate [formGroup]="form">
           <div class="form-group" [ngClass]="{'has-error': (controls.name.invalid && (controls.name.touched || showValid))}">
             <label class="input-label">Tên</label>
-            <input name="name" type="text" [formControl]="controls.name" class="form-control" (change)="onChangeName()">
-          </div>
-          <div class="form-group" [ngClass]="{'has-error': (controls.parent_id.invalid && (controls.parent_id.touched || showValid))}">
-            <label class="input-label"><span [innerText]="'Danh mục cha'|translate">Danh mục cha</span></label>
-            <select class="form-control" [formControl]="controls.parent_id" [ngClass]="{'loading':parentData.loading}">
-              <option value="">{{'Không'|translate}}</option>
-              <ng-container *ngFor="let item of parentData.items">
-                <option [value]="item.id">{{ item.name }}</option>
-              </ng-container>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="input-label">Kiểu</label>
-            <select name="method" [formControl]="controls.layout" class="form-control">
-              <option value="">Mặc định</option>
-              <option *ngFor="let item of layoutList" [value]="item.id">{{ item.name }}</option>
-            </select>
-            <div *ngIf="layoutSelected&&layoutSelected.previews" class="mt-1"><img [src]="layoutSelected.previews[controls.layout.value?controls.layout.value:'layout1']" class="img-fluid" style="max-width: 300px"></div>
-          </div>
-          <div class="row">
-            <div class="form-group col-sm-4" *ngIf="modal.isShown">
-              <label class="input-label" [innerText]="'Hình'|translate">Hình</label>
-              <ngx-picture-uploader [options]="fileOpt" (onSelected)="onFileSelected($event)" (onDeleted)="onFileDeleted($event)"></ngx-picture-uploader>
-            </div>
-            <div class="form-group col-sm-4" *ngIf="modal.isShown">
-              <label class="input-label">Icon</label>
-              <ngx-picture-uploader [options]="icOpt" (onSelected)="onIcSelected($event)" (onDeleted)="onIcDeleted($event)"></ngx-picture-uploader>
-            </div>
-            <div class="form-group col-sm-4" *ngIf="modal.isShown">
-              <label class="input-label">Banner (1920 x 400px)</label>
-              <ngx-picture-uploader [options]="bnOpt" (onSelected)="onBnSelected($event)" (onDeleted)="onBnDeleted($event)"></ngx-picture-uploader>
-            </div>
-          </div>
-          <div class="form-group" [ngClass]="{'has-error': (controls.sort_order.invalid && (controls.sort_order.touched || showValid))}">
-            <label class="input-label" [innerText]="'Sắp xếp'|translate">Sắp xếp</label>
-            <input name="sort_order" type="number" [formControl]="controls.sort_order" class="form-control">
-          </div>
-          <div class="form-group col-sm-4" [ngClass]="{'has-error': (controls.status.invalid && (controls.status.touched || showValid))}">
-            <label class="input-label">Trạng thái</label>
-            <ngx-toggle-switch [formControl]="controls.status"></ngx-toggle-switch>
-          </div>
-          <div class="form-group col-sm-4" [ngClass]="{'has-error': (controls.show.invalid && (controls.show.touched || showValid))}">
-            <label class="input-label" [innerText]="'Hiển thị'|translate">Hiển thị</label>
-            <ngx-toggle-switch [formControl]="controls.show"></ngx-toggle-switch>
-          </div>
-          <div class="form-group" [ngClass]="{'has-error': (controls.name.invalid && (controls.name.touched || showValid))}">
-            <label class="input-label">Tên</label>
             <input name="name" type="text" [formControl]="controls.name" class="form-control">
           </div>
-          <div class="form-group" [ngClass]="{'has-error': (controls.meta_title.invalid && (controls.meta_title.touched || showValid))}">
-            <label class="input-label">Meta Tag Title</label>
-            <input name="meta_title" type="text" [formControl]="controls.meta_title" class="form-control">
+          <div class="form-group" *ngIf="modal.isShown">
+            <label class="input-label">Hình</label>
+            <ngx-picture-uploader [options]="fileOpt" (onSelected)="onFileSelected($event)" (onDeleted)="onFileDeleted($event)"></ngx-picture-uploader>
           </div>
-          <div class="form-group" [ngClass]="{'has-error': (controls.meta_description.invalid && (controls.meta_description.touched || showValid))}">
-            <label class="input-label">Meta Tag Description</label>
-            <textarea name="description" [formControl]="controls.meta_description" rows="3" class="form-control"></textarea>
+          <div class="form-group" [ngClass]="{'has-error': (controls.sort_order.invalid && (controls.sort_order.touched || showValid))}">
+            <label class="input-label">Sắp xếp</label>
+            <input name="sort_order" type="number" [formControl]="controls.sort_order" class="form-control">
           </div>
-          <div class="form-group" [ngClass]="{'has-error': (controls.meta_keyword.invalid && (controls.meta_keyword.touched || showValid))}">
-            <label class="input-label">Meta Tag Keywords</label>
-            <textarea name="description" [formControl]="controls.meta_keyword" rows="3" class="form-control"></textarea>
-          </div>
-          <div class="form-group" [ngClass]="{'has-error': (controls.alias.invalid && (controls.alias.touched || showValid))}">
-            <label class="input-label">Seo url
-              <small><br><span [innerText]="'Không sử dụng khoảng trống, thay vào đó bằng - và đảm bảo rằng URL SEO là độc nhất trên toàn cầu.'|translate"></span></small>
-            </label>
-            <input name="alias" type="text" [formControl]="controls.alias" class="form-control">
-          </div>
-          <div class="form-group" [ngClass]="{'has-error': (controls.short_description.invalid && (controls.short_description.touched || showValid))}">
-            <label class="input-label">Mô tả ngắn</label>
-            <textarea name="short_description" [formControl]="controls.short_description" rows="3" class="form-control"></textarea>
-          </div>
-          <div class="form-group" [ngClass]="{'has-error': (controls.description.invalid && (controls.description.touched || showValid))}">
-            <label class="input-label">Mô tả</label>
-            <textarea ngxEditor name="description" [formControl]="controls.description" rows="4" class="form-control"></textarea>
+          <div class="form-group" [ngClass]="{'has-error': (controls.status.invalid && (controls.status.touched || showValid))}">
+            <label class="input-label">Trạng thái</label>
+            <ngx-toggle-switch [formControl]="controls.status"></ngx-toggle-switch>
           </div>
           <ng-container *ngIf="!(info && langData.items.length)">
             <div class="d-flex justify-content-end">

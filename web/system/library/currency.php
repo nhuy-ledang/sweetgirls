@@ -1,27 +1,37 @@
 <?php
 class Currency {
-    protected $table = DB_PREFIX . 'core__currencies';
     protected $currencies = [];
 
     public function __construct($registry) {
-        $this->db = $registry->get('db');
         $this->language = $registry->get('language');
 
-        $query = $this->db->query("SELECT * FROM " . $this->table);
-
-        foreach ($query->rows as $result) {
-            $this->currencies[$result['code']] = [
-                'id'            => $result['id'],
-                'title'         => $result['title'],
-                'symbol_left'   => $result['symbol_left'],
-                'symbol_right'  => $result['symbol_right'],
-                'decimal_place' => $result['decimal_place'],
-                'value'         => $result['value']
-            ];
-        }
+        // Predefined currency data (replace with your own data)
+        $this->currencies = [
+            'USD' => [
+                'id'            => 1,
+                'title'         => 'US Dollar',
+                'symbol_left'   => '$',
+                'symbol_right'  => '',
+                'decimal_place' => 2,
+                'value'         => 1.0
+            ],
+            'EUR' => [
+                'id'            => 2,
+                'title'         => 'Việt Nam Đồng',
+                'symbol_left'   => '',
+                'symbol_right'  => 'đ',
+                'decimal_place' => 0,
+                'value'         => 1.00000000
+            ],
+            // Add more currencies as needed
+        ];
     }
 
     public function format($number, $currency, $value = '', $format = true) {
+        if (!isset($this->currencies[$currency])) {
+            return 'Currency not found';
+        }
+
         $symbol_left = $this->currencies[$currency]['symbol_left'];
         $symbol_right = $this->currencies[$currency]['symbol_right'];
         $decimal_place = $this->currencies[$currency]['decimal_place'];
@@ -31,7 +41,6 @@ class Currency {
         }
 
         $amount = $value ? (float)$number * $value : (float)$number;
-
         $amount = round($amount, (int)$decimal_place);
 
         if (!$format) {
@@ -54,59 +63,33 @@ class Currency {
     }
 
     public function convert($value, $from, $to) {
-        if (isset($this->currencies[$from])) {
-            $from = $this->currencies[$from]['value'];
+        if (isset($this->currencies[$from]) && isset($this->currencies[$to])) {
+            $from_value = $this->currencies[$from]['value'];
+            $to_value = $this->currencies[$to]['value'];
+            return $value * ($to_value / $from_value);
         } else {
-            $from = 1;
+            return 0; // Return 0 if currency is not found
         }
-
-        if (isset($this->currencies[$to])) {
-            $to = $this->currencies[$to]['value'];
-        } else {
-            $to = 1;
-        }
-
-        return $value * ($to / $from);
     }
 
     public function getId($currency) {
-        if (isset($this->currencies[$currency])) {
-            return $this->currencies[$currency]['id'];
-        } else {
-            return 0;
-        }
+        return isset($this->currencies[$currency]) ? $this->currencies[$currency]['id'] : 0;
     }
 
     public function getSymbolLeft($currency) {
-        if (isset($this->currencies[$currency])) {
-            return $this->currencies[$currency]['symbol_left'];
-        } else {
-            return '';
-        }
+        return isset($this->currencies[$currency]) ? $this->currencies[$currency]['symbol_left'] : '';
     }
 
     public function getSymbolRight($currency) {
-        if (isset($this->currencies[$currency])) {
-            return $this->currencies[$currency]['symbol_right'];
-        } else {
-            return '';
-        }
+        return isset($this->currencies[$currency]) ? $this->currencies[$currency]['symbol_right'] : '';
     }
 
     public function getDecimalPlace($currency) {
-        if (isset($this->currencies[$currency])) {
-            return $this->currencies[$currency]['decimal_place'];
-        } else {
-            return 0;
-        }
+        return isset($this->currencies[$currency]) ? $this->currencies[$currency]['decimal_place'] : 0;
     }
 
     public function getValue($currency) {
-        if (isset($this->currencies[$currency])) {
-            return $this->currencies[$currency]['value'];
-        } else {
-            return 0;
-        }
+        return isset($this->currencies[$currency]) ? $this->currencies[$currency]['value'] : 0;
     }
 
     public function has($currency) {

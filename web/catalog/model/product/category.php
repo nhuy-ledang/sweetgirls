@@ -1,7 +1,6 @@
 <?php
 class ModelProductCategory extends Model {
     protected $table = DB_PREFIX . 'pd__categories';
-    protected $desc_table = DB_PREFIX . 'pd__category_desc';
     protected $casts = [
         'id' => 'integer',
     ];
@@ -27,13 +26,8 @@ class ModelProductCategory extends Model {
 
     public function getCategory($id) {
         $sql = "select distinct c.*";
-        if ($this->config->get('config_language') != $this->config->get('language_code_default')) {
-            $sql .= ", cd.*";
-        }
         $sql .= " from " . $this->table . " c";
-        if ($this->config->get('config_language') != $this->config->get('language_code_default')) {
-            $sql .= " right join " . $this->desc_table . " cd on (cd.id = c.id and cd.`lang` = '" . $this->db->escape($this->config->get('config_language')) . "')";
-        }
+    
         $sql .= " where c.id = '" . (int)$id . "' and c.status = '1'";
 
         $query = $this->db->query($sql);
@@ -46,13 +40,8 @@ class ModelProductCategory extends Model {
 
     public function getCategories($data = []) {
         $sql = "select c.*";
-        if ($this->config->get('config_language') != $this->config->get('language_code_default')) {
-            $sql .= ", cd.*";
-        }
         $sql .= " from " . $this->table . " c";
-        if ($this->config->get('config_language') != $this->config->get('language_code_default')) {
-            $sql .= " right join " . $this->desc_table . " cd on (cd.id = c.id and cd.`lang` = '" . $this->db->escape($this->config->get('config_language')) . "')";
-        }
+       
         $implodes = [];
         if (isset($data['filter_parent']) && !is_null($data['filter_parent'])) {
             $implodes[] = "c.parent_id = '" . (int)$data['filter_parent'] . "'";
@@ -119,13 +108,8 @@ class ModelProductCategory extends Model {
     public function getCategoriesInIds($ids = []) {
         if (empty($ids)) return [];
         $sql = "select c.*";
-        if ($this->config->get('config_language') != $this->config->get('language_code_default')) {
-            $sql .= ", cd.*";
-        }
         $sql .= " from " . $this->table . " c";
-        if ($this->config->get('config_language') != $this->config->get('language_code_default')) {
-            $sql .= " right join " . $this->desc_table . " cd on (cd.id = c.id and cd.`lang` = '" . $this->db->escape($this->config->get('config_language')) . "')";
-        }
+        
         $implodes = [];
         $implode[] = "c.id in (" . implode(', ', $ids) . ")";
         $implodes[] = "c.status = '1'";

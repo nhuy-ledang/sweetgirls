@@ -21,21 +21,10 @@ export class CategoryFormComponent extends AppForm implements OnInit, OnDestroy 
   @Output() onSuccess: EventEmitter<any> = new EventEmitter<any>();
   info: any | boolean;
   controls: {
-    parent_id?: AbstractControl,
     name?: AbstractControl,
-    short_description?: AbstractControl,
-    description?: AbstractControl,
-    layout?: AbstractControl,
     sort_order?: AbstractControl,
     status?: AbstractControl,
-    show?: AbstractControl,
     image?: AbstractControl,
-    icon?: AbstractControl,
-    banner?: AbstractControl,
-    meta_title?: AbstractControl,
-    meta_description?: AbstractControl,
-    meta_keyword?: AbstractControl,
-    alias?: AbstractControl,
   };
   parentData: { loading: boolean, items: any[] } = {loading: false, items: []};
   layoutList = [{id: 'layout2', name: 'Giao diện 2'}, {id: 'layout2', name: 'Giao diện 3'}];
@@ -44,21 +33,10 @@ export class CategoryFormComponent extends AppForm implements OnInit, OnDestroy 
   constructor(fb: FormBuilder, router: Router, security: Security, state: GlobalState, repository: CategoriesRepository, languages: LanguagesRepository) {
     super(router, security, state, repository, languages);
     this.form = fb.group({
-      parent_id: [''],
       name: ['', Validators.compose([Validators.required])],
-      short_description: [''],
-      description: [''],
-      layout: [''],
       sort_order: [1],
       status: [true],
-      show: [true],
       image: [''],
-      icon: [''],
-      banner: [''],
-      meta_title: [''],
-      meta_description: [''],
-      meta_keyword: [''],
-      alias: [''],
     });
     this.controls = this.form.controls;
   }
@@ -89,10 +67,10 @@ export class CategoryFormComponent extends AppForm implements OnInit, OnDestroy 
     _.each(this.controls, (val, key) => {
       if (this.controls.hasOwnProperty(key) && !_.includes(['parent_id'], key)) this.controls[key].setValue(info.hasOwnProperty(key) && info[key] !== null ? info[key] : '');
     });
-    this.controls.parent_id.setValue(info.parent_id ? info.parent_id : '');
+    // this.controls.parent_id.setValue(info.parent_id ? info.parent_id : '');
     this.fileOpt = _.extend(_.cloneDeep(this.fileOpt), {thumb_url: info.thumb_url ? info.thumb_url : ''});
-    this.icOpt = _.extend(_.cloneDeep(this.icOpt), {thumb_url: info.icon_url ? info.icon_url : ''});
-    this.bnOpt = _.extend(_.cloneDeep(this.bnOpt), {thumb_url: info.banner_url ? info.banner_url : ''});
+    // this.icOpt = _.extend(_.cloneDeep(this.icOpt), {thumb_url: info.icon_url ? info.icon_url : ''});
+    // this.bnOpt = _.extend(_.cloneDeep(this.bnOpt), {thumb_url: info.banner_url ? info.banner_url : ''});
     this.info = info;
   }
 
@@ -109,7 +87,7 @@ export class CategoryFormComponent extends AppForm implements OnInit, OnDestroy 
       });
       this.controls.sort_order.setValue(1);
       this.controls.status.setValue(true);
-      this.controls.show.setValue(true);
+      // this.controls.show.setValue(true);
     }
     if (!this.parentData.items.length) this.getAllParent();
     this.modal.show();
@@ -150,25 +128,5 @@ export class CategoryFormComponent extends AppForm implements OnInit, OnDestroy 
       }
     }
     console.log(params);
-  }
-
-  onChangeName(): void {
-    if (!this.info || (this.info && !this.info.meta_title)) {
-      if (!this.controls.meta_title.touched) {
-        // console.log('meta_title', this.controls.meta_title.value, this.controls.meta_title.touched);
-        this.controls.meta_title.setValue(this.controls.name.value);
-      }
-    }
-    if (!this.info || (this.info && !this.info.alias)) {
-      if (!this.controls.alias.touched) {
-        // console.log('alias', this.controls.alias.value, this.controls.alias.touched);
-        this.controls.alias.setValue(this.utilityHelper.toAlias(this.controls.name.value));
-      }
-    }
-  }
-
-  onBnDeleted(event): void {
-    this.controls.banner.setValue('');
-    return super.onBnSelected(event);
   }
 }
