@@ -92,32 +92,10 @@ export const MENU_ITEMS: MenuItem[] = [
       {title: 'Tùy chọn', link: '/pages/prd/options'},
     ],
   },
-  {
-    module: 'exchange', title: 'Giao dịch', icon: 'ic_sales', children: [
-      {module: 'orders', title: 'Đơn hàng', link: '/pages/ord/orders'},
-      // {module: 'exchange_settings', title: 'Cài đặt', link: '/pages/ord/settings'},
-      // {title: 'Tình trạng thanh toán', link: '/pages/payments'},
-    ],
-  },
-  // {
-  //   module: 'stocks', title: 'Kho vận', icon: 'ic_logistics', children: [
-  //     {title: 'Triển khai đơn', link: '/pages/sto/dep/orders'},
-  //     {
-  //       title: 'Quản lý kho', children: [
-  //         {title: 'Nhập kho', link: '/pages/sto/imp/requests'},
-  //         {title: 'Xuất kho', link: '/pages/sto/exp/requests'},
-  //         // {title: 'Tồn/kiểm kho', link: '/pages/sto/inventories'},
-  //       ],
-  //     },
-  //     {title: 'Danh sách kho', link: '/pages/sto/stocks'},
-  //   ],
-  // },
-  {
-    module: 'users', title: 'Khách hàng', icon: 'ic_user_group', children: [
-      {module: 'user_list', title: 'Danh sách', link: '/pages/users/users'},
-    ],
-  },
-  {module: 'administrator', title: 'Quản trị viên', link: '/pages/usrs'},
+  {module: 'orders', title: 'Đơn hàng', link: '/pages/ord/orders', icon: 'ic_sales'},
+  {module: 'user_list', title: 'Danh sách', link: '/pages/users/users', icon: 'ic_user_group'},
+  {module: 'administrator', title: 'Quản trị viên', link: '/pages/usrs', icon: 'ic_user_group'},
+  {module: 'system', title: 'Hệ thống', icon: 'ic_system', link: '/pages/setting/settings'},
 ];
 
 export const SETUP_ITEMS: MenuItem[] = [

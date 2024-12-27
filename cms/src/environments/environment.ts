@@ -6,18 +6,18 @@
 export const environment = {
   production: false,
   SUB_FOLDER: false,
-  APP_DOMAIN: 'local.sweetgirls.vn',
-  API_URL: 'http://local.sweetgirls.vn/api/v1/backend',
+  APP_DOMAIN: 'local.gomart.vn',
+  API_URL: 'http://local.gomart.vn/api/v1/backend',
   FACEBOOK: {
     APP_ID: '725293304339070',
     APP_VERSION: 'v9.0',
   },
   FILESYSTEM: {
-    URL: 'http://local.sweetgirls.vn/upload',
+    URL: 'http://local.gomart.vn/upload',
   },
   XMPP: {
-    HOST: 'local.sweetgirls.vn',
-    WSURL: 'ws://local.sweetgirls.vn:5280/ws',
-    PASSWORD: 'sweetgirls@Motila12345',
+    HOST: 'local.gomart.vn',
+    WSURL: 'ws://local.gomart.vn:5280/ws',
+    PASSWORD: 'gomart@Motila12345',
   },
 };

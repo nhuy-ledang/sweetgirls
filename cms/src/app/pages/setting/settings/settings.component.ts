@@ -15,38 +15,13 @@ export class SettingsComponent extends AppList implements OnInit, OnDestroy, Aft
   repository: SettingsRepository;
   settings: {name: string, items: {key: string, type: 'default'|'default_textarea'|'number'|'editor_lang'|'text'|'textarea'|'image'|'list_image'|'boolean'|'select_color', name: string, note?: string, placeholder?: string}[]}[] = [
     {
-      name: 'Affiliate', items: [
-        {key: 'config_affiliate_note', type: 'editor_lang', name: 'Lưu ý đăng ký aff'},
-        {key: 'config_affiliate_notify', type: 'editor_lang', name: 'Thông báo đến aff'},
-      ],
-    },
-    // {
-    //   name: 'OnePay', items: [
-    //     {key: 'config_onepay_terms', type: 'editor_lang', name: 'Điều khoản và điều kiện'},
-    //   ],
-    // },
-    // {
-    //   name: 'Máy chủ', items: [
-    //     {key: 'config_maintenance', type: 'boolean', name: 'Chế độ bảo trì'},
-    //     {key: 'config_tracking_day', type: 'number', name: 'Thời gian lưu cookie', note: 'Số ngày lưu cookie >= 1'},
-    //     {key: 'config_suffix_url', type: 'default', name: 'Thêm đuôi Seo Url', note: 'VD: html, tpl, php, ...'},
-    //     {key: 'config_mail_alert_email', type: 'default_textarea', name: 'Mail nhận thông báo', note: 'Các mail cách nhau bằng dấu \' , \''},
-    //   ],
-    // },
-    {
       name: 'Cài đặt website', items: [
         {key: 'config_meta_title', type: 'default', name: 'Tiêu đề Web'},
         {key: 'config_meta_description', type: 'default', name: 'Meta Tag Description'},
         {key: 'config_meta_keyword', type: 'default', name: 'Meta Tag Keywords'},
         {key: 'config_icon', type: 'image', name: 'Icon/Favicon'},
         {key: 'config_logo', type: 'image', name: 'Logo'},
-        {key: 'config_image', type: 'image', name: 'Hình ảnh'},
         {key: 'config_bg_login', type: 'image', name: 'Background Login'},
-        // {key: 'config_icon_marker', type: 'image', name: 'Icon Marker <br><small>(Hiển thị ở Map)</small>', note: '50 x 50px'},
-        // {key: 'config_icon_vendor', type: 'image', name: 'Icon Đại Lý <br><small>(Hiển thị ở Footer)</small>'},
-        // {key: 'config_watermark_lg', type: 'image', name: 'Watermark lg', note: 'Height: 128px, PNG file'},
-        // {key: 'config_watermark_md', type: 'image', name: 'Watermark md', note: 'Height: 64px, PNG file'},
-        // {key: 'config_watermark_sm', type: 'image', name: 'Watermark sm', note: 'Height: 32px, PNG file'},
       ],
     },
     {
@@ -64,7 +39,6 @@ export class SettingsComponent extends AppList implements OnInit, OnDestroy, Aft
         {key: 'config_copyright', type: 'default', name: 'Copyright'},
         {key: 'config_googlemap_latlng', type: 'default', name: 'Google Map', note: '(VD: 10.8082147, 106.70713978)'},
         {key: 'config_googlemap_embed', type: 'default', name: 'Google Map Link', note: '(VD: <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!...'},
-        {key: 'config_scripts', type: 'textarea', name: 'Scripts'},
       ],
     },
     {
@@ -76,41 +50,9 @@ export class SettingsComponent extends AppList implements OnInit, OnDestroy, Aft
     },
     {
       name: 'Giao diện', items: [
-        {key: 'config_theme', type: 'default', name: 'Giao diện mặc định'},
-        {key: 'config_theme_directory', type: 'default', name: 'Thư mục giao diện'},
         {key: 'config_color_primary', type: 'select_color', name: 'Màu chính'},
         {key: 'config_color_secondary', type: 'select_color', name: 'Màu thứ 2'},
         {key: 'config_color_success', type: 'select_color', name: 'Màu thứ 3'},
-      ],
-    },
-    {
-      name: 'App', items: [
-        {key: 'config_appstore', type: 'default', name: 'App Store'},
-        {key: 'config_chplay', type: 'default', name: 'Google play'},
-      ],
-    },
-    {
-      name: 'Vòng quay may mắn', items: [
-        {key: 'config_wheel', type: 'image', name: 'Vòng quay'},
-        {key: 'config_wheel_bg', type: 'image', name: 'Ảnh nền'},
-        {key: 'config_wheel_order_status', type: 'boolean', name: 'Hiện khi hoàn tất ĐH'},
-        {key: 'config_wheel_order_total', type: 'default', name: 'Giá trị hóa đơn'},
-      ],
-    },
-    {
-      name: 'Tính năng', items: [
-        {key: 'config_user_invite_status', type: 'boolean', name: 'Giới thiệu bạn bè'},
-        {key: 'config_login_popup', type: 'boolean', name: 'Popup đăng nhập'},
-        {key: 'config_login_first', type: 'boolean', name: 'Đăng nhập trước khi mua hàng'},
-      ],
-    },
-    {
-      name: 'Đăng nhập với xã hội', items: [
-        {key: 'config_google_client_id', type: 'default', name: 'Google App Id'},
-        {key: 'config_google_api_key', type: 'default', name: 'Google Api Key'},
-        {key: 'config_google_client_secret', type: 'default', name: 'Google Client Secret'},
-        {key: 'config_facebook_app_id', type: 'default', name: 'Facebook App Id'},
-        {key: 'config_facebook_version', type: 'default', name: 'Facebook Version'},
       ],
     },
     {
@@ -121,13 +63,6 @@ export class SettingsComponent extends AppList implements OnInit, OnDestroy, Aft
         {key: 'config_youtube_url', type: 'default', name: 'Youtube Url'},
         {key: 'config_instagram_url', type: 'default', name: 'Instagram Url'},
         {key: 'config_linkedin_url', type: 'default', name: 'Linkedin Url'},
-        {key: 'config_alibaba_url', type: 'default', name: 'Alibaba Url'},
-        {key: 'config_tiktok_url', type: 'default', name: 'Tiktok Url'},
-      ],
-    },
-    {
-      name: 'Ngôn ngữ', items: [
-        {key: 'config_language_status', type: 'boolean', name: 'Chế độ đa ngữ'},
       ],
     },
   ];
