@@ -16,8 +16,6 @@ import { SharedModule } from '../shared/shared.module';
 import { UserSharedModule } from '../users/shared/shared.module';
 import { PdSharedModule } from '../products/shared/shared.module';
 import { OrdSharedModule } from './shared/shared.module';
-import { LocSharedModule } from '../localization/shared/shared.module';
-import { StocksModule } from '../stocks/stocks.module';
 
 @NgModule({
   imports: [
@@ -39,8 +37,6 @@ import { StocksModule } from '../stocks/stocks.module';
     PdSharedModule,
     OrdSharedModule,
     OrdersRoutingModule,
-    LocSharedModule,
-    StocksModule,
   ],
   declarations: [
     ...routedComponents,

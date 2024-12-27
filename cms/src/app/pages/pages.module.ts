@@ -8,7 +8,6 @@ import { ThemeModule } from '../@theme/theme.module';
 import { SharedModule } from './shared/shared.module';
 import { PagesComponent } from './pages.component';
 import { DashboardModule } from './dashboard/dashboard.module';
-import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { FooterComponent, HeaderComponent, MinibarComponent, SidebarComponent } from './shared/components';
 
@@ -23,7 +22,6 @@ import { FooterComponent, HeaderComponent, MinibarComponent, SidebarComponent } 
     ThemeModule,
     SharedModule.forRoot(),
     DashboardModule,
-    MiscellaneousModule,
     PagesRoutingModule,
   ],
   declarations: [

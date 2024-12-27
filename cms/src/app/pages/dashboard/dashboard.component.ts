@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { Security } from '../../@core/security';
 import { GlobalState } from '../../@core/utils';
 import { TabOrdersComponent } from './tabs/orders.component';
-import { TabMarketingComponent } from './tabs/marketing.component';
 
 @Component({
   selector: 'ngx-dashboard',
@@ -12,7 +11,6 @@ import { TabMarketingComponent } from './tabs/marketing.component';
 })
 export class DashboardComponent extends AppBase implements OnInit, OnDestroy {
   @ViewChild(TabOrdersComponent) TabOrders: TabOrdersComponent;
-  @ViewChild(TabMarketingComponent) TabMarketing: TabMarketingComponent;
   daterange: {mode: 'day'|'week'|'month'|'year'|'customRange'|'', label: string, start?: any, end?: any, start_date?: string, end_date?: string} = {mode: '', label: ''};
   bsData: {mode: 'day'|'week'|'month'|'year'|'customRange'|'', label: string, value: Date, currDate: Date, start: Date, end: Date, start_date: string, end_date: string} = {mode: '', label: 'Hôm nay', value: new Date(), currDate: new Date(), start: new Date(), end: new Date(), start_date: '', end_date: ''};
   bsInlineRangeValue: Date[] = [new Date(), new Date()];

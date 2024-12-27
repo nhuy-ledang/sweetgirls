@@ -8,7 +8,6 @@ import { OrderFrmOrderStatusComponent } from '../frm-order-status/frm-order-stat
 import { OrderFrmEditAddressComponent } from '../frm-edit-address/frm-edit-address.component';
 import { OrderFrmEditInfoComponent } from '../frm-edit-info/frm-edit-info.component';
 import { OrdersRepository } from '../../shared/services';
-import { ExpRequestFormComponent } from '../../../stocks/export/requests/form/form.component';
 
 @Component({
   selector: 'ngx-ord-detail',
@@ -20,7 +19,6 @@ export class OrderDetailComponent extends AppList implements OnInit, OnDestroy, 
   @ViewChild(OrderFrmOrderStatusComponent) frmOrderStatus: OrderFrmOrderStatusComponent;
   @ViewChild(OrderFrmEditAddressComponent) frmEditAddress: OrderFrmEditAddressComponent;
   @ViewChild(OrderFrmEditInfoComponent) frmEditInfo: OrderFrmEditInfoComponent;
-  @ViewChild(ExpRequestFormComponent) frmStoRequest: ExpRequestFormComponent;
   @ViewChild('viewport') viewport: ElementRef;
   info: any = null;
   products: any = null;
@@ -102,7 +100,7 @@ export class OrderDetailComponent extends AppList implements OnInit, OnDestroy, 
     info['products'] = this.products;
     console.log(info);
     console.log(item);
-    this.frmStoRequest.show(info, true);
+    // this.frmStoRequest.show(info, true);
   }
 
   onFormStoRequestSuccess(res: any): void {

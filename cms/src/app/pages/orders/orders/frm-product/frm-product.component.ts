@@ -7,7 +7,7 @@ import { Security } from '../../../../@core/security';
 import { AppForm } from '../../../../app.base';
 import { ProductsRepository } from '../../../products/shared/services';
 import { OrdersRepository } from '../../shared/services';
-import { DistrictsRepository, ProvincesRepository, WardsRepository } from '../../../localization/shared/services';
+// import { DistrictsRepository, ProvincesRepository, WardsRepository } from '../../../localization/shared/services';
 
 @Component({
   selector: 'ngx-ord-frm-product',
@@ -70,10 +70,7 @@ export class OrderFrmProductComponent extends AppForm implements OnInit, OnDestr
 
   constructor(fb: FormBuilder, router: Router, security: Security, state: GlobalState, repository: OrdersRepository,
               private _element: ElementRef,
-              private _products: ProductsRepository,
-              private _provinces: ProvincesRepository,
-              private _districts: DistrictsRepository,
-              private _wards: WardsRepository) {
+              private _products: ProductsRepository) {
     super(router, security, state, repository);
     this.form = fb.group({
       user_id: [''],
@@ -334,76 +331,23 @@ export class OrderFrmProductComponent extends AppForm implements OnInit, OnDestr
   }
 
   private getAllProvince(): void {
-    this.provinceData.loading = true;
-    this._provinces.all().then((res: any) => {
-      this.provinceData.loading = false;
-      this.provinceData.items = res.data;
-      // this.onProvinceChange();
-    }), (errors: any) => {
-      this.provinceData.loading = false;
-      console.log(errors);
-    };
+    
   }
 
   private getAllDistrict(): void {
-    if (this.controls.shipping_province_id.value) {
-      this.districtData.loading = true;
-      console.log(this.controls.shipping_province_id.value);
-
-      this._districts.all(this.controls.shipping_province_id.value, 'vt_province_id').then((res: any) => {
-        console.log(res);
-
-        this.districtData.loading = false;
-        this.districtData.items = res.data;
-        this.onDistrictChange();
-      }), (errors: any) => {
-        this.districtData.loading = false;
-        console.log(errors);
-      };
-    }
+    
   }
 
   private getAllWard(): void {
-    if (this.controls.shipping_district_id.value) {
-      this.wardData.loading = true;
-      console.log(this.controls.shipping_district_id.value);
-
-      this._wards.all(this.controls.shipping_district_id.value, 'vt_district_id').then((res: any) => {
-        console.log(res);
-
-        this.wardData.loading = false;
-        this.wardData.items = res.data;
-      }), (errors: any) => {
-        this.wardData.loading = false;
-        console.log(errors);
-      };
-    }
+    
   }
 
   onProvinceChange(): void {
-    if (this.controls.shipping_province_id.value) {
-      this.getAllDistrict();
-      const md = _.find(this.districtData.items, {province_id: this.controls.shipping_province_id.value});
-      // if (md) {
-      //   this.updateConfigs(md.configs);
-      //   if (!this.controls.name.value) this.controls.name.setValue(md.name);
-      // }
-      console.log(md);
-    }
-    this.needUpateShippingFee();
+    
   }
 
   onDistrictChange(): void {
-    if (this.controls.shipping_district_id.value) {
-      this.getAllWard();
-      const md = _.find(this.wardData.items, {district_id: this.controls.shipping_district_id.value});
-      // if (md) {
-      //   this.updateConfigs(md.configs);
-      //   if (!this.controls.name.value) this.controls.name.setValue(md.name);
-      // }
-      console.log(md);
-    }
-    this.needUpateShippingFee();
+    
   }
 
   bindingName(): void {
@@ -415,30 +359,5 @@ export class OrderFrmProductComponent extends AppForm implements OnInit, OnDestr
   }
 
   onGetShippingFee(): void {
-    if (this.controls.shipping_province_id && this.controls.shipping_district_id && this.controls.shipping_ward_id && this.products) {
-      const products = _.map(this.products, item => ({id: item.id, quantity: item.quantity, weight: item.weight, master_id: item.master_id, gift_set_id: item.gift_set_id}));
-      console.log(products);
-      const newParams = {};
-      newParams['shipping_province_id'] = this.controls.shipping_province_id.value;
-      newParams['shipping_district_id'] = this.controls.shipping_district_id.value;
-      newParams['shipping_ward_id'] = this.controls.shipping_ward_id.value;
-      newParams['products'] = JSON.stringify(products);
-      newParams['user_id'] = this.controls.user_id.value;
-      this.repository.getShippingFee(newParams).then((res: any) => {
-        console.log(res);
-        this.controls.shipping_code.setValue(res.data.shipping_code);
-        this.controls.shipping_fee.setValue(res.data.shipping_fee);
-        this.controls.shipping_discount.setValue(res.data.shipping_discount);
-        this.controls.shipping_total.setValue(res.data.shipping_total);
-        this.controls.shipping_province.setValue(res.data.shipping_province);
-        this.controls.shipping_district.setValue(res.data.shipping_district);
-        this.controls.shipping_ward.setValue(res.data.shipping_ward);
-        this.calcTotal();
-        this.hasShippingFee = true;
-      }), (errors: any) => {
-        this.hasShippingFee = false;
-        console.log(errors);
-      };
-    }
   }
 }

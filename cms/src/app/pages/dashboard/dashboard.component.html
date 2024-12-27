@@ -41,12 +41,6 @@
         <ngx-db-tab-orders [filter]="daterange"></ngx-db-tab-orders>
       </div>
     </tab>
-    <tab (selectTab)="onSelectTab('marketing')" *ngIf="isSuperAdmin() || isCRUD('db_marketing', 'view')" [active]="tabs.marketing">
-      <ng-template tabHeading>Marketing</ng-template>
-      <div class="pt-5" *ngIf="tabs.marketing">
-        <ngx-db-tab-marketing [filter]="daterange"></ngx-db-tab-marketing>
-      </div>
-    </tab>
     <tab (selectTab)="onSelectTab('networks')" *ngIf="isSuperAdmin() || isCRUD('db_networks', 'view')" [active]="tabs.networks">
       <ng-template tabHeading>Networks</ng-template>
       <div class="pt-5" *ngIf="tabs.networks">

@@ -5,7 +5,6 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { GlobalState } from '../../../../@core/utils';
 import { Security } from '../../../../@core/security';
 import { AppForm } from '../../../../app.base';
-import { DistrictsRepository, ProvincesRepository, WardsRepository } from '../../../localization/shared/services';
 import { OrdersRepository } from '../../shared/services';
 
 @Component({
@@ -27,10 +26,7 @@ export class OrderFrmEditAddressComponent extends AppForm implements OnInit, OnD
   wardData: {loading: boolean, items: any[]} = {loading: false, items: []};
 
   constructor(fb: FormBuilder, router: Router, security: Security, state: GlobalState,
-              private _orders: OrdersRepository,
-              private _provinces: ProvincesRepository,
-              private _districts: DistrictsRepository,
-              private _wards: WardsRepository) {
+              private _orders: OrdersRepository) {
     super(router, security, state);
     this.form = fb.group({
       shipping_province_id: [''],
@@ -43,74 +39,23 @@ export class OrderFrmEditAddressComponent extends AppForm implements OnInit, OnD
   }
 
   private getAllProvince(): void {
-    this.provinceData.loading = true;
-    this._provinces.all().then((res: any) => {
-      this.provinceData.loading = false;
-      this.provinceData.items = res.data;
-      // this.onProvinceChange();
-    }), (errors: any) => {
-      this.provinceData.loading = false;
-      console.log(errors);
-    };
+    
   }
 
   private getAllDistrict(): void {
-    if (this.controls.shipping_province_id.value) {
-      this.districtData.loading = true;
-      console.log(this.controls.shipping_province_id.value);
-
-      this._districts.all(this.controls.shipping_province_id.value, 'vt_province_id').then((res: any) => {
-        console.log(res);
-
-        this.districtData.loading = false;
-        this.districtData.items = res.data;
-        this.onDistrictChange();
-      }), (errors: any) => {
-        this.districtData.loading = false;
-        console.log(errors);
-      };
-    }
+    
   }
 
   private getAllWard(): void {
-    if (this.controls.shipping_district_id.value) {
-      this.wardData.loading = true;
-      console.log(this.controls.shipping_district_id.value);
-
-      this._wards.all(this.controls.shipping_district_id.value, 'vt_district_id').then((res: any) => {
-        console.log(res);
-
-        this.wardData.loading = false;
-        this.wardData.items = res.data;
-      }), (errors: any) => {
-        this.wardData.loading = false;
-        console.log(errors);
-      };
-    }
+    
   }
 
   onProvinceChange(): void {
-    if (this.controls.shipping_province_id.value) {
-      this.getAllDistrict();
-      const md = _.find(this.districtData.items, {province_id: this.controls.shipping_province_id.value});
-      // if (md) {
-      //   this.updateConfigs(md.configs);
-      //   if (!this.controls.name.value) this.controls.name.setValue(md.name);
-      // }
-      console.log(md);
-    }
+    
   }
 
   onDistrictChange(): void {
-    if (this.controls.shipping_district_id.value) {
-      this.getAllWard();
-      const md = _.find(this.wardData.items, {district_id: this.controls.shipping_district_id.value});
-      // if (md) {
-      //   this.updateConfigs(md.configs);
-      //   if (!this.controls.name.value) this.controls.name.setValue(md.name);
-      // }
-      console.log(md);
-    }
+    
   }
 
   ngOnInit(): void {
