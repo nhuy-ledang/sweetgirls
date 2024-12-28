@@ -2,10 +2,7 @@
 class ControllerCheckoutCart extends Controller {
     public function index() {
         $url_prefix = $this->config->get('config_language') != $this->config->get('language_code_default') ? $this->config->get('config_language') . '/' : '';
-        /*if (!$this->user->isLogged()) {
-            $this->session->data['redirect'] = $this->url->plus("/{$url_prefix}checkout/cart");
-            $this->response->redirect("/{$url_prefix}login");
-        }*/
+        $this->load->model('product/product');
         $this->load->language('checkout/checkout');
         $this->load->language('checkout/cart');
         $this->document->setTitle($this->language->get('heading_title'));
@@ -14,19 +11,12 @@ class ControllerCheckoutCart extends Controller {
         $data['breadcrumbs'][] = ['text' => 'Trang chủ', 'href' => '/'];
         $data['breadcrumbs'][] = ['text' => $this->language->get('heading_title'), 'href' => $this->url->plus("/{$url_prefix}checkout/cart")];
 
-        // Gift products
-        $this->load->model('product/product');
-        $data['redeem_products'] = $this->model_product_product->getRedeemProducts();
-        // Deals for you
-        $products = $this->model_product_product->getProductRecentlyViewed(0, 10);
-        if (!$products) {
-            $products = $this->model_product_product->getProducts([
-                'sort'  => 'p.viewed',
-                'order' => 'desc',
-                'start' => 0,
-                'limit' => 10,
-            ]);
-        }
+        $products = $this->model_product_product->getProducts([
+            'sort'  => 'p.viewed',
+            'order' => 'desc',
+            'start' => 0,
+            'limit' => 10,
+        ]);
         $data['products'] = $products;
 
         $data['header'] = $this->load->controller('common/header');
@@ -60,147 +50,6 @@ class ControllerCheckoutCart extends Controller {
 
         $this->response->setOutput($this->load->view('checkout/cart', $data));
     }
-
-    /*// Start remove
-    private function addPost() {
-        $url_prefix = $this->config->get('config_language') != $this->config->get('language_code_default') ? $this->config->get('config_language') . '/' : '';
-        $json = [];
-
-        // Only one product
-        //$this->cart->clear();
-
-        $product_id = isset($this->request->post['product_id']) ? (int)$this->request->post['product_id'] : 0;
-        $info = $this->model_product_product->getProduct($product_id);
-        if ($info) {
-            $quantity = isset($this->request->post['quantity']) ? (int)$this->request->post['quantity'] : 1;
-            $option = isset($this->request->post['option']) ? array_filter($this->request->post['option']) : [];
-
-            if (!$json) {
-                $this->cart->add($product_id, $quantity, $option);
-
-                $json['success'] = sprintf($this->language->get('text_success'), $info['href'], $info['name'], "/{$url_prefix}checkout/cart");
-
-                // Unset all shipping and payment methods
-                unset($this->session->data['shipping_method']);
-                unset($this->session->data['shipping_methods']);
-                unset($this->session->data['payment_method']);
-                unset($this->session->data['payment_methods']);
-
-                return $this->order($json);
-            } else {
-                $json['redirect'] = str_replace('&amp;', '&', $info['href']);
-            }
-        }
-
-        $this->response->addHeader('Content-Type: application/json');
-        $this->response->setOutput(json_encode($json));
-    }
-
-    private function addGet() {
-        $url_prefix = $this->config->get('config_language') != $this->config->get('language_code_default') ? $this->config->get('config_language') . '/' : '';
-
-        // Only one product
-        //$this->cart->clear();
-
-        $product_id = isset($this->request->get['product_id']) ? (int)$this->request->get['product_id'] : 0;
-        $option = isset($this->request->post['option']) ? array_filter($this->request->post['option']) : [];
-
-        $info = $this->model_product_product->getProduct($product_id);
-        if ($info) {
-            $quantity = isset($this->request->get['quantity']) ? (int)$this->request->get['quantity'] : 1;
-            $this->cart->add($product_id, $quantity, $option);
-
-            // Unset all shipping and payment methods
-            unset($this->session->data['shipping_method']);
-            unset($this->session->data['shipping_methods']);
-            unset($this->session->data['payment_method']);
-            unset($this->session->data['payment_methods']);
-        }
-
-        $this->response->redirect("/{$url_prefix}checkout/cart");
-    }
-
-    public function add() {
-        $this->load->language('checkout/cart');
-        $this->load->model('product/product');
-
-        if ($this->request->server['REQUEST_METHOD'] == 'POST') {
-            // Add products
-            if (isset($this->request->post['products'])) {
-                $json = [];
-                $quantity = isset($this->request->post['quantity']) ? (int)$this->request->post['quantity'] : 1;
-
-                $option = isset($this->request->post['option']) ? array_filter($this->request->post['option']) : [];
-
-                $products = $this->request->post['products'];
-
-                if (!empty($products) && is_array($products)) {
-                    foreach ($products as $product_id) {
-                        $info = $this->model_product_product->getProduct($product_id);
-                        if ($info) {
-                            $this->cart->add($product_id, $quantity, $option);
-                        }
-                    }
-                }
-
-                $json['success'] = true;
-                $this->response->addHeader('Content-Type: application/json');
-                $this->response->setOutput(json_encode($json));
-            } else {
-                return $this->addPost();
-            }
-        } else {
-            return $this->addGet();
-        }
-    }
-
-    public function edit() {
-        $this->load->language('checkout/cart');
-
-        $json = [];
-
-        // Update
-        if (!empty($this->request->post['key']) && !empty($this->request->post['quantity'])) {
-            $this->cart->update($this->request->post['key'], $this->request->post['quantity']);
-
-            $this->session->data['success'] = $this->language->get('text_remove');
-
-            unset($this->session->data['shipping_method']);
-            unset($this->session->data['shipping_methods']);
-            unset($this->session->data['payment_method']);
-            unset($this->session->data['payment_methods']);
-            unset($this->session->data['reward']);
-        }
-
-        $this->response->addHeader('Content-Type: application/json');
-        $this->response->setOutput(json_encode($json));
-    }
-
-    public function remove() {
-        $this->load->language('checkout/cart');
-
-        $json = [];
-
-        // Remove
-        if (isset($this->request->post['key'])) {
-            $this->cart->remove($this->request->post['key']);
-
-            unset($this->session->data['vouchers'][$this->request->post['key']]);
-
-            $json['success'] = $this->language->get('text_remove');
-
-            unset($this->session->data['shipping_method']);
-            unset($this->session->data['shipping_methods']);
-            unset($this->session->data['payment_method']);
-            unset($this->session->data['payment_methods']);
-            unset($this->session->data['reward']);
-        }
-
-        $this->response->addHeader('Content-Type: application/json');
-        $this->response->setOutput(json_encode($json));
-    }
-
-    // End remove*/
 
     public function check() {
         $this->load->language('checkout/cart');

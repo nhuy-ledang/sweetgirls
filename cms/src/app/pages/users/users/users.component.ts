@@ -6,7 +6,7 @@ import { ConfirmComponent } from '../../../@theme/modals';
 import { CookieVar } from '../../../@core/services';
 import { UserFormComponent } from './form/form.component';
 import { AppList } from '../../../app.base';
-import { UserGroupsRepository, UsersRepository } from '../shared/services';
+import { UsersRepository } from '../shared/services';
 
 @Component({
   selector: 'ngx-user-users',
@@ -29,7 +29,7 @@ export class UsersComponent extends AppList implements OnInit, OnDestroy, AfterV
   ];
   groupData: {loading: boolean, items: any[]} = {loading: false, items: []};
 
-  constructor(router: Router, security: Security, state: GlobalState, repository: UsersRepository, cookie: CookieVar, private _groups: UserGroupsRepository) {
+  constructor(router: Router, security: Security, state: GlobalState, repository: UsersRepository, cookie: CookieVar) {
     super(router, security, state, repository);
     this.columnInt(cookie, 'user_users');
     this.data.sort = 'first_name';
@@ -37,18 +37,6 @@ export class UsersComponent extends AppList implements OnInit, OnDestroy, AfterV
     this.data.data.embed = 'group';
     this.filters = {
       group_id: {operator: '=', value: ''},
-    };
-  }
-
-  private getAllGroup() {
-    this.groupData.loading = true;
-    this._groups.all().then((res: any) => {
-      console.log(res);
-      this.groupData.loading = false;
-      this.groupData.items = res.data;
-    }), (errors: any) => {
-      this.groupData.loading = false;
-      console.log(errors);
     };
   }
 
@@ -61,7 +49,6 @@ export class UsersComponent extends AppList implements OnInit, OnDestroy, AfterV
 
   ngAfterViewInit(): void {
     setTimeout(() => this.getData(), 200);
-    setTimeout(() => this.getAllGroup(), 1000);
   }
 
   create(): void {

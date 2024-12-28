@@ -56,7 +56,6 @@ class ControllerCheckoutSuccess extends Controller {
                               <li>Email: <b>{$email}</b></li>
                               <li>Số điện thoại: <b>{$phone_number}</b></li>
                             </ul></div><div class=\"col-sm-6\"><ul>
-                              <li>Địa chỉ giao hàng: <b>{$info['shipping_address_1']}, {$info['shipping_ward']}, {$info['shipping_district']}, {$info['shipping_province']}</b></li>
                               <li>Phương thức thanh toán: <b>COD</b></li>
                               <li>Tổng số tiền sẽ thanh toán: <b class=\"text-danger\">{$total}đ</b></li>
                             </ul></div></div>";

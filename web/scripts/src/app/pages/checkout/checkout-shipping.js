@@ -280,10 +280,10 @@ angular.module('app.pages.checkout-shipping', [])
   $scope.confirm = function(form, $event) {
     var params = angular.copy($scope.params);
     params.is_invoice = $scope.params.is_invoice ? 1 : 0;
-    if (!$scope.addressInfo) {
+    /*if (!$scope.addressInfo) {
       $rootScope.openAlert({summary: 'Chưa thêm người nhận', timeout: 3500});
       return;
-    }
+    }*/
     if (!$scope.params.email && !$scope.params.phone_number) {
       $rootScope.openAlert({summary: 'Chưa thêm người mua', timeout: 3500});
       return;

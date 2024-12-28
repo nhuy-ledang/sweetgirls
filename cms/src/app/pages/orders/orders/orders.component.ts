@@ -91,11 +91,10 @@ export class OrdersComponent extends AppList implements OnInit, OnDestroy, After
   }
 
   ngOnInit(): void {
-    this.data.data = {q: '', invoice_no: '', payment_status: '', shipping_status: '', order_status: '', payment_code: '', is_invoice: '', embed: 'shipping,user,order_products,affiliate'};
+    this.data.data = {q: '', invoice_no: '', payment_status: '', order_status: '', payment_code: '', is_invoice: '', embed: 'user,order_products'};
+    this.data.data = {q: '', invoice_no: '', payment_status: '', order_status: '', payment_code: '', is_invoice: '', embed: 'user,order_products'};
     const q = this._route.snapshot.queryParams['q'];
     if (q) this.data.data.q = q;
-    const affiliate = this._route.snapshot.queryParams['affiliate'];
-    if (affiliate) this.data.data.affiliate = affiliate;
     this.columnInt(this._cookie, 'orders');
   }
 
@@ -196,16 +195,10 @@ export class OrdersComponent extends AppList implements OnInit, OnDestroy, After
       console.log(res.data);
       item.order_status = res.data.order_status;
       item.order_status_name = res.data.order_status_name;
-      item.shipping = res.data.shipping;
-      item.shipping_status = res.data.shipping_status;
-      item.shipping_status_name = res.data.shipping_status_name;
       const itemSelected = _.find(this.data.items, {id: res.data.id});
       if (itemSelected) {
         itemSelected.order_status = res.data.order_status;
         itemSelected.order_status_name = res.data.order_status_name;
-        itemSelected.shipping = res.data.shipping;
-        itemSelected.shipping_status = res.data.shipping_status;
-        itemSelected.shipping_status_name = res.data.shipping_status_name;
         // this.data.itemSelected = itemSelected;
       }
     }, (res: any) => {

@@ -91,10 +91,6 @@ class OrderProduct extends CoreModel {
         return $this->belongsTo('\Modules\Product\Entities\Product', 'product_id', 'id');
     }
 
-    public function shipping() {
-        return $this->belongsTo('\Modules\Order\Entities\OrderShipping', 'order_id', 'order_id');
-    }
-
     public function options() {
         return $this->hasMany('\Modules\Product\Entities\OrderOption', ['order_id', 'id'], ['order_id', 'order_product_id']);
     }

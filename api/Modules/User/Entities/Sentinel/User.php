@@ -6,7 +6,6 @@ use Imagy;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\User\Entities\UserInterface;
 use Modules\Core\Common\EloquentHelperTrait;
-use Modules\User\Entities\UserRank;
 use Modules\User\Exceptions\CannotDeleteSuperAdminException;
 
 class User extends EloquentUser implements UserInterface {
@@ -61,23 +60,7 @@ class User extends EloquentUser implements UserInterface {
     /**
      * @var array
      */
-    protected $appends = ['no', 'display', 'avatar_url', 'rank'];
-
-    /*public static function boot() {
-        parent::boot();
-
-        static::created(function($model) {
-            Stats::create(['user_id'    => $model->id, 'updated_at' => date('Y-m-d H:i:s')]);
-
-            // Create Collection Folder
-            CollectionFolder::create(['name' => 'Yêu thích', 'status' => true, 'user_id' => $model->id]);
-            CollectionFolder::create(['name' => 'Quan tâm', 'status' => true, 'user_id' => $model->id]);
-        });
-    }
-
-    public function getUrlAttribute() {
-        return "/thanh-vien/$this->username";
-    }*/
+    protected $appends = ['no', 'display', 'avatar_url'];
 
     public function getNoAttribute() {
         return number_pad($this->id, 4);
@@ -94,18 +77,6 @@ class User extends EloquentUser implements UserInterface {
             return media_url_file('/avatars/200/' . strtoupper(substr(utf8_to_ascii($this->display), 0, 1)) . '.jpg');
         }
     }
-
-    /*public function getRawUrlAttribute() {
-        return media_url_file($this->avatar);
-    }
-
-    public function getThumbUrlAttribute() {
-        return media_url_file(Imagy::getThumbnail($this->avatar, 'thumb'));
-    }
-
-    public function getSmallUrlAttribute() {
-        return media_url_file(Imagy::getThumbnail($this->avatar, 'small'));
-    }*/
 
     public function getCoverUrlAttribute() {
         return media_url_file($this->cover);
@@ -125,22 +96,6 @@ class User extends EloquentUser implements UserInterface {
         } else {
             return 'N/A';
         }
-    }
-
-    public function getRankAttribute() {
-        $rank = '';
-        $colors = [
-            1 => '',
-            2 => 'light',
-            3 => 'warning',
-            4 => 'dark',
-        ];
-        $list_ranks = UserRank::where('status', 1)->orderBy('rank', 'asc')->get();
-        foreach ($list_ranks as $item) if ($this->points >= $item->value) {
-            $rank = $item;
-            $rank->color = $colors[$item->rank];
-        }
-        return $rank;
     }
 
     public function __construct(array $attributes = []) {
@@ -216,9 +171,6 @@ class User extends EloquentUser implements UserInterface {
         return $this->getAttribute('status') == 'inactivate';
     }
 
-    /*public function groups() {
-        return $this->belongsToMany('Modules\User\Entities\Group', 'user_groups', 'user_id', 'group_id');
-    }*/
     public function group() {
         return $this->belongsTo('Modules\User\Entities\Group');
     }
@@ -310,36 +262,6 @@ class User extends EloquentUser implements UserInterface {
         return parent::toArray();
     }
 
-    /*public function __call($method, $parameters) {
-        if (!method_exists($this, $method)) {
-            foreach (app('modules')->getOrdered() as $enabledModule) {
-                $relations = config(strtolower('asgard.' . $enabledModule->getName()) . '.relations.' . get_class($this));
-                if (!is_null($relations) || !is_null($relations = config(strtolower('asgard.' . $enabledModule->getName()) . '.relations.' . class_basename($this)))) {
-                    foreach ($relations as $relationName => $relationValue) {
-                        if ($relationName == $method) {
-                            return $relationValue($this);
-                        }
-                    }
-                }
-            }
-
-            $class_name = class_basename($this);
-
-            #i: Convert array to dot notation
-            $config = implode('.', ['relations', $class_name, $method]);
-
-            #i: Relation method resolver
-            if (Config::has($config)) {
-                $function = Config::get($config);
-
-                return $function($this);
-            }
-        }
-
-        #i: No relation found, return the call to parent (Eloquent) to handle it.
-        return parent::__call($method, $parameters);
-    }*/
-
     public function setTimezoneIdAttribute($timezone_id) {
         $this->attributes['timezone_id'] = $timezone_id !== '' ? $timezone_id : null;
     }
@@ -347,14 +269,6 @@ class User extends EloquentUser implements UserInterface {
     public function deviceTokens() {
         return $this->hasMany(config('asgard.user.notifications.device_model'));
     }
-
-    /*public function notificationSettings() {
-        return $this->hasMany(\Modules\User\Entities\NotificationUserSetting::class);
-    }
-
-    public function notifications() {
-        return $this->hasMany(\Modules\User\Entities\Notification::class);
-    }*/
 
     public function socials() {
         return $this->hasMany('Modules\User\Entities\Social');
@@ -364,53 +278,7 @@ class User extends EloquentUser implements UserInterface {
         return $this->hasMany('Modules\User\Entities\Password');
     }
 
-    public function socialFacebook() {
-        return $this->hasOne('Modules\User\Entities\Social')->where('provider', 'facebook');
-    }
-
-    public function socialGoogle() {
-        return $this->hasOne('Modules\User\Entities\Social')->where('provider', 'google');
-    }
-
-    /*public function stats() {
-        return $this->hasOne('Modules\User\Entities\Stats');
-    }*/
-
     public function contact() {
         return $this->hasOne('Modules\User\Entities\Contact');
-    }
-
-    /**
-     * Get Distance
-     * @param $lat
-     * @param $long
-     * @return float|int|null
-     */
-    /*public function getDistance($lat, $long) {
-        if ($this->latitude && $this->longitude) {
-            $lat2 = $this->latitude;
-            $long2 = $this->longitude;
-
-            return calc_distance((double)$lat, (double)$long, (double)$lat2, (double)$long2);
-        } else {
-            return null;
-        }
-    }
-
-    public function getStats() {
-        $stats = $this->stats;
-        if (!$stats) {
-            $stats = [
-                'friend'     => 0,
-                'follow'     => 0,
-                'picture'    => 0,
-                'collection' => 0,
-            ];
-        }
-
-        return $stats;
-    }*/
-    public function agent() {
-        return $this->hasOne('Modules\Affiliate\Entities\Agent', 'user_id', 'id');
     }
 }

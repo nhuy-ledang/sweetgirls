@@ -3,7 +3,7 @@ class Cart {
     private $table = DB_PREFIX . 'crt__carts';
     private $session_table = DB_PREFIX . 'crt__sessions';
     private $product_table = DB_PREFIX . 'pd__products';
-    private $discount_table = DB_PREFIX . 'pd__product_discounts';
+    // private $discount_table = DB_PREFIX . 'pd__product_discounts';
     private $special_table = DB_PREFIX . 'pd__product_specials';
     private $data = [];
 
@@ -225,10 +225,6 @@ class Cart {
                         if ($cart_2['product_id'] == $cart['product_id']) {
                             $discount_quantity += (int)$cart_2['quantity'];
                         }
-                    }
-                    $product_discount_query = $this->db->query("select price from " . $this->discount_table . " where product_id = '" . (int)$cart['product_id'] . "' and user_group_id = '" . (int)$this->config->get('config_user_group_id') . "' and quantity <= '" . (int)$discount_quantity . "' and ((date_start is null or date_start < NOW()) and (date_end is null or date_end > NOW())) order by quantity DESC, priority asc, price asc limit 1");
-                    if ($product_discount_query->num_rows) {
-                        $price = (float)$product_discount_query->row['price'];
                     }
                     // Product Specials
                     $product_special_query = $this->db->query("select price from " . $this->special_table . " where product_id = '" . (int)$cart['product_id'] . "' and user_group_id = '" . (int)$this->config->get('config_user_group_id') . "' and ((start_date is null or start_date < NOW()) and (end_date is null or end_date > NOW())) order by priority asc, price asc limit 1");

@@ -13,7 +13,7 @@ class ControllerAccountOrders extends Controller {
 
         $data['breadcrumbs'] = [];
         $data['breadcrumbs'][] = ['text' => 'Trang chủ', 'href' => '/'];
-        $data['breadcrumbs'][] = ['text' => $this->language->get('text_account'), 'href' => '/account/profile'];
+        $data['breadcrumbs'][] = ['text' => 'Tài khoản', 'href' => '/account/profile'];
         $data['breadcrumbs'][] = ['text' => $this->language->get('text_orders_history'), 'href' => ''];
 
         $filter = isset($this->request->get['f']) ? (int)$this->request->get['f'] : 0;
@@ -51,7 +51,7 @@ class ControllerAccountOrders extends Controller {
 
         $data['breadcrumbs'] = [];
         $data['breadcrumbs'][] = ['text' => 'Trang chủ', 'href' => '/'];
-        $data['breadcrumbs'][] = ['text' => $this->language->get('text_account'), 'href' => '/account/profile'];
+        $data['breadcrumbs'][] = ['text' => 'Tài khoản', 'href' => '/account/profile'];
         $data['breadcrumbs'][] = ['text' => $this->language->get('text_orders_history'), 'href' => '/account/orders'];
         $data['breadcrumbs'][] = ['text' => $this->language->get('text_order_details'), 'href' => ''];
 

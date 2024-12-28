@@ -89,7 +89,7 @@ class ControllerAccountPoints extends Controller {
     }
 
     protected function getLevelInfo($userPoints) {
-        $this->load->model('account/user_rank');
+        /*$this->load->model('account/user_rank');
         $listLevel = $this->model_account_user_rank->getUserRanks();
         $nextLevel = null;
         $nextMilestone = null;
@@ -119,6 +119,6 @@ class ControllerAccountPoints extends Controller {
 
             return $data;
         }
-        return null;
+        return null;*/
     }
 }

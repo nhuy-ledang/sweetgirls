@@ -8,7 +8,7 @@ import { LeadSourcesRepository } from '../../../../@core/repositories';
 import { Err } from '../../../../@core/entities';
 import { AppForm } from '../../../../app.base';
 import { User } from '../../shared/entities';
-import { UserGroupsRepository, UsersRepository } from '../../shared/services';
+import { UsersRepository } from '../../shared/services';
 
 @Component({
   selector: 'ngx-user-form',
@@ -35,8 +35,7 @@ export class UserFormComponent extends AppForm implements OnInit, OnDestroy {
   sourceData: {loading: boolean, items: any[]} = {loading: false, items: []};
   passType: 'password'|'text' = 'password';
 
-  constructor(fb: FormBuilder, router: Router, security: Security, state: GlobalState, repository: UsersRepository,
-              private _groups: UserGroupsRepository, private _leadSources: LeadSourcesRepository) {
+  constructor(fb: FormBuilder, router: Router, security: Security, state: GlobalState, repository: UsersRepository,private _leadSources: LeadSourcesRepository) {
     super(router, security, state, repository);
 
     this.form = fb.group({
@@ -52,18 +51,6 @@ export class UserFormComponent extends AppForm implements OnInit, OnDestroy {
     this.controls = this.form.controls;
     this.fb = fb;
     this.fileOpt.aspect_ratio = '1by1';
-  }
-
-  private getAllGroup() {
-    this.groupData.loading = true;
-    this._groups.all().then((res: any) => {
-      console.log(res);
-      this.groupData.loading = false;
-      this.groupData.items = res.data;
-    }), (errors: any) => {
-      this.groupData.loading = false;
-      console.log(errors);
-    };
   }
 
   private getAllSource() {
@@ -110,7 +97,6 @@ export class UserFormComponent extends AppForm implements OnInit, OnDestroy {
       });
       this.controls.gender.setValue(0);
     }
-    if (!this.groupData.items.length) this.getAllGroup();
     setTimeout(() => {
       if (!this.sourceData.items.length) this.getAllSource();
     }, 500);

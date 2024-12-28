@@ -14,7 +14,7 @@ class ControllerAccountReview extends Controller {
 
         $data['breadcrumbs'] = [];
         $data['breadcrumbs'][] = ['text' => 'Trang chủ', 'href' => '/'];
-        $data['breadcrumbs'][] = ['text' => $this->language->get('text_account'), 'href' => '/account/profile'];
+        $data['breadcrumbs'][] = ['text' => 'Tài khoản', 'href' => '/account/profile'];
         $data['breadcrumbs'][] = ['text' => $this->language->get('text_review_product'), 'href' => ''];
 
         $this->load->model('account/order');
