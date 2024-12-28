@@ -118,7 +118,7 @@ class OrderController extends ApiBaseModuleController {
             $input = $this->request->only(['phone_number', 'address_id', 'shipping_code', 'shipping_method', 'shipping_time', 'payment_code', 'is_invoice', 'note']);
             // Check Valid
             $validatorErrors = $this->getValidator($input, [
-                'payment_code'  => 'required|in:' . PAYMENT_MT_BANK_TRANSFER . ',' . PAYMENT_MT_DOMESTIC . ',' . PAYMENT_MT_FOREIGN . ',' . PAYMENT_MT_MOMO . ',' . PAYMENT_MT_COD,
+                'payment_code' => 'required|in:' . PAYMENT_MT_COD . ',' . PAYMENT_MT_BANK_TRANSFER,
             ]);
             if (!empty($validatorErrors)) return $this->respondWithError($validatorErrors);
 

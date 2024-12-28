@@ -10,7 +10,6 @@ import { OrderProductsRepository, OrdersRepository } from '../shared/services';
 import { DlgNotifyComponent } from '../shared/modals';
 import { OrderFrmOrderStatusComponent } from './frm-order-status/frm-order-status.component';
 import { OrderFrmProductComponent } from './frm-product/frm-product.component';
-import { FrmInvoicedComponent } from './frm-invoiced/frm-invoiced.component';
 
 @Component({
   selector: 'ngx-ord-orders',
@@ -21,7 +20,6 @@ export class OrdersComponent extends AppList implements OnInit, OnDestroy, After
   @ViewChild(ConfirmComponent) confirm: ConfirmComponent;
   @ViewChild(OrderFrmProductComponent) frmProduct: OrderFrmProductComponent;
   @ViewChild(OrderFrmOrderStatusComponent) frmOrderStatus: OrderFrmOrderStatusComponent;
-  @ViewChild(FrmInvoicedComponent) frmInvoiced: FrmInvoicedComponent;
   @ViewChild(DlgStaffSelectComponent) dlgStaffSelect: DlgStaffSelectComponent;
   @ViewChild(DlgNotifyComponent) dlgNotify: DlgNotifyComponent;
   columnList = [
@@ -242,12 +240,6 @@ export class OrdersComponent extends AppList implements OnInit, OnDestroy, After
     console.log(item);
     this.temps.itemSelected = item;
     this.dlgStaffSelect.show(item);
-  }
-
-  changeInvoiced(item): void {
-    console.log(item);
-    this.temps.itemSelected = item;
-    this.frmInvoiced.show(item);
   }
 
   onFrmInvoicedSuccess(res: any): void {

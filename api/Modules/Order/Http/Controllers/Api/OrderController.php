@@ -2,15 +2,12 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
-use Maatwebsite\Excel\Facades\Excel;
 use Modules\Order\Repositories\OrderHistoryRepository;
 use Modules\Order\Repositories\OrderProductRepository;
 use Modules\Order\Repositories\OrderRepository;
 use Modules\Order\Repositories\OrderTagsRepository;
 use Modules\Order\Repositories\OrderTotalRepository;
-use Modules\Order\Transport\Facade\Transport;
 use Modules\Product\Entities\Product;
-use Modules\Product\Repositories\ProductQuantityRepository;
 use Modules\Product\Repositories\ProductRepository;
 use Modules\System\Repositories\SettingRepository;
 use Modules\User\Repositories\UserRepository;
@@ -54,11 +51,6 @@ class OrderController extends ApiBaseModuleController {
     protected $product_repository;
 
     /**
-     * @var \Modules\Product\Repositories\ProductQuantityRepository
-     */
-    protected $product_quantity_repository;
-
-    /**
      * @var \Modules\User\Repositories\UserRepository
      */
     protected $user_repository;
@@ -70,7 +62,6 @@ class OrderController extends ApiBaseModuleController {
                                 OrderHistoryRepository $order_history_repository,
                                 OrderTagsRepository $order_tags_repository,
                                 ProductRepository $product_repository,
-                                ProductQuantityRepository $product_quantity_repository,
                                 UserRepository $user_repository,
                                 SettingRepository $setting_repository) {
         $this->model_repository = $order_repository;
@@ -79,7 +70,6 @@ class OrderController extends ApiBaseModuleController {
         $this->order_history_repository = $order_history_repository;
         $this->order_tags_repository = $order_tags_repository;
         $this->product_repository = $product_repository;
-        $this->product_quantity_repository = $product_quantity_repository;
         $this->user_repository = $user_repository;
         $this->setting_repository = $setting_repository;
 
@@ -388,11 +378,6 @@ class OrderController extends ApiBaseModuleController {
                 'payment_code' => 'required|in:' . PAYMENT_MT_COD . ',' . PAYMENT_MT_BANK_TRANSFER, // PAYMENT_MT_CASH
             ]);
             if (!empty($validatorErrors)) return $this->respondWithError($validatorErrors);
-            //=== Get Affiliate
-            $tracking = $this->request->get('tracking');
-            if (!is_null($tracking)) $tracking = (string)$tracking;
-            $affiliate = $tracking ? $this->agent_repository->getModel()->where('status', 1)->where('code', $tracking)->first() : null;
-            $agent = null;
 
             $user_id = (int)$this->request->get('user_id');
             $user = false;
@@ -405,8 +390,6 @@ class OrderController extends ApiBaseModuleController {
                     if (empty($input['email'])) $input['email'] = $user->email;
                     if (empty($input['phone_number'])) $input['phone_number'] = $user->phone_number;
                 }
-                // Agent
-                $agent = $this->agent_repository->getModel()->where('status', 1)->where('user_id', $user_id)->first();
             }
             if (!$user && !empty($input['email'])) {
                 $user = $this->user_repository->findByAttributes(['email' => $input['email']]);
@@ -415,29 +398,10 @@ class OrderController extends ApiBaseModuleController {
                     $input['user_group_id'] = $user->user_group_id;
                 }
             }
-            if ($affiliate || $agent) {
-                $input['affiliate_id'] = $affiliate ? $affiliate->id : $agent->id;
-                $input['tracking'] = $affiliate ? $tracking : $agent->code;
-            }
             $payment_code = $this->request->get('payment_code');
             $input['payment_code'] = $payment_code;
             $input['payment_method'] = Lang::get("transaction.payment_method.$payment_code");
 
-            $input['shipping_first_name'] = $this->request->get('shipping_first_name') ? $this->request->get('shipping_first_name') : $this->auth->display;
-            $input['shipping_phone_number'] = $this->request->get('shipping_phone_number') ? $this->request->get('shipping_phone_number') : $this->auth->phone_number;
-            $input['shipping_address_1'] = $this->request->get('shipping_address_1');
-            $input['shipping_province'] = $this->request->get('shipping_province');
-            $input['shipping_province_id'] = $this->request->get('shipping_province_id');
-            $input['shipping_district'] = $this->request->get('shipping_district');
-            $input['shipping_district_id'] = $this->request->get('shipping_district_id');
-            $input['shipping_ward'] = $this->request->get('shipping_ward');
-            $input['shipping_ward_id'] = $this->request->get('shipping_ward_id');
-            $input['shipping_code'] = $this->request->get('shipping_code');
-
-            $shipping_fee = $this->request->get('shipping_fee');
-            $input['shipping_fee'] = $shipping_fee;
-            $shipping_discount = $this->request->get('shipping_discount') ? $this->request->get('shipping_discount') : 0;
-            $input['shipping_discount'] = $shipping_discount;
             $input['vat'] = 0;
             $is_invoice = $this->request->get('is_invoice');
             $is_invoice = (is_null($is_invoice) || $is_invoice === 'false') ? false : ($is_invoice === 'true' ? true : (boolean)$is_invoice);
@@ -490,9 +454,6 @@ class OrderController extends ApiBaseModuleController {
                 $sub_total += ($product->special ? $product->special : $product->price) * $product->quantity;
             }
             $total += $sub_total;
-
-            // Shipping fee
-            $total = $total + ((int)$input['shipping_fee'] - (int)$input['shipping_discount']);
 
             // Coupon
             $coupon_total = 0;
@@ -582,35 +543,6 @@ class OrderController extends ApiBaseModuleController {
                 'payment_status' => $model->payment_status,
                 'comment'        => 'Tạo đơn hàng từ admin',
             ]);
-            // Send email
-            $this->sendEmails($model);
-            // Plus uses_total in gift_orders
-            //if ($gift_orders_id) $this->gift_order_repository->getModel()->where('id', $gift_orders_id)->increment('uses_total');
-            if ($affiliate || $agent) {
-                if ($total > 0) {
-                    $total_without_shipping_fee = $total - ($shipping_fee - $shipping_discount);
-                    $promo_total = 0;
-                    $cfgCommission = 0;//(int)$this->setting_repository->findByKey('config_ord_commission', 0); // Xóa khi khách hàng đã cập nhật rõ ràng
-                    $balance = 0;
-                    $model->commissions;
-                    foreach ($model->commissions as $order_product) {
-                        $commission = $cfgCommission;
-                        if ($order_product->commission && 0 < $order_product->commission && $order_product->commission < 100) {
-                            $commission = $order_product->commission;
-                        }
-                        $product_discounted = $order_product->total - (($order_product->total / $sub_total) * $promo_total);
-                        $balance += ($product_discounted * $commission) / 100;
-                    }
-
-                    if ($balance > 0) {
-                        $agent_id = $affiliate ? $affiliate->id : $agent->id;
-                        $avg_commission = round(($balance / $total_without_shipping_fee) * 100, 3);
-                        $this->agent_point_repository->create(['agent_id' => $agent_id, 'type' => 'in', 'order_id' => $model->id, 'commission' => $avg_commission, 'points' => round($balance), 'amount' => $total]);
-                    }
-                }
-            }
-
-            $this->handleOrder($model);
 
             return $this->respondWithSuccess($model);
         } catch (\Exception $e) {
@@ -753,11 +685,11 @@ class OrderController extends ApiBaseModuleController {
                 // Update model
                 $model = $this->model_repository->update($model, $newData);
 
-                if ($status == 'completed') {
+                /*if ($status == 'completed') {
                     $this->handleReward($model);
                 } else if ($status == 'canceled') {
                     $this->handleCancelOrder($model);
-                }
+                }*/
 
                 if ($status != 'canceled') { // Because 'canceled' was created history in handleCancelOrder
                     // Create history

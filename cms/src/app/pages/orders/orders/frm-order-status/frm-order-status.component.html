@@ -17,13 +17,6 @@
             <label class="input-label">Ghi chú</label>
             <textarea [formControl]="controls.comment" rows="3" class="form-control"></textarea>
           </div>
-          <div class="form-group">
-            <label class="input-label">Tag</label>
-            <input type="hidden" [formControl]="controls.tags" class="form-control">
-            <tag-input [formControl]="controls.tags" [modelAsStrings]="true" [theme]="'bootstrap'" [placeholder]="''">
-            </tag-input>
-            <small>Nhấn ENTER để hoàn thành tag.</small>
-          </div>
         </div>
         <div class="modal-footer">
           <div class="text-right">

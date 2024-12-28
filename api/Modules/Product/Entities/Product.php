@@ -133,10 +133,6 @@ class Product extends CoreModel {
         return $this->belongsTo('\Modules\Product\Entities\Category', 'category_id', 'id');
     }
 
-    public function gift_set() {
-        return $this->belongsTo('\Modules\Product\Entities\GiftSet');
-    }
-
     public function images() {
         return $this->hasMany('\Modules\Product\Entities\ProductImage', 'product_id');
     }

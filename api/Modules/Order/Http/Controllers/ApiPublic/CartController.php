@@ -3,10 +3,8 @@
 use Illuminate\Http\Request;
 use Modules\Order\Repositories\CartRepository;
 use Modules\Order\Repositories\OrderRepository;
-use Modules\Order\Transport\Facade\Transport;
 use Modules\Product\Repositories\ProductRepository;
 use Modules\System\Repositories\SettingRepository;
-use Modules\User\Repositories\UserRankRepository;
 use Modules\User\Repositories\UserRepository;
 
 /**
@@ -26,6 +24,7 @@ class CartController extends ApiBaseModuleController {
      * @var \Modules\System\Repositories\SettingRepository
      */
     protected $setting_repository;
+
     /**
      * @var \Modules\User\Repositories\Sentinel\SentinelUserRepository
      */
