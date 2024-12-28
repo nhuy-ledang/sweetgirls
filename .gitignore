@@ -1,0 +1,10 @@
+api/vendor/
+cms/.angular/
+cms/admin/
+cms/node_modules/
+web/assets/desktop/
+web/scripts/.sass-cache/
+web/scripts/node_modules/
+web/scripts/vendor/
+web/vendor/
+.idea/

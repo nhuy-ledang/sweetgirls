@@ -19,7 +19,7 @@ class ControllerAccountProfile extends Controller {
         }
 
         $data['breadcrumbs'] = [];
-        $data['breadcrumbs'][] = ['text' => $this->language->get('text_home'), 'href' => '/'];
+        $data['breadcrumbs'][] = ['text' => 'Trang chủ', 'href' => '/'];
         $data['breadcrumbs'][] = ['text' => $this->language->get('text_account'), 'href' => ''];
         $data['breadcrumbs'][] = ['text' => $this->language->get('text_profile'), 'href' => ''];
 

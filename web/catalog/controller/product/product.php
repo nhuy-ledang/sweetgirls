@@ -32,7 +32,7 @@ class ControllerProductProduct extends Controller {
             if ($info['manufacturer_id']) $data['manufacturer_info'] = $this->model_product_manufacturer->getManufacturer($info['manufacturer_id']);
 
             $data['breadcrumbs'] = [];
-            $data['breadcrumbs'][] = ['text' => $this->language->get('text_home'), 'href' => '/'];
+            $data['breadcrumbs'][] = ['text' => 'Trang chủ', 'href' => '/'];
             if ($data['category_info']) {
                 $data['breadcrumbs'][] = ['text' => $data['category_info']['name'], 'href' => $data['category_info']['href']];
             }

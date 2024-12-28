@@ -8,7 +8,7 @@ class ControllerProductCategory extends Controller {
         $this->load->model('page/page');
 
         $data['breadcrumbs'] = [];
-        $data['breadcrumbs'][] = ['text' => $this->language->get('text_home'), 'href' => '/'];
+        $data['breadcrumbs'][] = ['text' => 'Trang chủ', 'href' => '/'];
 
         $page = isset($this->request->get['page']) ? (int)$this->request->get['page'] : 1;
         $data['page'] = $page;

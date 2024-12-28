@@ -7,7 +7,7 @@ class ControllerProductSearch extends Controller {
         $this->load->model('product/manufacturer');
 
         $data['breadcrumbs'] = [];
-        $data['breadcrumbs'][] = ['text' => $this->language->get('text_home'), 'href' => '/'];
+        $data['breadcrumbs'][] = ['text' => 'Trang chủ', 'href' => '/'];
 
         if (isset($this->request->get['page'])) {
             $page = (int)$this->request->get['page'];

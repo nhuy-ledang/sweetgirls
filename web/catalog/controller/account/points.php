@@ -12,7 +12,7 @@ class ControllerAccountPoints extends Controller {
         $this->document->setTitle($this->language->get('heading_title'));
 
         $data['breadcrumbs'] = [];
-        $data['breadcrumbs'][] = ['text' => $this->language->get('text_home'), 'href' => '/'];
+        $data['breadcrumbs'][] = ['text' => 'Trang chủ', 'href' => '/'];
         $data['breadcrumbs'][] = ['text' => $this->language->get('text_points'), 'href' => ''];
 
         $userData = $this->registry->get('userData');
@@ -43,7 +43,7 @@ class ControllerAccountPoints extends Controller {
         $data['redeem_products'] = $this->model_product_product->getRedeemProducts();
 
         $data['breadcrumbs'] = [];
-        $data['breadcrumbs'][] = ['text' => $this->language->get('text_home'), 'href' => '/'];
+        $data['breadcrumbs'][] = ['text' => 'Trang chủ', 'href' => '/'];
         $data['breadcrumbs'][] = ['text' => $this->language->get('text_points'), 'href' => '/account/points'];
         $data['breadcrumbs'][] = ['text' => $this->language->get('text_redeem_points'), 'href' => ''];
 
@@ -72,7 +72,7 @@ class ControllerAccountPoints extends Controller {
         $this->document->setTitle($this->language->get('heading_title'));
 
         $data['breadcrumbs'] = [];
-        $data['breadcrumbs'][] = ['text' => $this->language->get('text_home'), 'href' => '/'];
+        $data['breadcrumbs'][] = ['text' => 'Trang chủ', 'href' => '/'];
         $data['breadcrumbs'][] = ['text' => $this->language->get('text_points'), 'href' => '/account/points'];
         $data['breadcrumbs'][] = ['text' => $this->language->get('text_points_histories'), 'href' => ''];
 

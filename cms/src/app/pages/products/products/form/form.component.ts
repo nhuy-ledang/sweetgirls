@@ -7,7 +7,7 @@ import { Security } from '../../../../@core/security';
 import { GlobalState } from '../../../../@core/utils';
 import { LanguagesRepository } from '../../../../@core/repositories';
 import { AppForm } from '../../../../app.base';
-import { CategoriesRepository, GiftSetsRepository, ManufacturersRepository, ProductsRepository } from '../../shared/services';
+import { CategoriesRepository, ManufacturersRepository, ProductsRepository } from '../../shared/services';
 
 @Component({
   selector: 'ngx-pd-product-form',
@@ -25,41 +25,20 @@ export class ProductFormComponent extends AppForm implements OnInit, OnDestroy {
     category_id?: AbstractControl,
     manufacturer_id?: AbstractControl,
     name?: AbstractControl,
-    long_name?: AbstractControl,
-    is_gift?: AbstractControl,
-    is_coin_exchange?: AbstractControl,
-    no_cod?: AbstractControl,
-    // is_free?: AbstractControl,
     unit?: AbstractControl,
     price?: AbstractControl,
-    coins?: AbstractControl,
-    weight?: AbstractControl,
-    length?: AbstractControl,
-    width?: AbstractControl,
-    height?: AbstractControl,
-    gift_set_id?: AbstractControl,
     short_description?: AbstractControl,
     description?: AbstractControl,
-    user_guide?: AbstractControl,
-    properties?: AbstractControl,
-    tag?: AbstractControl,
-    link?: AbstractControl,
     stock_status?: AbstractControl,
     status?: AbstractControl,
-    meta_title?: AbstractControl,
-    meta_description?: AbstractControl,
-    meta_keyword?: AbstractControl,
     alias?: AbstractControl,
     image?: AbstractControl,
-    banner?: AbstractControl,
-    categories?: FormGroup,
   };
   categoryData: {loading: boolean, items: any[]} = {loading: false, items: []};
   manufacturerData: {loading: boolean, items: any[]} = {loading: false, items: []};
-  giftSetData: {loading: boolean, items: any[]} = {loading: false, items: []};
 
   constructor(fb: FormBuilder, router: Router, security: Security, state: GlobalState, repository: ProductsRepository, languages: LanguagesRepository,
-              private _categories: CategoriesRepository, private _manufacturers: ManufacturersRepository, private _giftSets: GiftSetsRepository) {
+              private _categories: CategoriesRepository, private _manufacturers: ManufacturersRepository) {
     super(router, security, state, repository, languages);
     this.form = fb.group({
       category_id: [''],
@@ -105,33 +84,21 @@ export class ProductFormComponent extends AppForm implements OnInit, OnDestroy {
       const tmp = _.split(this.info.categories, ',');
       for (let i = 0; i < tmp.length; i++) ids.push(parseInt(tmp[i], 0));
     }
-    // Remove and reset categories
-    _.each(this.controls.categories.controls, (val, key) => {
-      this.controls.categories.removeControl(key);
-    });
-    _.forEach(this.categoryData.items, (item: any) => {
-      item.checked = ids.includes(item.id);
-      this.controls.categories.addControl('category_' + item.id, new FormControl(item.checked));
-    });
   }
 
   private getDropdownData(): void {
     this.categoryData.loading = true;
     this.manufacturerData.loading = true;
-    this.giftSetData.loading = true;
-    Promise.all([this._categories.all(), this._manufacturers.all(), this._giftSets.all()]).then((res) => {
+    Promise.all([this._categories.all(), this._manufacturers.all()]).then((res) => {
       this.categoryData.loading = false;
       this.categoryData.items = res[0] ? res[0].data : [];
       this.manufacturerData.loading = false;
       this.manufacturerData.items = res[1] ? res[1].data : [];
-      this.giftSetData.loading = false;
-      this.giftSetData.items = res[2] ? res[2].data : [];
       this.afterDataLoading();
     }, (res) => {
       console.log(res);
       this.categoryData.loading = false;
       this.manufacturerData.loading = false;
-      this.giftSetData.loading = false;
     });
   }
 
@@ -151,7 +118,6 @@ export class ProductFormComponent extends AppForm implements OnInit, OnDestroy {
     if (!info.category_id) this.controls.category_id.setValue('');
     if (!info.manufacturer_id) this.controls.manufacturer_id.setValue('');
     this.fileOpt = _.extend(_.cloneDeep(this.fileOpt), {thumb_url: info.thumb_url ? info.thumb_url : ''});
-    this.bnOpt = _.extend(_.cloneDeep(this.bnOpt), {thumb_url: info.banner_url ? info.banner_url : ''});
   }
 
   protected setInfo(info: any): void {
@@ -181,21 +147,12 @@ export class ProductFormComponent extends AppForm implements OnInit, OnDestroy {
         _.each(this.controls, (val, key) => {
           if (this.controls.hasOwnProperty(key) && 
               this.controls[key] instanceof FormControl && 
-              !_.includes(['is_gift', 'price', 'coins', 'weight', 'length', 'width', 'height', 'status', 'no_cod'], key)) {
+              !_.includes(['price', 'status'], key)) {
             this.controls[key].setValue('');
           }
         });
 
-        // Set các giá trị mặc định
-        this.controls.is_gift.setValue(true);
-        this.controls.is_coin_exchange.setValue(false);
-        this.controls.no_cod.setValue(false);
         this.controls.price.setValue(0);
-        this.controls.coins.setValue(0);
-        this.controls.weight.setValue(0);
-        this.controls.length.setValue(0);
-        this.controls.width.setValue(0);
-        this.controls.height.setValue(0);
         this.controls.status.setValue(true);
 
         // Tạo mã ngẫu nhiên và set giá trị
@@ -291,47 +248,5 @@ export class ProductFormComponent extends AppForm implements OnInit, OnDestroy {
         }
       }
     }
-  }
-
-  onChangeGift(): void {
-    if (!this.controls.is_gift.value) {
-      // this.controls.is_free.setValue(false);
-      this.controls.coins.setValue(0);
-      this.controls.is_coin_exchange.setValue(false);
-    } else {
-    }
-  }
-
-  onBnDeleted(event): void {
-    this.controls.banner.setValue('');
-    return super.onBnSelected(event);
-  }
-
-  onChangeName(): void {
-    if (!this.info || (this.info && !this.info.meta_title)) {
-      if (!this.controls.meta_title.touched) {
-        // console.log('meta_title', this.controls.meta_title.value, this.controls.meta_title.touched);
-        this.controls.meta_title.setValue(this.controls.long_name ? this.controls.long_name.value : this.controls.name.value);
-      }
-    }
-    if (!this.info || (this.info && !this.info.alias)) {
-      if (!this.controls.alias.touched) {
-        // console.log('alias', this.controls.alias.value, this.controls.alias.touched);
-        this.controls.alias.setValue(this.utilityHelper.toAlias(this.controls.long_name ? this.controls.long_name.value : this.controls.name.value));
-      }
-    }
-    if (!this.info || (this.info && !this.info.long_name)) {
-      if (!this.controls.long_name.touched) {
-        // console.log('alias', this.controls.alias.value, this.controls.alias.touched);
-        this.controls.long_name.setValue(this.controls.name.value);
-      }
-    }
-  }
-
-  onChangeCategories(item): void {
-    setTimeout(() => {
-      console.log(this.controls.categories.controls['category_' + item.id].value, item);
-      item.checked = this.controls.categories.controls['category_' + item.id].value;
-    });
   }
 }
