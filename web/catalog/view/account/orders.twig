@@ -13,9 +13,9 @@
           <div class="page-title font-weight-bold text-uppercase h4">Lịch sử mua hàng</div>
         </div>
         <div class="text-center" ng-if="data.loading"><div class="spinner-border"></div></div>
-        <div class="row no-gutters" style="row-gap: 30px" ng-if="data.items.length">
-           <div class="col-12 col-md-6 col-lg-4" ng-repeat="item in data.items" ng-class="$index % 2 == 0 ? 'pr-0 pr-md-5' : 'pl-0 pl-md-5'">
-            <div class="order-item position-relative border py-4">
+        <div class="row" style="row-gap: 30px" ng-if="data.items.length">
+           <div class="col-12 col-md-6 col-lg-4" ng-repeat="item in data.items">
+            <div class="order-item position-relative border h-100 py-4">
               <div class="d-flex justify-content-between px-4 pb-4 border-bottom wow fadeInUp" data-wow-delay="0.3s">
                 <span class="font-weight-bold">{{ text_order_id?text_order_id:'Mã đơn hàng' }}<!-- text_order_id -->:&nbsp;<span class="text-primary" ng-bind="item.no"></span></span>
                 <div class="col text-right">

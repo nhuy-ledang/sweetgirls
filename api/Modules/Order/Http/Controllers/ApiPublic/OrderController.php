@@ -186,7 +186,7 @@ class OrderController extends ApiBaseModuleController {
             if (!empty($this->request->server->get('HTTP_ACCEPT_LANGUAGE'))) $input['accept_language'] = $this->request->server->get('HTTP_ACCEPT_LANGUAGE');
             $invoice_no = $this->model_repository->getModel()->selectRaw('max(invoice_no) as invoice_no')->where('invoice_prefix', $input['invoice_prefix'])->first();
             $input['invoice_no'] = $invoice_no ? ((int)$invoice_no->invoice_no + 1) : 1;
-            $input['idx'] = $input['invoice_prefix'] . date('dmy') . '-' . $input['invoice_no'];
+            $input['idx'] = 'SG- '. date('dmy') . '-' . $input['invoice_no'];
             $input['payment_status'] = $total == 0 ? PAYMENT_SS_PAID : PAYMENT_SS_INPROGRESS;
             // Create Model
             $model = $this->model_repository->create($input);
