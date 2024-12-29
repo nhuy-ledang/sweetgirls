@@ -25,24 +25,6 @@ export class OrderFrmProductComponent extends AppForm implements OnInit, OnDestr
     email?: AbstractControl,
     phone_number?: AbstractControl,
     payment_code?: AbstractControl,
-    shipping_code?: AbstractControl,
-    shipping_fee?: AbstractControl,
-    shipping_discount?: AbstractControl,
-    shipping_total?: AbstractControl,
-    shipping_province?: AbstractControl,
-    shipping_district?: AbstractControl,
-    shipping_ward?: AbstractControl,
-    shipping_first_name?: AbstractControl,
-    shipping_phone_number?: AbstractControl,
-    shipping_province_id?: AbstractControl,
-    shipping_district_id?: AbstractControl,
-    shipping_ward_id?: AbstractControl,
-    shipping_address_1?: AbstractControl,
-    is_invoice?: AbstractControl,
-    company?: AbstractControl,
-    company_tax?: AbstractControl,
-    company_email?: AbstractControl,
-    company_address?: AbstractControl,
     tax_code?: AbstractControl,
     address?: AbstractControl,
     // status?: AbstractControl,
@@ -78,24 +60,6 @@ export class OrderFrmProductComponent extends AppForm implements OnInit, OnDestr
       email: [''],
       phone_number: ['', Validators.compose([Validators.required])],
       payment_code: [''],
-      shipping_code: [''],
-      shipping_fee: [''],
-      shipping_discount: [''],
-      shipping_total: [''],
-      shipping_province: [''],
-      shipping_district: [''],
-      shipping_ward: [''],
-      shipping_first_name: [''],
-      shipping_phone_number: [''],
-      shipping_province_id: [''],
-      shipping_district_id: [''],
-      shipping_ward_id: [''],
-      shipping_address_1: [''],
-      is_invoice: [false],
-      company: [''],
-      company_tax: [''],
-      company_email: [''],
-      company_address: [''],
       tax_code: [''],
       address: [''],
       // status: [this.statusList[0].id],
@@ -126,8 +90,6 @@ export class OrderFrmProductComponent extends AppForm implements OnInit, OnDestr
     }
     total -= discount_value;
     total += this.adjustment;
-    if (this.controls.shipping_fee.value) total += this.controls.shipping_fee.value;
-    if (this.controls.shipping_discount.value) total -= this.controls.shipping_discount.value;
 
     this.total = total;
     this.needUpateShippingFee();
@@ -176,7 +138,6 @@ export class OrderFrmProductComponent extends AppForm implements OnInit, OnDestr
         if (this.controls.hasOwnProperty(key) && !_.includes(['payment_code', 'is_invoice'], key)) this.controls[key].setValue('');
       });
       this.controls.payment_code.setValue(this.paymentMethodList[0].id);
-      this.controls.is_invoice.setValue(false);
     }
     if (!this.provinceData.items.length) this.getAllProvince();
     this.modal.show();
@@ -221,12 +182,10 @@ export class OrderFrmProductComponent extends AppForm implements OnInit, OnDestr
     if ($event) {
       if ($event.display) {
         this.controls.first_name.setValue($event.display);
-        this.controls.shipping_first_name.setValue('');
         this.bindingName();
       }
       if ($event.phone_number) {
         this.controls.phone_number.setValue($event.phone_number);
-        this.controls.shipping_phone_number.setValue('');
         this.bindingPhoneNumber();
       }
       if ($event.email) this.controls.email.setValue($event.email);
@@ -351,11 +310,9 @@ export class OrderFrmProductComponent extends AppForm implements OnInit, OnDestr
   }
 
   bindingName(): void {
-    if (this.controls.shipping_first_name.value === '') this.controls.shipping_first_name.setValue(this.controls.first_name.value);
   }
 
   bindingPhoneNumber(): void {
-    if (this.controls.shipping_phone_number.value === '') this.controls.shipping_phone_number.setValue(this.controls.phone_number.value);
   }
 
   onGetShippingFee(): void {

@@ -12,12 +12,6 @@
               <label class="input-label">Khách hàng</label>
               <ngx-input-customer [formControl]="controls.user_id" [selected]="userSelected" (onSelected)="onCustomerSelected($event)"></ngx-input-customer>
             </div>
-            <!--<div *ngIf="controls.user_id.value" class="form-group col-sm-6" [ngClass]="{'has-error': (controls.user_id.invalid && (controls.user_id.touched || showValid))}">
-              <label class="input-label">Danh sách địa chỉ</label>
-              <ngx-input-customer [formControl]="controls.user_id" [selected]="userSelected" (onSelected)="onCustomerSelected($event)"></ngx-input-customer>
-            </div>-->
-          </div>
-          <div class="row">
             <div class="form-group col-sm-6" [ngClass]="{'has-error': (controls.first_name.invalid && (controls.first_name.touched || showValid))}">
               <label class="input-label">Họ tên <span class="text-danger">*</span></label>
               <input type="text" [formControl]="controls.first_name" class="form-control" (change)="bindingName()">
@@ -36,69 +30,6 @@
                 <option *ngFor="let item of paymentMethodList" [value]="item.id">{{ item.name }}</option>
               </select>
             </div>
-          </div>
-          <!-- <div class="d-flex my-3">
-            <h4 class="col-auto font-weight-bold pl-0">Giao hàng</h4>
-            <hr class="col">
-          </div>
-          <div class="row">
-            <div class="form-group col-sm-6" [ngClass]="{'has-error': (controls.shipping_first_name.invalid && (controls.shipping_first_name.touched || showValid))}">
-              <label class="input-label">Tên người nhận</label>
-              <input type="text" [formControl]="controls.shipping_first_name" class="form-control">
-            </div>
-            <div class="form-group col-sm-6" [ngClass]="{'has-error': (controls.shipping_phone_number.invalid && (controls.shipping_phone_number.touched || showValid))}">
-              <label class="input-label">Số điện thoại người nhận</label>
-              <input type="text" [formControl]="controls.shipping_phone_number" class="form-control">
-            </div>
-            <div class="form-group col-sm-6" [ngClass]="{'has-error': (controls.shipping_province_id.invalid && (controls.shipping_province_id.touched || showValid))}">
-              <label class="input-label">Tỉnh/thành phố</label>
-              <select class="form-control" [formControl]="controls.shipping_province_id" (change)="onProvinceChange()" [ngClass]="{'loading':provinceData.loading}">
-                <option value="">Không</option>
-                <option *ngFor="let item of provinceData.items" [value]="item.vt_id">{{ item.name }}</option>
-              </select>
-            </div>
-            <div class="form-group col-sm-6" [ngClass]="{'has-error': (controls.shipping_district_id.invalid && (controls.shipping_district_id.touched || showValid))}">
-              <label class="input-label">Quận/Huyện</label>
-              <select class="form-control" [formControl]="controls.shipping_district_id" (change)="onDistrictChange()" [ngClass]="{'loading':districtData.loading}">
-                <option value="">Không</option>
-                <option *ngFor="let item of districtData.items" [value]="item.vt_id">{{ item.name }}</option>
-              </select>
-            </div>
-            <div class="form-group col-sm-6" [ngClass]="{'has-error': (controls.shipping_ward_id.invalid && (controls.shipping_ward_id.touched || showValid))}">
-              <label class="input-label">Phường/Xã</label>
-              <select class="form-control" [formControl]="controls.shipping_ward_id" (change)="needUpateShippingFee()" [ngClass]="{'loading':wardData.loading}">
-                <option value="">Không</option>
-                <option *ngFor="let item of wardData.items" [value]="item.vt_id">{{ item.name }}</option>
-              </select>
-            </div>
-            <div class="form-group col-sm-6" [ngClass]="{'has-error': (controls.shipping_address_1.invalid && (controls.shipping_address_1.touched || showValid))}">
-              <label class="input-label">Địa chỉ người nhận</label>
-              <input type="text" [formControl]="controls.shipping_address_1" class="form-control">
-            </div>
-          </div> -->
-          <div class="row">
-            <div class="form-group col-sm-12">
-              <label class="input-label">Xuất hóa đơn</label>
-              <ngx-toggle-switch [formControl]="controls.is_invoice"></ngx-toggle-switch>
-            </div>
-            <ng-container *ngIf="controls.is_invoice.value">
-              <div class="form-group col-sm-6" [ngClass]="{'has-error': (controls.company.invalid && (controls.company.touched || showValid))}">
-                <label class="input-label">Công ty</label>
-                <input type="text" [formControl]="controls.company" class="form-control">
-              </div>
-              <div class="form-group col-sm-6" [ngClass]="{'has-error': (controls.company_tax.invalid && (controls.company_tax.touched || showValid))}">
-                <label class="input-label">Mã số thuế</label>
-                <input type="text" [formControl]="controls.company_tax" class="form-control">
-              </div>
-              <div class="form-group col-sm-6" [ngClass]="{'has-error': (controls.company_email.invalid && (controls.company_email.touched || showValid))}">
-                <label class="input-label">Email</label>
-                <input type="text" [formControl]="controls.company_email" class="form-control">
-              </div>
-              <div class="form-group col-sm-6" [ngClass]="{'has-error': (controls.company_address.invalid && (controls.company_address.touched || showValid))}">
-                <label class="input-label">Địa chỉ</label>
-                <input type="text" [formControl]="controls.company_address" class="form-control">
-              </div>
-            </ng-container>
           </div>
           <div class="row">
             <div class="form-group col-sm-6">
@@ -167,54 +98,6 @@
         <div class="clearfix">
           <table class="table table-sm d-inline-block w-auto table-borderless text-right text-nowrap float-right">
             <tbody>
-            <!--<tr>
-              <td style="vertical-align: middle;"><span class="font-weight-bold">Tổng:</span></td>
-              <td class="subtotal" style="vertical-align: middle;">{{sub_total|currencyFormat}}đ</td>
-            </tr>
-            <tr>
-              <td class="text-nowrap" style="vertical-align: middle;">
-                <span class="font-weight-bold">Chiết khấu &nbsp;</span>
-                <div class="d-inline-block" style="width: 250px;">
-                  <div class="input-group">
-                    <input name="discount" type="text" [(ngModel)]="discount" (change)="onChangeDiscount($event)" class="form-control">
-                    <ng-container *ngIf="modal.isShown">
-                      <div class="input-group-append dropdown" dropdown placement="bottom">
-                        <button type="button" dropdownToggle class="btn btn-outline-secondary dropdown-toggle">{{discount_type=='P'?'%':'Bằng tiền'}}</button>
-                        <div *dropdownMenu class="dropdown-menu">
-                          <a class="dropdown-item" href="javascript:void(0)" (click)="selectDiscountType('P')">%</a>
-                          <a class="dropdown-item" href="javascript:void(0)" (click)="selectDiscountType('F')">Bằng tiền</a>
-                        </div>
-                      </div>
-                    </ng-container>
-                  </div>
-                </div>
-              </td>
-              <td style="vertical-align: middle;">
-                <ng-container *ngIf="discount_type=='F'">{{discount|currencyFormat}}đ</ng-container>
-                <ng-container *ngIf="discount_type=='P'">{{discount}}%</ng-container>
-              </td>
-            </tr>
-            <tr>
-              <td class="text-nowrap" style="vertical-align: middle;">
-                <span class="font-weight-bold">Điều chỉnh &nbsp;</span>
-                <div class="d-inline-block" style="width: 180px;">
-                  <input name="adjustment" type="number" [(ngModel)]="adjustment" (change)="onChangeAdjustment($event)" class="form-control">
-                </div>
-              </td>
-              <td style="vertical-align: middle;">{{adjustment|currencyFormat}}đ</td>
-            </tr>-->
-            <tr *ngIf="controls.shipping_fee.value">
-              <td style="vertical-align: middle;"><span class="font-weight-bold">Phí vận chuyển:</span></td>
-              <td style="vertical-align: middle;">{{controls.shipping_fee.value|currencyFormat}}đ</td>
-            </tr>
-            <tr *ngIf="controls.shipping_discount.value">
-              <td style="vertical-align: middle;"><span class="font-weight-bold">Phí vận chuyển:</span></td>
-              <td style="vertical-align: middle;">-{{controls.shipping_discount.value|currencyFormat}}đ</td>
-            </tr>
-            <tr>
-              <td style="vertical-align: middle;"><span class="font-weight-bold">Thành tiền:</span></td>
-              <td style="vertical-align: middle;">{{total|currencyFormat}}đ</td>
-            </tr>
             </tbody>
           </table>
         </div>

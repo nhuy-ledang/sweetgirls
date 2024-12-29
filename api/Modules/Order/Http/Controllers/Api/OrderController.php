@@ -455,7 +455,7 @@ class OrderController extends ApiBaseModuleController {
             $input['invoice_prefix'] = $this->setting_repository->findByKey("config_ord_invoice_prefix", 'INV-');
             $invoice_no = $this->model_repository->getModel()->selectRaw('max(invoice_no) as invoice_no')->where('invoice_prefix', $input['invoice_prefix'])->first();
             $input['invoice_no'] = $invoice_no ? ((int)$invoice_no->invoice_no + 1) : 1;
-            $input['idx'] = $input['invoice_prefix'] . date('dmy') . '-' . $input['invoice_no'];
+            $input['idx'] = 'SG-' . date('dmy-His');
             // Create Model
             //$input['status'] = ORDER_SS_COMPLETED;
             $input['order_status'] = ORDER_SS_PROCESSING;
