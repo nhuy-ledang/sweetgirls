@@ -29,13 +29,9 @@ export class SettingsComponent extends AppList implements OnInit, OnDestroy, Aft
         {key: 'config_owner', type: 'text', name: 'Chủ sở hữu'},
         {key: 'config_name', type: 'text', name: 'Tên công ty'},
         {key: 'config_address', type: 'text', name: 'Địa chỉ'},
-        {key: 'config_tax', type: 'text', name: 'Mã số thuế'},
         {key: 'config_email', type: 'default', name: 'Email'},
         {key: 'config_hotline', type: 'default', name: 'Hotline'},
         {key: 'config_telephone', type: 'default', name: 'Phone'},
-        {key: 'config_fax', type: 'default', name: 'Số Fax'},
-        {key: 'config_open', type: 'default', name: 'Thời gian mở cửa', note: 'Nhập giờ mở cửa / hoạt động.'},
-        {key: 'config_comment', type: 'editor_lang', name: 'Comment/Slogan'},
         {key: 'config_copyright', type: 'default', name: 'Copyright'},
         {key: 'config_googlemap_latlng', type: 'default', name: 'Google Map', note: '(VD: 10.8082147, 106.70713978)'},
         {key: 'config_googlemap_embed', type: 'default', name: 'Google Map Link', note: '(VD: <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!...'},
@@ -49,20 +45,10 @@ export class SettingsComponent extends AppList implements OnInit, OnDestroy, Aft
       ],
     },
     {
-      name: 'Giao diện', items: [
-        {key: 'config_color_primary', type: 'select_color', name: 'Màu chính'},
-        {key: 'config_color_secondary', type: 'select_color', name: 'Màu thứ 2'},
-        {key: 'config_color_success', type: 'select_color', name: 'Màu thứ 3'},
-      ],
-    },
-    {
       name: 'Mạng xã hội', items: [
-        {key: 'config_contact_status', type: 'boolean', name: 'Chat nhanh'},
         {key: 'config_facebook_url', type: 'default', name: 'Facebook Url'},
-        {key: 'config_zalo_url', type: 'default', name: 'Zalo Url'},
         {key: 'config_youtube_url', type: 'default', name: 'Youtube Url'},
         {key: 'config_instagram_url', type: 'default', name: 'Instagram Url'},
-        {key: 'config_linkedin_url', type: 'default', name: 'Linkedin Url'},
       ],
     },
   ];

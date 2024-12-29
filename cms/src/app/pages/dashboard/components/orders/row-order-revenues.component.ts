@@ -16,7 +16,7 @@ export class ComRowOrderRevenuesComponent extends AppList implements OnDestroy {
 
   @Input() set filter(daterange: {start_date: string, end_date: string}) {
     console.log(daterange);
-    this.data.data = {q: '', invoice_no: '', payment_code: 'bank_transfer', payment_status: '', shipping_status: '', order_status: 'completed', is_invoice: '', embed: 'shipping,user'};
+    this.data.data = {q: '', invoice_no: '', payment_code: 'bank_transfer', payment_status: '', order_status: 'completed', is_invoice: '', embed: 'user'};
     this.data.data.start_date = daterange ? daterange.start_date : '';
     this.data.data.end_date = daterange ? daterange.end_date : '';
     this.columnInt(this._cookie, 'orders');

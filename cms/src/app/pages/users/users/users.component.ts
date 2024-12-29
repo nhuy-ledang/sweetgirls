@@ -22,8 +22,6 @@ export class UsersComponent extends AppList implements OnInit, OnDestroy, AfterV
     {id: 'email', name: 'Email', checkbox: true, disabled: false},
     {id: 'total_orders', name: 'Tổng chi tiêu', checkbox: true, disabled: false},
     {id: 'phone_number', name: 'Số ĐT', checkbox: true, disabled: false},
-    {id: 'source', name: 'Kênh/nguồn', checkbox: true, disabled: false},
-    {id: 'group', name: 'Phân loại', checkbox: true, disabled: false},
     {id: 'last_login', name: 'Đăng nhập', checkbox: true, disabled: false},
     {id: 'created_at', name: 'Ngày tạo', checkbox: true, disabled: false},
   ];

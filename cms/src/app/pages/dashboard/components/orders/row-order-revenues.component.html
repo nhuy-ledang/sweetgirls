@@ -28,7 +28,6 @@
             <th [hidden]="!columns.user_no">Mã KH</th>
             <th [hidden]="!columns.user_email">Email</th>
             <th [hidden]="!columns.user_phone_number">Số điện thoại</th>
-            <th [hidden]="!columns.user_address">Địa chỉ</th>
             <th [hidden]="!columns.sub_total" (click)="sortBy('sub_total')" [attr.class]="sortClass('sub_total')">Tạm tính <span class="sort-indicator"></span></th>
             <th [hidden]="!columns.total" (click)="sortBy('total')" [attr.class]="sortClass('total')">Tổng tiền <span class="sort-indicator"></span></th>
           </tr>
@@ -50,7 +49,6 @@
               <td [hidden]="!columns.user_no" [innerText]="item.user?.no"></td>
               <td [hidden]="!columns.user_email" [innerText]="item.email"></td>
               <td [hidden]="!columns.user_phone_number" [innerText]="item.phone_number"></td>
-              <td [hidden]="!columns.user_address" [innerText]="item.shipping_address_1 + ', ' + item.shipping_ward + ', ' + item.shipping_district + ', ' + item.shipping_province"></td>
               <td [hidden]="!columns.sub_total" [innerText]="item.sub_total|currencyFormat"></td>
               <td [hidden]="!columns.total" [innerText]="item.total|currencyFormat"></td>
             </tr>

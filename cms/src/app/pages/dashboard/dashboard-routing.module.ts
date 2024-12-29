@@ -5,7 +5,6 @@ import { TabOrdersComponent } from './tabs/orders.component';
 import {
   ComRowOrderRevenuesComponent,
   ComRowProductRevenuesComponent,
-  ComRowSalesIndexComponent,
 } from './components';
 
 const routes: Routes = [{path: '', component: DashboardComponent}];
@@ -22,7 +21,6 @@ export const routedComponents = [
   DashboardComponent,
   TabOrdersComponent,
   // Orders
-  ComRowSalesIndexComponent,
   ComRowProductRevenuesComponent,
   ComRowOrderRevenuesComponent,
 ];
