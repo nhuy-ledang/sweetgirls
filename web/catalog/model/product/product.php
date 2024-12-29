@@ -475,9 +475,7 @@ class ModelProductProduct extends Model {
         $sql .= " left join `pd__products` p on (p.id = pv.product_id)";
         $sql .= " left join `pd__options` o on (o.id = pv.option_id)";
         $sql .= " left join `pd__option_values` ov on (ov.id = pv.option_value_id)";
-        // $sql .= " left join (select p2.*, (select id from `pd__product_specials` ps where ps.product_id = `p2`.`id` and ((ps.start_date is null or UNIX_TIMESTAMP(ps.start_date) < UNIX_TIMESTAMP('" . date('Y-m-d H:i:s') . "')) and (ps.end_date is null or UNIX_TIMESTAMP(ps.end_date) > UNIX_TIMESTAMP('" . date('Y-m-d H:i:s') . "'))) order by ps.priority asc, ps.price asc limit 1) as ps_id from `pd__products` p2) p on (p.id = pv.product_id)";
-        // $sql .= " left join " . $this->special_table . " ps on (ps.id = ps_id)";
-        // $sql .= " where p.master_id = " . (int)$id . " and p.status = 1 and p.deleted_at is null and p.is_coin_exchange <> 1 order by o.sort_order desc, ov.sort_order asc";
+        $sql .= " where p.master_id = " . (int)$id;
         $query = $this->db->query($sql);
         $data = [];
         foreach ($query->rows as $result) {

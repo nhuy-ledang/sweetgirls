@@ -217,20 +217,6 @@ class OrderController extends ApiBaseModuleController {
         }
         $data['config_owner'] = $this->setting_repository->findByKey('config_owner');
         if ($model->email) dispatch(new \Modules\Order\Jobs\OrderAddJob($this->email, $data));
-        /*$data['emails'] = ['vanhuy@tedfast.vn'];
-        $model->email = 'huydang1920@gmail.com';//$order->email;
-        $model = $data['model'];
-        // Send to customer
-        $this->email->send('order::mail/order_add', $data, function($message) use ($model) {
-            $message->to($model->email)->subject("SweetGirl xác nhận đơn hàng #{$model->id}");
-        });
-        // Send alert to admin
-        if (!empty($data['emails'])) {
-            $emails = $data['emails'];
-            $this->email->send('order::mail/order_add_alert', $data, function($message) use ($emails) {
-                foreach ($emails as $email) $message->to($email)->subject('Đơn hàng');
-            });
-        }*/
     }
 
     private function handleOrder($model) {

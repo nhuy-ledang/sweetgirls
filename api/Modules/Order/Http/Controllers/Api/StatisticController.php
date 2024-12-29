@@ -3,7 +3,6 @@
 use DateTime;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-use Modules\Affiliate\Repositories\AgentPointRepository;
 use Modules\Order\Repositories\OrderRepository;
 use Modules\System\Repositories\VisitorRepository;
 
@@ -24,11 +23,9 @@ class StatisticController extends ApiBaseModuleController {
 
     public function __construct(Request $request,
                                 OrderRepository $order_repository,
-                                VisitorRepository $visitor_repository,
-                                AgentPointRepository $agent_point_repository) {
+                                VisitorRepository $visitor_repository) {
         $this->order_repository = $order_repository;
         $this->visitor_repository = $visitor_repository;
-        //$this->agent_repository = $agent_repository;
         $this->agent_point_repository = $agent_point_repository;
 
         $this->middleware('auth.usr')->except(['overview']);

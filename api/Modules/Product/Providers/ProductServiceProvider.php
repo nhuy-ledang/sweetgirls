@@ -127,9 +127,6 @@ class ProductServiceProvider extends ServiceProvider {
         $this->app->bind('Modules\Product\Repositories\ProductSpecialRepository', function() {
             return new \Modules\Product\Repositories\Eloquent\EloquentProductSpecialRepository(new \Modules\Product\Entities\ProductSpecial());
         });
-        $this->app->bind('Modules\Product\Repositories\ProductQuantityRepository', function() {
-            return new \Modules\Product\Repositories\Eloquent\EloquentProductQuantityRepository(new \Modules\Product\Entities\ProductQuantity());
-        });
         $this->app->bind('Modules\Product\Repositories\ProductSpecRepository', function() {
             return new \Modules\Product\Repositories\Eloquent\EloquentProductSpecRepository(new \Modules\Product\Entities\ProductSpec());
         });

@@ -53,11 +53,6 @@ class OrderController extends ApiBaseModuleController {
     protected $product_repository;
 
     /**
-     * @var \Modules\Product\Repositories\ProductQuantityRepository
-     */
-    protected $product_quantity_repository;
-
-    /**
      * @var \Modules\Order\Repositories\CartRepository
      */
     protected $cart_repository;
@@ -90,7 +85,6 @@ class OrderController extends ApiBaseModuleController {
                                 OrderHistoryRepository $order_history_repository,
                                 CartRepository $cart_repository,
                                 ProductRepository $product_repository,
-                                ProductQuantityRepository $product_quantity_repository,
                                 UserRepository $user_repository,
                                 NotificationRepository $notification_repository,
                                 ProductSpecialRepository $product_special_repository) {
@@ -100,7 +94,6 @@ class OrderController extends ApiBaseModuleController {
         $this->order_history_repository = $order_history_repository;
         $this->cart_repository = $cart_repository;
         $this->product_repository = $product_repository;
-        $this->product_quantity_repository = $product_quantity_repository;
         $this->user_repository = $user_repository;
         $this->notification_repository = $notification_repository;
         $this->setting_repository = $setting_repository;

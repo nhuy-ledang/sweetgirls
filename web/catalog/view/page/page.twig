@@ -5,7 +5,7 @@
       {% set cols = properties.col?properties.col:1 %}
       {% set space_col = properties.spacingCol!=''?properties.spacingCol:0 %}
       <style>
-        .id_{{ id }} {
+        .gallery_container {
           --transition: 1.2s cubic-bezier(0.44, 0.82, 0, 1.01);
         }
       </style>
@@ -51,15 +51,38 @@
       </script>
     </div>
   </section>
-  <section class="product_container container-lg overflow-hidden px-2 px-xl-0 mb-15 mt-10">
-    <div class="mb-5 d-flex justify-content-center">
-      <h2 class="font-weight-bold text-primary">Sản phẩm</h2>
-    </div>
+  <section class="product_container container-lg overflow-hidden px-2 px-xl-0 mb-10 mt-10">
+    <div class="row no-gutters">
+      <div class="col-12 col-md-8 mb-5 text-center text-md-left wow fadeInUp  dynamic" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+        <div class="title_ text-center text-md-left"><h2 class="section_title "><span>SẢN PHẨM</span></h2></div></div>
+        <div class="col-4 d-none d-md-flex justify-content-end wow fadeInUp  dynamic" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+          <div class="section_button button_layout10 mt-0 wow fadeInUp  dynamic" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
+            <a class="wid_button" href="/product/category">XEM TẤT CẢ<span style="top: 57.6406px; left: 2.4375px;"></span></a>
+          </div>
+          <script>
+            $(function() {
+              $('.button_layout10 .wid_button')
+                .on('mouseenter', function(e) {
+                  var parentOffset = $(this).offset(),
+                    relX = e.pageX - parentOffset.left,
+                    relY = e.pageY - parentOffset.top;
+                  $(this).find('span').css({top:relY, left:relX})
+                })
+                .on('mouseout', function(e) {
+                  var parentOffset = $(this).offset(),
+                    relX = e.pageX - parentOffset.left,
+                    relY = e.pageY - parentOffset.top;
+                  $(this).find('span').css({top:relY, left:relX})
+                });
+            });
+          </script>
+        </div>
+          </div>
     {% if products %}
       <div class="papular-block overflow-hidden">
         <div class="row bs5">
           {% for item in products %}
-            <div class="col-2 wow fadeInUp" data-wow-delay="0.3s">
+            <div class="col-6 col-md-3 col-lg-2 mb-4 wow fadeInUp" data-wow-delay="0.3s">
               <div
                 class="wid_block hover-zoom-img wow fadeInUp" data-wow-delay="{{ index*0.2 }}s">
                 <!-- Item img -->
@@ -106,6 +129,81 @@
       </div>
     </div>
     {% endif %}
+  </section>
+  <section class="gallery_container container-fluid">
+    <style>
+      .gallery_container {
+        --title-transform: none;
+      }
+      .gallery_container .col_left, .gallery_container .col_right {
+        max-width: 40%;
+        flex: 0 0 40%;
+      }
+      .gallery_container .col_title {
+        max-width: 20%;
+        flex: 0 0 20%;
+      }
+      @media (max-width: 1023px) {
+        .gallery_container .col_title, .gallery_container .col_left, .gallery_container .col_right {
+          max-width: 33.33%;
+          flex: 0 0 33.33%;
+        }
+      }
+      @media (max-width: 575px) {
+        .gallery_container .col_title, .gallery_container .col_left, .gallery_container .col_right {
+          max-width: 50%;
+          flex: 0 0 50%;
+        }
+        .gallery_container .col_left, .gallery_container .col_right {
+          max-width: 25%;
+          flex: 0 0 25%;
+        }
+      }
+    </style>
+    <div class="row no-gutters justify-content-between gallery-slide bg-black">
+          <div class="col_left row">
+            {% for item in categories %}
+              {% if loop.index is even %}
+                <div class="col-6 px-0">
+                  <div class="h-100 embed-responsive embed-responsive-16by9 bg-cover img wow fadeInUp lazyload" data-src="{{ item.raw_url }}" data-wow-delay="0.{{ random(1,3) }}s">
+                    <img src="{{ item.raw_url }}" class="d-none" alt="">
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+          <div class="col_title align-self-center py-5 py-sm-10">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.3s">
+              <div class="text-center text-md-center text-primary">
+                <h2 class="section_title "><span>@sweetgirls</span></h2>
+              </div>
+            </div>
+            <div class="section_button button_layout10 wow fadeInUp  dynamic" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+              <a class="wid_button" href="">
+                THEO DÕI<span style="top: 17.0938px; left: 156.703px;"></span>
+              </a>
+            </div>
+          </div>
+          <div class="col_right row">
+            {% for item in categories %}
+              {% if loop.index is odd %}
+                <div class="col-6 px-0">
+                  <div class="h-100 embed-responsive embed-responsive-16by9 bg-cover img wow fadeInUp lazyload" data-src="{{ item.raw_url }}" data-wow-delay="0.{{ random(1,3) }}s">
+                    <img src="{{ item.raw_url }}" class="d-none" alt="">
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      <script>
+        $(document).ready(function () {
+          $('.gallery-slide').lightGallery({
+            thumbnail: true,
+            selector: $('.gallery_container .img'),
+          });
+        })
+      </script>
   </section>
 </div>
 </div>

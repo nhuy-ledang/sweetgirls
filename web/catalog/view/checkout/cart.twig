@@ -6,14 +6,7 @@
       {% for item in breadcrumbs %}
       <li class="breadcrumb-item{{ loop.last ? ' active':'' }}"><a href="{{ item.href }}">{{ item.text }}</a></li>{% endfor %}
     </ol>
-    {#{% if success %}
-      <div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> {{ success }}
-      <button type="button" class="close" data-dismiss="alert">&times;</button></div>{% endif %}
-    {% if error_warning %}
-      <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
-      <button type="button" class="close" data-dismiss="alert">&times;</button></div>{% endif %}#}
   </div>
-  {#<button class="d-xl-none fixed-top back-mb btn btn-primary w-100" onclick="goBack()"><span class="d-xl-none pl-2 ic-lg ic_angle_left icon-top-left top-center"></span> {{ button_cart}}</button>#}
   <div class="box-cart mt-0">
     <div class="container-lg">
       <div ng-if="data.loading" class="text-primary text-center py-5"><div class="spinner-border"><span class="sr-only">Loading...</span></div></div>
@@ -54,26 +47,8 @@
                   </div>
                   <div class="d-flex justify-content-between">
                     <div class="icon-bottom-left d-flex mb-2 mb-sm-0 mt-2 mt-sm-0 order-last">
-                      <a class="cursor-pointer d-flex align-items-center text-primary" ng-click="removeCart(item)" href="javascript:;"><span class="fa fa-trash-o pr-1"></span><span>{{ button_remove?button_remove:'Xóa bỏ' }}<!-- button_remove --></span></a>
-                      <div class="pl-4 cursor-pointer text-primary d-flex align-items-center" ng-click="like(item)">
-                        {#<span ng-class="{'ic_heart': item.liked, 'ic_heart_black': !item.liked}"></span>#}
-                        <span class="fa fa-heart-o pr-1"></span>
-                        <span>{{ text_favourite?text_favourite:'Yêu thích' }}</span><span class="d-md-none">&nbsp;</span>
-                      </div>
+                      <a class="cursor-pointer d-flex align-items-center text-primary" ng-click="removeCart(item)" href="javascript:;"><span class="fa fa-trash-o pr-1"></span><span>Xóa bỏ</span></a>
                     </div>
-                  </div>
-                </div>
-              </div>
-              <div ng-if="item.gifts&&item.gifts.length" ng-repeat="gift in item.gifts">
-                <div class="row no-gutters mt-4">
-                  <div class="col-12 col-sm-auto pr-sm-4" style="width: 130px;box-sizing: content-box;"></div>
-                  <div class="col-auto pr-2 pr-sm-4">
-                    <div class="img mx-auto" style="width: 50px; height: 50px;"><span class="embed-responsive embed-responsive-1by1 bg-cover"><span class="embed-responsive-item"><a href="{{ '{{ gift.href }}' }}"><img ng-src="{{ '{{ gift.small_url }}' }}" alt="{{ '{{ gift.long_name }}' }}" class="w-100 img-cover"></a></span></span></div>
-                  </div>
-                  <div class="col font-13">
-                    <b><span ng-bind="gift.quantity"></span>x </b>
-                    <a href="{{ '{{ gift.href }}' }}" class="font-weight-normal" ng-bind="gift.long_name?gift.long_name:gift.name"></a>
-                    <b class="d-block text-green">Quà tặng</b>
                   </div>
                 </div>
               </div>
@@ -96,138 +71,25 @@
               </div>
             </div>
           </div>
-          {% if redeem_products %}
-            <div class="redeem-coins mt-6 mt-md-8">
-              <div class="d-flex justify-content-between align-items-center flex-md-row flex-column">
-                <span class="text-uppercase font-weight-bold font-4">ĐỔI GO MART COIN NHẬN QUÀ NGAY</span>
-                {% if userData.logged %}<span class="text-gray font-4 font-weight-bold">Bạn đang có: <span class="text-primary" ng-bind="currentUser.coins|number:'':0"></span>&nbsp;<span class="text-dark">{{ text_points }}</span></span>{% endif %}
-              </div>
-              <div class="papular-block single-img-demos mt-4">
-                <!-- Item -->
-                <div class="swiper swiper_redeem_coin_{{ id }}">
-                  <div class="swiper-wrapper">
-                      <div class="swiper-slide wid_block wow fadeInUp" ng-repeat="product in redeemProducts" data-wow-delay="0.{{ '{{ $index }}' }}s">
-                        <!-- Item img -->
-                        <div class="wid_img_block position-relative overflow-hidden">
-                          <div class="wid_img img position-relative">
-                            <div class="embed-responsive embed-responsive-{{ properties.imgFrame?properties.imgFrame:'1by1' }} bg-cover" ng-style="{'background-image': 'url(' + product.thumb_url + ')'}"></div>
-                          </div>
-                          <div class="wid_button_block overflow-hidden">
-                            <div class="overflow-hidden" ng-if="!currentUser">
-                              {% if global.config_login_popup %}
-                                <a href="javascript:void(0);" class="cus_btn btn_white" ng-click="openLogin()">Đăng nhập</a>
-                              {% else %}
-                                <a href="/login" class="cus_btn btn_white">Đăng nhập</a>
-                              {% endif %}
-                            </div>
-                            <div class="overflow-hidden" ng-if="currentUser.coins < product.coins && !product.is_redeem">
-                              <button type="button" class="cus_btn btn_white" ng-bind="'Thiếu '+(product.coins-currentUser.coins|number:'':0)+' coin'"></button>
-                            </div>
-                            <div class="overflow-hidden" ng-if="currentUser.coins >= product.coins && !product.is_redeem">
-                              <button type="button" ng-click="addProductByCoins(product)" class="cus_btn btn_white">{{ text_redeem }}</button>
-                            </div>
-                            <div class="overflow-hidden" ng-if="product.is_redeem">
-                              <button type="button" class="cus_btn btn_white">Đã đổi</button>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- Item Name -->
-                        <div class="wid_info d-flex flex-column">
-                          <div class="wid_short_description text-uppercase text-primary mt-3 font-6 font-weight-bold" ng-bind="product.category"></div>
-                          <a href="{{ '{{ product.href }}' }}"><span class="wid_name mt-1 limit-text-2" ng-bind="product.name"></span></a>
-                          <div class="mt-2 font-weight-bold font-4"><span ng-bind="(product.coins|number:'':0)+' Go Mart coin'"></span></div>
-                          <div class="mt-1 text-gray font-weight-bold" ng-if="product.price">{{ text_worth }} <span ng-bind="(product.price|currency:'':0)+'đ'"></span></div>
-                        </div>
-                      </div>
-                  </div>
-                  <div class="section_dot" style="height: 45px">
-                    <div class="swiper-pagination"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          {% endif %}
         </div>
         <div class="cart_payment_info col-xl-4 col-12 pl-xl-9 pt-6 border-left">
-          <div ng-if="data.gift_orders.next_gifts">
-            <h5 class="font-5 font-weight-bold text-danger">Chỉ cần mua thêm <span ng-bind="((data.gift_orders.next_gifts.amount-data.totals.sub_total)|formatCurrency)+'đ'"></span> bạn sẽ nhận được bộ quà tặng trị giá <span ng-bind="(data.gift_orders.next_gifts.total|formatCurrency) +'đ'"></span></h5>
-          </div>
           <div class="row no-gutters">
-            <a href="/" class="cus_btn btn_primary w-100 col-6 pr-2">{{ button_buy_more }}<!-- button_buy_more --></a>
-            {#<a href="{{ userData.logged ? '/checkout/shipping' : initData.loginUrl }}" class="col-6 pl-2" rel="nofollow" style="color: inherit"><button class="cus_btn w-100">{{ button_order_now }}<!-- button_order_now --></button></a>#}
-            <a href="javascript:{}" ng-click="checkLogin('/checkout/shipping')" class="col-6 pl-2" rel="nofollow" style="color: inherit"><button class="cus_btn w-100">{{ button_order_now }}<!-- button_order_now --></button></a>
+            <a href="/" class="cus_btn btn_primary w-100 col-6 pr-2">Mua thêm</a>
+            <a href="javascript:{}" ng-click="checkLogin('/checkout/shipping')" class="col-6 pl-2" rel="nofollow" style="color: inherit"><button class="cus_btn w-100">Đặt hàng ngay</button></a>
           </div>
-          {% if global.config_ord_notification %}
-            <div class="wid_gift mt-6 row no-gutters justify-content-center align-items-center">
-              <img class="col-3" src="/assets/images/gift.gif" alt="">
-              <span class="col-9 py-4 pr-4 text-primary" style="white-space: pre-wrap">{{ global.config_ord_notification }}</span>
-            </div>
-          {% endif %}
-          <div class="wid_voucher mt-8 mb-3">
-            <h4 class="font-weight-bold text-uppercase mb-3 font-4">{{ entry_coupon }}</h4>
-            <a ng-click="selectCoupon()" class="d-flex justify-content-between align-items-center border py-2 px-3 cursor-pointer">
-              <span class="text-primary font-weight-bold">
-                <span ng-if="!data.coupon && !data.totals.voucher_code">Chưa nhập mã</span>
-                <span ng-if="data.coupon" ng-bind="data.coupon.code"></span>
-                <span ng-if="data.totals.voucher_code" ng-bind="data.totals.voucher_code"></span>
-              </span>
-              <span class="fa fa-angle-right"></span></a>
-          </div>
-          <!-- Tạm ẩn -->
-          {#<div ng-if="data.coupon" class="position-relative voucher_info d-flex flex-column py-3 px-8">#}
-            {#<span class="mb-1" ng-bind="data.coupon.name"></span>#}
-            {#<span ng-if="data.coupon.end_date" class="text-success">HSD: <span ng-bind="data.coupon.end_date|formatDate"></span></span>#}
-          {#</div>#}
-          {#<div class="wid_voucher mt-8 mb-3">
-            <h4 class="font-weight-bold text-uppercase mb-3 font-4">Mã voucher</h4>
-            <div class="form-group mb-0">
-              <div class="input-group">
-                <input type="text" ng-model="data.totals.voucher_code" value="" placeholder="Mã voucher" class="form-control">
-                <div class="input-group-append"><button class="btn btn-secondary text-white" type="button" ng-click="addVoucher()">OK</button></div>
-              </div>
-            </div>
-          </div>#}
           <div id="cart-total" class="mt-5 mt-md-8">
-            {#{% if userData.logged %}
-              <div class="payment_info">
-                <h4 class="font-weight-bold text-uppercase mb-3 font-4">{{ text_payment }}<!-- text_payment --></h4>
-                #}{#<h5 class="text-uppercase pb-5 mb-5 border-bottom position-relative cursor-pointer font-weight-bolder">{{ text_delivery_address?text_delivery_address:'Địa chỉ giao hàng' }}<!-- text_delivery_address --><a class="float-right" ng-click="showEditAddress()" href="javascript:void(0)"><span class="ic_edit"></span></a></h5>#}{#
-                #}{#<p class="mb-2"><span ng-bind="addressInfo.first_name">{{ userData.info.display }}</span> | <span ng-bind="addressInfo.phone_number">{{ userData.info.phone_number }}</span></p>#}{#
-                #}{#<p class="mb-0" ng-bind="addressInfo.address_1">{{ userData.info.address?userData.info.address:'' }}</p>#}{#
-                  <p>Tiền hàng <span class="float-right font-weight-bold" ng-bind="((data.totals.sub_total-data.totals.included_total)|formatCurrency:'':0)+'đ'"></span></p>
-                  <p ng-if="data.totals.coins">Go Mart coin sử dụng <span class="float-right font-weight-bold text-primary" ng-bind="'-'+(data.totals.coins|number)+' Go Mart coin'"></span></p>
-                  <p ng-if="data.totals.discount_code">Mã giảm giá <span class="float-right font-weight-bold text-primary" ng-bind="'-'+(data.totals.discount_total|formatCurrency:'':0)+'đ'"></span></p>
-                  <p ng-if="data.totals.voucher_code">Voucher <span class="float-right font-weight-bold text-primary" ng-bind="'-'+(data.totals.voucher_total|formatCurrency:'':0)+'đ'"></span></p>
-              </div>
-            {% else %}
-              <div class="py-5 px-md-6 px-3 border">
-                <h5 class="text-uppercase pb-5 mb-5 border-bottom position-relative"><a href="{{ initData.loginUrl }}" rel="nofollow">{{ text_delivery_address }}<span class="float-right"><span class="ic_edit"></span></span></a></h5>
-                <p class="mb-0"><a href="{{ initData.loginUrl }}" rel="nofollow">Đăng nhập</a></p>
-              </div>
-            {% endif %}#}
             <div class="payment_info">
               <h4 class="font-weight-bold text-uppercase mb-3 font-4">{{ text_payment }}<!-- text_payment --></h4>
-              {#<h5 class="text-uppercase pb-5 mb-5 border-bottom position-relative cursor-pointer font-weight-bolder">{{ text_delivery_address?text_delivery_address:'Địa chỉ giao hàng' }}<!-- text_delivery_address --><a class="float-right" ng-click="showEditAddress()" href="javascript:void(0)"><span class="ic_edit"></span></a></h5>#}
-              {#<p class="mb-2"><span ng-bind="addressInfo.first_name">{{ userData.info.display }}</span> | <span ng-bind="addressInfo.phone_number">{{ userData.info.phone_number }}</span></p>#}
-              {#<p class="mb-0" ng-bind="addressInfo.address_1">{{ userData.info.address?userData.info.address:'' }}</p>#}
               <p>Tiền hàng <span class="float-right font-weight-bold" ng-bind="((data.totals.sub_total-data.totals.included_total)|formatCurrency:'':0)+'đ'"></span></p>
-              <p ng-if="data.totals.coins">Go Mart coin sử dụng <span class="float-right font-weight-bold text-primary" ng-bind="'-'+(data.totals.coins|number)+' Go Mart coin'"></span></p>
-              <p ng-if="data.totals.discount_code">Mã giảm giá <span class="float-right font-weight-bold text-primary" ng-bind="'-'+(data.totals.discount_total|formatCurrency:'':0)+'đ'"></span></p>
-              <p ng-if="data.totals.voucher_code">Voucher <span class="float-right font-weight-bold text-primary" ng-bind="'-'+(data.totals.voucher_total|formatCurrency:'':0)+'đ'"></span></p>
             </div>
             <div class="mb-7 mb-xl-0">
               <h5 class="pt-3 mb-3 border-top5">
-                <span class="font-weight-bolder">{{ text_sub_total }}<!-- text_sub_total --></span>
+                <span class="font-weight-bolder">Tạm tính</span>
                 <span class="float-right total font-weight-bolder font-4" ng-bind="((data.totals.total-data.totals.included_total-data.totals.shipping_fee)|formatCurrency:'':0)+'đ'"></span>
-              </h5>
-              <h5 ng-if="data.totals && currentUser">
-                <span class="font-weight-bolder">{{ text_coin_get }}<!-- text_coin_get --></span>
-                <span class="float-right total font-weight-bolder text-primary">+<span ng-bind="(data.totals.total-data.totals.included_total)/1000|number:0"></span> Go Mart coin</span>
               </h5>
             </div>
             <div class="btn-buy-now position-relative my-5 my-md-8">
-              {#<a href="{{ userData.logged ? '/checkout/shipping' : initData.loginUrl }}" rel="nofollow" style="color: inherit"><button class="cus_btn w-100">{{ button_order_now }}<!-- button_order_now --></button></a>#}
-              <a href="javascript:{}" ng-click="checkLogin('/checkout/shipping')" rel="nofollow" style="color: inherit"><button class="cus_btn w-100">{{ button_order_now }}<!-- button_order_now --></button></a>
+              <a href="javascript:{}" ng-click="checkLogin('/checkout/shipping')" rel="nofollow" style="color: inherit"><button class="cus_btn w-100">Đặt hàng ngay</button></a>
             </div>
           </div>
         </div>
@@ -237,64 +99,13 @@
           <div class="mb-6" style="max-height: 200px;max-width: 150px;">
             <svg viewBox="0 0 168 87" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="w-100 h-100"><g id="12.-Null-Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.6"><g id="15.1-Null-Cart" transform="translate(-104.000000, -105.000000)" fill-rule="nonzero"><g id="shopping-basket" transform="translate(104.000000, 105.000000)"><path d="M166.480438,82 L1.51956247,82 C0.671434581,82 0,83.1046512 0,84.5 L0,84.5 C0,85.8953488 0.671434581,87 1.51956247,87 L166.480438,87 C167.328565,87 168,85.8953488 168,84.5 L168,84.5 C168,83.1046512 167.328565,82 166.480438,82 Z" id="Path" fill="#E2E2E2"></path><g id="Group" transform="translate(6.000000, 0.000000)"><g transform="translate(2.475225, 1.785714)"><path d="M138.754054,6.46428571 L138.754054,11.75 C138.754054,14.6785714 136.42027,17.0357143 133.520721,17.0357143 L131.257658,17.0357143 L130.621171,15.25 C129.772523,12.8571429 127.297297,11.3928571 124.786712,11.8571429 C122.276126,12.3214286 120.472748,14.5 120.472748,17.0357143 L31.5414414,17.0357143 C31.5414414,14.4642857 29.7027027,12.2857143 27.2274775,11.8571429 C24.7168919,11.4285714 22.277027,12.8571429 21.393018,15.25 L20.7565315,17.0357143 L18.4934685,17.0357143 C15.5939189,17.0357143 13.2601351,14.6785714 13.2601351,11.75 L13.2601351,6.46428571 C13.2601351,3.53571429 15.5939189,1.17857143 18.4934685,1.17857143 L133.520721,1.17857143 C136.38491,1.21428571 138.718694,3.57142857 138.754054,6.46428571 Z" id="Shape" fill="#E2E2E2"></path><path d="M133.520721,1.17857143 L125.670721,1.17857143 C128.57027,1.17857143 130.904054,3.53571429 130.904054,6.46428571 L130.904054,11.75 C130.904054,12.6785714 130.656532,13.6071429 130.196847,14.3928571 C130.373649,14.6785714 130.47973,14.9642857 130.621171,15.25 L131.257658,17.0357143 L133.520721,17.0357143 C136.42027,17.0357143 138.754054,14.6785714 138.754054,11.75 L138.754054,6.46428571 C138.718694,3.57142857 136.38491,1.21428571 133.520721,1.17857143 L133.520721,1.17857143 Z" id="Path" fill="#ECECEC"></path><path d="M126.519369,34.8214286 L117.219595,72.4285714 C116.052703,77.1071429 111.88018,80.4285714 107.071171,80.4285714 L44.943018,80.4285714 C40.134009,80.4285714 35.9614865,77.1071429 34.7945946,72.4285714 L25.4948198,34.8214286 L31.2585586,18.8571429 C31.4707207,18.2857143 31.5768018,17.6785714 31.5768018,17.0714286 L120.472748,17.0714286 C120.472748,17.6785714 120.578829,18.2857143 120.790991,18.8571429 L126.519369,34.8214286 Z" id="Path" fill="#E2E2E2"></path><path d="M120.755631,18.8214286 C120.543468,18.25 120.437387,17.6428571 120.437387,17.0357143 L112.587387,17.0357143 C112.587387,17.6428571 112.693468,18.25 112.905631,18.8214286 L118.669369,34.7857143 L109.369595,72.3928571 C108.202703,77.0714286 104.03018,80.3928571 99.2211712,80.3928571 L107.071171,80.3928571 C111.88018,80.3928571 116.052703,77.0714286 117.219595,72.3928571 L126.519369,34.7857143 L120.755631,18.8214286 Z" id="Path" fill="#ECECEC"></path><path d="M75.9894144,27.6071429 L75.9894144,27.6071429 C78.888964,27.6071429 81.2227477,29.9642857 81.2227477,32.8928571 L81.2227477,64.5714286 C81.2227477,67.5 78.888964,69.8571429 75.9894144,69.8571429 L75.9894144,69.8571429 C73.0898649,69.8571429 70.7560811,67.5 70.7560811,64.5714286 L70.7560811,32.8928571 C70.7560811,29.9642857 73.1252252,27.6071429 75.9894144,27.6071429 Z" id="Rectangle-path" fill="#ECECEC"></path><path d="M55.1621622,69.8571429 C52.6869369,69.8571429 50.5653153,68.0714286 50.1056306,65.6428571 L44.2004505,33.75 C43.9175676,32.25 44.3065315,30.6785714 45.2966216,29.4642857 C46.2867117,28.2857143 47.7364865,27.5714286 49.256982,27.6071429 C51.7322072,27.6071429 53.8538288,29.3928571 54.3135135,31.8214286 L60.2186937,63.6785714 C60.5015766,65.1785714 60.1126126,66.75 59.1225225,67.9642857 C58.1677928,69.1428571 56.718018,69.8571429 55.1621622,69.8571429 L55.1621622,69.8571429 Z" id="Path" fill="#ECECEC"></path><path d="M96.8166667,69.8571429 C99.2918919,69.8571429 101.413514,68.0714286 101.873198,65.6428571 L107.778378,33.7857143 C108.061261,32.25 107.672297,30.7142857 106.682207,29.5 C105.692117,28.2857143 104.242342,27.6071429 102.721847,27.6071429 C100.246622,27.6071429 98.125,29.3928571 97.6653153,31.8214286 L91.7247748,63.6785714 C91.4418919,65.1785714 91.8308559,66.75 92.8209459,67.9642857 C93.8463964,69.1428571 95.2961712,69.8571429 96.8166667,69.8571429 L96.8166667,69.8571429 Z" id="Path" fill="#ECECEC"></path><path d="M31.5414414,17.0357143 C31.5414414,17.6428571 31.4353604,18.25 31.2231982,18.8214286 L25.4594595,34.7857143 L10.3252252,76.9285714 C9.29977477,79.5714286 6.3295045,80.9285714 3.67747748,79.9642857 C1.02545045,79 -0.388963964,76.0714286 0.495045045,73.3571429 L20.7565315,17.0714286 L21.393018,15.2857143 C22.2416667,12.8928571 24.7168919,11.4285714 27.2274775,11.8928571 C29.7380631,12.3571429 31.5414414,14.4642857 31.5414414,17.0357143 Z" id="Path" fill="#E2E2E2"></path><path d="M148.372072,80.0714286 C145.649324,81.0714286 142.679054,79.6428571 141.688964,76.8928571 L126.519369,34.7857143 L120.755631,18.8214286 C120.543468,18.25 120.437387,17.6428571 120.437387,17.0357143 C120.437387,14.4642857 122.276126,12.2857143 124.751351,11.8571429 C127.261937,11.4285714 129.701802,12.8571429 130.585811,15.25 L131.222297,17.0357143 L151.483784,73.3214286 C152.473874,76.0714286 151.059459,79.1071429 148.372072,80.0714286 Z" id="Path" fill="#E2E2E2"></path><line x1="130.126126" y1="1.17857143" x2="77.5452703" y2="1.17857143" id="Path" fill="#CAD9FC"></line><line x1="122.276126" y1="1.17857143" x2="130.126126" y2="1.17857143" id="Path" fill="#A4C2F7"></line><path d="M19.9078829,0.178571429 C20.120045,0.535714286 20.3675676,0.857142857 20.5443694,1.17857143 L67.8211712,1.17857143" id="Path" fill="#E8EDFC"></path><line x1="60.0418919" y1="1.17857143" x2="67.8918919" y2="1.17857143" id="Path" fill="#CAD9FC"></line></g><path d="M22.3831081,2 C22.5952703,2.35714286 22.8427928,2.67857143 23.0195946,3 L20.9333333,3 C18.0337838,3 15.7,5.35714286 15.7,8.28571429 L15.7,13.5714286 C15.7,16.5 18.0337838,18.8571429 20.9333333,18.8571429 L23.1963964,18.8571429" id="Path" fill="#FFFFFF"></path><path d="M28.1822072,37.4642857 L37.2698198,74.1785714 C38.4367117,78.8571429 42.6092342,82.1785714 47.4182432,82.1785714 L55.2682432,82.1785714 C50.4592342,82.1785714 46.2867117,78.8571429 45.1198198,74.1785714 L32.8144144,24.3928571" id="Path" fill="#FFFFFF"></path><polygon id="Path" fill="#FFFFFF" points="0.530405405 74.25 7.6731982 54.3928571 12.5882883 56.2142857 5.4454955 76.0714286"></polygon><path d="M18.5641892,0.75 C15.3463964,1.78571429 13.1540541,4.82142857 13.1186937,8.25 L13.1186937,8.25 L13.1186937,13.5357143 C13.1186937,17.3571429 15.8414414,20.6428571 19.5542793,21.3214286 L7.6731982,54.3571429 C7.17815315,55.7142857 7.88536036,57.25 9.22905405,57.75 C10.5727477,58.25 12.0932432,57.5357143 12.5882883,56.1785714 L26.3434685,17.9285714 C26.6617117,17.0357143 27.4042793,16.3571429 28.359009,16.2142857 C29.2783784,16.0357143 30.2331081,16.3928571 30.8342342,17.1071429 C31.4353604,17.8214286 31.6121622,18.8214286 31.2585586,19.7142857 L10.3605856,77.8214286 C9.86554054,79.1785714 8.38040541,79.8928571 7.00135135,79.3928571 C6.36486486,79.1428571 5.7990991,78.6785714 5.51621622,78.0357143 C5.23333333,77.3928571 5.19797297,76.6785714 5.41013514,76 C5.83445946,74.6428571 5.12725225,73.2142857 3.81891892,72.75 C2.51058559,72.25 1.06081081,72.8928571 0.530405405,74.2142857 C-0.95472973,78.3214286 1.16689189,82.8571429 5.23333333,84.3571429 C9.29977477,85.8571429 13.7905405,83.7142857 15.2756757,79.6071429 L27.5103604,45.6071429 L34.7592342,74.8214286 C36.209009,80.7142857 41.4423423,84.8214286 47.4536036,84.8214286 L109.581757,84.8214286 C115.593018,84.8214286 120.790991,80.7142857 122.240766,74.8214286 L129.48964,45.6071429 L141.724324,79.6071429 C142.643694,82.2857143 144.942117,84.2857143 147.735586,84.7857143 C150.529054,85.2857143 153.357883,84.25 155.161261,82.0714286 C156.96464,79.8928571 157.459685,76.8571429 156.469595,74.2142857 L137.445721,21.3214286 C141.158559,20.6428571 143.881306,17.3571429 143.881306,13.5357143 L143.881306,8.25 C143.881306,3.89285714 140.380631,0.321428571 136.031306,0.321428571 L135.889865,0.321428571 M117.148874,73.5357143 C116.264865,77.0714286 113.153153,79.5357143 109.546396,79.5357143 L47.4182432,79.5357143 C43.8114865,79.5357143 40.6997748,77.0714286 39.8157658,73.5357143 L30.6927928,36.7142857 L36.1736486,21.5 C36.1736486,21.4642857 36.1736486,21.4642857 36.1736486,21.4285714 L120.72027,21.4285714 C120.72027,21.4642857 120.72027,21.4642857 120.755631,21.5 L126.236486,36.7142857 L117.148874,73.5357143 Z M151.519144,76 C151.766667,76.6428571 151.731306,77.3928571 151.413063,78.0357143 C151.13018,78.6785714 150.599775,79.1785714 149.927928,79.3928571 C148.584234,79.8571429 147.099099,79.1785714 146.568694,77.8214286 L125.670721,19.75 C125.317117,18.8571429 125.493919,17.8571429 126.095045,17.1071429 C126.696171,16.3571429 127.650901,16.0357143 128.57027,16.1785714 C129.48964,16.3571429 130.267568,17 130.585811,17.9285714 L151.519144,76 Z M70.3317568,5.60714286 L135.960586,5.60714286 C137.41036,5.60714286 138.577252,6.78571429 138.577252,8.25 L138.577252,13.5357143 C138.577252,15 137.41036,16.1785714 135.960586,16.1785714 L135.500901,16.1785714 L135.465541,16.1071429 C134.334009,12.9642857 131.399099,10.8571429 128.075225,10.8928571 C124.751351,10.8928571 121.816441,13.0357143 120.755631,16.1785714 L36.1736486,16.1785714 C35.0774775,13.0357143 32.1425676,10.8928571 28.8540541,10.8928571 C25.5655405,10.8928571 22.5952703,12.9642857 21.4637387,16.1071429 L21.4283784,16.1785714 L20.9686937,16.1785714 C19.5189189,16.1785714 18.352027,15 18.352027,13.5357143 L18.352027,8.25 C18.352027,6.78571429 19.5189189,5.60714286 20.9686937,5.60714286 L70.3317568,5.60714286 Z" id="Shape" fill="#B7B7B7"></path><path d="M78.4646396,26.75 C74.1506757,26.75 70.6146396,30.2857143 70.6146396,34.6785714 L70.6146396,66.3571429 C70.6146396,70.7142857 74.1153153,74.2857143 78.4646396,74.2857143 C82.7786036,74.2857143 86.3146396,70.75 86.3146396,66.3571429 L86.3146396,34.6785714 C86.3146396,30.2857143 82.813964,26.75 78.4646396,26.75 Z M81.0813063,66.3571429 C81.0813063,67.8214286 79.9144144,69 78.4646396,69 C77.0148649,69 75.847973,67.8214286 75.847973,66.3571429 L75.847973,34.6785714 C75.847973,33.2142857 77.0148649,32.0357143 78.4646396,32.0357143 C79.9144144,32.0357143 81.0813063,33.2142857 81.0813063,34.6785714 L81.0813063,66.3571429 Z" id="Shape" fill="#B7B7B7"></path><path d="M59.370045,33.1428571 C58.875,30.3571429 56.9655405,28.0714286 54.3488739,27.1071429 C51.7322072,26.1428571 48.7972973,26.7142857 46.6756757,28.5714286 C44.5540541,30.4285714 43.5993243,33.25 44.1297297,36.0357143 L50.0349099,67.8928571 C50.529955,70.6428571 52.4747748,72.8928571 55.0914414,73.8214286 C57.7081081,74.75 60.6076577,74.2142857 62.6939189,72.3928571 C64.7801802,70.5714286 65.7702703,67.75 65.2752252,65 L59.370045,33.1428571 Z M59.5822072,68.0714286 C59.1225225,68.6428571 58.379955,69 57.6373874,69 C56.4351351,69 55.3743243,68.1071429 55.1621622,66.9285714 L49.256982,35.0714286 C49.1155405,34.3214286 49.3277027,33.5714286 49.7873874,32.9642857 C50.2824324,32.3928571 50.9896396,32.0357143 51.7322072,32.0357143 C52.9344595,32.0357143 53.9952703,32.8928571 54.2074324,34.1071429 L60.1126126,65.9642857 C60.2894144,66.7142857 60.0772523,67.5 59.5822072,68.0714286 L59.5822072,68.0714286 Z" id="Shape" fill="#B7B7B7"></path><path d="M105.197072,26.75 C101.484234,26.75 98.2664414,29.4285714 97.5592342,33.1428571 L91.6894144,65 C90.9468468,69.2142857 93.7403153,73.25 97.9128378,74.0357143 C102.08536,74.8214286 106.116441,72.0714286 106.92973,67.8571429 L112.83491,36 C113.259234,33.7142857 112.658108,31.3571429 111.172973,29.5714286 C109.723198,27.7857143 107.530856,26.75 105.197072,26.75 L105.197072,26.75 Z M107.707658,35.0357143 L101.802477,66.8928571 C101.590315,68.1071429 100.529505,68.9642857 99.3272523,68.9642857 C98.5846847,68.9642857 97.8774775,68.6428571 97.3824324,68.0357143 C96.8873874,67.4285714 96.7105856,66.6785714 96.852027,65.9285714 L102.757207,34.0714286 C102.969369,32.8571429 104.03018,32 105.232432,32 C105.975,32 106.682207,32.3214286 107.177252,32.9285714 C107.672297,33.5357143 107.849099,34.2857143 107.707658,35.0357143 Z" id="Shape" fill="#B7B7B7"></path><path d="M6.61238739,67.8214286 C5.16261261,67.8214286 3.99572072,66.6428571 3.99572072,65.1785714 C3.99572072,63.7142857 5.16261261,62.5357143 6.61238739,62.5357143 L6.64774775,62.5357143 C8.09752252,62.5357143 9.26441441,63.7142857 9.26441441,65.1785714 C9.22905405,66.6428571 8.06216216,67.8214286 6.61238739,67.8214286 Z" id="Path" fill="#B7B7B7"></path></g></g></g></g></svg>
           </div>
-          <h4 class="font-4 font-weight-bold">{{ text_empty_cart }}</h4>
+          <h4 class="font-4 font-weight-bold">Giỏ hàng trống</h4>
           <p>Hãy quay lại và chọn cho mình sản phẩm yêu thích bạn nhé</p>
           <a href="/" class="cus_btn mt-4 w-50">Tiếp tục mua sắm</a>
         </div>
       </div>
     </div>
   </div>
-  <section class="my-7 my-md-11 box-offer" ng-show="data.products.length">
-    <div class="container-lg">
-      <div class="position-relative text-center mb-5 mb-md-10">
-        <div class="section_title" data-title="{{ name }}"><span>{{ text_offer_product }}<!-- text_offer_product --></span></div>
-      </div>
-      <!-- Popular Item Slide -->
-      <div class="offer_product">
-        <!-- Item -->
-        <div class="swiper swiper_offer_product_{{ id }}">
-          <div class="swiper-wrapper">
-            {% for item in products %}
-              <div class="swiper-slide wid_block hover-zoom-img wow fadeInUp" data-wow-delay="{{ loop.index*0.2 }}s">
-                <!-- Item img -->
-                <a {{ item.href?'href="'~item.href~'"':'' }}>
-                  <div class="wid_img img position-relative">
-                    {% if item.reduce %}<div class="wid_discount position-absolute d-flex justify-content-center align-items-center"> <span class="align-middle">-{{ item.reduce }}</span> </div>{% endif %}
-                    {#<div class="embed-responsive embed-responsive-{{ properties.imgFrame?properties.imgFrame:'1by1' }} bg-cover lazyload swiper-lazy" data-src="{{ item.thumb_url }}" data-background="{{ item.thumb_url }}"></div>#}
-                    <div class="embed-responsive embed-responsive-{{ properties.imgFrame?'cms':'1by1' }} bg-cover lazyload swiper-lazy" data-src="{{ item.thumb_url }}" data-background="{{ item.thumb_url }}"></div>
-                  </div>
-                </a>
-                <!-- Item Name -->
-                <div class="wid_info">
-                  {% if item.category.name or item.category %}
-                    <div class="wid_short_description text-uppercase text-primary mt-3 font-6" style="font-weight: 600">{{ item.category.name?item.category.name:item.category }}</div>{% endif %}
-                  {% if item.name %}<a href="{{ item.href }}"><h5 class="wid_name mt-1 limit-text-2">{{ item.name }}</h5></a>{% endif %}
-                  <!-- Item Rating -->
-                  <div class="rating" style="--percent: {{ item.rating/5*100 }}%">
-                    <div class="percent">{% for i in 1..5 %}<span class="fa fa-star"></span> {% endfor %}</div>
-                    <div>{% for i in 1..5 %}<span class="fa fa-star-o"></span> {% endfor %}</div>
-                  </div>
-                  <span class="reviews pl-xl-1">({{ item.reviews }} nhận xét)</span>
-                </div>
-                <!-- Price -->
-                <div class="wid_price d-flex mt-1 text-left">
-                  {% if item.special %}
-                    <del class="price-cost pr-2">{{ item.price?item.price|number_format(0,'.','.') ~ 'đ':text_product_contact }}</del>
-                    <span class="price-discount">{{ item.special }}</span>
-                  {% else %}
-                    <span class="price-discount">{{ item.price?item.price|number_format(0,'.','.') ~ 'đ':text_product_contact }}</span>
-                  {% endif %}
-                </div>
-              </div>
-            {% endfor %}
-          </div>
-          <div class="section_dot" style="height: 60px">
-            <div class="swiper-pagination"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 </main>
 <script>
   var swiper_redeem_coin;
@@ -356,37 +167,4 @@ $('.icon').click(function() {
   }
 });
 //--></script>
-{#<script type="text/javascript"><!--
-$('#button-coupon').on('click', function() {
-  $.ajax({
-    url: '/total/coupon/coupon',
-    type: 'post',
-    data: 'coupon=' + encodeURIComponent($('input[name=\'coupon\']').val()),
-    dataType: 'json',
-    beforeSend: function() {
-      $('#button-coupon').button('loading');
-    },
-    complete: function() {
-      $('#button-coupon').button('reset');
-    },
-    success: function(json) {
-      console.log(json);
-      $('.form-control').removeClass('is-invalid');
-      if (json['error']) {
-        // $('input[name=\'coupon\']').addClass('is-invalid');
-        $.toast({icon: 'error', text: json['error'], allowToastClose: true, hideAfter: 3000, position: 'top-right'});
-        //$('#collapse-coupon .card-body').prepend('<div class="alert alert-danger alert-dismissible"><i class="fas fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-      }
-      // if (json['redirect']) location = json['redirect'];
-      if (json['success']) {
-        $.toast({icon: 'success', text: json['success'], allowToastClose: true, hideAfter: 3000, position: 'top-right'});
-        //location = json['redirect'];
-      }
-    },
-    error: function(xhr, ajaxOptions, thrownError) {
-      alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-    }
-  });
-});
-//--></script>#}
 {{ footer }}

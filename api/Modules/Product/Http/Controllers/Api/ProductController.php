@@ -16,6 +16,7 @@ use Modules\Product\Repositories\ProductOptionRepository;
 use Modules\Product\Repositories\ProductOptionValueRepository;
 use Modules\Product\Repositories\ProductRepository;
 use Modules\Product\Repositories\ProductSpecRepository;
+use Modules\Product\Repositories\ProductVariantRepository;
 
 /**
  * Class ProductController
@@ -88,6 +89,7 @@ class ProductController extends ApiBaseModuleController {
                                 ProductOptionRepository $product_option_repository,
                                 ProductOptionValueRepository $product_option_value_repository,
                                 ProductSpecRepository $product_spec_repository,
+                                ProductVariantRepository $product_variant_repository,
                                 OptionRepository $option_repository,
                                 OptionValueRepository $option_value_repository,
                                 CategoryRepository $category_repository,
@@ -98,6 +100,7 @@ class ProductController extends ApiBaseModuleController {
         $this->product_image_repository = $product_image_repository;
         $this->product_option_repository = $product_option_repository;
         $this->product_option_value_repository = $product_option_value_repository;
+        $this->product_variant_repository = $product_variant_repository;
         $this->product_spec_repository = $product_spec_repository;
         $this->option_repository = $option_repository;
         $this->option_value_repository = $option_value_repository;
