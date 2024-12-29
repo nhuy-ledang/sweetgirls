@@ -7,8 +7,6 @@ use Modules\Order\Repositories\OrderHistoryRepository;
  * Class OrderHistoryController
  *
  * @package Modules\Order\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2022-01-28
  */
 class OrderHistoryController extends ApiBaseModuleController {
     public function __construct(Request $request, OrderHistoryRepository $order_history_repository) {

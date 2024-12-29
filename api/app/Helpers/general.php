@@ -1,6 +1,6 @@
 <?php
 /**
- * @author Huy D <huydang1920@gmail.com>
+
  */
 
 if (!function_exists('getallheaders')) {

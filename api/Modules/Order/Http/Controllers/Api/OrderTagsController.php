@@ -7,8 +7,6 @@ use Modules\Order\Repositories\OrderTagsRepository;
  * Class OrderTagsController
  *
  * @package Modules\Order\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2022-01-28
  */
 class OrderTagsController extends ApiBaseModuleController {
     public function __construct(Request $request, OrderTagsRepository $order_tags_repository) {

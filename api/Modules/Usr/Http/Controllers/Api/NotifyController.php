@@ -8,8 +8,6 @@ use Modules\Usr\Repositories\UserRepository;
  * Class NotifyController
  *
  * @package Modules\Notify\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2022-08-26
  */
 class NotifyController extends ApiBaseModuleController {
     protected $maximumLimit = 20;

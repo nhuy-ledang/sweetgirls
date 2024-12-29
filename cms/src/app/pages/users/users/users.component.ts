@@ -34,7 +34,7 @@ export class UsersComponent extends AppList implements OnInit, OnDestroy, AfterV
     this.columnInt(cookie, 'user_users');
     this.data.sort = 'first_name';
     this.data.order = 'asc';
-    this.data.data.embed = 'group';
+    this.data.data.embed = '';
     this.filters = {
       group_id: {operator: '=', value: ''},
     };

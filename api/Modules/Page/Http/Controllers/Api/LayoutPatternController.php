@@ -13,8 +13,6 @@ use Modules\Media\Services\FileService;
  * Class LayoutPatternController
  *
  * @package Modules\Page\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2022-10-05
  */
 class LayoutPatternController extends ApiBaseModuleController {
     /**

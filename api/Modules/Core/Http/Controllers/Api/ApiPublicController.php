@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
  * Class ApiPublicController
  *
  * @package Modules\Core\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2023-05-25
  */
 abstract class ApiPublicController extends ApiBaseController {
     /**

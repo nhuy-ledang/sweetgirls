@@ -20,8 +20,6 @@ use Modules\Product\Repositories\ProductSpecRepository;
 /**
  * Class ProductController
  * @package Modules\Product\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2022-06-03
  */
 class ProductController extends ApiBaseModuleController {
     /**
@@ -776,8 +774,6 @@ class ProductController extends ApiBaseModuleController {
      */
     public function createVariant($id) {
         try {
-            // Check permission
-            if (!$this->isCRUD('products', 'create')) return $this->errorForbidden();
             $model = $this->model_repository->find($id);
             if (!$model || ($model && $model->master_id)) return $this->errorNotFound();
             $optObj = [];

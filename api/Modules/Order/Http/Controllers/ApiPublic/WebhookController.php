@@ -12,8 +12,6 @@ use Modules\System\Repositories\SettingRepository;
 /**
  * Class WebhookController
  * @package Modules\Order\Http\Controllers\ApiPublic
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2022-06-10
  */
 class WebhookController extends ApiBaseModuleController {
     use OnepayTrait;

@@ -12,8 +12,6 @@ use Modules\Media\Services\FileService;
  * Class ModuleController
  *
  * @package Modules\Page\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2022-03-20
  */
 class ModuleController extends ApiBaseModuleController {
     /**

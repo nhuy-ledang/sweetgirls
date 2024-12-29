@@ -9,7 +9,7 @@ use Modules\Core\Helper\ErrorFormat;
  * Class UserMiddleware
  *
  * @package Modules\Usr\Http\Middleware
- * @author Huy D <huydang1920@gmail.com>
+
  */
 class UserMiddleware {
     /**

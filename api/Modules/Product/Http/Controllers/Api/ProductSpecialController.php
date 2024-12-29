@@ -9,8 +9,6 @@ use Modules\Product\Repositories\ProductSpecialRepository;
  * Class ProductSpecialController
  *
  * @package Modules\Product\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2022-06-03
  */
 class ProductSpecialController extends ApiBaseModuleController {
     /**

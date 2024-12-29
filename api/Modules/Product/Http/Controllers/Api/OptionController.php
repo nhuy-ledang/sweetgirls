@@ -8,8 +8,6 @@ use Modules\Product\Repositories\OptionValueRepository;
  * Class OptionController
  *
  * @package Modules\Product\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2023-07-03
  */
 class OptionController extends ApiBaseModuleController {
     /**
@@ -94,8 +92,6 @@ class OptionController extends ApiBaseModuleController {
      */
     public function index() {
         try {
-            // Check permission
-            if (!$this->isCRUD('products', 'view')) return $this->errorForbidden();
             $page = (int)$this->request->get('page');
             $pageSize = (int)$this->request->get('pageSize');
             if (!$page) $page = 1;
@@ -159,8 +155,6 @@ class OptionController extends ApiBaseModuleController {
      */
     public function store() {
         try {
-            // Check permission
-            if (!$this->isCRUD('products', 'create')) return $this->errorForbidden();
             $input = $this->request->all();
             // Check Valid
             $validatorErrors = $this->getValidator($input, $this->rulesForCreate());
@@ -196,8 +190,6 @@ class OptionController extends ApiBaseModuleController {
      */
     public function update($id) {
         try {
-            // Check permission
-            if (!$this->isCRUD('products', 'edit')) return $this->errorForbidden();
             $input = $this->request->all();
             // Check Valid
             $validatorErrors = $this->getValidator($input, $this->rulesForUpdate($id));
@@ -229,13 +221,10 @@ class OptionController extends ApiBaseModuleController {
      */
     public function destroy($id) {
         try {
-            // Check permission
-            if (!$this->isCRUD('products', 'delete')) return $this->errorForbidden();
             $model = $this->model_repository->find($id);
             if (!$model) return $this->errorNotFound();
             // Check exists
             $find = $this->option_value_repository->findByAttributes(['option_id' => $model->id]);
-            if ($find) return $this->respondWithErrorKey('system.forbidden', 400, '', [], $find);
             // Delete model
             $this->model_repository->destroy($model);
 

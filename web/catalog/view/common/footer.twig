@@ -2,7 +2,7 @@
   <div class="footer overflow-hidden border-top">
   <style>
     .footer {
-      background: url('{{ config.pg_footer_bg }}') no-repeat bottom center / cover {{ config.pg_footer_bg_color?'var(--'~config.pg_footer_bg_color~')':'' }};
+      background-color: var(--secondary);
       color: {{ config.pg_footer_text_color?'var(--'~config.pg_footer_text_color~')':'unset' }};
     }
     .footer .brand__logo {
@@ -40,22 +40,13 @@
   <div class="{{ config.pg_footer_cont?'container-'~config.pg_footer_cont:'container-md' }} pt-8">
     <div class="row font-5 justify-content-between">
       <div class="col-12 col-sm-auto col-lg-3 mb-5 mb-xl-0 font-weight-bold">
-        {% if not global.config_icon_vendor %}<div class="brand mb-5 wow fadeInUp" data-wow-delay="0.3s"><a href="/"><img class="img-fluid {{ config.pg_footer_logo_invert?'invert':'' }}" src="{{ logo?logo:'/assets/logo/logo-gernium.png' }}" style="max-width: 235px;max-height: 70px; height: auto"></a></div>{% endif %}
-        {% if global.config_icon_vendor %}<div class="mb-5 wow fadeInUp" data-wow-delay="0.2s"><img src="{{ global.config_icon_vendor }}" class="img-fluid" style="max-height: 100px"></div>{% endif %}
-        <div class="h4 font-weight-bolder wow fadeInUp" data-wow-delay="0.3s">{{ global.config_owner }}</div>
+        <a href="/"><img src="{{ logo?logo:'/assets/logo/logo.svg' }}" class="img-fluid brand__logo" alt="{{ global.config_name }}"></a>
+        <div class="h4 font-weight-bolder mt-3 wow fadeInUp" data-wow-delay="0.3s">{{ global.config_owner }}</div>
         {% if global.config_address %}<div class="lh-25 wow fadeInUp" data-wow-delay="0.3s"><span class="ic_location lh-25"></span> {{ global.config_address }}</div>{% endif %}
         {% if global.config_hotline %}<div class="py-1 wow fadeInUp" data-wow-delay="0.4s"><span class="ic_phone lh-25"></span> <a href="tel:{{ global.config_hotline|replace({' ': '', '.': ''}) }}">{{ global.config_hotline }}</a></div>{% endif %}
         {% if global.config_email %}<div class="wow fadeInUp" data-wow-delay="0.5s"><span class="ic_email lh-25"></span> <a target="_blank" href="https://mail.google.com/mail/?view=cm&fs=1&to={{ global.config_email }}">{{ global.config_email }}</a></div>{% endif %}
         {% if global.config_open %}<div class="pt-1 wow fadeInUp" data-wow-delay="0.6s"><span class="lh-25"></span> <a target="_blank" href="javascript:{}">{{ global.config_open }}</a></div>{% endif %}
       </div>
-      {# <div class="col-auto w_info_footer">
-        <div class="h4 font-weight-bolder title_">{{ text_info_footer?text_info_footer:'Thông tin' }}<!-- text_info_footer --></div>
-        {% for item in info_page %}
-          <div class="mb-1 wow fadeInUp" data-wow-delay="0.7s">
-            <a href="{{ item.href }}">{{ item.name }}</a>
-          </div>
-        {% endfor %}
-      </div> #}
       <div class="col-12 col-sm-auto mt-5 mt-sm-0">
         <div class="h4 font-weight-bolder title_">{{ text_connect_footer?text_connect_footer:'Kết nối' }}<!-- text_connect_footer --></div>
         <div class="mb-1 wow fadeInUp" data-wow-delay="0.7s">
@@ -80,15 +71,10 @@
               {% if global.config_linkedin_url %}
                 <li class="list-inline-item"><a href="{{ global.config_linkedin_url }}" class="text-reset"><span class="ic_linkedin font-weight-bold"></span></a></li>
               {% endif %}
-              {% if global.config_alibaba_url %}
-                <li class="list-inline-item"><a href="{{ global.config_alibaba_url }}" class="text-reset"><span class="ic_alibaba font-weight-bold"></span></a></li>
-              {% endif %}
             </ul>
           </div>
         </div>
-        {#{% if global.config_icon_vendor %}<div class="mb-1 wow fadeInUp" data-wow-delay="0.7s"><img src="{{ global.config_icon_vendor }}" class="img-fluid" style="max-height: 100px"></div>{% endif %}#}
       </div>
-
       <div class="col-12 col-sm-auto mt-5 mt-sm-0 pl-sm-1 pl-lg-2">
         <div class="h4 font-weight-bolder title_">{{ text_map_footer?text_map_footer:'Bản đồ' }}<!-- text_map_footer --></div>
         <div class="block-iframe-map w-100 overflow-hidden wow fadeInUp" data-wow-delay="0.75s">
@@ -99,9 +85,6 @@
           <div class="ml-2 wow fadeInUp" data-wow-delay="0.9s"><img class="img-fluid" src="/assets/images/dmca_logo.png" style="max-width: 235px;max-height: 32px; height: auto"></div>
         </div>
       </div>
-      {#<div class="col-12 col-xl-8 px-xl-0 font-weight-bold d-flex justify-content-between">#}
-      {##}
-      {#</div>#}
     </div>
     <div class="border-top text-center py-3 mt-8 d-md-flex justify-content-center">
       <div class="copyright font-12 wow fadeInUp" data-wow-delay="0.8s">{{ global.config_copyright?global.config_copyright:'<a href="http://tedfast.vn" rel="sponsored" target="_blank">© Designed &amp; Developed by TEDFAST</a>' }}</div>
@@ -120,294 +103,6 @@
   });
 </script>
 {% endif %}
-
-{% if mkt.mkt_popup_status %}
-  <style>
-    .popup-reg {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      top: 100%;
-      left: 0;
-      z-index: 9999999999;
-      overflow: auto;
-      transition: 0.3s ease-in-out;
-    }
-    .popup-reg.active {
-      top: 0;
-    }
-    .popup-reg .box-reg {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: auto;
-      max-width: 75%;
-      z-index: 2;
-      background: #fff;
-      padding: 10px 10px 10px 10px
-    }
-
-    backdrop {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      top: 0;
-      left: 0;
-      z-index: 1;
-      display: none;
-    }
-    .popup-reg.active backdrop {
-      display: block;
-    }
-    .popup-reg .btn-dark {
-      background-color: #666666;
-      border-color: #666666;
-    }
-    .popup-reg .btn-dark:hover {
-      background-color: #000;
-      border-color: #000;
-    }
-    .popup-reg .custom-radio .custom-control-input:checked ~ .custom-control-label::after {
-      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-7 -7 14 14'%3e%3ccircle r='7' fill='%23666666'/%3e%3c/svg%3e");
-    }
-    .popup-reg .btn-close {
-      background-color: #ffffff;
-      width: 40px;
-      height: 40px;
-      position: relative;
-      cursor: pointer;
-    }
-    .popup-reg .btn-close:before, .popup-reg .btn-close:after {
-      content:'';
-      height: 2px;
-      width: 20px;
-      background-color: #000000;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%,-50%) rotate(45deg);
-    }
-    .popup-reg .btn-close:after {
-      transform: translate(-50%,-50%) rotate(-45deg);
-    }
-
-    @media (max-width: 1279px) {
-      .popup-reg .box-reg {
-        top: 0;
-        transform: translate(-50%, 20px);
-        max-width: 90%
-      }
-      .popup-reg .bg-reg {
-        background-image: none;
-        margin: 0
-      }
-    }
-    @media (max-width: 767px) {
-      .popup-reg .box-reg {
-        transform: translateY(0);
-        padding: 10px 30px 30px;
-        width: 100%;
-        top: unset;
-        bottom: 0;
-        left: 0;
-        max-width: 100%
-      }
-      backdrop {
-        display: none !important;
-      }
-    }
-    @media (max-width: 575px) {
-      .popup-reg .box-reg {
-        padding: 10px 0 30px;
-      }
-      backdrop {
-        display: none !important;
-      }
-    }
-  </style>
-  <div class="popup-reg">
-    <section class="box-reg overflow-hidden">
-      <div class="bg-reg">
-        <div class="row no-gutters">
-          <div class="col text-center">
-            <div class="img"><img src="{{ mkt.mkt_popup_image_thumb_url }}" class="img-fluid" style="max-height: 80vh;"></div>
-            <a href="{{ mkt.mkt_popup_btn_link?mkt.mkt_popup_btn_link:'javascript:{}' }}" class="btn btn-dark rounded-0 px-sm-8 px-6 py-2 mt-2" type="button" id="btn-form">{{ mkt.mkt_popup_btn_name?mkt.mkt_popup_btn_name:'Tìm hiểu thêm' }}</a>
-          </div>
-          <div class="position-absolute" style="top: 0; right: 0"><div class="btn-close"></div></div>
-        </div>
-      </div>
-    </section>
-    <backdrop></backdrop>
-    <script>
-      $('.btn-close').click(function() {
-        $('.popup-reg').removeClass('active');
-      });
-      $(window).load(function() {
-        if (document.cookie.search('unew')<0 && $('.home_page').length) {
-          var cookie_time = {{ mkt.mkt_popup_cookie or mkt.mkt_popup_cookie != ''?mkt.mkt_popup_cookie:'1' }}*24*60*60;
-          setTimeout(function() {
-            $('.popup-reg').addClass('active');
-          },{{ mkt.mkt_popup_cookie?mkt.mkt_popup_delay*1000:'6000' }});
-          document.cookie = "unew=1; max-age=" + Math.floor(cookie_time);
-        }
-      });
-    </script>
-  </div>
-{% endif %}
-
-{% if global.config_contact_status %}
-<div class="fixed-contact">
-  <div id="arcontactus"></div>
-</div>
-<script src="/assets/js/contactus/scripts.js"></script>
-<script src="/assets/js/contactus/jquery.contactus.min.js"></script>
-<script type="text/javascript">
-//var arcontactusAjax = {"url":"https:\/\/www.seonamnguyen.com\/wp-admin\/admin-ajax.php","version":"1.3.3"};
-var arcItems = [];
-var config_facebook_url = {{ global.config_facebook_url?'true':'false' }};
-var config_zalo_url = {{ global.config_zalo_url?'true':'false' }};
-window.addEventListener('load', function() {
-  arCuClosedCookie = arCuGetCookie('arcu-closed');
-  jQuery('#arcontactus').on('arcontactus.init', function() {
-  });
-  if (config_facebook_url) {
-    var arcItem = {};
-    arcItem.id = 'msg-item-1';
-    arcItem.class = 'msg-item-facebook-messenger';
-    arcItem.title = 'Messenger';
-    arcItem.icon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M224 32C15.9 32-77.5 278 84.6 400.6V480l75.7-42c142.2 39.8 285.4-59.9 285.4-198.7C445.8 124.8 346.5 32 224 32zm23.4 278.1L190 250.5 79.6 311.6l121.1-128.5 57.4 59.6 110.4-61.1-121.1 128.5z"></path></svg>';
-    arcItem.href = 'https://m.me{{ global.config_facebook_url|replace({'https://www.facebook.com/':"/"}) }}';
-    arcItem.color = 'var(--primary)';
-    arcItems.push(arcItem);
-  }
-  if (config_zalo_url) {
-    var arcItem = {};
-    arcItem.id = 'msg-item-6';
-    arcItem.class = 'msg-item-zalo';
-    arcItem.title = 'Chat Zalo';
-    arcItem.icon = '<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460.1 436.6"><path fill="currentColor" class="st0" d="M82.6 380.9c-1.8-.8-3.1-1.7-1-3.5 1.3-1 2.7-1.9 4.1-2.8 13.1-8.5 25.4-17.8 33.5-31.5 6.8-11.4 5.7-18.1-2.8-26.5C69 269.2 48.2 212.5 58.6 145.5 64.5 107.7 81.8 75 107 46.6c15.2-17.2 33.3-31.1 53.1-42.7 1.2-.7 2.9-.9 3.1-2.7-.4-1-1.1-.7-1.7-.7-33.7 0-67.4-.7-101 .2C28.3 1.7.5 26.6.6 62.3c.2 104.3 0 208.6 0 313 0 32.4 24.7 59.5 57 60.7 27.3 1.1 54.6.2 82 .1 2 .1 4 .2 6 .2H290c36 0 72 .2 108 0 33.4 0 60.5-27 60.5-60.3v-.6-58.5c0-1.4.5-2.9-.4-4.4-1.8.1-2.5 1.6-3.5 2.6-19.4 19.5-42.3 35.2-67.4 46.3-61.5 27.1-124.1 29-187.6 7.2-5.5-2-11.5-2.2-17.2-.8-8.4 2.1-16.7 4.6-25 7.1-24.4 7.6-49.3 11-74.8 6zm72.5-168.5c1.7-2.2 2.6-3.5 3.6-4.8 13.1-16.6 26.2-33.2 39.3-49.9 3.8-4.8 7.6-9.7 10-15.5 2.8-6.6-.2-12.8-7-15.2-3-.9-6.2-1.3-9.4-1.1-17.8-.1-35.7-.1-53.5 0-2.5 0-5 .3-7.4.9-5.6 1.4-9 7.1-7.6 12.8 1 3.8 4 6.8 7.8 7.7 2.4.6 4.9.9 7.4.8 10.8.1 21.7 0 32.5.1 1.2 0 2.7-.8 3.6 1-.9 1.2-1.8 2.4-2.7 3.5-15.5 19.6-30.9 39.3-46.4 58.9-3.8 4.9-5.8 10.3-3 16.3s8.5 7.1 14.3 7.5c4.6.3 9.3.1 14 .1 16.2 0 32.3.1 48.5-.1 8.6-.1 13.2-5.3 12.3-13.3-.7-6.3-5-9.6-13-9.7-14.1-.1-28.2 0-43.3 0zm116-52.6c-12.5-10.9-26.3-11.6-39.8-3.6-16.4 9.6-22.4 25.3-20.4 43.5 1.9 17 9.3 30.9 27.1 36.6 11.1 3.6 21.4 2.3 30.5-5.1 2.4-1.9 3.1-1.5 4.8.6 3.3 4.2 9 5.8 14 3.9 5-1.5 8.3-6.1 8.3-11.3.1-20 .2-40 0-60-.1-8-7.6-13.1-15.4-11.5-4.3.9-6.7 3.8-9.1 6.9zm69.3 37.1c-.4 25 20.3 43.9 46.3 41.3 23.9-2.4 39.4-20.3 38.6-45.6-.8-25-19.4-42.1-44.9-41.3-23.9.7-40.8 19.9-40 45.6zm-8.8-19.9c0-15.7.1-31.3 0-47 0-8-5.1-13-12.7-12.9-7.4.1-12.3 5.1-12.4 12.8-.1 4.7 0 9.3 0 14v79.5c0 6.2 3.8 11.6 8.8 12.9 6.9 1.9 14-2.2 15.8-9.1.3-1.2.5-2.4.4-3.7.2-15.5.1-31 .1-46.5z"/></svg>';
-    {#arcItem.href = 'http://zalo.me{{ global.config_zalo_url | replace({'https://zalo.me/':"/"})}}';#}
-    arcItem.href = '{{ global.config_zalo_url }}';
-    arcItem.color = 'var(--primary)';
-    arcItems.push(arcItem);
-  }
-  {#var arcItem = {};#}
-  {#arcItem.id = 'msg-item-7';#}
-  {#arcItem.class = 'msg-item-envelope';#}
-  {#arcItem.title = 'Email us';#}
-  {#arcItem.icon = '<svg  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M464 64H48C21.5 64 0 85.5 0 112v288c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48zM48 96h416c8.8 0 16 7.2 16 16v41.4c-21.9 18.5-53.2 44-150.6 121.3-16.9 13.4-50.2 45.7-73.4 45.3-23.2.4-56.6-31.9-73.4-45.3C85.2 197.4 53.9 171.9 32 153.4V112c0-8.8 7.2-16 16-16zm416 320H48c-8.8 0-16-7.2-16-16V195c22.8 18.7 58.8 47.6 130.7 104.7 20.5 16.4 56.7 52.5 93.3 52.3 36.4.3 72.3-35.5 93.3-52.3 71.9-57.1 107.9-86 130.7-104.7v205c0 8.8-7.2 16-16 16z"></path></svg>';#}
-  {#arcItem.href = 'mailto:{{ global.config_email }}';#}
-  {#arcItem.color = '#FF643A';#}
-  {#arcItems.push(arcItem);#}
-  var arcItem = {};
-  arcItem.id = 'msg-item-8';
-  arcItem.class = 'msg-item-phone';
-  arcItem.title = '{{ global.config_hotline }}';
-  arcItem.icon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-36 76.7-98.9 140.5-177.2 177.2l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48C3.9 366.5-2 378.1.6 389.4l24 104C27.1 504.2 36.7 512 48 512c256.1 0 464-207.5 464-464 0-11.2-7.7-20.9-18.6-23.4z"></path></svg>';
-  {#arcItem.href = 'tel:{{ global.config_telephone|replace({' ': '', '.': ''}) }}';#}
-  arcItem.href = 'tel:{{ global.config_hotline|replace({' ': '', '.': '', '-': ''}) }}';
-  arcItem.color = 'var(--primary)';
-  arcItems.push(arcItem);
-  jQuery('#arcontactus').contactUs({
-    buttonIcon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-36 76.7-98.9 140.5-177.2 177.2l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48C3.9 366.5-2 378.1.6 389.4l24 104C27.1 504.2 36.7 512 48 512c256.1 0 464-207.5 464-464 0-11.2-7.7-20.9-18.6-23.4z"></path></svg>',
-    drag: false,
-    buttonIconUrl: '/catalog/view/javascript/ar-contactus/img/msg.svg',
-    align: 'right',
-    reCaptcha: false,
-    reCaptchaKey: '',
-    countdown: 0,
-    theme: 'var(--primary)',
-    //theme: '#008749',
-    buttonText: false,
-    buttonSize: 'small',
-    menuSize: 'small',
-    phonePlaceholder: '+XXX-XX-XXX-XX-XX',
-    callbackSubmitText: 'Waiting for call',
-    errorMessage: 'Connection error. Please refresh the page and try again.',
-    callProcessText: 'We are calling you to phone',
-    callSuccessText: 'Thank you.<br />We are call you back soon.',
-    iconsAnimationSpeed: 1500,
-    callbackFormText: 'Please enter your phone number<br />and we call you back soon',
-    items: arcItems,
-    //ajaxUrl: arcontactusAjax.url,
-    action: 'arcontactus_request_callback'
-  });
-});
-</script>
-{% endif %}
-<script>
-
-{% if global.config_contact_status %}
-var timer;
-$(window).scroll(function() {
-  if ( timer ) clearTimeout(timer)
-  timer = setTimeout(function(){
-    if ($(window).scrollTop() >= 200) {
-      $('#backtop').fadeIn('fast');
-    } else {
-      $('#backtop').fadeOut('fast');
-    }
-  }, 300);
-});
-$("#backtop").click(function(){
-  $("body,html").animate({scrollTop:0 },"normal");
-  return!1
-});
-{% endif %}
-
-$(document).ready(function() {
-  function css_toolbar() {
-    $('.toolbar').show();
-    var width_toolbar = $('.toolbar').outerWidth();
-    if ($(window).width() > 576) {
-      $('.toolbar').css("right", -width_toolbar + 61 + "px");
-    }
-
-    $('.toolbar div').hover(function() {
-      if ($(window).width() > 576) {
-        $(this).css("transform", "translate(-" + (width_toolbar - 61) + "px,0)");
-      }
-    }, function() {
-      $(this).css("transform", "translate(0,0)");
-    });
-  }
-
-  css_toolbar();
-  $(window).on('resize', css_toolbar);
-
-  function wrapTable() {
-    if($("table") && $(window).width() < 1279){
-      $("table").wrap( "<div class=\"table-responsive\"></div>" );
-    }
-  }
-  wrapTable();
-  $(window).resize(wrapTable);
-});
-
-function scroll_to(id) {
-  $('html, body').animate({
-    scrollTop: $("#flag-" + id).offset().top - 160
-  }, 1000);
-}
-function goBack() {
-  window.history.back();
-}
-
-//Opacity breadcrumb when scroll
-$(document).ready(function() {
-  if ($(window).width() > 1011) {
-    $(window).scroll(function() {
-      $('.blur-title').css("opacity", 1 - $(window).scrollTop() / 150)
-    })
-  }
-});
-
-if (document.getElementById("flag_recruit")) {
-  $('#contact_recruit').show();
-}
-</script>
 <!--====== Module ======-->
 <script>
   function linkModule(id) {

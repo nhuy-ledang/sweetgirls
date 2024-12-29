@@ -10,8 +10,6 @@ use Modules\Media\Services\FileService;
  * Class ProductImageController
  *
  * @package Modules\Product\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2022-06-03
  */
 class ProductImageController extends ApiBaseModuleController {
     /**

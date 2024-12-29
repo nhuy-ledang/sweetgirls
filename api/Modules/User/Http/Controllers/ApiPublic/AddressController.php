@@ -8,8 +8,6 @@ use Modules\User\Repositories\UserRepository;
  * Class AddressController
  *
  * @package Modules\User\Http\Controllers\ApiPublic
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2021-06-21
  */
 class AddressController extends ApiBaseModuleController {
     /**

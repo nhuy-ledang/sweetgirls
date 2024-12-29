@@ -7,8 +7,6 @@ use Modules\System\Repositories\FeedbackRepository;
  * Class FeedbackController
  *
  * @package Modules\System\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2021/06/03
  */
 class FeedbackController extends ApiBaseModuleController {
 

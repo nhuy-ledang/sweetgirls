@@ -16,8 +16,6 @@ use Modules\User\Repositories\UserRepository;
  * Class OrderController
  *
  * @package Modules\Order\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2023-05-30
  */
 class OrderController extends ApiBaseModuleController {
     /**

@@ -11,8 +11,6 @@ use Modules\User\Repositories\UserRepository;
  * Class CartController
  *
  * @package Modules\Order\Http\Controllers\ApiPublic
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2022-06-03
  */
 class CartController extends ApiBaseModuleController {
     /**

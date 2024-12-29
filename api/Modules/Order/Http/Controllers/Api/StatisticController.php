@@ -11,8 +11,6 @@ use Modules\System\Repositories\VisitorRepository;
  * Class StatisticController
  *
  * @package Modules\Order\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2023-01-17
  */
 class StatisticController extends ApiBaseModuleController {
     /**

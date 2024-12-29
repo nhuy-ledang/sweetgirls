@@ -9,8 +9,6 @@ use Modules\Product\Repositories\ProductSpecRepository;
  * Class ProductSpecController
  *
  * @package Modules\Product\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2022-12-05
  */
 class ProductSpecController extends ApiBaseModuleController {
     /**

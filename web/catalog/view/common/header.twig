@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{ title }}</title>
+<title>SWEETGIRLS</title>
 <base href="{{ base }}">
 {% if description %}
 <meta name="description" content="{{ description }}">{% endif %}
@@ -268,74 +268,7 @@
       }
     }
   </style>
-  {#fixed_bar#}
-  <style>
-    .fixed_bar {
-      position: fixed;
-      top: -105%;
-      left: 0;
-      width: 100%;
-      background: var(--secondary);
-      border-top: 1px solid var(--secondary);
-      border-bottom: 1px solid var(--secondary);
-      transition: 0.8s ease;
-    }
-    .fixed_bar > *{
-      min-height: 90px;
-      background: var(--secondary);
-    }
-    .fixed_bar .logo {
-      position: relative;
-    }
-    .fixed_bar .brand__logo {
-      max-height: 40px;
-    }
-    .fixed_bar .wid_menu_item:not(:last-child) {
-      margin-right: -1px;
-    }
-    .fixed_bar.fixed-top {
-      top: 0;
-    }
-    .fixed_bar .item_menu:hover .menu_childs_dk {
-      top: calc(100% + 1px);
-    }
-    @media (max-width: 1440px) {
-      .fixed_bar .brand__logo {
-        max-height: 38px;
-      }
-      .fixed_bar .font-4 {
-        font-size: 14px;
-      }
-    }
-  </style>
-  {#Search_form#}
-  <style>
-    .search_form {
-      position: absolute;
-      top: -500%;
-      width: 100%;
-      background: var(--secondary);
-      transition: 0.5s ease;
-      z-index: -1;
-    }
-    .search_form.is-open {
-      top: calc(100% + 1px);
-    }
-    .tags span {
-      padding: 5px;
-      margin: 0 5px 10px 0;
-      border: 1px solid var(--primary);
-      color: var(--primary);
-      background: transparent;
-      display: inline-block;
-      font-size: 13px;
-      transition: 0.3s ease;
-    }
-    .tags span:hover {
-      color: #ffffff;
-      background: var(--primary);
-    }
-  </style>
+  
   {#Block account, location, language#}
   <style>
     .wid_account_block, .wid_location_block, .wid_language_block {
@@ -444,77 +377,30 @@
     }
   </style>
   <div class="site-navbar position-relative d-block">
-    {% if global.config_comment %}
-      <div class="wid_notify row no-gutters w-100 d-xl-none bg-dark text-white text-center py-1 editor_reset" style="position: fixed;z-index: 9; top: 0;">
-        <div class="col">
-          <span>{{ global.config_comment }}</span>
-        </div>
-        <div class="col-auto align-self-center">
-          <span class="px-1 cursor-pointer" onclick="$('.site-navbar .wid_notify').remove();$('.header').css('top', 0);$('#main-content').css('padding-top', 0)"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 30 30"><path fill="#ffffff" id="Icon_material-close" data-name="Icon material-close" d="M37.5,10.521,34.479,7.5,22.5,19.479,10.521,7.5,7.5,10.521,19.479,22.5,7.5,34.479,10.521,37.5,22.5,25.521,34.479,37.5,37.5,34.479,25.521,22.5Z" transform="translate(-7.5 -7.5)"></path></svg></span>
-        </div>
-      </div>
-    {% endif %}
     <div class="header">
-      {% if global.config_comment %}
-        <div class="wid_notify d-none d-xl-block bg-dark text-white text-center py-1 position-relative editor_reset" style="z-index: 9">
-          <span>{{ global.config_comment }}</span>
-          <span class="cursor-pointer" style="position: absolute; right: 10px;" onclick="$('.header .wid_notify').remove()"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 30 30"><path fill="#ffffff" id="Icon_material-close" data-name="Icon material-close" d="M37.5,10.521,34.479,7.5,22.5,19.479,10.521,7.5,7.5,10.521,19.479,22.5,7.5,34.479,10.521,37.5,22.5,25.521,34.479,37.5,37.5,34.479,25.521,22.5Z" transform="translate(-7.5 -7.5)"></path></svg></span>
-        </div>
-      {% endif %}
       <div class="header-top d-none d-xl-block">
         <div class="row no-gutters justify-content-between align-items-center wid_menu_top_box px-5">
           <div class="col-auto">
             <div class="row no-gutters wid_menu_top_block">
-              {#<div class="col-auto d-flex align-items-center justify-content-center wid_menu_top_item">
-                <a href="{{ menu.childs?'javascript:{}':menu.href }}" class="px-4 row no-gutters text-uppercase break-spaces-xl font-13 font-weight-bold justify-content-center" ng-click="outside()" onclick="toggleActive(this)">
-                  <svg class="col-auto" style="margin-top: 2px;" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15"><g id="Group_981" data-name="Group 981" transform="translate(1.25)"><path id="Path_462" data-name="Path 462" d="M10,2A6,6,0,0,0,4,7.94c0,4.11,5.287,8.685,5.512,8.88a.75.75,0,0,0,.975,0C10.75,16.625,16,12.05,16,7.94A6,6,0,0,0,10,2Zm0,13.237c-1.252-1.192-4.5-4.5-4.5-7.3a4.5,4.5,0,1,1,9,0C14.5,10.715,11.252,14.045,10,15.237Z" transform="translate(-4 -2)"/><path id="Path_463" data-name="Path 463" d="M11.125,6A2.625,2.625,0,1,0,13.75,8.625,2.625,2.625,0,0,0,11.125,6Zm0,3.75A1.125,1.125,0,1,1,12.25,8.625,1.125,1.125,0,0,1,11.125,9.75Z" transform="translate(-5.125 -3)"/></g></svg>
-                  <span class="col text-left" style="padding-left: 2px">{{ locations[0].name }} <span class="fa fa-caret-down font-13"></span></span></a>
-                  <div class="wid_location_block">
-                    {% for item in locations %}
-                      <a href="javascript:void(0);" class="px-2 py-4">{{ item.name }}</a>
-                    {% endfor %}
-                  </div>
-              </div>#}
-              {#<div class="col-auto d-flex align-items-center justify-content-center wid_menu_top_item">
-                <a href="{{ menu.childs?'javascript:{}':menu.href }}" class="px-4 d-block break-spaces-xl text-center" ng-click="outside()" onclick="toggleActive(this)">{{ current_language.name }} <span class="fa fa-caret-down font-13"></span></a>
-                <div class="wid_language_block">
-                  {% for item in languages %}
-                    <a href="{{ item.href }}" class="px-2 py-4">{{ item.name }}</a>
-                  {% endfor %}
-                </div>
-              </div>#}
               <div class="col-auto d-flex align-items-center justify-content-center wid_menu_top_item">
-                <a href="/gioi-thieu" class="px-4 d-block break-spaces-xl text-center">{{ text_header_aboutus }}<!-- text_header_aboutus --></a>
+                <a href="/" class="px-4 d-block break-spaces-xl text-center">Giới thiệu</a>
               </div>
               <div class="col-auto d-flex align-items-center justify-content-center wid_menu_top_item">
-                <a href="/lien-he" class="px-4 row no-gutters break-spaces-xl justify-content-center">
+                <a href="/" class="px-4 row no-gutters break-spaces-xl justify-content-center">
                   <svg class="col-auto" style="margin-top: 2px;" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15"><g id="Group_981" data-name="Group 981" transform="translate(1.25)"><path id="Path_462" data-name="Path 462" d="M10,2A6,6,0,0,0,4,7.94c0,4.11,5.287,8.685,5.512,8.88a.75.75,0,0,0,.975,0C10.75,16.625,16,12.05,16,7.94A6,6,0,0,0,10,2Zm0,13.237c-1.252-1.192-4.5-4.5-4.5-7.3a4.5,4.5,0,1,1,9,0C14.5,10.715,11.252,14.045,10,15.237Z" transform="translate(-4 -2)"/><path id="Path_463" data-name="Path 463" d="M11.125,6A2.625,2.625,0,1,0,13.75,8.625,2.625,2.625,0,0,0,11.125,6Zm0,3.75A1.125,1.125,0,1,1,12.25,8.625,1.125,1.125,0,0,1,11.125,9.75Z" transform="translate(-5.125 -3)"/></g></svg>
-                  <span class="col text-left" style="padding-left: 2px">{{ text_header_contact }}<!-- text_header_contact --></a>
+                  <span class="col text-left" style="padding-left: 2px">Liên hệ</a>
               </div>
             </div>
           </div>
-
           <div class="col-auto">
             <div class="row no-gutters wid_menu_top_block">
               <div class="col-auto d-flex align-items-center justify-content-center wid_menu_top_item">
-                <a class="px-4 row no-gutters break-spaces-xl justify-content-center cursor-pointer align-items-center" ng-click="open()" onclick="toggleActive(this)">
-                  <svg id="Group_184" data-name="Group 184" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path id="Path_139" data-name="Path 139" d="M8.917,17.834a8.917,8.917,0,1,1,8.917-8.917A8.927,8.927,0,0,1,8.917,17.834Zm0-16.188a7.271,7.271,0,1,0,7.271,7.271A7.279,7.279,0,0,0,8.917,1.646Z" fill="#30302f"/><path id="Path_140" data-name="Path 140" d="M356.017,356.755a.736.736,0,0,1-.522-.216l-4.233-4.233a.738.738,0,0,1,1.044-1.044l4.233,4.233a.738.738,0,0,1-.522,1.26Z" transform="translate(-336.755 -336.755)" fill="#30302f"/></svg>
-                  <span class="col text-left" style="padding-left: 2px">Tìm kiếm</span></a>
-              </div>
-              <div class="col-auto d-flex align-items-center justify-content-center wid_menu_top_item">
-                {% if userData.logged %}
-                  <a href="javascript:{}" class="px-4 d-block break-spaces-xl text-center" ng-click="outside()" onclick="toggleActive(this)">{{ userData.info.display }}</a>
+                <a href="javascript:{}" class="px-4 d-block break-spaces-xl text-center" ng-click="outside()" onclick="toggleActive(this)">{{ userData.info.display }}</a>
                   <div class="wid_account_block">
                     <a href="/account/profile" class="px-2 py-4">Tài khoản</a>
                     <a href="{{ global.home_url }}/logout" class="px-2 py-4">Đăng xuất</a>
                   </div>
-                {% else %}
-                  {% if global.config_login_popup %}
-                    <a href="javascript:{}" class="px-4 d-block break-spaces-xl text-center" ng-click="openLogin()">Đăng nhập</a>
-                  {% else %}
-                    <a href="{{ global.home_url }}/login" class="px-4 d-block break-spaces-xl text-center">Đăng nhập</a>
-                  {% endif %}
-                {% endif %}
+                </a>
               </div>
               <div class="col-auto d-flex align-items-center justify-content-center wid_menu_top_item">
                 <a ng-click="openCart()" href="{{ menu.childs?'javascript:{}':menu.href }}" class="px-4 d-block break-spaces-xl text-center button_cart_view">
@@ -527,239 +413,6 @@
         </div>
         <div class="logo">
           <a class="py-1 navbar-brand mr-0" href="{{ global.home_url }}"><img src="{{ logo?logo:'/assets/logo/logo.svg' }}" class="img-fluid brand__logo" alt="{{ global.config_name }}"></a>
-        </div>
-        <div class="search_form py-10" ng-class="{'is-open': isOpen}">
-          <i class="fa fa-times cursor-pointer p-10" style="position: absolute; top: 0; right: 0; font-size: 26px" ng-click="outside()"></i>
-          <div class="container-sm">
-            <form class="w-100 border-bottom" ng-submit="search()">
-              <div class="row no-gutters">
-                <button type="submit" class="btn py-0 col-auto">
-                  <svg id="Group_184" data-name="Group 184" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 20 20"><path id="Path_139" data-name="Path 139" d="M8.917,17.834a8.917,8.917,0,1,1,8.917-8.917A8.927,8.927,0,0,1,8.917,17.834Zm0-16.188a7.271,7.271,0,1,0,7.271,7.271A7.279,7.279,0,0,0,8.917,1.646Z" fill="#30302f"></path><path id="Path_140" data-name="Path 140" d="M356.017,356.755a.736.736,0,0,1-.522-.216l-4.233-4.233a.738.738,0,0,1,1.044-1.044l4.233,4.233a.738.738,0,0,1-.522,1.26Z" transform="translate(-336.755 -336.755)" fill="#30302f"></path></svg>
-                </button>
-                <div class="form-group mb-0 col">
-                  <input type="text" class="form-control border-0" ng-model="params.q" id="input_search_form" placeholder="Nhập từ khóa ..." style="background: transparent">
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-      <style>
-        .header_mb {
-          background: #ffffff;
-          -webkit-backdrop-filter: blur(30px);
-          border-bottom: 1px solid #e5e5e5;
-          position: relative;
-          z-index: 998;
-        }
-        .header_mb.fixed-top .wid_header_logo {
-          display: none;
-        }
-        .header_mb.fixed-top .wid_header_search {
-          order: -1;
-          flex-basis: 0;
-          flex-grow: 1;
-        }
-        .line {
-          height: 2.5px;
-          width: 35px;
-          background: #2A2A2A;
-          margin: 3px auto;
-          transition: all 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .menu__wrapper {
-          width: 40px;
-          margin-right: auto;
-          position: absolute;
-          top: 0;
-          left: 10px;
-          z-index: 1000;
-        }
-        .menu__wrapper > div {
-          width: 40px;
-          height: 60px;
-          padding: 0;
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          align-items: center;
-          cursor: pointer;
-          transform: scale(0.8);
-        }
-        .menu__wrapper > div.active {
-          outline: none;
-        }
-        .menu__wrapper > span {
-          display: inline-block;
-          text-align: center;
-          line-height: 1.2;
-          padding: 20px;
-          margin-top: auto;
-        }
-        .menu__item--doner {
-          flex-direction: column;
-        }
-        .menu__item--doner .line:nth-child(2) {
-          width: 25px;
-        }
-        .menu__item--doner .line:nth-child(3) {
-          width: 14px;
-        }
-        .menu__item--doner.active .line:nth-child(1) {
-          transform: rotate(45deg) translate(6px, 6px);
-        }
-        .menu__item--doner.active .line:nth-child(2) {
-          width: 18px;
-          transform: rotate(-45deg) translate(-8px, -1.5px);
-        }
-        .menu__item--doner.active .line:nth-child(3) {
-          transform: rotate(-45deg) translate(16px, -8px);
-        }
-      </style>
-      <div class="menu__wrapper d-none">
-        <div class="menu__item--doner" tabindex="2">
-          <div class="line"></div>
-          <div class="line"></div>
-          <div class="line"></div>
-        </div>
-      </div>
-      <div class="header_mb row align-items-center justify-content-between px-2 py-1 d-xl-none">
-        <div class="col d-none d-sm-flex justify-content-end pr-md-5 px-0 pr-3 align-items-center">
-          {#<span class="d-inline-block text-white pr-5"><a href="tel:{{ global.config_telephone|replace({' ': '', '.': ''}) }}"><span class="ic_hotline pr-1"></span>{{ global.config_telephone }}</a></span>#}
-          <span class=""><a class="d-inline-flex align-items-center" href="tel:{{ global.config_hotline|replace({' ': '', '.': ''}) }}"><span class="ic_phone pr-1"></span><span class="lh-1">{{ global.config_hotline }}</span></a></span>
-          {% if current_language and global.config_language_status %}
-            <span class="font-12 text-uppercase">
-            {% for item in languages %}
-              <a href="{{ item.href }}" class="color-inherit {{ current_language.code == item.code?' font-weight-bold':'text-mute' }}">{{ item.code }}</a>
-              {% if not loop.last %}
-              <span class="mx-md-2 mx-1">|</span>
-            {% endif %}
-            {% endfor %}
-          </span>
-          {% endif %}
-        </div>
-        <div class="wid_header_logo col d-xl-none">
-          <a class="py-1 navbar-brand mr-0" href="{{ global.home_url }}"><img src="{{ logo?logo:'/assets/logo/logo.svg' }}" class="img-fluid brand__logo" alt="{{ global.config_name }}"></a>
-        </div>
-        <div class="col-auto position-relative d-flex align-items-center justify-content-center wid_menu_item">
-        <a href="/checkout/cart">
-          <svg style="margin-bottom: 5px" version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 554" width="30" height="30"><g id="Layer 1"><g id="&lt;Group&gt;"><g id="&lt;Group&gt;"><g id="&lt;Group&gt;"><path id="&lt;Compound Path&gt;" fill-rule="evenodd" style="fill: #000000" d="m130.9 551q-33.6 0-67.3 0c-19.4-0.1-34.4-5.4-44.3-15.9-10-10.4-14.5-25.5-13.5-44.8l15.9-320.3c0.2-4.4 0.6-8.7 1.1-13l0.4-4.6c1.6-16.7 12.8-26.9 29.9-27.4 9.8-0.2 19.7-0.1 29.6-0.1l11.6 0.1c15.9 0 25.4 9.6 25.4 25.5 0 10.8-0.1 24.1-11.1 37.3-9.6 11.5-7.2 30.5 5.4 42.4 11.7 11 30.1 12 43 2.4 13.5-10.1 17.7-28.1 9.9-42.7-1-2-2.3-3.7-3.6-5.4-1.1-1.5-2.3-2.9-3.3-4.5-5.8-8.6-6.8-18.4-2.8-26.2 3.8-7.2 11.1-11.5 20.3-11.7 37.6-0.8 71.1-0.8 102.1 0.1 9.8 0.2 17.4 4.6 20.9 12 3.9 8.5 1.6 19.2-6.4 29.3-6.3 8-9.1 17.5-7.7 26.9 1.3 9.1 6.3 17.1 14.1 22.6 7.7 5.5 17 7.4 26.3 5.5 9.4-2 17.3-7.6 22.3-15.9 7.6-12.5 6.7-27.6-2.2-37.4-12-13.1-10-27.7-8.5-38.3l0.5-3.8c1.4-10.7 15.5-16.9 22.4-17.7 9.3-1 18.6-0.8 27.6-0.6l6.8 0.2c18.5 0.3 30.1 11.3 31.1 29.6l2.4 44.9c1.5 28.1 3 56.1 4.5 84.2 1.2 24.9 2.5 49.8 3.7 74.8 2.1 42.7 4.2 85.4 6.6 128.2 1.2 21.7-3.2 37.6-13.3 48.3-10.2 10.7-25.7 16-47.5 16h-200.2q-26.1 0-52.1 0zm93.8-21.9h158.4c15.5 0 25.9-3 31.7-9.1 5.8-6.2 8.2-16.7 7.4-32.1-2.4-42.8-4.5-85.6-6.6-128.4q-1.8-37.3-3.7-74.7c-1.5-28-3-56.1-4.5-84.1l-2.4-45c-0.4-6.8-2.6-8.8-9.7-8.9l-7-0.1c-8.6-0.2-16.7-0.4-24.6 0.4-0.8 0.2-2.3 0.8-3.5 1.5l-0.2 1.4c-1.3 9.8-1.8 15.2 3 20.5 15.5 17 17.4 42.5 4.8 63.4-8 13.3-21.4 22.8-36.5 26-15.3 3.1-30.7-0.1-43.5-9.1-12.7-9-20.9-22.2-23-37.3-2.2-15.4 2.1-30.8 12.2-43.5 2.1-2.7 3-4.7 3.3-5.9q-0.5-0.1-1.3-0.1c-30.7-0.9-63.8-0.9-101-0.1-0.9 0-1.5 0.2-1.7 0.3 0.3 0 0.5 1.6 1.9 3.7 0.7 1.2 1.6 2.3 2.5 3.4 2 2.7 4 5.4 5.5 8.4 12.8 24.2 6 53.8-16.1 70.3-21.3 15.9-51.8 14.2-71-3.9-21.3-20.1-24.4-51.8-7.3-72.3 5.4-6.5 6-12.3 6-23.3 0-2.5-0.4-3.4-0.5-3.4 0 0-0.9-0.3-3-0.3h-11.7c-9.7-0.1-19.3-0.2-29 0.1-6.7 0.1-8.2 2.6-8.6 7.6l-0.5 4.7c-0.4 4-0.8 7.9-1 11.9l-15.9 320.3c-0.7 13.1 1.8 22.7 7.5 28.7 5.7 6 15.3 9 28.6 9q59.6 0.1 119.3 0.1zm-48.4-365q0 0-0.1 0 0.1 0 0.1 0zm184.2-18.2l0.1-0.2q-0.1 0.1-0.1 0.2z"/></g><g id="&lt;Group&gt;"><path id="&lt;Path&gt;" style="fill: #000000" d="m330.6 138.9c0 10.1 0.1 20.2 0 30.3 0 8.7-0.1 16.7 7 24.2 7.4 7.8 4.9 21.6-2.9 28.6-8.8 7.8-21.4 7.8-30-0.1-7.9-7.3-10.4-20.7-2.9-28.6 7.1-7.4 7.4-15.3 7.2-24-0.6-24.6 0.7-49.5-2.1-73.8-4.5-39.9-41.9-69.9-81.2-67.9-41.4 2.1-75.6 35.2-77.1 76.1-1 25-0.5 50.2-0.1 75.2 0.1 3.9 2.6 8 5 11.4 7.6 10.6 7.6 23.2-0.5 31.1-8.9 8.5-22.2 8.6-31 0.2-8.6-8.1-8.5-20.4-1.1-31.1 3-4.3 5.3-10 5.4-15.1 0.7-24.6-0.2-49.3 0.7-73.9 2.1-54.5 48.1-96.1 104.4-95.5 52.7 0.6 97.7 44.7 99.1 97.2 0.3 11.9 0 23.8 0 35.7q0.1 0 0.1 0z"/></g></g></g></g></svg style="margin-bottom: 5px">
-          <div class="cart_info"></div>
-        </a>
-        </div>
-        <div class="col-12 py-1 wid_header_search">
-          <form class="w-100 border-bottom" ng-submit="search()">
-            <div class="row no-gutters">
-              <button type="submit" class="btn py-0 col-auto">
-                <svg id="Group_184" data-name="Group 184" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 20 20"><path id="Path_139" data-name="Path 139" d="M8.917,17.834a8.917,8.917,0,1,1,8.917-8.917A8.927,8.927,0,0,1,8.917,17.834Zm0-16.188a7.271,7.271,0,1,0,7.271,7.271A7.279,7.279,0,0,0,8.917,1.646Z" fill="#30302f"></path><path id="Path_140" data-name="Path 140" d="M356.017,356.755a.736.736,0,0,1-.522-.216l-4.233-4.233a.738.738,0,0,1,1.044-1.044l4.233,4.233a.738.738,0,0,1-.522,1.26Z" transform="translate(-336.755 -336.755)" fill="#30302f"></path></svg>
-              </button>
-              <div class="form-group mb-0 col">
-                <input type="text" class="form-control border-0" ng-model="params.q" placeholder="Nhập từ khóa ..." style="background: transparent">
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-
-      <style>
-        .menu_mb, .wid_account_mb {
-          position: fixed;
-          top: 0;
-          left: 0;
-          background-color: #fff;
-          width: 100vw;
-          height: 100vh;
-          z-index: 999;
-          padding: 15% 50px 8%;
-          overflow: auto;
-          clip-path: circle(0 at 4% 4.5%);
-          transition: 0.5s ease-in-out;
-        }
-        .menu_mb.active, .wid_account_mb.active {
-          clip-path: circle(125%);
-        }
-        .login_ic {
-          position: absolute;
-          top: 10px;
-          right: 10px;
-          width: auto;
-          height: auto;
-          z-index: 1000;
-        }
-        .wid_account_mb {
-          opacity: 0;
-          visibility: hidden;
-        }
-        .wid_account_mb.active {
-          opacity: 1;
-          visibility: visible;
-        }
-        .arrow_back_mb {
-          position: absolute;
-          top: 15px;
-          left: 80px;
-          width: auto;
-          height: auto;
-          z-index: 999;
-        }
-        @media (max-width: 767px) {
-          .menu_mb, .wid_account_mb {
-            padding: 100px 20px 0;
-          }
-        }
-      </style>
-      <div class="menu_mb d-xl-none">
-        <div class="block_account_mb">
-          {% if userData.logged %}
-            <a href="javascript:{}" class="menu_account_mb login_ic">
-              <span class="embed-responsive embed-responsive-1by1 bg-cover lazyload rounded-circle" data-src="{{ userData.info.avatar_url }}" style="background-image: url('{{ userData.info.avatar_url }}');width: 35px;"></span>
-            </a>
-            <div class="wid_account_mb font-3 font-weight-bold text-center">
-              <div class="arrow_back_mb"><span class="fa fa-long-arrow-left"></span></div>
-              <a href="/account/profile" class="d-block py-sm-5 py-3">Tài khoản</a>
-              <a href="/account/points" class="d-block py-sm-5 py-3">Go Mart coin</a>
-              {% if userData.affiliate %}
-                <a href="/affiliate/config" class="d-block py-sm-5 py-3">Quản lý Affiliate</a>
-              {% else %}
-                <a href="/affiliate/register" class="d-block py-sm-5 py-3">Đăng ký Affiliate</a>
-              {% endif %}
-              <a href="{{ global.home_url }}/logout" class="d-block py-sm-5 py-3">Đăng xuất</a>
-            </div>
-          {% else %}
-            {% if global.config_login_popup %}
-              <a href="javascript:void(0);" class="login_ic" ng-click="openLogin()">
-                <svg class="mt-2" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60" height="25"><path d="M26,28 C32.6257671,28 38,22.6175105 38,15.981566 C38,9.34562164 32.6257671,4 26,4 C19.3742329,4 14,9.38248954 14,15.981566 C14,22.5806425 19.3742329,28 26,28 L26,28 Z M26,7 C30.95,7 35,11.049997 35,16 C35,20.9499984 30.95,25 26,25 C21.05,25 17,20.9499984 17,16 C17,11.049997 21.05,7 26,7 Z M5.51806254,46 L5.51806254,46 C4.67077162,46 4,45.3274355 4,44.4778768 C4,36.4778768 10.4958948,30 18.4392448,30 L32.5607552,30 C40.5394087,30 47,36.5132722 47,44.4778768 C47,45.3274355 46.3292284,46 45.4819375,46 L5.51806254,46 Z M18.3846155,33 C12.5500001,33 7.74711542,37.3928579 7,43 L44,43 C43.2528846,37.3571421 38.4499999,33 32.6153845,33 L18.3846155,33 Z"></path></svg>
-              </a>
-            {% else %}
-              <a href="{{ global.home_url }}/login" class="login_ic">
-                <svg class="mt-2" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60" height="25"><path d="M26,28 C32.6257671,28 38,22.6175105 38,15.981566 C38,9.34562164 32.6257671,4 26,4 C19.3742329,4 14,9.38248954 14,15.981566 C14,22.5806425 19.3742329,28 26,28 L26,28 Z M26,7 C30.95,7 35,11.049997 35,16 C35,20.9499984 30.95,25 26,25 C21.05,25 17,20.9499984 17,16 C17,11.049997 21.05,7 26,7 Z M5.51806254,46 L5.51806254,46 C4.67077162,46 4,45.3274355 4,44.4778768 C4,36.4778768 10.4958948,30 18.4392448,30 L32.5607552,30 C40.5394087,30 47,36.5132722 47,44.4778768 C47,45.3274355 46.3292284,46 45.4819375,46 L5.51806254,46 Z M18.3846155,33 C12.5500001,33 7.74711542,37.3928579 7,43 L44,43 C43.2528846,37.3571421 38.4499999,33 32.6153845,33 L18.3846155,33 Z"></path></svg>
-              </a>
-            {% endif %}
-          {% endif %}
-        </div>
-        {% for menu in menus %}
-          <div class="font-weight-bold py-xl-6 px-4 text-center">
-            <div class="item_menu py-sm-5 py-3 font-3 font-weight-bold"><a href="{{ menu.href }}">{{ menu.name }}</a></div>
-            <div class="menu_childs mb-5" style="display: none">
-              {% for item in menu.childs %}
-                <a href="{{ item.href }}" class="d-block py-2">{{ item.name }}</a>
-              {% endfor %}
-            </div>
-          </div>
-        {% endfor %}
-        <div class="d-flex d-sm-none mt-10 justify-content-between align-items-center">
-          {#<span class="d-inline-block text-white pr-5"><a href="tel:{{ global.config_telephone|replace({' ': '', '.': ''}) }}"><span class="ic_hotline pr-1"></span>{{ global.config_telephone }}</a></span>#}
-          <span class=""><a class="d-inline-flex align-items-center" href="tel:{{ global.config_hotline|replace({' ': '', '.': ''}) }}"><span class="ic_phone pr-1"></span><span class="lh-1">{{ global.config_hotline }}</span></a></span>
-          {% if current_language and global.config_language_status %}
-            <span class="font-12 text-uppercase">
-            {% for item in languages %}
-              <a href="{{ item.href }}" class="color-inherit {{ current_language.code == item.code?' font-weight-bold':'text-mute' }}">{{ item.code }}</a>
-              {% if not loop.last %}
-              <span class="mx-md-2 mx-1">|</span>
-            {% endif %}
-            {% endfor %}
-          </span>
-          {% endif %}
         </div>
       </div>
       <script>
@@ -784,154 +437,6 @@
           $(this).next($('.menu_childs')).slideToggle(200);
         })
       </script>
-      <style>
-        .menu_tab_mb {
-          background: #ffffff;
-          box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
-          position: fixed;
-          width: 100%;
-          bottom: -2px;
-          left: 0;
-          display: flex;
-          font-size: 11px;
-          font-weight: 600;
-          color: #a5a5a5;
-          z-index: 999;
-          padding: 2px 0;
-          transition: 0.3s ease;
-        }
-        .menu_tab_mb i {
-          font-size: 16px;
-        }
-        .menu_tab_mb .item_menu {
-          padding-top: 2px;
-        }
-        .menu_tab_mb .menu_childs {
-          font-size: 18px;
-          display: block !important;
-          position: fixed;
-          width: 100vw;
-          height: 100%;
-          top: 0;
-          left: -101%;
-          background: #f9f9f9;
-          padding: 20px;
-          overflow: auto;
-          color: var(--dark);
-          z-index: -1;
-          transition: 0.3s ease-in-out;
-        }
-        .icon_svg {
-          font-size: 20px;
-        }
-        .icon_svg img {
-          width: 25px;
-          padding-bottom: 3px;
-        }
-        .menu_tab_item {
-          background: #ffffff;
-          padding-bottom: calc(.46875rem + env(safe-area-inset-bottom)) !important;
-        }
-        .menu_tab_item.active {
-          color: var(--primary);
-        }
-        .menu_tab_item.active .menu_childs {
-          left: 0;
-        }
-        .menu_tab_item.active .icon_svg path {
-          fill: var(--primary) !important;
-        }
-        @media (max-width: 1279px) {
-          .fixed-contact .arcontactus-widget.arcontactus-message {
-            bottom: calc(70px + env(safe-area-inset-bottom));
-          }
-          .menu_bar_mb {
-            padding-bottom: env(safe-area-inset-bottom);
-          }
-        }
-      </style>
-      <div class="menu_tab_mb d-xl-none">
-        {% for menu in menus %}
-          {% if menu.name != 'Trang chủ' %}
-            <div class="col-auto px-1 text-center d-flex align-items-center justify-content-center menu_tab_item py-1" style="width: 20%">
-              <div>
-                {#{{ menu.icon?'<i class="'~menu.icon~'"></i> ':'' }}#}
-                {% if loop.index == 2 %}
-                  {#<div class="icon_svg"><span class="ic_shopping"></span></div>#}
-                  <div class="icon_svg"><img src="/assets/images/icons/shopping.svg" alt="Sản phẩm"></div>
-                {% endif %}
-                {% if loop.index == 3 %}
-                  {#<div class="icon_svg"><span class="ic_gift"></span></div>#}
-                  <div class="icon_svg"><img src="/assets/images/icons/gift.svg" alt="Ưu đãi"></div>
-                {% endif %}
-                {% if loop.index == 4 %}
-                  {#<div class="icon_svg"><span class="ic_book"></span></div>#}
-                  <div class="icon_svg"><a href="{{ menu.href }}"><img src="/assets/images/icons/book.svg" alt="Magazine"></a></div>
-                {% endif %}
-                {% if loop.index == 5 %}
-                  {#<div class="icon_svg"><span class="ic_feed"></span></div>#}
-                  <div class="icon_svg"><a href="{{ menu.href }}"><img src="/assets/images/icons/feed.svg" alt="Feed"></a></div>
-                {% endif %}
-
-                <div class="item_menu"><a href="{{ menu.href }}">{{ menu.name }}</a></div>
-                {% if menu.childs and not menu.href %}
-                  <div class="menu_childs" style="display: none">
-                    {% for item in menu.childs %}
-                      <a href="{{ item.href }}" class="d-block mb-3 col-11 col-sm-6 mx-auto">
-                        <div class="rounded-lg overflow-hidden bg-white">
-                          {% if loop.index <= 3 %}
-                            {% if menu.source == 'news' %}
-                              <span class="embed-responsive embed-responsive-16by9"><img src="{{ item.thumb_url }}" class="embed-responsive-item img-cover"></span>
-                            {% else %}
-                              <span class="embed-responsive embed-responsive-1by1"><img src="{{ item.thumb_url }}" class="embed-responsive-item img-cover"></span>
-                            {% endif %}
-                          {% endif %}
-                          <div class="py-1">{{ item.name }}</div>
-                        </div>
-                      </a>
-                    {% endfor %}
-                  </div>
-                {% endif %}
-              </div>
-            </div>
-          {% endif %}
-        {% endfor %}
-        <div class="menu_tab_item block_account_mb col-auto px-1 d-flex align-items-center justify-content-center text-center py-1" style="width: 20%;">
-          <div>
-            {% if userData.logged %}
-              <a href="javascript:{}" class="menu_account_mb">
-                <span class="mx-auto embed-responsive embed-responsive-1by1 bg-cover lazyload rounded-circle" data-src="{{ userData.info.avatar_url }}" style="background-image: url('{{ userData.info.avatar_url }}');width: 22px; margin-bottom: 6px"></span>
-              </a>
-              <div class="menu_childs font-3 font-weight-bold text-center">
-                <a href="/account/profile" class="d-block py-sm-5 py-3">Tài khoản</a>
-                <a href="/account/points" class="d-block py-sm-5 py-3">Go Mart coin</a>
-                {% if userData.affiliate %}
-                  <a href="/affiliate/config" class="d-block py-sm-5 py-3">Quản lý Affiliate</a>
-                {% else %}
-                  <a href="/affiliate/register" class="d-block py-sm-5 py-3">Đăng ký Affiliate</a>
-                {% endif %}
-                <a href="{{ global.home_url }}/logout" class="d-block py-sm-5 py-3">Đăng xuất</a>
-              </div>
-            {% else %}
-              {% if global.config_login_popup %}
-                <a href="javascript:void(0);" ng-click="openLogin();">
-                  <div class="icon_svg"><img src="/assets/images/icons/person.svg" alt="Tài khoản"></div>
-                </a>
-              {% else %}
-                <a href="{{ global.home_url }}/login" class="">
-                  {#<div class="icon_svg"><span class="ic_person"></span></div>#}
-                  <div class="icon_svg"><img src="/assets/images/icons/person.svg" alt="Tài khoản"></div>
-                </a>
-              {% endif %}
-            {% endif %}
-            {% if global.config_login_popup %}
-              <div class="item_menu"><a href="javascript:void(0);" ng-click="openLogin()">Tài khoản</a></div>
-            {% else %}
-              <div class="item_menu"><a href="{{ userData.logged?'javascript:{}':global.home_url ~ '/login' }}">Tài khoản</a></div>
-            {% endif %}
-          </div>
-        </div>
-      </div>
       <script>
         function addPaddingBottom() {
           if ($(window).width() < 1275) {
@@ -957,178 +462,13 @@
         });
       </script>
     </div>
-    <div class="fixed_bar d-none d-xl-block">
-      <div class="row no-gutters justify-content-between">
-        <div class="col-auto wid_logo">
-          <div class="logo px-4">
-            <a class="py-1 navbar-brand mr-0" href="{{ global.home_url }}"><img src="{{ logo?logo:'/assets/logo/logo.svg' }}" class="img-fluid brand__logo" alt="{{ global.config_name }}"></a>
-          </div>
-        </div>
-        <div class="col-auto align-self-center" style="position: unset">
-          <div class="row px-4">
-            {% for menu in menus %}
-              <div class="col-auto font-weight-bold py-xl-3 px-xxl-3 px-3 item_menu" style="position: unset">
-                <a href="{{ menu.childs?(menu.source == 'news'?menu.href:'javascript:{}'):menu.href }}" class="py-2 d-block text-uppercase break-spaces-xl font-4 hvr-underline-from-center">{{ menu.icon?'<i class="text-primary '~menu.icon~'"></i> ':'' }}{{ menu.name }}</a>
-                {% if menu.childs %}
-                  <div class="menu_childs_dk">
-                    <div class="wid_menu_child mx-auto">
-                      <div class="font-weight-bold py-xl-6">
-                        <div class="row" style="row-gap: 30px">
-                          <div class="col-3">
-                            {% for item in menu.childs %}
-                              <a href="{{ item.href }}" {{ item.blank?'target="_blank"':'' }} class="d-block py-2 break-spaces-xl">{{ item.name }}</a>
-                            {% endfor %}
-                          </div>
-                          <div class="col">
-                            <div class="row justify-content-end">
-                              {% if menu.source == 'news' %}
-                                {% for item in newss %}
-                                  <div class="col-6 mb-4">
-                                    <a class="embed-responsive embed-responsive-16by9" href="{{ item.href }}" {{ item.blank?'target="_blank"':'' }}><img src="{{ item.thumb_url }}" class="embed-responsive-item img-cover"></a>
-                                    <div class="d-flex justify-content-between mt-2">
-                                      <span class="new-category text-primary text-uppercase font-weight-bold">{{ item.category.name }}</span>
-                                      <span class="new-date font-weight-bold">{{ item.date_publish|date('d/m/Y') }}</span>
-                                    </div>
-                                    <a class="mt-1 font-weight-bold limit-text-2" href="{{ item.href }}" {{ item.blank?'target="_blank"':'' }}>{{ item.name }}</a>
-                                  </div>
-                                {% endfor %}
-                              {% else %}
-                                {% for item in menu.childs|slice(0,3) %}
-                                  <div class="col-4 mb-4"><a class="embed-responsive embed-responsive-1by1" href="{{ item.href }}" {{ item.blank?'target="_blank"':'' }}><img src="{{ item.thumb_url }}" class="embed-responsive-item img-cover"></a></div>
-                                {% endfor %}
-                              {% endif %}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                {% endif %}
-              </div>
-            {% endfor %}
-          </div>
-        </div>
-        <div class="col-auto">
-          <div class="row no-gutters h-100">
-            <div class="col-auto d-flex align-items-center justify-content-center wid_menu_item">
-              <a class="px-4 row no-gutters break-spaces-xl justify-content-center cursor-pointer align-items-center" ng-click="open()" onclick="toggleActive(this)">
-                <svg id="Group_184" data-name="Group 184" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path id="Path_139" data-name="Path 139" d="M8.917,17.834a8.917,8.917,0,1,1,8.917-8.917A8.927,8.927,0,0,1,8.917,17.834Zm0-16.188a7.271,7.271,0,1,0,7.271,7.271A7.279,7.279,0,0,0,8.917,1.646Z" fill="#30302f"/><path id="Path_140" data-name="Path 140" d="M356.017,356.755a.736.736,0,0,1-.522-.216l-4.233-4.233a.738.738,0,0,1,1.044-1.044l4.233,4.233a.738.738,0,0,1-.522,1.26Z" transform="translate(-336.755 -336.755)" fill="#30302f"/></svg>
-                <span class="col text-left" style="padding-left: 8px">Tìm kiếm</span></a>
-            </div>
-            <div class="col-auto d-flex align-items-center justify-content-center wid_menu_item">
-              {% if userData.logged %}
-                <a href="javascript:{}" class="px-4 d-block break-spaces-xl text-center" ng-click="outside()" onclick="toggleActive(this)" style="min-width: 120px">{{ userData.info.display }}</a>
-                <div class="wid_account_block">
-                  <a href="/account/profile" class="px-2 py-4">Tài khoản</a>
-                  {# <a href="/account/points" class="px-2 py-4">Go Mart coin</a> #}
-                  {% if userData.affiliate %}
-                    <a href="/affiliate/config" class="px-2 py-4">Quản lý Affiliate</a>
-                  {% else %}
-                    <a href="/affiliate/register" class="px-2 py-4">Đăng ký Affiliate</a>
-                  {% endif %}
-                  <a href="{{ global.home_url }}/logout" class="px-2 py-4">Đăng xuất</a>
-                </div>
-              {% else %}
-                {% if global.config_login_popup %}
-                  <a href="javascript:{}" class="px-4 d-block break-spaces-xl text-center" ng-click="openLogin()">Đăng nhập</a>
-                {% else %}
-                  <a href="{{ global.home_url }}/login" class="px-4 d-block break-spaces-xl text-center">Đăng nhập</a>
-                {% endif %}
-              {% endif %}
-            </div>
-            <div class="col-auto d-flex align-items-center justify-content-center wid_menu_item">
-              <a ng-click="openCart()" href="{{ menu.childs?'javascript:{}':menu.href }}" class="px-4 d-block break-spaces-xl text-center">
-                <svg style="margin-bottom: 12px" version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 554" width="35" height="43"><g id="Layer 1"><g id="&lt;Group&gt;"><g id="&lt;Group&gt;"><g id="&lt;Group&gt;"><path id="&lt;Compound Path&gt;" fill-rule="evenodd" style="fill: #000000" d="m130.9 551q-33.6 0-67.3 0c-19.4-0.1-34.4-5.4-44.3-15.9-10-10.4-14.5-25.5-13.5-44.8l15.9-320.3c0.2-4.4 0.6-8.7 1.1-13l0.4-4.6c1.6-16.7 12.8-26.9 29.9-27.4 9.8-0.2 19.7-0.1 29.6-0.1l11.6 0.1c15.9 0 25.4 9.6 25.4 25.5 0 10.8-0.1 24.1-11.1 37.3-9.6 11.5-7.2 30.5 5.4 42.4 11.7 11 30.1 12 43 2.4 13.5-10.1 17.7-28.1 9.9-42.7-1-2-2.3-3.7-3.6-5.4-1.1-1.5-2.3-2.9-3.3-4.5-5.8-8.6-6.8-18.4-2.8-26.2 3.8-7.2 11.1-11.5 20.3-11.7 37.6-0.8 71.1-0.8 102.1 0.1 9.8 0.2 17.4 4.6 20.9 12 3.9 8.5 1.6 19.2-6.4 29.3-6.3 8-9.1 17.5-7.7 26.9 1.3 9.1 6.3 17.1 14.1 22.6 7.7 5.5 17 7.4 26.3 5.5 9.4-2 17.3-7.6 22.3-15.9 7.6-12.5 6.7-27.6-2.2-37.4-12-13.1-10-27.7-8.5-38.3l0.5-3.8c1.4-10.7 15.5-16.9 22.4-17.7 9.3-1 18.6-0.8 27.6-0.6l6.8 0.2c18.5 0.3 30.1 11.3 31.1 29.6l2.4 44.9c1.5 28.1 3 56.1 4.5 84.2 1.2 24.9 2.5 49.8 3.7 74.8 2.1 42.7 4.2 85.4 6.6 128.2 1.2 21.7-3.2 37.6-13.3 48.3-10.2 10.7-25.7 16-47.5 16h-200.2q-26.1 0-52.1 0zm93.8-21.9h158.4c15.5 0 25.9-3 31.7-9.1 5.8-6.2 8.2-16.7 7.4-32.1-2.4-42.8-4.5-85.6-6.6-128.4q-1.8-37.3-3.7-74.7c-1.5-28-3-56.1-4.5-84.1l-2.4-45c-0.4-6.8-2.6-8.8-9.7-8.9l-7-0.1c-8.6-0.2-16.7-0.4-24.6 0.4-0.8 0.2-2.3 0.8-3.5 1.5l-0.2 1.4c-1.3 9.8-1.8 15.2 3 20.5 15.5 17 17.4 42.5 4.8 63.4-8 13.3-21.4 22.8-36.5 26-15.3 3.1-30.7-0.1-43.5-9.1-12.7-9-20.9-22.2-23-37.3-2.2-15.4 2.1-30.8 12.2-43.5 2.1-2.7 3-4.7 3.3-5.9q-0.5-0.1-1.3-0.1c-30.7-0.9-63.8-0.9-101-0.1-0.9 0-1.5 0.2-1.7 0.3 0.3 0 0.5 1.6 1.9 3.7 0.7 1.2 1.6 2.3 2.5 3.4 2 2.7 4 5.4 5.5 8.4 12.8 24.2 6 53.8-16.1 70.3-21.3 15.9-51.8 14.2-71-3.9-21.3-20.1-24.4-51.8-7.3-72.3 5.4-6.5 6-12.3 6-23.3 0-2.5-0.4-3.4-0.5-3.4 0 0-0.9-0.3-3-0.3h-11.7c-9.7-0.1-19.3-0.2-29 0.1-6.7 0.1-8.2 2.6-8.6 7.6l-0.5 4.7c-0.4 4-0.8 7.9-1 11.9l-15.9 320.3c-0.7 13.1 1.8 22.7 7.5 28.7 5.7 6 15.3 9 28.6 9q59.6 0.1 119.3 0.1zm-48.4-365q0 0-0.1 0 0.1 0 0.1 0zm184.2-18.2l0.1-0.2q-0.1 0.1-0.1 0.2z"/></g><g id="&lt;Group&gt;"><path id="&lt;Path&gt;" style="fill: #000000" d="m330.6 138.9c0 10.1 0.1 20.2 0 30.3 0 8.7-0.1 16.7 7 24.2 7.4 7.8 4.9 21.6-2.9 28.6-8.8 7.8-21.4 7.8-30-0.1-7.9-7.3-10.4-20.7-2.9-28.6 7.1-7.4 7.4-15.3 7.2-24-0.6-24.6 0.7-49.5-2.1-73.8-4.5-39.9-41.9-69.9-81.2-67.9-41.4 2.1-75.6 35.2-77.1 76.1-1 25-0.5 50.2-0.1 75.2 0.1 3.9 2.6 8 5 11.4 7.6 10.6 7.6 23.2-0.5 31.1-8.9 8.5-22.2 8.6-31 0.2-8.6-8.1-8.5-20.4-1.1-31.1 3-4.3 5.3-10 5.4-15.1 0.7-24.6-0.2-49.3 0.7-73.9 2.1-54.5 48.1-96.1 104.4-95.5 52.7 0.6 97.7 44.7 99.1 97.2 0.3 11.9 0 23.8 0 35.7q0.1 0 0.1 0z"/></g></g></g></g></svg>
-                <div class="cart_info"></div>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="search_form py-10" ng-class="{'is-open': isOpen}">
-        <i class="fa fa-times cursor-pointer p-10" style="position: absolute; top: 0; right: 0; font-size: 26px" ng-click="outside()"></i>
-        <div class="container-sm">
-          <form class="w-100 border-bottom" ng-submit="search()">
-            <div class="row no-gutters">
-              <button type="submit" class="btn py-0 col-auto">
-                <svg id="Group_184" data-name="Group 184" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 20 20"><path id="Path_139" data-name="Path 139" d="M8.917,17.834a8.917,8.917,0,1,1,8.917-8.917A8.927,8.927,0,0,1,8.917,17.834Zm0-16.188a7.271,7.271,0,1,0,7.271,7.271A7.279,7.279,0,0,0,8.917,1.646Z" fill="#30302f"></path><path id="Path_140" data-name="Path 140" d="M356.017,356.755a.736.736,0,0,1-.522-.216l-4.233-4.233a.738.738,0,0,1,1.044-1.044l4.233,4.233a.738.738,0,0,1-.522,1.26Z" transform="translate(-336.755 -336.755)" fill="#30302f"></path></svg>
-              </button>
-              <div class="form-group mb-0 col">
-                <input type="text" class="form-control border-0" ng-model="params.q" placeholder="Nhập từ khóa ..." style="background: transparent">
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+    
     {% if initData['ROUTE'] != 'checkout/cart' %}
     <div class="section_cart">
       <sidecart></sidecart>
     </div>{% endif %}
   </div>
-  <script>
-    var noti_height = $('.wid_notify').outerHeight();
-    var header_height = $('.header').outerHeight();
-    function set_noti() {
-      if ($(window).width() < 1275) {
-        {% if global.config_comment %}
-          $('.header').css('top', noti_height + 'px').css('transition', '0.5s ease');
-        {% endif %}
-        $('#main-content, main').css('padding-top', noti_height + header_height + 'px').css('transition', '0.5s ease');
-      }
-    }
-    $(window).resize(function() {
-      set_noti()
-    });
-    // Set width menu child
-    $(document).ready(function() {
-      $('.wid_menu_child').css('width', $('.get_width_menu').outerWidth());
-      set_noti();
-      fixed_header();
-    });
-
-    // Fixed header
-    let header_offsettop = document.querySelector('.site-navbar');
-    let h_menu = header_offsettop.offsetHeight + header_offsettop.offsetTop;
-    let prevScroll = window.pageYOffset;
-
-    function fixed_header() {
-      $(window).scroll(function() {
-        var currentScroll = window.pageYOffset;
-        var scroll = $(window).scrollTop();
-        if (scroll > h_menu && currentScroll < prevScroll) {
-          $('.fixed_bar').addClass('fixed-top');
-        } else if (scroll <= h_menu || currentScroll >= prevScroll) {
-          $('.fixed_bar').removeClass('fixed-top');
-        }
-        prevScroll = currentScroll;
-
-        // Header mobile
-        if ($(window).width() < 1275) {
-          if (scroll > 0) {
-            var header_height = $('.header').outerHeight();
-
-            $('.header_mb').addClass('fixed-top');
-            console.log(header_height);
-            
-            // Filter category mobile
-            $('.sticky_mb').css('top', noti_height + header_height + 'px');
-          } else {
-            $('.header_mb').removeClass('fixed-top');
-          }
-        }
-      });
-    }
-
-    function toggleActive(e) {
-      if ($(e).parent('.active').length) {
-        $(e).parent().toggleClass('active');
-      } else {
-        $('.wid_menu_top_item.active, .wid_menu_item.active').removeClass('active');
-        $(e).parent().toggleClass('active');
-      }
-    }
-  </script>
+  
 </header>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WGSRLRJR" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>

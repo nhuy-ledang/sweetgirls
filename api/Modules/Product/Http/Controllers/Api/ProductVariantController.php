@@ -11,8 +11,6 @@ use Modules\Product\Repositories\ProductVariantRepository;
  * Class ProductVariantController
  *
  * @package Modules\Product\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2023-07-04
  */
 class ProductVariantController extends ApiBaseModuleController {
     /**

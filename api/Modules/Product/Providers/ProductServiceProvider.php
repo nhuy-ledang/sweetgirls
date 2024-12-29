@@ -115,56 +115,14 @@ class ProductServiceProvider extends ServiceProvider {
         $this->app->bind('Modules\Product\Repositories\CategoryRepository', function() {
             return new \Modules\Product\Repositories\Eloquent\EloquentCategoryRepository(new \Modules\Product\Entities\Category());
         });
-        $this->app->bind('Modules\Product\Repositories\CategoryDescRepository', function() {
-            return new \Modules\Product\Repositories\Eloquent\EloquentCategoryDescRepository(new \Modules\Product\Entities\CategoryDesc());
-        });
-        $this->app->bind('Modules\Product\Repositories\CategoryModuleRepository', function() {
-            return new \Modules\Product\Repositories\Eloquent\EloquentCategoryModuleRepository(new \Modules\Product\Entities\CategoryModule());
-        });
-        $this->app->bind('Modules\Product\Repositories\CategoryModuleDescRepository', function() {
-            return new \Modules\Product\Repositories\Eloquent\EloquentCategoryModuleDescRepository(new \Modules\Product\Entities\CategoryModuleDesc());
-        });
         $this->app->bind('Modules\Product\Repositories\ManufacturerRepository', function() {
             return new \Modules\Product\Repositories\Eloquent\EloquentManufacturerRepository(new \Modules\Product\Entities\Manufacturer());
         });
         $this->app->bind('Modules\Product\Repositories\ProductRepository', function() {
             return new \Modules\Product\Repositories\Eloquent\EloquentProductRepository(new \Modules\Product\Entities\Product());
         });
-        $this->app->bind('Modules\Product\Repositories\ProductDescRepository', function() {
-            return new \Modules\Product\Repositories\Eloquent\EloquentProductDescRepository(new \Modules\Product\Entities\ProductDesc());
-        });
-        $this->app->bind('Modules\Product\Repositories\ProductLikeRepository', function() {
-            return new \Modules\Product\Repositories\Eloquent\EloquentProductLikeRepository(new \Modules\Product\Entities\ProductLike());
-        });
-        $this->app->bind('Modules\Product\Repositories\ProductLatestRepository', function() {
-            return new \Modules\Product\Repositories\Eloquent\EloquentProductLatestRepository(new \Modules\Product\Entities\ProductLatest());
-        });
-        $this->app->bind('Modules\Product\Repositories\ProductBestsellerRepository', function() {
-            return new \Modules\Product\Repositories\Eloquent\EloquentProductBestsellerRepository(new \Modules\Product\Entities\ProductBestseller());
-        });
-        $this->app->bind('Modules\Product\Repositories\ProductReviewRepository', function() {
-            return new \Modules\Product\Repositories\Eloquent\EloquentProductReviewRepository(new \Modules\Product\Entities\ProductReview());
-        });
-        $this->app->bind('Modules\Product\Repositories\ProductReviewImageRepository', function() {
-            return new \Modules\Product\Repositories\Eloquent\EloquentProductReviewImageRepository(new \Modules\Product\Entities\ProductReviewImage());
-        });
-        $this->app->bind('Modules\Product\Repositories\ProductReviewLikeRepository', function() {
-            return new \Modules\Product\Repositories\Eloquent\EloquentProductReviewLikeRepository(new \Modules\Product\Entities\ProductReviewLike());
-        });
-        $this->app->bind('Modules\Product\Repositories\ProductReviewCommentRepository', function() {
-            return new \Modules\Product\Repositories\Eloquent\EloquentProductReviewCommentRepository(new \Modules\Product\Entities\ProductReviewComment());
-        });
-        $this->app->bind('Modules\Product\Repositories\ProductDiscountRepository', function() {
-            return new \Modules\Product\Repositories\Eloquent\EloquentProductDiscountRepository(new \Modules\Product\Entities\ProductDiscount());
-        });
         $this->app->bind('Modules\Product\Repositories\ProductImageRepository', function() {
             return new \Modules\Product\Repositories\Eloquent\EloquentProductImageRepository(new \Modules\Product\Entities\ProductImage());
-        });
-        $this->app->bind('Modules\Product\Repositories\ProductRelatedRepository', function() {
-            return new \Modules\Product\Repositories\Eloquent\EloquentProductRelatedRepository(new \Modules\Product\Entities\ProductRelated());
-        });
-        $this->app->bind('Modules\Product\Repositories\ProductIncomboRepository', function() {
-            return new \Modules\Product\Repositories\Eloquent\EloquentProductIncomboRepository(new \Modules\Product\Entities\ProductIncombo());
         });
         $this->app->bind('Modules\Product\Repositories\ProductSpecialRepository', function() {
             return new \Modules\Product\Repositories\Eloquent\EloquentProductSpecialRepository(new \Modules\Product\Entities\ProductSpecial());
@@ -177,12 +135,6 @@ class ProductServiceProvider extends ServiceProvider {
         });
         $this->app->bind('Modules\Product\Repositories\ProductSpecDescRepository', function() {
             return new \Modules\Product\Repositories\Eloquent\EloquentProductSpecDescRepository(new \Modules\Product\Entities\ProductSpecDesc());
-        });
-        $this->app->bind('Modules\Product\Repositories\ProductFaqRepository', function() {
-            return new \Modules\Product\Repositories\Eloquent\EloquentProductFaqRepository(new \Modules\Product\Entities\ProductFaq());
-        });
-        $this->app->bind('Modules\Product\Repositories\ProductFaqDescRepository', function() {
-            return new \Modules\Product\Repositories\Eloquent\EloquentProductFaqDescRepository(new \Modules\Product\Entities\ProductFaqDesc());
         });
         $this->app->bind('Modules\Product\Repositories\OptionRepository', function() {
             return new \Modules\Product\Repositories\Eloquent\EloquentOptionRepository(new \Modules\Product\Entities\Option());
@@ -199,43 +151,5 @@ class ProductServiceProvider extends ServiceProvider {
         $this->app->bind('Modules\Product\Repositories\ProductVariantRepository', function() {
             return new \Modules\Product\Repositories\Eloquent\EloquentProductVariantRepository(new \Modules\Product\Entities\ProductVariant());
         });
-        $this->app->bind('Modules\Product\Repositories\GiftSetRepository', function() {
-            return new \Modules\Product\Repositories\Eloquent\EloquentGiftSetRepository(new \Modules\Product\Entities\GiftSet());
-        });
-        $this->app->bind('Modules\Product\Repositories\GiftSetProductRepository', function() {
-            return new \Modules\Product\Repositories\Eloquent\EloquentGiftSetProductRepository(new \Modules\Product\Entities\GiftSetProduct());
-        });
-        $this->app->bind('Modules\Product\Repositories\GiftOrderRepository', function() {
-            return new \Modules\Product\Repositories\Eloquent\EloquentGiftOrderRepository(new \Modules\Product\Entities\GiftOrder());
-        });
-        $this->app->bind('Modules\Product\Repositories\GiftOrderHistoryRepository', function() {
-            return new \Modules\Product\Repositories\Eloquent\EloquentGiftOrderHistoryRepository(new \Modules\Product\Entities\GiftOrderHistory());
-        });
-        $this->app->bind('Modules\Product\Repositories\GiftOrderProductRepository', function() {
-            return new \Modules\Product\Repositories\Eloquent\EloquentGiftOrderProductRepository(new \Modules\Product\Entities\GiftOrderProduct());
-        });
-        $this->app->bind('Modules\Product\Repositories\FlashsaleRepository', function() {
-            return new \Modules\Product\Repositories\Eloquent\EloquentFlashsaleRepository(new \Modules\Product\Entities\Flashsale());
-        });
-        // Will remove
-        $this->app->bind('Modules\Product\Repositories\ProductModuleRepository', function() {
-            return new \Modules\Product\Repositories\Eloquent\EloquentProductModuleRepository(new \Modules\Product\Entities\ProductModule());
-        });
-        $this->app->bind('Modules\Product\Repositories\ProductModuleDescRepository', function() {
-            return new \Modules\Product\Repositories\Eloquent\EloquentProductModuleDescRepository(new \Modules\Product\Entities\ProductModuleDesc());
-        });
-        $this->app->bind('Modules\Product\Repositories\OrderRepository', function() {
-            return new \Modules\Product\Repositories\Eloquent\EloquentOrderRepository(new \Modules\Product\Entities\Order());
-        });
-        $this->app->bind('Modules\Product\Repositories\OrderProductRepository', function() {
-            return new \Modules\Product\Repositories\Eloquent\EloquentOrderProductRepository(new \Modules\Product\Entities\OrderProduct());
-        });
-        $this->app->bind('Modules\Product\Repositories\OrderTotalRepository', function() {
-            return new \Modules\Product\Repositories\Eloquent\EloquentOrderTotalRepository(new \Modules\Product\Entities\OrderTotal());
-        });
-        $this->app->bind('Modules\Product\Repositories\OrderHistoryRepository', function() {
-            return new \Modules\Product\Repositories\Eloquent\EloquentOrderHistoryRepository(new \Modules\Product\Entities\OrderHistory());
-        });
-        // End will remove
     }
 }

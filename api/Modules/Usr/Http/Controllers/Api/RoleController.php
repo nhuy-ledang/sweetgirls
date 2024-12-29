@@ -7,7 +7,7 @@ use Modules\Usr\Repositories\RoleRepository;
  * Class RoleController
  *
  * @package Modules\User\Http\Controllers\Api
- * @author Huy D <huydang1920@gmail.com>
+
  * Date: 2022-08-10
  */
 class RoleController extends ApiBaseModuleController {

@@ -5,8 +5,8 @@ use Modules\Core\Entities\Eloquent\CoreModel;
 /***
  * Class Bank
  * @package Modules\Core\Entities
- * @author Huy D <huydang1920@gmail.com>
- * @copyright (c) Motila Corporation
+
+ 
  */
 class Bank extends CoreModel {
     /**

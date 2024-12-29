@@ -12,7 +12,7 @@ use Modules\User\Repositories\UserRepository;
  * Class UserController
  *
  * @package Modules\User\Http\Controllers\Api
- * @author Huy D <huydang1920@gmail.com>
+
  */
 class UserController extends ApiBaseModuleController {
     /**

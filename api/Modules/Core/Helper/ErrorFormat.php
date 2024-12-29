@@ -3,7 +3,7 @@
  * Class ErrorFormat
  *
  * @package Modules\Core\Helper
- * @author Huy D <huydang1920@gmail.com>
+
  */
 class ErrorFormat {
     public $errorCode;

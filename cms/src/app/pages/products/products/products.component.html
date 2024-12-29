@@ -146,14 +146,6 @@
                       <div class="dropdown" dropdown container="body" placement="bottom left">
                         <button type="button" dropdownToggle class="btn btn-icon"><span class="ic_three_dots_vertical"></span></button>
                         <div *dropdownMenu class="dropdown-menu">
-                          <!--<a class="dropdown-item" (click)="updateQuantity(item)" href="javascript:;"><span class="fa fa-pencil-square-o pr-2"></span><span>Cập nhật số lượng</span></a>
-                          <div class="dropdown-divider"></div>-->
-                          <a class="dropdown-item" (click)="detail(item)" href="javascript:;"><span class="fa fa-info-circle pr-2"></span><span>Chi tiết</span></a>
-                          <div class="dropdown-divider"></div>
-                          <a class="dropdown-item" (click)="copy(item)" href="javascript:;"><span class="fa fa-clone pr-2"></span><span>Sao chép</span></a>
-                          <div class="dropdown-divider"></div>
-                          <a class="dropdown-item" (click)="renew(item)" href="javascript:;"><span class="fa fa-refresh pr-2"></span><span>Làm mới</span></a>
-                          <div class="dropdown-divider"></div>
                           <a class="dropdown-item text-danger" (click)="remove(item)" href="javascript:;"><span class="fa fa-trash-o pr-2"></span><span>Xóa</span></a>
                         </div>
                       </div>
@@ -169,8 +161,7 @@
               </td>
               <td [hidden]="!columns.name">
                 <div style="min-width: 200px;max-width: 350px">
-                  <div><a (click)="select(item)" href="javascript:;" [innerText]="item.name"></a>&nbsp;&nbsp;<a (click)="preview(item)" href="javascript:;"><span class="ic_visible_outlined"></span></a></div>
-                  <div *ngIf="item.gift_set">Bộ quà tặng: <span class="text-danger" [innerText]="item.gift_set.name"></span></div>
+                  <div><a (click)="select(item)" href="javascript:;" [innerText]="item.name"></a></div>
                 </div>
               </td>
               <td [hidden]="!columns.category||data.itemSelected" [innerText]="item.category?.name"></td>
@@ -217,12 +208,6 @@
             <ngx-pd-images [product]="data.itemSelected"></ngx-pd-images>
           </div>
         </tab>
-        <tab (selectTab)="onSelectTab($event, 'specials')">
-          <ng-template tabHeading>Khuyến mãi</ng-template>
-          <div class="card-body" *ngIf="tabs.specials">
-            <ngx-pd-specials [product]="data.itemSelected"></ngx-pd-specials>
-          </div>
-        </tab>
         <tab (selectTab)="onSelectTab($event, 'options')">
           <ng-template tabHeading><span [innerText]="'Tùy chọn'"></span></ng-template>
           <div class="card-body" *ngIf="tabs.options">
@@ -235,36 +220,6 @@
             <ngx-pd-product-variants [product]="data.itemSelected"></ngx-pd-product-variants>
           </div>
         </tab>
-        <!--<tab (selectTab)="onSelectTab($event, 'incombo')">
-          <ng-template tabHeading><span [innerText]="'SP combo'"></span></ng-template>
-          <div class="card-body" *ngIf="tabs.incombo">
-            <ngx-pd-product-incombos [product]="data.itemSelected"></ngx-pd-product-incombos>
-          </div>
-        </tab>
-        <tab (selectTab)="onSelectTab($event, 'relateds')">
-          <ng-template tabHeading><span [innerText]="'SP mua cùng'"></span></ng-template>
-          <div class="card-body" *ngIf="tabs.relateds">
-            <ngx-pd-product-relateds [product]="data.itemSelected"></ngx-pd-product-relateds>
-          </div>
-        </tab>-->
-        <!--<tab (selectTab)="onSelectTab($event, 'properties')">
-          <ng-template tabHeading><span [innerText]="'Thuộc tính'"></span></ng-template>
-          <div class="card-body" *ngIf="tabs.properties">
-            <ngx-pd-product-properties [product]="data.itemSelected"></ngx-pd-product-properties>
-          </div>
-        </tab>-->
-        <!--<tab (selectTab)="onSelectTab($event, 'specs')">
-          <ng-template tabHeading><span [innerText]="'Thông số kỹ thuật'"></span></ng-template>
-          <div class="card-body" *ngIf="tabs.specs">
-            <ngx-pd-product-specs [product]="data.itemSelected"></ngx-pd-product-specs>
-          </div>
-        </tab>-->
-        <!--<tab (selectTab)="onSelectTab($event, 'modules')">
-          <ng-template tabHeading>Module</ng-template>
-          <div class="card-body" *ngIf="tabs.modules">
-            <ngx-pd-modules [product]="data.itemSelected"></ngx-pd-modules>
-          </div>
-        </tab>-->
       </tabset>
     </div>
   </div>

@@ -9,8 +9,6 @@ use Modules\System\Repositories\SettingRepository;
  * Class ContactController
  *
  * @package Modules\System\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 9/10/2018 4:37 PM
  * @SWG\Resource(
  *   apiVersion="1.0.0",
  *   swaggerVersion="1.2",

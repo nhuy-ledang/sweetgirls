@@ -2,8 +2,8 @@
 
 /**
  * Class Translation
- * @author Huy D <huydang1920@gmail.com>
- * @copyright (c) Motila Corporation
+
+ 
  */
 class Translation {
     // private $table = DB_PREFIX . 'core__translates';

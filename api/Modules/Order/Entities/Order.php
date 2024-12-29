@@ -9,8 +9,8 @@ use Modules\Order\Traits\OrderStatusTrait;
  * Class Order
  *
  * @package Modules\Order\Entities
- * @author Huy D <huydang1920@gmail.com>
- * @copyright (c) Motila Corporation
+
+ 
  */
 class Order extends CoreModel {
     use SoftDeletes;

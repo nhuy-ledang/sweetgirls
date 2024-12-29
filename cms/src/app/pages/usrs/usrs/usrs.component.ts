@@ -25,8 +25,8 @@ export class UsrsComponent extends AppList implements OnInit, OnDestroy, AfterVi
   constructor(router: Router, security: Security, state: GlobalState, repository: UsrsRepository, private _groups: UsrGroupsRepository, private _roles: UsrRolesRepository) {
     super(router, security, state, repository);
     this.data.sort = 'id';
-    this.data.order = 'desc';
-    this.data.data.embed = 'group,roles';
+    this.data.order = '';
+    this.data.data.embed = 'roles';
     this.data.data.role_id = '';
     this.filters = {
       group_id: {operator: '=', value: ''},

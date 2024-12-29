@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   protected getAlerts(): void {
     if (!this.user) return;
-    this._notifies.getAlerts({paging: 0, page: 1, pageSize: 25, sort: 'id', order: 'desc'}).then(
+    this._notifies.getAlerts({paging: 0, page: 1, pageSize: 25, sort: 'id', order: ''}).then(
       (res: any) => {
         if (typeof res.alert !== 'undefined') this.alertCount = res.alert;
         _.forEach(res.data, (item: any) => {

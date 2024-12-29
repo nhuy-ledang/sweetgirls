@@ -11,8 +11,6 @@ use Modules\Media\Services\FileService;
 /**
  * Class MediaController
  * @package Modules\Media\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 9/10/2018 4:37 PM
  */
 class MediaController extends ApiBaseModuleController {
     /**

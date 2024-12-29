@@ -11,8 +11,6 @@ use Modules\Media\Services\FileService;
  * Class WidgetController
  *
  * @package Modules\Page\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2022-11-28
  */
 class WidgetController extends ApiBaseModuleController {
     /**

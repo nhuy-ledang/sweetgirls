@@ -6,8 +6,6 @@ use Modules\Core\Http\Controllers\Api\ApiBackendController;
  * Class ApiBaseModuleController
  *
  * @package Modules\Order\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 7/19/2018 11:03 PM
  */
 abstract class ApiBaseModuleController extends ApiBackendController {
     public $module_name = "order";

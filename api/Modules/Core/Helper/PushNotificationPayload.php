@@ -3,7 +3,7 @@
  * Class PushNotificationPayload
  *
  * @package Modules\Core\Helpers
- * @author Huy D <huydang1920@gmail.com>
+
  */
 class PushNotificationPayload {
     // message to show on app

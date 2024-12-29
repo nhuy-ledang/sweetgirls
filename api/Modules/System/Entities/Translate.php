@@ -5,8 +5,8 @@ use Modules\Core\Entities\Eloquent\CoreModel;
 /***
  * Class Translate
  * @package Modules\System\Entities
- * @author Huy D <huydang1920@gmail.com>
- * @copyright (c) Motila Corporation
+
+ 
  */
 class Translate extends CoreModel {
 
