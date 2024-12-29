@@ -9,7 +9,6 @@ use Modules\Product\Entities\GiftOrder;
 use Modules\Product\Entities\GiftOrderProduct;
 use Modules\Product\Entities\Product;
 use Modules\Product\Entities\ProductDiscount;
-use Modules\Product\Entities\ProductSpecial;
 use Modules\Order\Repositories\CartRepository;
 use Modules\Core\Repositories\Eloquent\EloquentBaseRepository;
 
@@ -148,24 +147,6 @@ class EloquentCartRepository extends EloquentBaseRepository implements CartRepos
                 $is_sale = false;
                 $special_id = null;
                 $special_price_total = null;
-                if ($result->type != 'G') { // Gift (by coin)
-                    // Product Specials
-                    $product_special_query = ProductSpecial::where('product_id', $result->product_id)
-                        //->where('user_group_id', $config_user_group_id)
-                        ->whereRaw("((`start_date` is null or UNIX_TIMESTAMP(`start_date`) <= UNIX_TIMESTAMP('$dateNow')) and (`end_date` is null or UNIX_TIMESTAMP('$dateNow') <= UNIX_TIMESTAMP(`end_date`))) and (`quantity` is null or `quantity` >= $result->quantity)")
-                        ->orderBy('priority', 'asc')->orderBy('price', 'asc')->select(['id', 'price', 'quantity', 'used'])->first();
-                    if ($product_special_query) {
-                        $specialo = (float)$product_special_query->price;
-                        $price = $specialo;
-                        $special_id = $product_special_query->id;
-                        if (!is_null($product_special_query->quantity)) {
-                            $is_sale = true;
-                            if ($product_special_query->quantity < $result->quantity) {
-                                $special_price_total = (float)($specialo * $product_special_query->quantity) +  $result->pd__price * ((int)$result->quantity - $product_special_query->quantity);
-                            }
-                        }
-                    }
-                }
 
                 $cart_quantity = (int)$result->quantity;
                 $product_quantity = (int)$result->pd__quantity;

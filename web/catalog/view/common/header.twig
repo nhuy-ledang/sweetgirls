@@ -397,7 +397,7 @@
               <div class="col-auto d-flex align-items-center justify-content-center wid_menu_top_item">
                 <a href="javascript:{}" class="px-4 d-block break-spaces-xl text-center" ng-click="outside()" onclick="toggleActive(this)">{{ userData.info.display }}</a>
                   <div class="wid_account_block">
-                    <a href="/account/profile" class="px-2 py-4">Tài khoản</a>
+                    <a href="/account/orders" class="px-2 py-4">Đơn hàng</a>
                     <a href="{{ global.home_url }}/logout" class="px-2 py-4">Đăng xuất</a>
                   </div>
                 </a>
@@ -460,6 +460,15 @@
           addPaddingBottom();
           $(window).resize(addPaddingBottom);
         });
+
+        function toggleActive(e) {
+          if ($(e).parent('.active').length) {
+            $(e).parent().toggleClass('active');
+          } else {
+            $('.wid_menu_top_item.active, .wid_menu_item.active').removeClass('active');
+            $(e).parent().toggleClass('active');
+          }
+        }
       </script>
     </div>
     

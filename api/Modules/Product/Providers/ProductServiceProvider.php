@@ -124,15 +124,6 @@ class ProductServiceProvider extends ServiceProvider {
         $this->app->bind('Modules\Product\Repositories\ProductImageRepository', function() {
             return new \Modules\Product\Repositories\Eloquent\EloquentProductImageRepository(new \Modules\Product\Entities\ProductImage());
         });
-        $this->app->bind('Modules\Product\Repositories\ProductSpecialRepository', function() {
-            return new \Modules\Product\Repositories\Eloquent\EloquentProductSpecialRepository(new \Modules\Product\Entities\ProductSpecial());
-        });
-        $this->app->bind('Modules\Product\Repositories\ProductSpecRepository', function() {
-            return new \Modules\Product\Repositories\Eloquent\EloquentProductSpecRepository(new \Modules\Product\Entities\ProductSpec());
-        });
-        $this->app->bind('Modules\Product\Repositories\ProductSpecDescRepository', function() {
-            return new \Modules\Product\Repositories\Eloquent\EloquentProductSpecDescRepository(new \Modules\Product\Entities\ProductSpecDesc());
-        });
         $this->app->bind('Modules\Product\Repositories\OptionRepository', function() {
             return new \Modules\Product\Repositories\Eloquent\EloquentOptionRepository(new \Modules\Product\Entities\Option());
         });

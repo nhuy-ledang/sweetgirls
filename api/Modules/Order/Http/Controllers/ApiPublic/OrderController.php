@@ -13,7 +13,6 @@ use Modules\Order\Repositories\OrderTotalRepository;
 use Modules\Order\Transport\Facade\Transport;
 use Modules\Product\Repositories\ProductQuantityRepository;
 use Modules\Product\Repositories\ProductRepository;
-use Modules\Product\Repositories\ProductSpecialRepository;
 use Modules\System\Repositories\SettingRepository;
 use Modules\User\Repositories\UserRepository;
 
@@ -72,11 +71,6 @@ class OrderController extends ApiBaseModuleController {
      */
     protected $setting_repository;
 
-    /**
-     * @var \Modules\Product\Repositories\ProductSpecialRepository
-     */
-    protected $product_special_repository ;
-
     public function __construct(Request $request,
                                 SettingRepository $setting_repository,
                                 OrderRepository $order_repository,
@@ -86,8 +80,7 @@ class OrderController extends ApiBaseModuleController {
                                 CartRepository $cart_repository,
                                 ProductRepository $product_repository,
                                 UserRepository $user_repository,
-                                NotificationRepository $notification_repository,
-                                ProductSpecialRepository $product_special_repository) {
+                                NotificationRepository $notification_repository) {
         $this->model_repository = $order_repository;
         $this->order_product_repository = $order_product_repository;
         $this->order_total_repository = $order_total_repository;
@@ -97,7 +90,6 @@ class OrderController extends ApiBaseModuleController {
         $this->user_repository = $user_repository;
         $this->notification_repository = $notification_repository;
         $this->setting_repository = $setting_repository;
-        $this->product_special_repository = $product_special_repository;
 
         $this->middleware('auth.user')->except(['storeGuest', 'onepayCallback']);
 

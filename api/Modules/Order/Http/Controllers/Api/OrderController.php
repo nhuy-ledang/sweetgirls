@@ -401,7 +401,7 @@ class OrderController extends ApiBaseModuleController {
                     ]);
                     if (empty($validatorErrors)) {
                         if (intval($item['id'])) {
-                            $product = $this->product_repository->getModel()->where('id', $item['id'])->select(['*', \DB::raw("(select price from pd__product_specials ps where ps.product_id = pd__products.id and ((ps.start_date is null or UNIX_TIMESTAMP(ps.start_date) <= UNIX_TIMESTAMP('$dateNow')) and (ps.end_date is null or UNIX_TIMESTAMP('$dateNow') <= UNIX_TIMESTAMP(ps.end_date))) order by ps.priority asc, price asc limit 1) as special")])->first();
+                            $product = $this->product_repository->getModel()->where('id', $item['id'])->first();
                             if ($product) {
                                 $newProduct = new \stdClass();
                                 $newProduct->quantity = $item['quantity'];
