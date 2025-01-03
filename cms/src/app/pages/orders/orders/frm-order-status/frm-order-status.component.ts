@@ -16,12 +16,16 @@ export class OrderFrmOrderStatusComponent extends AppForm implements OnInit, OnD
   controls: {
     status?: AbstractControl,
     comment?: AbstractControl,
+    tags?: AbstractControl,
   };
   orderStatusList = [
     {id: this.CONST.ORDER_SS_PENDING, name: 'Chờ xác nhận'},
     {id: this.CONST.ORDER_SS_PROCESSING, name: 'Đang xử lý'},
+    {id: this.CONST.ORDER_SS_SHIPPING, name: 'Đang giao hàng'},
     {id: this.CONST.ORDER_SS_COMPLETED, name: 'Hoàn tất'},
     {id: this.CONST.ORDER_SS_CANCELED, name: 'Hủy đơn'},
+    // {id: this.CONST.ORDER_SS_RETURNING, name: 'Đang trả hàng'},
+    // {id: this.CONST.ORDER_SS_RETURNED, name: 'Đã trả hàng'},
   ];
 
   constructor(fb: FormBuilder, router: Router, security: Security, state: GlobalState) {
@@ -29,6 +33,7 @@ export class OrderFrmOrderStatusComponent extends AppForm implements OnInit, OnD
     this.form = fb.group({
       status: [this.orderStatusList[0].id],
       comment: [''],
+      tags: [''],
     });
     this.controls = this.form.controls;
     this.fb = fb;
@@ -47,6 +52,7 @@ export class OrderFrmOrderStatusComponent extends AppForm implements OnInit, OnD
     this.info = info;
     this.controls.status.setValue(order_status);
     this.controls.comment.setValue('');
+    this.controls.tags.setValue(info.tags);
     this.modal.show();
   }
 

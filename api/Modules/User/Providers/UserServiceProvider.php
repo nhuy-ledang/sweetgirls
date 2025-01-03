@@ -109,9 +109,100 @@ class UserServiceProvider extends ServiceProvider {
         $this->app->bind('Modules\User\Repositories\RoleRepository', "Modules\\User\\Repositories\\{$driver}\\{$driver}RoleRepository");
         $this->app->bind('Modules\User\Repositories\Authentication', "Modules\\User\\Repositories\\{$driver}\\{$driver}Authentication");
 
+        $this->app->bind('Modules\User\Repositories\GroupRepository', function() {
+            return new \Modules\User\Repositories\Eloquent\EloquentGroupRepository(new \Modules\User\Entities\Group());
+        });
+        $this->app->bind('Modules\User\Repositories\ReminderPhoneNumberRepository', function() {
+            return new \Modules\User\Repositories\Eloquent\EloquentReminderPhoneNumberRepository(new \Modules\User\Entities\ReminderPhoneNumber());
+        });
+        $this->app->bind('Modules\User\Repositories\SocialRepository', function() {
+            return new \Modules\User\Repositories\Eloquent\EloquentSocialRepository(new \Modules\User\Entities\Social());
+        });
+        $this->app->bind('Modules\User\Repositories\DeviceTokenRepository', function() {
+            return new \Modules\User\Repositories\Eloquent\EloquentDeviceTokenRepository(new \Modules\User\Entities\DeviceToken());
+        });
         $this->app->bind('Modules\User\Repositories\ReminderLogRepository', function() {
             return new \Modules\User\Repositories\Eloquent\EloquentReminderLogRepository(new \Modules\User\Entities\ReminderLog());
         });
+        $this->app->bind('Modules\User\Repositories\AddressRepository', function() {
+            return new \Modules\User\Repositories\Eloquent\EloquentAddressRepository(new \Modules\User\Entities\Address());
+        });
+        $this->app->bind('Modules\User\Repositories\TicketRepository', function() {
+            return new \Modules\User\Repositories\Eloquent\EloquentTicketRepository(new \Modules\User\Entities\Ticket());
+        });
+        $this->app->bind('Modules\User\Repositories\LeadSourceRepository', function() {
+            return new \Modules\User\Repositories\Eloquent\EloquentLeadSourceRepository(new \Modules\User\Entities\LeadSource());
+        });
+        $this->app->bind('Modules\User\Repositories\LeadRepository', function() {
+            return new \Modules\User\Repositories\Eloquent\EloquentLeadRepository(new \Modules\User\Entities\Lead());
+        });
+        $this->app->bind('Modules\User\Repositories\UserCoinRepository', function() {
+            return new \Modules\User\Repositories\Eloquent\EloquentUserCoinRepository(new \Modules\User\Entities\UserCoin());
+        });
+        $this->app->bind('Modules\User\Repositories\NotifyRepository', function() {
+            return new \Modules\User\Repositories\Eloquent\EloquentNotifyRepository(new \Modules\User\Entities\Notify());
+        });
+        $this->app->bind('Modules\User\Repositories\UserRankRepository', function() {
+            return new \Modules\User\Repositories\Eloquent\EloquentUserRankRepository(new \Modules\User\Entities\UserRank());
+        });
+        /*$this->app->bind('Modules\User\Repositories\ContactRepository', function() {
+            return new \Modules\User\Repositories\Eloquent\EloquentContactRepository(new \Modules\User\Entities\Contact());
+        });
+        $this->app->bind('Modules\User\Repositories\HistoryRepository', function() {
+            $repository = new \Modules\User\Repositories\Eloquent\EloquentHistoryRepository(new \Modules\User\Entities\History());
+            if (!config('app.cache')) return $repository;
+            return $repository;
+        });
+        $this->app->bind('Modules\User\Repositories\CollectionRepository', function() {
+            $repository = new \Modules\User\Repositories\Eloquent\EloquentCollectionRepository(new \Modules\User\Entities\Collection());
+            if (!config('app.cache')) return $repository;
+            return $repository;
+        });
+        $this->app->bind('Modules\User\Repositories\CollectionFolderRepository', function() {
+            $repository = new \Modules\User\Repositories\Eloquent\EloquentCollectionFolderRepository(new \Modules\User\Entities\CollectionFolder());
+            if (!config('app.cache')) return $repository;
+            return $repository;
+        });
+        $this->app->bind('Modules\User\Repositories\FollowRepository', function() {
+            $repository = new \Modules\User\Repositories\Eloquent\EloquentFollowRepository(new \Modules\User\Entities\Follow());
+            if (!config('app.cache')) return $repository;
+            return $repository;
+        });
+        $this->app->bind('Modules\User\Repositories\FriendRepository', function() {
+            $repository = new \Modules\User\Repositories\Eloquent\EloquentFriendRepository(new \Modules\User\Entities\Friend());
+            if (!config('app.cache')) return $repository;
+            return $repository;
+        });
+        $this->app->bind('Modules\User\Repositories\StatsRepository', function() {
+            $repository = new \Modules\User\Repositories\Eloquent\EloquentStatsRepository(new \Modules\User\Entities\Stats());
+            if (!config('app.cache')) return $repository;
+            return $repository;
+        });
+        $this->app->bind('Modules\User\Repositories\ContactCareerRepository', function() {
+            $repository = new \Modules\User\Repositories\Eloquent\EloquentContactCareerRepository(new \Modules\User\Entities\ContactCareer());
+            if (!config('app.cache')) return $repository;
+            return $repository;
+        });
+        $this->app->bind('Modules\User\Repositories\ContactLikeRepository', function() {
+            $repository = new \Modules\User\Repositories\Eloquent\EloquentContactLikeRepository(new \Modules\User\Entities\ContactLike());
+            if (!config('app.cache')) return $repository;
+            return $repository;
+        });
+        $this->app->bind('Modules\User\Repositories\ContactProductRepository', function() {
+            $repository = new \Modules\User\Repositories\Eloquent\EloquentContactProductRepository(new \Modules\User\Entities\ContactProduct());
+            if (!config('app.cache')) return $repository;
+            return $repository;
+        });
+        $this->app->bind('Modules\User\Repositories\TransactionRepository', function() {
+            $repository = new \Modules\User\Repositories\Eloquent\EloquentTransactionRepository(new \Modules\User\Entities\Transaction());
+            if (!config('app.cache')) return $repository;
+            return $repository;
+        });
+        $this->app->bind('Modules\User\Repositories\ActivityRepository', function() {
+            $repository = new \Modules\User\Repositories\Eloquent\EloquentActivityRepository(new \Modules\User\Entities\Activity());
+            if (!config('app.cache')) return $repository;
+            return $repository;
+        });*/
     }
 
     /**

@@ -5,7 +5,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ThemeModule } from '../../../@theme/theme.module';
-import { UsersRepository } from './services';
+import { UserGroupsRepository, UserNotifiesRepository, UserRanksRepository, UsersRepository, StatsRepository } from './services';
 import { MessengerService, MessengerComponent, TypingComponent } from './messenger';
 import { InputCustomerComponent } from './components';
 import { DlgCustomerSelectComponent } from './modals';
@@ -34,7 +34,11 @@ import { DlgCustomerSelectComponent } from './modals';
   ],
   providers: [
     MessengerService,
+    UserGroupsRepository,
     UsersRepository,
+    UserNotifiesRepository,
+    UserRanksRepository,
+    StatsRepository,
   ],
 })
 export class UserSharedModule {

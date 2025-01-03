@@ -31,7 +31,7 @@
       </a>
       <nav class="text-uppercase mx-auto mb-md-7 mb-5 nav-process">
         <div class="nav nav-tabs mb-0 text-center">
-          <a class="h5 nav-item nav-link actived" data-toggle="tab" href="#nav-choose" id="nav-1" onclick="clickTab(1)">Đăng nhập</a>
+          <a class="h5 nav-item nav-link actived" data-toggle="tab" href="#nav-choose" id="nav-1" onclick="clickTab(1)">{{ text_login }}</a>
           <a class="h5 nav-item nav-link active" data-toggle="tab" href="#nav-pay" id="nav-2" onclick="clickTab(2)">địa chỉ giao hàng</a>
           <a class="h5 nav-item nav-link" data-toggle="tab" href="#nav-done" id="nav-3" onclick="clickTab(3)">{{ text_pay }}</a>
         </div>
@@ -51,9 +51,9 @@
         <div class="container mb-12">
           <div class="page-tabs text-center">
             <ul class="nav nav-tabs h4 mb-10">
-              <li class="nav-item"><a class="nav-link active">Đăng nhập</a></li>
+              <li class="nav-item"><a class="nav-link active">{{ text_login }}</a></li>
               <li class="nav-item"><a class="nav-link nav-separate px-6">|</a></li>
-              <li class="nav-item"><a class="nav-link" href="/dang-ky">Đăng ký</a></li>
+              <li class="nav-item"><a class="nav-link" href="/dang-ky">{{ text_register }}</a></li>
             </ul>
           </div>
           <div class="login-box">
@@ -70,11 +70,11 @@
               </div>
               <div class="form-group mb-8">
                 <div class="d-flex no-block align-items-center">
-                  <div class="ml-auto"><a href="{{ forgot_href }}" class="">Quên mật khẩu?</a></div>
+                  <div class="ml-auto"><a href="{{ forgot_href }}" class="">{{ text_forgot }}?</a></div>
                 </div>
               </div>
               <div class="form-group text-center mb-10">
-                <a onclick="nextTab(2)"><button class="btn btn-lg btn-primary p-0 w-100" type="submit" ng-disabled="envData.submitted"><span class="spinner-border spinner-border-sm" ng-if="envData.submitted"></span> Đăng nhập</button></a>
+                <a onclick="nextTab(2)"><button class="btn btn-lg btn-primary p-0 w-100" type="submit" ng-disabled="envData.submitted"><span class="spinner-border spinner-border-sm" ng-if="envData.submitted"></span> {{ text_login }}</button></a>
               </div>
             </form>
             <div class="row no-gutters mb-2">

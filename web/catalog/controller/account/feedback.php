@@ -9,8 +9,8 @@ class ControllerAccountFeedback extends Controller {
         $this->document->setTitle($this->language->get('heading_title'));
 
         $data['breadcrumbs'] = [];
-        $data['breadcrumbs'][] = ['text' => 'Trang chủ', 'href' => '/'];
-        $data['breadcrumbs'][] = ['text' => 'Tài khoản', 'href' => '/account/profile'];
+        $data['breadcrumbs'][] = ['text' => $this->language->get('text_home'), 'href' => '/'];
+        $data['breadcrumbs'][] = ['text' => $this->language->get('text_account'), 'href' => '/account/profile'];
         $data['breadcrumbs'][] = ['text' => $this->language->get('text_support_request'), 'href' => ''];
 
         $this->load->model('account/order');

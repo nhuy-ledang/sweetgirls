@@ -5,6 +5,8 @@ import { Security } from '../../../../@core/security';
 import { ConfirmComponent } from '../../../../@theme/modals';
 import { AppList } from '../../../../app.base';
 import { OrderFrmOrderStatusComponent } from '../frm-order-status/frm-order-status.component';
+import { OrderFrmEditAddressComponent } from '../frm-edit-address/frm-edit-address.component';
+import { OrderFrmEditInfoComponent } from '../frm-edit-info/frm-edit-info.component';
 import { OrdersRepository } from '../../shared/services';
 
 @Component({
@@ -15,6 +17,8 @@ export class OrderDetailComponent extends AppList implements OnInit, OnDestroy, 
   repository: OrdersRepository;
   @ViewChild(ConfirmComponent) confirm: ConfirmComponent;
   @ViewChild(OrderFrmOrderStatusComponent) frmOrderStatus: OrderFrmOrderStatusComponent;
+  @ViewChild(OrderFrmEditAddressComponent) frmEditAddress: OrderFrmEditAddressComponent;
+  @ViewChild(OrderFrmEditInfoComponent) frmEditInfo: OrderFrmEditInfoComponent;
   @ViewChild('viewport') viewport: ElementRef;
   info: any = null;
   products: any = null;
@@ -112,5 +116,23 @@ export class OrderDetailComponent extends AppList implements OnInit, OnDestroy, 
 
   changeSupervisor(): void {
     console.log(this.info);
+  }
+
+  /*remove(item) {
+    this.confirm.show({title: 'Xác nhận', message: 'Bạn có chắc chắn muốn xóa mục này?', type: 'delete', confirmText: 'Đồng ý', cancelText: 'Không', data: {type: 'remove', info: item}});
+  }
+
+  onConfirm(data: any) {
+    if (data.type === 'remove') {
+      this.removeItem(data.info);
+    }
+  }*/
+
+  editAddress(info: any): void {
+    this.frmEditAddress.show(info);
+  }
+
+  editInfo(info: any): void {
+    this.frmEditInfo.show(info);
   }
 }

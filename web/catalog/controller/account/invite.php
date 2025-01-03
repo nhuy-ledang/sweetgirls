@@ -14,8 +14,8 @@ class ControllerAccountInvite extends Controller {
             $this->document->setTitle($this->language->get('heading_title'));
 
             $data['breadcrumbs'] = [];
-            $data['breadcrumbs'][] = ['text' => 'Trang chủ', 'href' => '/'];
-            $data['breadcrumbs'][] = ['text' => 'Tài khoản', 'href' => '/account/profile'];
+            $data['breadcrumbs'][] = ['text' => $this->language->get('text_home'), 'href' => '/'];
+            $data['breadcrumbs'][] = ['text' => $this->language->get('text_account'), 'href' => '/account/profile'];
             $data['breadcrumbs'][] = ['text' => $this->language->get('text_invite_friends'), 'href' => ''];
 
             $userData = $this->registry->get('userData');
@@ -50,8 +50,8 @@ class ControllerAccountInvite extends Controller {
             $this->document->setTitle($this->language->get('heading_title'));
 
             $data['breadcrumbs'] = [];
-            $data['breadcrumbs'][] = ['text' => 'Trang chủ', 'href' => '/'];
-            $data['breadcrumbs'][] = ['text' => 'Tài khoản', 'href' => '/account/points'];
+            $data['breadcrumbs'][] = ['text' => $this->language->get('text_home'), 'href' => '/'];
+            $data['breadcrumbs'][] = ['text' => $this->language->get('text_account'), 'href' => '/account/points'];
             $data['breadcrumbs'][] = ['text' => $this->language->get('text_invite_friends'), 'href' => '/account/invite'];
             $data['breadcrumbs'][] = ['text' => $this->language->get('text_invite_histories'), 'href' => ''];
 

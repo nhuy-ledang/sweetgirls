@@ -117,7 +117,7 @@ class ModelProductProduct extends Model {
     }
 
     public function getProduct($id) {
-        $fields = ["p.*, c.name as category"];
+        $fields = ["p.*, c.name as category, c.alias as category_alias"];
         //$fields[] = "(select price from " . $this->special_table . " ps where ps.product_id = `p`.`id` and ((ps.start_date is null or UNIX_TIMESTAMP(ps.start_date) < UNIX_TIMESTAMP('" . date('Y-m-d H:i:s') . "')) and (ps.end_date is null or UNIX_TIMESTAMP(ps.end_date) > UNIX_TIMESTAMP('" . date('Y-m-d H:i:s') . "'))) order by ps.priority asc, ps.price asc limit 1) as special";
         //$fields[] = "(select ss.name from " . DB_PREFIX . "stock_status ss where ss.id = p.stock_status_id) as stock_status";
         // $fields[] = "(select ROUND(avg(rating), 1) from " . $this->review_table . " r1 left join " . $this->table ." p1 on (r1.product_id = p1.id) where (`p1`.`id` = `p`.id or `p1`.`master_id` = `p`.id or `p1`.`master_id` = `p`.`master_id`) and `r1`.`status` = 1) as rating";

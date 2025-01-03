@@ -138,7 +138,7 @@ class EloquentCartRepository extends EloquentBaseRepository implements CartRepos
             $results = $this->getModel()->leftJoin('pd__products as pd', 'pd.id', '=', 'crt__carts.product_id');
             if ($user_id) {
                 $results = $results->where('crt__carts.user_id', $user_id);
-                // $fields[] = \DB::raw('(select count(*) from `pd__product_likes` where `product_id` = `crt__carts`.`product_id` and `user_id` = ' . $user_id . ' and `liked` = 1) as liked');
+                $fields[] = \DB::raw('(select count(*) from `pd__product_likes` where `product_id` = `crt__carts`.`product_id` and `user_id` = ' . $user_id . ' and `liked` = 1) as liked');
             }
             $results = $results->where('crt__carts.session_id', $session_id)/*->where('pd.status', 1)*/->where('crt__carts.quantity', '>', 0)->select($fields)->get();
             foreach ($results as $result) {
@@ -149,6 +149,21 @@ class EloquentCartRepository extends EloquentBaseRepository implements CartRepos
                 $special_id = null;
                 $special_price_total = null;
                 if ($result->type != 'G') { // Gift (by coin)
+                    // Product Discounts
+                    /*$discount_quantity = 0;
+                    foreach ($results as $result2) {
+                        if ($result2->product_id == $result->product_id) {
+                            $discount_quantity += $result2->quantity;
+                        }
+                    }
+                    $product_discount_query = ProductDiscount::where('product_id', $result->product_id)
+                        //->where('user_group_id', $config_user_group_id)
+                        ->where('quantity', '<=', $discount_quantity)
+                        ->whereRaw("((`date_start` is null or `date_start` < '$dateNow') and (`date_end` is null or `date_end` > '$dateNow'))")
+                        ->orderBy('quantity', 'desc')->orderBy('priority', 'asc')->orderBy('price', 'asc')->select(['price'])->first();
+                    if ($product_discount_query) {
+                        $price = (float)$product_discount_query->price;
+                    }*/
                     // Product Specials
                     $product_special_query = ProductSpecial::where('product_id', $result->product_id)
                         //->where('user_group_id', $config_user_group_id)
@@ -165,6 +180,24 @@ class EloquentCartRepository extends EloquentBaseRepository implements CartRepos
                             }
                         }
                     }
+                }
+                // Gift products
+                if ($result->master_id) {
+                    $master_pd = Product::where('id', $result->master_id)
+                    ->select(['gift_set_id'])->first();
+                    if ($master_pd) $result->gift_set_id = $master_pd->gift_set_id;
+                }
+                $gifts = [];
+                $weight_gifts = 0;
+                if ($result->gift_set_id) {
+                    $tmp = Product::rightJoin('pd__gift_set_products as gsp', 'gsp.product_id', 'pd__products.id')->leftJoin('pd__gift_sets as gs', 'gs.id', 'gsp.gift_set_id')
+                        ->where('pd__products.status', 1)->where('gsp.gift_set_id', intval($result->gift_set_id))
+                        ->where('gs.status', 1)->whereRaw("((`gs`.`start_date` is null or DATE(`gs`.`start_date`) <= DATE('$dateNow')) and (`gs`.`end_date` is null or DATE('$dateNow') <= DATE(`gs`.`end_date`)))")
+                        ->select(['pd__products.id', 'pd__products.image', 'pd__products.alias', 'pd__products.name', 'gsp.name as long_name', 'gsp.price', \DB::raw('sum(gsp.quantity *' . $result->quantity .') as quantity'), \DB::raw('sum(pd__products.weight * gsp.quantity * ' . $result->quantity .') as weight')])
+                        ->groupBy('pd__products.id')
+                        ->orderBy('gsp.name', 'asc')->get();
+                    $gifts = $tmp->toArray();
+                    if ($gifts) $weight_gifts = array_sum(array_column($gifts, 'weight'));
                 }
 
                 $cart_quantity = (int)$result->quantity;
@@ -189,11 +222,11 @@ class EloquentCartRepository extends EloquentBaseRepository implements CartRepos
                     'name'       => $result->pd__name,
                     'alias'      => $result->pd__alias,
                     'liked'      => $result->liked,
-                    'weight'     => (float)$result->pd__weight * $cart_quantity,
+                    'weight'     => (float)$result->pd__weight * $cart_quantity + $weight_gifts,
                     'length'     => (float)$result->pd__length,
                     'width'      => (float)$result->pd__width,
                     'height'     => (float)$result->pd__height,
-                    'gifts'      => '',
+                    'gifts'      => $gifts,
                     'is_sale'    => $is_sale,
                     'special_id' => $special_id,
                     'no_cod'     => $result->pd__no_cod,
@@ -781,6 +814,27 @@ class EloquentCartRepository extends EloquentBaseRepository implements CartRepos
         $next_gifts = [];
         $current_gifts = [];
         $gift_orders_id = '';
+        if ($sub_total > 0) {
+            $next_gifts = GiftOrder::where('amount', '>', $sub_total)->where('status', 1)
+                ->whereRaw("(`limited` is null or (`limited` is not null and `uses_total` < `limited`))")
+                ->whereRaw("((`start_date` is null or UNIX_TIMESTAMP('$dateNow') >= UNIX_TIMESTAMP(`start_date`)) and (`end_date` is null or UNIX_TIMESTAMP('$dateNow') <= UNIX_TIMESTAMP(`end_date`)))")
+                ->select(['name', 'total', 'amount'])->orderBy('amount', 'asc')->first();
+            $current_gift = GiftOrder::where('amount', '<=', $sub_total)->where('status', 1)
+                ->whereRaw("(`limited` is null or (`limited` is not null and `uses_total` < `limited`))")
+                ->whereRaw("((`start_date` is null or UNIX_TIMESTAMP('$dateNow') >= UNIX_TIMESTAMP(`start_date`)) and (`end_date` is null or UNIX_TIMESTAMP('$dateNow') <= UNIX_TIMESTAMP(`end_date`)))")
+                ->orderBy('amount', 'desc')->first();
+            if ($current_gift) {
+                $tmp = Product::rightJoin('pd__gift_order_products as gop', 'gop.product_id', 'pd__products.id')->leftJoin('pd__gift_orders as go', 'go.id', 'gop.gift_order_id')
+                    //->where('pd__products.status', 1)
+                    ->where('gop.gift_order_id', intval($current_gift->id))
+                    ->where('go.status', 1)
+                    ->select(['pd__products.id', 'pd__products.image', 'pd__products.alias', 'pd__products.name', 'pd__products.long_name as long_name', 'gop.price', 'gop.quantity'])
+                    ->groupBy('pd__products.id')
+                    ->orderBy('gop.name', 'asc')->get();
+                $current_gifts = $tmp->toArray();
+                $gift_orders_id = $current_gift->id;
+            }
+        }
 
         return [$next_gifts, $current_gifts, $gift_orders_id];
     }

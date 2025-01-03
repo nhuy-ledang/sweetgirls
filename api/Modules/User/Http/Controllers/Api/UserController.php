@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Lang;
 use Maatwebsite\Excel\Facades\Excel;
 use Modules\Media\Repositories\FileRepository;
 use Modules\Media\Services\FileService;
+use Modules\User\Repositories\UserRankRepository;
 use Modules\User\Repositories\UserRepository;
 
 /**
@@ -25,13 +26,20 @@ class UserController extends ApiBaseModuleController {
      */
     protected $fileService;
 
+    /**
+     * @var \Modules\User\Repositories\UserRankRepository
+     */
+    protected $user_rank_repository;
+
     public function __construct(Request $request,
                                 FileRepository $file_repository,
                                 FileService $fileService,
-                                UserRepository $user_repository) {
+                                UserRepository $user_repository,
+                                UserRankRepository $user_rank_repository) {
         $this->model_repository = $user_repository;
         $this->file_repository = $file_repository;
         $this->fileService = $fileService;
+        $this->user_rank_repository = $user_rank_repository;
 
         $this->middleware('auth.usr');
 

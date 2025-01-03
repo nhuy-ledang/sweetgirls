@@ -5,7 +5,7 @@ class ControllerPagePage extends Controller {
         $this->load->model('page/page');
         $data = $this->registry->get('global');
         $data['breadcrumbs'] = [];
-        $data['breadcrumbs'][] = ['text' => 'Trang chủ', 'href' => '/'];
+        $data['breadcrumbs'][] = ['text' => $this->language->get('text_home'), 'href' => '/'];
         $id = isset($this->request->get['page_id']) ? (int)$this->request->get['page_id'] : 0;
         if (!$id) {
             $info = $this->model_page_page->getPageHome();

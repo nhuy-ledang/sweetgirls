@@ -3,18 +3,37 @@
   <div class="blank block_login align-item-end" ng-controller="RegisterCtr" ng-init="init()" style="display: none; background: linear-gradient(to top, rgba(0, 0, 0, 0) 80%, rgba(255,255,255, 1) 100%), url('{{ global.config_bg_login }}') no-repeat bottom center / cover" ng-style="{'display':inited?'':'none'}">
     <div class="container px-6 px-md-1 mb-15" style="max-width: 1000px">
       <div class="text-center">
-        <h2 class="text-uppercase font-weight-normal">Đăng ký</h2>
-        <div>Bạn đã có tài khoản? <a class="font-weight-bolder" href="{{ login_href }}"><u>Đăng nhập</u></a></div>
+        <h2 class="text-uppercase font-weight-normal">{{ text_register }}<!-- text_register --></h2>
+        <div>{{ text_login_question?text_login_question:'Bạn đã có tài khoản?' }}<!-- text_login_question --> <a class="font-weight-bolder" href="{{ login_href }}"><u>{{ text_login }}<!-- text_login --></u></a></div>
       </div>
       <form name="form" novalidate autocomplete="off" ng-submit="onSubmit(form)">
         <div class="mt-6">
           {% if error_warning %}<p class="alert alert-danger">{{ error_warning }}</p>{% endif %}
           <div class="row no-gutters justify-content-center" style="column-gap: 50px">
             <div class="col-auto" style="width: 285px">
+              <button type="button" ng-click="authenticate('facebook')" class="btn font-weight-bold w-100 d-flex align-items-center bg_opacity form-group border-white rounded-0">
+              <span class="pr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24"><g id="Mask_Group_3165" data-name="Mask Group 3165" transform="translate(-1230 -577)"><g id="Group_20491" data-name="Group 20491" transform="translate(64.664 375.893)"><path id="Path_28136" data-name="Path 28136" d="M1208.336,129.163v-1.969a1.99,1.99,0,0,0,.1-.632,11.59,11.59,0,0,1,2.945-6.362,11.738,11.738,0,0,1,10.91-3.859,11.252,11.252,0,0,1,6.378,3.212,11.715,11.715,0,0,1,3.552,10.25,11.527,11.527,0,0,1-3.385,6.843A11.833,11.833,0,0,1,1222.43,140c-.179.033-.219,0-.218-.179q.009-3.985,0-7.97c0-.163.04-.21.206-.208.766.009,1.531,0,2.3,0,.32,0,.312,0,.359-.321.145-.978.291-1.956.45-2.932.03-.184-.007-.223-.188-.222-.977.008-1.953,0-2.93.006-.127,0-.2-.009-.195-.17.01-.711-.008-1.422.008-2.133a1.658,1.658,0,0,1,1.6-1.788,14.278,14.278,0,0,1,1.685-.033c.136,0,.189-.026.188-.178q-.011-1.313,0-2.625c0-.131-.049-.179-.169-.194a13.334,13.334,0,0,0-3.358-.143,4.037,4.037,0,0,0-2.614,1.315,4.553,4.553,0,0,0-1.079,3.016c-.022.906-.01,1.813,0,2.719,0,.178-.047.22-.221.218-.875-.009-1.75,0-2.625-.008-.16,0-.212.034-.21.2q.012,1.535,0,3.071c0,.17.053.2.211.2.867-.008,1.735,0,2.6-.009.195,0,.244.047.244.243q-.01,3.95,0,7.9v.246c-.2-.035-.388-.06-.569-.1a12.04,12.04,0,0,1-9.383-9.7A6.955,6.955,0,0,0,1208.336,129.163Z" transform="translate(-43 85)" fill="#1877f1"/></g></g></svg>
+              </span>
+                <span>{{ text_login_facebook }}<!-- text_login_facebook --></span>
+              </button>
+              <button type="button" ng-click="authenticate('google')" class="btn font-weight-bold w-100 d-flex align-items-center bg_opacity form-group border-white rounded-0">
+              <span class="pr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24"><g id="Mask_Group_3166" data-name="Mask Group 3166" transform="translate(-1230 -677)"><g id="Group_20492" data-name="Group 20492" transform="translate(-388.074 -143.072)"><path id="Path_28137" data-name="Path 28137" d="M1619.708,928a9.673,9.673,0,0,1-1.016-2.2,11.858,11.858,0,0,1-.568-2.668c-.005-.05.018-.113-.05-.142v-1.968c.058-.023.044-.075.049-.119a11.756,11.756,0,0,1,.422-2.222,10.371,10.371,0,0,1,1.161-2.664l4.034,2.333a8.536,8.536,0,0,0-.789,2.037,7.206,7.206,0,0,0,.694,5.069c.036.068.064.14.1.21Z" transform="translate(0 -89.936)" fill="#fed401"/><path id="Path_28138" data-name="Path 28138" d="M1648.16,828.415l-4.034-2.333a.446.446,0,0,1,.031-.087,11.921,11.921,0,0,1,8.509-5.785,6.564,6.564,0,0,0,.936-.138h.891q0,2.343,0,4.685a7.355,7.355,0,0,0-6.212,3.488C1648.243,828.3,1648.2,828.359,1648.16,828.415Z" transform="translate(-24.42)" fill="#fe4b26"/><path id="Path_28139" data-name="Path 28139" d="M1809.624,824.758q0-2.342,0-4.685h.937a6.436,6.436,0,0,0,.931.138,11.949,11.949,0,0,1,6,2.813.76.76,0,0,1,.052,1.127q-1.109,1.141-2.251,2.252a.773.773,0,0,1-1.1-.01,7.326,7.326,0,0,0-2.907-1.427A11.056,11.056,0,0,0,1809.624,824.758Z" transform="translate(-179.552)" fill="#d83f22"/><path id="Path_28140" data-name="Path 28140" d="M1821.046,986.642a8.34,8.34,0,0,0,1.81-1.506,7.467,7.467,0,0,0,1.263-2.014.27.27,0,0,0,.041-.195h-5.29c-.679,0-.965-.289-.965-.972q0-1.418,0-2.835a.8.8,0,0,1,.877-.893q4.792,0,9.584,0c.57,0,.834.261.922.874a10.558,10.558,0,0,1-.177,3.838,11.691,11.691,0,0,1-5.635,7.708.652.652,0,0,1-.085.036c-.048-.08-.1-.159-.145-.24Z" transform="translate(-187.313 -148.245)" fill="#177ee5"/><path id="Path_28141" data-name="Path 28141" d="M1644.166,1072.389l4.032-2.331a8.852,8.852,0,0,0,1.365,1.681,7.28,7.28,0,0,0,4.85,1.964c.039,0,.078.005.116.008q0,2.339,0,4.677a11.61,11.61,0,0,1-5.342-1.252,11.891,11.891,0,0,1-4.931-4.56C1644.221,1072.517,1644.2,1072.452,1644.166,1072.389Z" transform="translate(-24.458 -234.327)" fill="#13b247"/><path id="Path_28142" data-name="Path 28142" d="M1809.627,1118.284q0-2.339,0-4.677a8.38,8.38,0,0,0,2.523-.47c.392-.147.755-.353,1.138-.517l2.2,3.8c.047.081.1.16.145.24a6.474,6.474,0,0,1-1.358.7A11.382,11.382,0,0,1,1809.627,1118.284Z" transform="translate(-179.555 -274.223)" fill="#10993e"/></g></g></svg>
+              </span>
+                <span>{{ text_login_google }}<!-- text_login_google --></span>
+              </button>
+              <!-- Tạm ẩn -->
+              {#<button type="button" ng-click="authenticate('apple')" class="btn font-weight-bold w-100 d-flex align-items-center bg_opacity form-group border-white rounded-0">
+                <span class="pr-2"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24"><path id="Path_28143" data-name="Path 28143" d="M8.324,23.078C4.752,23.058,1.8,15.766,1.8,12.053c0-6.066,4.55-7.394,6.3-7.394a7.254,7.254,0,0,1,2.379.585,5.317,5.317,0,0,0,1.358.389,4.227,4.227,0,0,0,.974-.316,7.809,7.809,0,0,1,2.937-.71h.007a6.019,6.019,0,0,1,5.037,2.544l.367.552-.529.4A4.449,4.449,0,0,0,18.5,11.771,4.141,4.141,0,0,0,20.81,15.6c.331.2.674.4.674.854,0,.293-2.34,6.589-5.738,6.589a4.615,4.615,0,0,1-1.938-.47,3.929,3.929,0,0,0-1.725-.415,4.436,4.436,0,0,0-1.366.369,6.689,6.689,0,0,1-2.369.553Z" transform="translate(-1.798 0.922)" fill="#0f1f2a"/><path id="Path_28144" data-name="Path 28144" d="M14.476,0C14.564,3.191,12.282,5.4,10,5.266,9.627,2.719,12.282,0,14.476,0Z" transform="translate(-0.164)" fill="#0f1f2a"/></svg></span>
+                <span>{{ text_login_apple }}<!-- text_login_apple --></span>
+              </button>#}
+            </div>
+            <div class="col-auto" style="width: 285px">
               <form name="form" novalidate autocomplete="off" ng-submit="login(form.$valid)">
                 {% if error_warning %}<p class="alert alert-danger">{{ error_warning }}</p>{% endif %}
-                <div class="form-group" ng-class="{'has-danger':form.first_name.$invalid&&envData.showValid}">
-                  <input name="first_name" type="text" id="first_name" ng-model="params.first_name" class="form-control rounded-0 border-white" placeholder="Họ tên" required>
+                <div class="form-group" ng-class="{'has-danger':form.first_name.$invalid&&envData.showValid}"><!-- text_fullname -->
+                  <input name="first_name" type="text" id="first_name" ng-model="params.first_name" class="form-control rounded-0 border-white" placeholder="{{ text_fullname }}" required>
                 </div>
                 <div class="form-group" ng-class="{'has-danger':form.email.$invalid&&envData.showValid}">
                   <input name="email" id="email" type="text" ng-model="params.email" class="form-control rounded-0 border-white" ng-pattern="PATTERNS.EMAIL2" placeholder="Email" required>
@@ -22,18 +41,22 @@
 
                 <div class="form-group" ng-class="{'has-danger':form.password.$invalid&&(!form.password.$pristine||envData.showValid)}">
                   <div class="input-group input-group-merge"><!-- text_password -->
-                    <input name="password" type="{{ '{{ passType }}' }}" class="form-control border-right-0 rounded-0 border-white" placeholder="Mật khẩu" ng-model="params.password" required>
+                    <input name="password" type="{{ '{{ passType }}' }}" class="form-control border-right-0 rounded-0 border-white" placeholder="{{ text_password }}" ng-model="params.password" required><!-- text_password -->
                     <div class="input-group-append">
                       <button type="button" class="btn border border-left-0 rounded-0 border-white form-control bg_opacity" ng-click="changePassType()" style="width: 35px;"><span class="ic_eye" ng-class="{'ic_eye':passType=='password','ic_eye_hidden':passType=='text'}"></span></button>
                     </div>
                   </div>
                 </div>
                 <div class="text-center">
-                  <button class="btn btn-lg rounded-0 btn_white_to_primary w-100 form-control" type="submit" ng-disabled="envData.submitted"><span class="spinner-grow spinner-grow-sm align-middle" ng-if="envData.submitted"></span> Tạo tài khoản</button>
+                  <button class="btn btn-lg rounded-0 btn_white_to_primary w-100 form-control" type="submit" ng-disabled="envData.submitted"><span class="spinner-grow spinner-grow-sm align-middle" ng-if="envData.submitted"></span> {{ text_create_account }}<!-- text_create_account --></button>
                 </div>
               </form>
             </div>
           </div>
+
+          {#<div class="text-center mt-10 mb-3 editor_reset">
+            {{ text_terms_policy?text_terms_policy:'Bằng việc đăng kí, bạn đã đồng ý về <a href="/dieu-khoan-dich-vu" target="_blank">Điều khoản dịch vụ</a> & <a href="/chinh-sach-bao-mat" target="_blank">Chính sách bảo mật</a>' }}<!-- text_terms_policy -->
+          </div>#}
         </div>
       </form>
     </div>

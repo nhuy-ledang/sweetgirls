@@ -25,8 +25,8 @@ class ControllerAccountPassword extends Controller {
         }
 
         $data['breadcrumbs'] = [];
-        $data['breadcrumbs'][] = ['text' => 'Trang chủ', 'href' => '/'];
-        $data['breadcrumbs'][] = ['text' => 'Tài khoản', 'href' => '/account/profile'];
+        $data['breadcrumbs'][] = ['text' => $this->language->get('text_home'), 'href' => '/'];
+        $data['breadcrumbs'][] = ['text' => $this->language->get('text_account'), 'href' => '/account/profile'];
         $data['breadcrumbs'][] = ['text' => $this->language->get('text_change_pass'), 'href' => ''];
 
         if (isset($this->error['password'])) {

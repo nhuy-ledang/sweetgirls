@@ -58,11 +58,24 @@
                   <div class="col-12 col-md-6 pb-3 pb-md-6">
                     <div class="border h-100 position-relative">
                       <div>
-                        <div class="d-flex justify-content-start align-items-center p-4 cursor-pointer font-weight-bolder position-relative border-bottom">
+                        <div class="d-flex justify-content-between align-items-center p-4 cursor-pointer font-weight-bolder position-relative border-bottom">
                           <h4 class="font-4 font-weight-bold mb-0">Địa chỉ nhận hàng</h4>
+                          <div class="font-weight-bold" ng-click="changeAddress(addressInfo.id)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" style="margin-bottom: 2px"><g id="edit-2-outline" transform="translate(12 11)"><g id="edit-2-outline-2" data-name="edit-2-outline" transform="translate(-12 -11)"><g id="edit-2" transform="translate(0 0)"><rect id="Rectangle_12894" data-name="Rectangle 12894" width="15" height="15" fill="#30302f" opacity="0"/><g id="Group_20440" data-name="Group 20440" transform="translate(1.25 0)"><path id="Path_28040" data-name="Path 28040" d="M15.283,20H4.752a.752.752,0,1,0,0,1.5h10.53a.752.752,0,1,0,0-1.5Z" transform="translate(-3.997 -6.504)" fill="#30302f"/><path id="Path_28041" data-name="Path 28041" d="M4.751,14.049h.068l3.137-.286a1.5,1.5,0,0,0,.91-.429l6.77-6.77a1.444,1.444,0,0,0-.053-2.038L13.521,2.466a1.5,1.5,0,0,0-2-.053l-6.77,6.77a1.5,1.5,0,0,0-.429.91L4,13.229a.75.75,0,0,0,.752.82Zm7.725-10.53,2.053,2.053-1.5,1.467L11.009,5.023Zm-6.694,6.7,4.235-4.2,2.031,2.031L7.835,12.259l-2.257.211Z" transform="translate(-3.996 -2.058)" fill="#30302f"/></g></g></g></g></svg>
+                            <span ng-if="addressInfo">{{ text_modify }}</span>
+                            <span ng-if="!addressInfo">{{ text_create }}</span>
+                          </div>
                         </div>
                         <div class="p-4 position-relative">
-                          <span>Nhận tại cửa hàng</span>
+                          <p class="font-weight-bold mb-2">{{ text_shipping_service }}</p>
+                          <div ng-if="addressInfo && addressInfo.ward">
+                            <div class="mb-2 d-flex"><b ng-bind="addressInfo.first_name"></b><b ng-if="addressInfo.phone_number" ng-bind="',&nbsp;' + addressInfo.phone_number"></b><span class="badge custom_badge text-primary ml-2 font-13">{{ text_default }}</span></div>
+                            <div><span ng-bind="addressInfo.address_1"></span><span ng-if="addressInfo.ward" ng-bind="',&nbsp;' + addressInfo.ward"></span><span ng-if="addressInfo.district" ng-bind="',&nbsp;' + addressInfo.district"></span><span ng-if="addressInfo.province" ng-bind="',&nbsp;' + addressInfo.province"></span></div>
+                          </div>
+                          <div class="text-danger" ng-if="addressInfo && !addressInfo.ward">Vui lòng cập nhật lại địa chỉ</div>
+                          <div ng-if="!addressInfo">
+                            Chưa có địa chỉ
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -82,6 +95,26 @@
                       </div>
                     </div>
                   </div>
+                  {# <div ng-if="includedProducts.length" class="col-12 col-md-6 pb-3 pb-md-6">
+                    <div class="border position-relative h-100">
+                      <div class="p-4 cursor-pointer font-weight-bolder position-relative border-bottom">
+                        <h4 class="font-4 font-weight-bold mb-0">{{ text_accompanying_service }}<!-- text_accompanying_service --></h4>
+                      </div>
+                      <div class="p-4 position-relative">
+                        <div ng-repeat="item in includedProducts" ng-class="{'mt-2':$index!=0}">
+                          <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" ng-model="item.selected" ng-change="onChangeIncludedProduct(item)" id="customCheck-{{ '{{ item.id }}' }}">
+                            <label class="custom-control-label font-weight-bold cursor-pointer" for="customCheck-{{ '{{ item.id }}' }}"><span ng-bind="item.name"></span><span class="text-primary ml-3"><span ng-bind="item.price > 0 ? '+' + (item.price|formatCurrency) + 'đ' : 'Miễn phí'"></span></span></label>
+                            <div class="fs-sm" ng-bind="item.short_description"></div>
+                          </div>
+                          <div class="form-group mt-1" ng-if="item.selected" ng-class="{'has-error': !params.message && item.selected}">
+                            <textarea class="form-control rounded-xs" ng-model="params.message" placeholder="Nhập nội dung, tối đa 100 ký tự..." maxlength="100" required></textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div> #}
+               
                   <div class="col-12 col-md-6 pb-3 pb-md-6">
                     <label class="cus-checkmark bg-light mb-0 pr-0 w-100 pl-0">
                       <div class="p-4 font-4 font-weight-bold border">
@@ -127,13 +160,79 @@
                     </div>
                   </div>
                 </div>
+                <div ng-if="item.gifts&&item.gifts.length" ng-repeat="gift in item.gifts">
+                  <div class="row no-gutters mt-2">
+                    <div class="col-12 col-sm-auto pr-sm-4" style="width: 80px;box-sizing: content-box;"></div>
+                    <div class="col-auto pr-2 pr-sm-4">
+                      <div class="img mx-auto" style="width: 40px; height: 40px;"><span class="embed-responsive embed-responsive-1by1 bg-cover"><span class="embed-responsive-item"><a href="{{ '{{ gift.href }}' }}"><img ng-src="{{ '{{ gift.small_url }}' }}" alt="{{ '{{ gift.long_name }}' }}" class="w-100 img-cover"></a></span></span></div>
+                    </div>
+                    <div class="col font-13">
+                      <b><span ng-bind="gift.quantity"></span>x </b>
+                      <a href="{{ '{{ gift.href }}' }}" class="font-weight-normal" ng-bind="gift.long_name?gift.long_name:gift.name"></a>
+                      <span class="d-block text-green">Quà tặng</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="cart-item pb-8" ng-repeat="item in data.gift_orders.current_gifts">
+                <div class="d-flex flex-xl-row align-items-xl-center font-13">
+                  <div class="d-flex item-info">
+                    <div class="position-relative">
+                      <span class="embed-responsive embed-responsive-1by1 bg-cover" style="width: 80px; height: 80px"><span class="embed-responsive-item"><img ng-src="{{ '{{ item.thumb_url }}' }}" alt="{{ '{{ item.long_name?item.long_name:item.name }}' }}" class="w-100"></span></span>
+                      <quantity><span ng-bind="item.quantity"></span></quantity>
+                    </div>
+                    <div class="px-3 px-xl-4 d-flex flex-column justify-content-between">
+                      <p class="mb-0 mb-xl-auto limit-text-2" ng-bind="item.long_name?item.long_name:item.name"></p>
+                      <p class="d-block d-xl-none text-teal mb-0">Quà tặng</p>
+                    </div>
+                  </div>
+                  <div class="d-none d-xl-block item-price pl-xl-8">
+                    <div class="text-teal font-4">
+                      <span class="text-nowrap">Quà tặng</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
           <div class="px-6 px-xl-10">
+            <div class="border-bottom py-md-6 py-3">
+              <div class="wid_voucher mb-3">
+                <a ng-click="selectCoupon()" class="d-flex justify-content-between align-items-center border py-2 px-3 cursor-pointer"><span class="text-gray font-13">{{ entry_coupon }}</span><span class="fa fa-angle-right"></span></a>
+              </div>
+              <div ng-if="data.coupon || data.totals.voucher_code" class="row">
+                <div class="col-4 d-flex align-items-center">
+                  <div class="position-relative coupon_tag d-flex flex-column py-2 px-4">
+                    <span class="text-primary font-weight-bold text-center" ng-if="data.coupon" ng-bind="data.coupon.code"></span>
+                    <span class="text-primary font-weight-bold text-center" ng-if="data.totals.voucher_code" ng-bind="data.totals.voucher_code"></span>
+                  </div>
+                  <div class="pl-2 cancel-coupon"><a ng-click="clearCoupon()" class="cursor-pointer"><span class="fa fa-times-circle"></span></a></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {#<div class="px-6 px-xl-10">
+            <div class="wid_voucher mt-8 mb-3">
+              <h4 class="font-weight-bold text-uppercase mb-3 font-4">Mã voucher</h4>
+              <div class="form-group mb-0">
+                <div class="input-group">
+                  <input type="text" ng-model="data.totals.voucher_code" value="" placeholder="Mã voucher" class="form-control">
+                  <div class="input-group-append"><button class="btn btn-secondary text-white" type="button" ng-click="addVoucher()">OK</button></div>
+                </div>
+              </div>
+            </div>
+          </div>#}
+          <div class="px-6 px-xl-10">
             <div class="py-md-6 py-3">
               <div class="d-flex flex-column">
                 <p>Tạm tính <b class="float-right" ng-bind="((data.totals.sub_total-data.totals.included_total)|formatCurrency)+'₫'"></b></p>
+                <p ng-if="data.totals.coins">Go Mart coin sử dụng <b class="float-right text-primary" ng-bind="'-'+(data.totals.coins|number)+' Go Mart coin'"></b></p>
+                <p ng-if="data.totals.shipping_fee">Phí vận chuyển<b class="float-right">+<span ng-bind="(data.totals.shipping_fee|formatCurrency)+'₫'"></span></b></p>
+                <p ng-if="data.totals.shipping_discount">Ưu đãi thành viên<b class="float-right">-<span ng-bind="(data.totals.shipping_discount|formatCurrency)+'₫'"></span></b></p>
+                <p ng-if="data.totals.included_total">Phí dịch vụ kèm theo<b class="float-right">+<span ng-bind="(data.totals.included_total|formatCurrency)+'₫'"></span></b></p>
+                <p ng-if="data.totals.discount_total">Giảm giá<b class="float-right">-<span ng-bind="(data.totals.discount_total|formatCurrency)+'₫'"></span></b></p>
+                <p ng-if="data.totals.voucher_total">Voucher<b class="float-right" ng-bind="'-'+(data.totals.voucher_total|formatCurrency:'':0)+'đ'"></b></p>
+                <p ng-if="data.totals && currentUser">{{ text_coin_get }}<b class="float-right text-primary">+<span ng-bind="data.totals.total/1000|number:0"></span> Go Mart coin</b></p>
                 <hr class="w-100 my-6" style="background-color: var(--secondary);">
                 <div class="d-flex justify-content-between align-items-end font-weight-bold">
                   <div class="font-weight-bold">Tổng</div>
@@ -144,9 +243,10 @@
           </div>
           <div class="section_button py-6 px-6 px-xl-10">
             <div class="row position-relative" style="z-index: 1;">
-              <div class="col-5"><a href="/checkout/cart"><button type="button" class="cus_btn btn_primary w-100">Quay lại</button></a></div>
+              <div class="col-5"><a href="/checkout/cart"><button type="button" class="cus_btn btn_primary w-100">{{ button_return }}</button></a></div>
               <div class="col-7">
-                <button type="button" class="cus_btn btn_white w-100" ng-click="confirm(form, $event)" data-loading-text="<span class='spinner-border spinner-border-sm'></span> {{ button_continue }}" data-reset-text=" {{ button_continue }}">Tiếp tục</button></a>
+                {#<button type="button" class="button button-continue text-uppercase w-100"> {{ button_continue?button_continue:'Tiếp tục' }}<!-- button_buy_now --></button>#}
+                <button type="button" class="cus_btn btn_white w-100" ng-click="confirm(form, $event)" data-loading-text="<span class='spinner-border spinner-border-sm'></span> {{ button_continue }}" data-reset-text=" {{ button_continue }}">{{ button_continue }}</button></a>
               </div>
             </div>
           </div>

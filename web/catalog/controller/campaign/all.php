@@ -5,7 +5,7 @@ class ControllerCampaignAll extends Controller {
         $this->load->model('campaign/campaign');
         $canonical = $this->url->link('campaign/all');
         $data['breadcrumbs'] = [];
-        $data['breadcrumbs'][] = ['text' => 'Trang chủ', 'href' => '/'];
+        $data['breadcrumbs'][] = ['text' => $this->language->get('text_home'), 'href' => '/'];
         $data['breadcrumbs'][] = ['text' => $this->language->get('heading_title'), 'href' => $canonical];
         $this->document->setTitle($this->language->get('heading_title'));
         $data['heading_title'] = $this->language->get('heading_title');

@@ -5,7 +5,7 @@ class ControllerCampaignCampaign extends Controller {
         $this->load->model('campaign/campaign');
         $data = $this->registry->get('global');
         $data['breadcrumbs'] = [];
-        $data['breadcrumbs'][] = ['text' => 'Trang chủ', 'href' => '/'];
+        $data['breadcrumbs'][] = ['text' => $this->language->get('text_home'), 'href' => '/'];
         $id = isset($this->request->get['campaign_id']) ? (int)$this->request->get['campaign_id'] : 0;
         $info = $this->model_campaign_campaign->getCampaign($id);
         if ($info) {

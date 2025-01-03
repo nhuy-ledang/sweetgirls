@@ -6,7 +6,7 @@
       <div class="container"><a class="py-1 navbar-brand d-none d-xl-block" href="/"><img src="/assets/logo/logo.svg" class="img-fluid"></a>
         <nav class="text-uppercase mx-auto mb-md-7 mb-5 nav-process">
           <div class="nav nav-tabs mb-0 text-center">
-            <a class="h5 nav-item nav-link active" href="javascript:void(0)">Đăng nhập</a>
+            <a class="h5 nav-item nav-link active" href="javascript:void(0)">{{ text_login }}</a>
             <a class="h5 nav-item nav-link" href="javascript:void(0)">{{ text_delivery_address }}</a>
             <a class="h5 nav-item nav-link" href="javascript:void(0)">{{ text_pay }}</a>
           </div>
@@ -23,9 +23,9 @@
         <div class="container mb-12">
           <div class="page-tabs text-center">
             <ul class="nav nav-tabs h4 mb-10">
-              <li class="nav-item"><a class="nav-link active">Đăng nhập</a></li>
-              <li class="nav-item"><a class="nav-link nav-separate px-6">Bạn chưa có tài khoản?</a></li>
-              <li class="nav-item"><a class="nav-link" href="/dang-ky">Đăng ký</a></li>
+              <li class="nav-item"><a class="nav-link active">{{ text_login }}</a></li>
+              <li class="nav-item"><a class="nav-link nav-separate px-6">|</a></li>
+              <li class="nav-item"><a class="nav-link" href="/dang-ky">{{ text_register }}</a></li>
             </ul>
           </div>
           <div class="login-box">
@@ -44,12 +44,12 @@
               </div>
               <div class="form-group mb-8">
                 <div class="d-flex no-block align-items-center">
-                  <div class="ml-auto"><a href="{{ forgot_href }}" class="">Quên mật khẩu?</a></div>
+                  <div class="ml-auto"><a href="{{ forgot_href }}" class="">{{ text_forgot }}?</a></div>
                 </div>
               </div>
               <div class="form-group text-center mb-10">
                 <a onclick="nextTab(2)">
-                  <button class="btn btn-lg btn-primary w-100" type="submit" ng-disabled="envData.submitted"><span class="spinner-border spinner-border-sm" ng-if="envData.submitted"></span> Đăng nhập</button>
+                  <button class="btn btn-lg btn-primary w-100" type="submit" ng-disabled="envData.submitted"><span class="spinner-border spinner-border-sm" ng-if="envData.submitted"></span> {{ text_login }}</button>
                 </a>
               </div>
             </form>

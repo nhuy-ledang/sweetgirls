@@ -246,7 +246,7 @@ export class OrderFrmProductComponent extends AppForm implements OnInit, OnDestr
     order: 'asc',
     data: {
       q: '',
-      embed: '',
+      embed: 'gift_set',
       filter_child: 1,
     },
   };

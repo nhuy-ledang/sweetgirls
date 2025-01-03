@@ -134,6 +134,15 @@ class OrderServiceProvider extends ServiceProvider {
         $this->app->bind('Modules\Order\Repositories\OrderTagsRepository', function() {
             return new \Modules\Order\Repositories\Eloquent\EloquentOrderTagsRepository(new \Modules\Order\Entities\OrderTags());
         });
+        $this->app->bind('Modules\Order\Repositories\OrderShippingHistoryRepository', function() {
+            return new \Modules\Order\Repositories\Eloquent\EloquentOrderShippingHistoryRepository(new \Modules\Order\Entities\OrderShippingHistory());
+        });
+        $this->app->bind('Modules\Order\Repositories\OrderShippingRepository', function() {
+            return new \Modules\Order\Repositories\Eloquent\EloquentOrderShippingRepository(new \Modules\Order\Entities\OrderShipping());
+        });
+        $this->app->bind('Modules\Order\Repositories\OrderShippingHistoryRepository', function() {
+            return new \Modules\Order\Repositories\Eloquent\EloquentOrderShippingHistoryRepository(new \Modules\Order\Entities\OrderShippingHistory());
+        });
         $this->app->bind('Modules\Order\Repositories\WebhookRepository', function () {
             return new \Modules\Order\Repositories\Eloquent\EloquentWebhookRepository(new \Modules\Order\Entities\Webhook());
         });

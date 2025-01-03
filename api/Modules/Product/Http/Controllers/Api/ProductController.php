@@ -11,11 +11,16 @@ use Modules\Order\Networks\Tiktok;
 use Modules\Product\Repositories\CategoryRepository;
 use Modules\Product\Repositories\OptionRepository;
 use Modules\Product\Repositories\OptionValueRepository;
+use Modules\Product\Repositories\ProductDescRepository;
 use Modules\Product\Repositories\ProductImageRepository;
 use Modules\Product\Repositories\ProductOptionRepository;
 use Modules\Product\Repositories\ProductOptionValueRepository;
 use Modules\Product\Repositories\ProductRepository;
+use Modules\Product\Repositories\ProductSpecDescRepository;
 use Modules\Product\Repositories\ProductSpecRepository;
+use Modules\Product\Repositories\ProductModuleDescRepository;
+use Modules\Product\Repositories\ProductModuleRepository;
+use Modules\Product\Repositories\ProductVariantRepository;
 
 /**
  * Class ProductController
@@ -55,6 +60,21 @@ class ProductController extends ApiBaseModuleController {
     protected $product_spec_repository;
 
     /**
+     * @var \Modules\Product\Repositories\ProductSpecDescRepository
+     */
+    protected $product_spec_desc_repository;
+
+    /**
+     * @var \Modules\Product\Repositories\ProductModuleRepository
+     */
+    protected $product_module_repository;
+
+    /**
+     * @var \Modules\Product\Repositories\ProductModuleDescRepository
+     */
+    protected $product_module_desc_repository;
+
+    /**
      * @var \Modules\Product\Repositories\OptionRepository
      */
     protected $option_repository;
@@ -86,10 +106,15 @@ class ProductController extends ApiBaseModuleController {
 
     public function __construct(Request $request,
                                 ProductRepository $product_repository,
+                                ProductDescRepository $product_desc_repository,
                                 ProductImageRepository $product_image_repository,
                                 ProductOptionRepository $product_option_repository,
                                 ProductOptionValueRepository $product_option_value_repository,
+                                ProductVariantRepository $product_variant_repository,
                                 ProductSpecRepository $product_spec_repository,
+                                ProductSpecDescRepository $product_spec_desc_repository,
+                                ProductModuleRepository $product_module_repository,
+                                ProductModuleDescRepository $product_module_desc_repository,
                                 OptionRepository $option_repository,
                                 OptionValueRepository $option_value_repository,
                                 CategoryRepository $category_repository,
@@ -97,10 +122,15 @@ class ProductController extends ApiBaseModuleController {
                                 FileRepository $file_repository,
                                 FileService $fileService) {
         $this->model_repository = $product_repository;
+        $this->product_desc_repository = $product_desc_repository;
         $this->product_image_repository = $product_image_repository;
         $this->product_option_repository = $product_option_repository;
         $this->product_option_value_repository = $product_option_value_repository;
+        $this->product_variant_repository = $product_variant_repository;
         $this->product_spec_repository = $product_spec_repository;
+        $this->product_spec_desc_repository = $product_spec_desc_repository;
+        $this->product_module_repository = $product_module_repository;
+        $this->product_module_desc_repository = $product_module_desc_repository;
         $this->option_repository = $option_repository;
         $this->option_value_repository = $option_value_repository;
         $this->category_repository = $category_repository;
@@ -363,9 +393,23 @@ class ProductController extends ApiBaseModuleController {
         try {
             // Check permission
             if (!$this->isCRUD('products', 'create')) return $this->errorForbidden();
-            $input = $this->request->only('master_id', 'name', 'model', 'unit', 'price', 'image', 'sort_order', 'status', 'short_description', 'description', 'stock_status');
+            $input = $this->request->only('master_id', 'name', 'long_name', 'model', 'unit', 'is_gift', 'is_coin_exchange', 'no_cod', 'price', 'coins', 'weight', 'length', 'width', 'height', 'gift_set_id', 'image', 'banner', 'top', 'sort_order', 'status', 'alias', 'meta_title', 'meta_description', 'meta_keyword', 'short_description', 'description', 'tag', 'link', 'properties', 'user_guide', 'stock_status');
             $category_id = $this->request->get('category_id');
-            $input['category_id'] = $category_id;
+            $categories = $this->request->get('categories');
+            if (!is_null($category_id) && intval($category_id)) {
+                $category = $this->category_repository->getModel()->leftJoin('pd__categories as c2', 'c2.id', '=', 'pd__categories.parent_id')->where('pd__categories.id', $category_id)
+                    ->select(\DB::raw("concat_ws(',', `c2`.`parent_id`, `pd__categories`.`parent_id`, `pd__categories`.`id`) as ids"))->first();
+                $ids = $category && $category->ids ? $category->ids : '';
+                $ids = ltrim(ltrim($ids, '0,'), '0');
+                $input['category_id'] = $category_id;
+                $input['categories'] = $ids ? $ids : null;
+            } else {
+                $input['category_id'] = null;
+                $input['categories'] = null;
+            }
+            if ($categories) {
+                $input['categories'] = $input['categories'] ? implode(",", array_unique(array_merge(explode(",", $input['categories']), explode(",", $categories)))) : $categories;
+            }
             $manufacturer_id = $this->request->get('manufacturer_id');
             if (!is_null($manufacturer_id) && intval($manufacturer_id)) $input['manufacturer_id'] = $manufacturer_id;
             $tag = $this->request->get('tag');
@@ -401,6 +445,17 @@ class ProductController extends ApiBaseModuleController {
                 if ($file) {
                     $savedFile = $this->fileService->store($file, ['sub' => $this->module_name, 'object_id' => $model->id]);
                     if (!is_string($savedFile)) $model = $this->model_repository->update($model, ['image' => $savedFile->path]);
+                }
+            }
+            // Upload banner
+            $bn_path = $this->request->get('bn_path');
+            if ($bn_path) {
+                $model = $this->model_repository->update($model, ['banner' => $bn_path]);
+            } else {
+                list($bn_file, $errorKey) = $this->getRequestFile('bn_file');
+                if ($bn_file) {
+                    $savedFile = $this->fileService->store($bn_file, ['sub' => $this->module_name, 'object_id' => $model->id]);
+                    if (!is_string($savedFile)) $model = $this->model_repository->update($model, ['banner' => $savedFile->path]);
                 }
             }
 
@@ -446,9 +501,23 @@ class ProductController extends ApiBaseModuleController {
             if (!$this->isCRUD('products', 'edit')) return $this->errorForbidden();
             $model = $this->model_repository->find($id);
             if (!$model) return $this->errorNotFound();
-            $input = $this->request->only('name', 'model', 'unit', 'price', 'image', 'sort_order', 'status', 'description', 'stock_status');
+            $input = $this->request->only('name', 'long_name', 'model', 'unit', 'is_gift', 'is_coin_exchange', 'no_cod', 'price', 'coins', 'weight', 'length', 'width', 'height', 'gift_set_id', 'image', 'banner', 'top', 'sort_order', 'status', 'alias', 'meta_title', 'meta_description', 'meta_keyword', 'short_description', 'description', 'tag', 'link', 'properties', 'user_guide', 'stock_status');
             $category_id = $this->request->get('category_id');
-            $input['category_id'] = $category_id;
+            $categories = $this->request->get('categories');
+            if (!is_null($category_id) && intval($category_id)) {
+                $category = $this->category_repository->getModel()->leftJoin('pd__categories as c2', 'c2.id', '=', 'pd__categories.parent_id')->where('pd__categories.id', $category_id)
+                    ->select(\DB::raw("concat_ws(',', `c2`.`parent_id`, `pd__categories`.`parent_id`, `pd__categories`.`id`) as ids"))->first();
+                $ids = $category && $category->ids ? $category->ids : '';
+                $ids = ltrim(ltrim($ids, '0,'), '0');
+                $input['category_id'] = $category_id;
+                $input['categories'] = $ids ? $ids : null;
+            } else {
+                $input['category_id'] = null;
+                $input['categories'] = null;
+            }
+            if ($categories) {
+                $input['categories'] = $input['categories'] ? implode(",", array_unique(array_merge(explode(",", $input['categories']), explode(",", $categories)))) : $categories;
+            }
             $manufacturer_id = $this->request->get('manufacturer_id');
             if (!is_null($manufacturer_id) && intval($manufacturer_id)) $input['manufacturer_id'] = $manufacturer_id;
             $tag = $this->request->get('tag');
@@ -483,6 +552,17 @@ class ProductController extends ApiBaseModuleController {
                         // Unlink old image
                         //if ($oldFile) $this->file_repository->destroy($oldFile);
                     }
+                }
+            }
+            // Upload banner
+            $bn_path = $this->request->get('bn_path');
+            if ($bn_path) {
+                $input['banner'] = $bn_path;
+            } else {
+                list($bn_file, $errorKey) = $this->getRequestFile('bn_file');
+                if ($bn_file) {
+                    $savedFile = $this->fileService->store($bn_file, ['sub' => 'banners']);
+                    if (!is_string($savedFile)) $input['banner'] = $savedFile->path;
                 }
             }
             // Update Model
@@ -595,6 +675,259 @@ class ProductController extends ApiBaseModuleController {
             }
 
             return $this->respondWithSuccess(trans("Delete success"));
+        } catch (\Exception $e) {
+            return $this->errorInternalError($e->getMessage());
+        }
+    }
+
+    /**
+     * @OA\Post(
+     *   path="/backend/pd_products/{id}/description",
+     *   summary="Update Product Description",
+     *   operationId="pdUpdateProductdescription",
+     *   tags={"BackendPdProducts"},
+     *   security={{"bearer":{}}},
+     *   @OA\Parameter(name="id", in="path", description="Product Id", example=1),
+     *   @OA\RequestBody(
+     *     @OA\JsonContent(
+     *       @OA\Property(property="lang", type="string", example="en"),
+     *       @OA\Property(property="meta_title", type="string", example=""),
+     *       @OA\Property(property="meta_description", type="string", example=""),
+     *       @OA\Property(property="meta_keyword", type="string", example=""),
+     *       @OA\Property(property="alias", type="string", example=""),
+     *     ),
+     *   ),
+     *   @OA\Response(response=200, description="Success", @OA\JsonContent()),
+     *   @OA\Response(response=400, description="Invalid request params", @OA\JsonContent()),
+     *   @OA\Response(response=401, description="Caller is not authenticated", @OA\JsonContent()),
+     *   @OA\Response(response=403, description="Wrong credentials response", @OA\JsonContent()),
+     *   @OA\Response(response=404, description="Resource not found", @OA\JsonContent()),
+     *   @OA\Response(response=500, description="Internal Server Error", @OA\JsonContent())
+     * )
+     */
+    public function description($id) {
+        try {
+            // Check permission
+            if (!$this->isCRUD('products', 'create')) return $this->errorForbidden();
+            $model = $this->model_repository->find($id);
+            if (!$model) return $this->errorNotFound();
+            $input = $this->request->only(['lang', 'name', 'long_name', 'short_description', 'description', 'properties', 'user_guide', 'tag', 'meta_title', 'meta_description', 'meta_keyword', 'delivery', 'warranty', 'model', 'image', 'banner', 'image_alt']);
+            // Check Valid
+            $validatorErrors = $this->getValidator($input, ['lang' => 'required', 'name' => 'required']);
+            if (!empty($validatorErrors)) return $this->respondWithError($validatorErrors);
+            $lang = $this->request->get('lang');
+            list($errorKey, $seo_url) = $this->updateSeoUrl($id, $lang, $input);
+            if ($errorKey) return $this->errorWrongArgs($errorKey);
+            if ($lang == 'vi') {
+                //$model = $this->model_repository->update($model, $input);
+            } else {
+                $modelDesc = $this->product_desc_repository->findByAttributes(['id' => $id, 'lang' => $lang]);
+                if (!$modelDesc) {
+                    $modelDesc = $this->product_desc_repository->create(array_merge($input, ['id' => $id, 'lang' => $lang]));
+                } else {
+                    $modelDesc = $this->product_desc_repository->update($modelDesc, $input);
+                }
+                $translates = $model->translates ? $model->translates : [];
+                $translates[] = $lang;
+                $translates = array_unique($translates);
+                $model->translates = $translates;
+                $model->save();
+            }
+            $model->descs;
+            $model->makeVisible(['meta_title', 'meta_description', 'meta_keyword', 'description', 'tag', 'image', 'banner', 'alias', 'created_at', 'updated_at']);
+
+            return $this->respondWithSuccess($model);
+        } catch (\Exception $e) {
+            return $this->errorInternalError($e->getMessage());
+        }
+    }
+
+    /**
+     * @OA\Post(
+     *   path="/backend/pd_products/{id}/copy",
+     *   summary="Copy Product",
+     *   operationId="pdCopyProduct",
+     *   tags={"BackendPdProducts"},
+     *   security={{"bearer":{}}},
+     *   @OA\Parameter(name="id", in="path", description="Product Id", example=1),
+     *   @OA\RequestBody(
+     *     @OA\JsonContent(),
+     *   ),
+     *   @OA\Response(response=200, description="Success", @OA\JsonContent()),
+     *   @OA\Response(response=400, description="Invalid request params", @OA\JsonContent()),
+     *   @OA\Response(response=401, description="Caller is not authenticated", @OA\JsonContent()),
+     *   @OA\Response(response=403, description="Wrong credentials response", @OA\JsonContent()),
+     *   @OA\Response(response=404, description="Resource not found", @OA\JsonContent()),
+     *   @OA\Response(response=500, description="Internal Server Error", @OA\JsonContent())
+     * )
+     */
+    public function copy($id) {
+        try {
+            // Check permission
+            if (!$this->isCRUD('products', 'create')) return $this->errorForbidden();
+            $model = $this->model_repository->find($id);
+            if (!$model) return $this->errorNotFound();
+            $input = $this->request->all();
+            unset($input['category_id']);
+            unset($input['manufacturer_id']);
+            $input = array_merge($model->toArray(), $input);
+            // Create new model
+            $category_id = $this->request->get('category_id');
+            if (!is_null($category_id) && intval($category_id)) {
+                $category = $this->category_repository->getModel()->leftJoin('pd__categories as c2', 'c2.id', '=', 'pd__categories.parent_id')->where('pd__categories.id', $category_id)
+                    ->select(\DB::raw("concat_ws(',', `c2`.`parent_id`, `pd__categories`.`parent_id`, `pd__categories`.`id`) as ids"))->first();
+                $ids = $category && $category->ids ? $category->ids : '';
+                $ids = ltrim(ltrim($ids, '0,'), '0');
+                $input['category_id'] = $category_id;
+                $input['categories'] = $ids ? $ids : null;
+            } else {
+                $input['category_id'] = null;
+                $input['categories'] = null;
+            }
+            $manufacturer_id = $this->request->get('manufacturer_id');
+            if (!is_null($manufacturer_id) && intval($manufacturer_id)) $input['manufacturer_id'] = $manufacturer_id;
+            $status = (boolean)$this->request->get('status');
+            $input['status'] = $status ? 1 : 0;
+            // Check Valid
+            $validatorErrors = $this->getValidator($input, $this->rulesForCreate());
+            if (!empty($validatorErrors)) return $this->respondWithError($validatorErrors);
+            // Create model
+            $model = $this->model_repository->create($input);
+            // Upload image
+            $file_path = $this->request->get('file_path');
+            if ($file_path) {
+                $model = $this->model_repository->update($model, ['image' => $file_path]);
+            } else {
+                list($file, $errorKey) = $this->getRequestFile();
+                //if ($errorKey) return $this->errorWrongArgs($errorKey);
+                if ($file) {
+                    $savedFile = $this->fileService->store($file, ['sub' => $this->module_name, 'object_id' => $model->id]);
+                    if (!is_string($savedFile)) $model = $this->model_repository->update($model, ['image' => $savedFile->path]);
+                }
+            }
+            // Upload banner
+            $bn_path = $this->request->get('bn_path');
+            if ($bn_path) {
+                $model = $this->model_repository->update($model, ['banner' => $bn_path]);
+            } else {
+                list($bn_file, $errorKey) = $this->getRequestFile('bn_file');
+                if ($bn_file) {
+                    $savedFile = $this->fileService->store($bn_file, ['sub' => $this->module_name, 'object_id' => $model->id]);
+                    if (!is_string($savedFile)) $model = $this->model_repository->update($model, ['banner' => $savedFile->path]);
+                }
+            }
+            // Create Description
+            $lang = 'en';
+            $modelDesc = $this->product_desc_repository->findByAttributes(['id' => $model->id, 'lang' => $lang]);
+            if ($modelDesc) {
+                $this->product_desc_repository->create(array_merge($modelDesc->toArray(), ['id' => $model->id, 'lang' => $lang]));
+            }
+            $translates = $model->translates ? $model->translates : [];
+            $translates[] = $lang;
+            $translates = array_unique($translates);
+            $model->translates = $translates;
+            $model->save();
+            // Create images
+            $images = $this->product_image_repository->getModel()->where('product_id', $id)->get();
+            foreach ($images as $img) {
+                $this->product_image_repository->create(array_merge($img->toArray(), ['product_id' => $model->id]));
+            }
+            // Create specs
+            $specs = $this->product_spec_repository->getModel()->where('product_id', $id)->get();
+            foreach ($specs as $spec) {
+                $temp = $this->product_spec_repository->create(array_merge($spec->toArray(), ['product_id' => $model->id]));
+                foreach ($spec->descs as $desc) {
+                    $this->product_spec_desc_repository->create(array_merge($desc->toArray(), ['id' => $temp->id]));
+                }
+            }
+            // Create module
+            $modules = $this->product_module_repository->getModel()->where('product_id', $id)->get();
+            foreach ($modules as $module) {
+                $temp = $this->product_module_repository->create(array_merge($module->toArray(), ['product_id' => $model->id]));
+                foreach ($module->descs as $desc) {
+                    $this->product_module_desc_repository->create(array_merge($desc->toArray(), ['id' => $temp->id]));
+                }
+            }
+
+            return $this->respondWithSuccess($model);
+        } catch (\Exception $e) {
+            return $this->errorInternalError($e->getMessage());
+        }
+    }
+
+    /**
+     * @OA\Post(
+     *   path="/backend/pd_products/{id}/renew",
+     *   summary="Renew Product",
+     *   operationId="pdRenewProduct",
+     *   tags={"BackendPdProducts"},
+     *   security={{"bearer":{}}},
+     *   @OA\Parameter(name="id", in="path", description="Product Id", example=1),
+     *   @OA\RequestBody(
+     *     @OA\JsonContent(
+     *       @OA\Property(property="idx", type="string", example=""),
+     *     ),
+     *   ),
+     *   @OA\Response(response=200, description="Success", @OA\JsonContent()),
+     *   @OA\Response(response=400, description="Invalid request params", @OA\JsonContent()),
+     *   @OA\Response(response=401, description="Caller is not authenticated", @OA\JsonContent()),
+     *   @OA\Response(response=403, description="Wrong credentials response", @OA\JsonContent()),
+     *   @OA\Response(response=404, description="Resource not found", @OA\JsonContent()),
+     *   @OA\Response(response=500, description="Internal Server Error", @OA\JsonContent())
+     * )
+     */
+    public function renew($id) {
+        try {
+            // Check permission
+            if (!$this->isCRUD('products', 'edit')) return $this->errorForbidden();
+            $model = $this->model_repository->find($id);
+            if (!$model) return $this->errorNotFound();
+            $model->created_at = Carbon::now();
+            $model->save();
+
+            return $this->respondWithSuccess($model);
+        } catch (\Exception $e) {
+            return $this->errorInternalError($e->getMessage());
+        }
+    }
+
+    /**
+     * @OA\Get(
+     *   path="/backend/pd_products_search",
+     *   summary="Get Product Search",
+     *   operationId="pdGetProductSearch",
+     *   tags={"BackendPdProducts"},
+     *   security={{"bearer":{}}},
+     *   @OA\Parameter(name="pageSize", in="query", description="Item total on page", example=20),
+     *   @OA\Parameter(name="sort", in="query", description="Sort by", example="id"),
+     *   @OA\Parameter(name="order", in="query", description="Order", example="desc"),
+     *   @OA\Parameter(name="data", in="query", description="{embed:Optional get related fields, fields: Optional get optional fields, extend_fields: Extend fields query} | Syntax: embed=PROPERTYNAME or embed=PROPERTYNAME.CHILDPROPERTYNAME | fields=PROPERTYNAME1,PROPERTYNAME2", example=""),
+     *   @OA\Response(response=200, description="Success", @OA\JsonContent()),
+     *   @OA\Response(response=400, description="Invalid request params", @OA\JsonContent()),
+     *   @OA\Response(response=401, description="Caller is not authenticated", @OA\JsonContent()),
+     *   @OA\Response(response=403, description="Wrong credentials response", @OA\JsonContent()),
+     *   @OA\Response(response=404, description="Resource not found", @OA\JsonContent()),
+     *   @OA\Response(response=500, description="Internal Server Error", @OA\JsonContent())
+     * )
+     */
+    public function search() {
+        try {
+            // Check permission
+            $page = 1;
+            $pageSize = (int)$this->request->get('pageSize');
+            if (!$pageSize) $pageSize = $this->pageSize;
+            if ($this->maximumLimit && $pageSize > $this->maximumLimit) $pageSize = $this->maximumLimit;
+            $sort = (string)$this->request->get('sort');
+            $sort = $sort ? strtolower($sort) : 'id';
+            $order = (string)$this->request->get('order');
+            $order = $order ? strtolower($order) : 'asc';
+            $queries = ['and' => [['is_included', '=', 0], ['is_free', '=', 0]], 'whereRaw' => []];
+            $data = $this->getRequestData();
+            // Query by keyword
+            $q = trim(utf8_strtolower((isset($data->{'q'}) && !is_null($data->{'q'}) && $data->{'q'} !== '') ? trim((string)$data->{'q'}) : ''));
+            if ($q) $queries['whereRaw'][] = ["lower(`name`) like ?", "%$q%"];
+            $results = $this->setUpQueryBuilder($this->model(), $queries, false)->orderBy($sort, $order)->take($pageSize)->skip($pageSize * ($page - 1))->get();
+            return $this->respondWithSuccess($results);
         } catch (\Exception $e) {
             return $this->errorInternalError($e->getMessage());
         }
@@ -964,6 +1297,196 @@ class ProductController extends ApiBaseModuleController {
             }
 
             return $this->respondWithSuccess(trans("Delete success"));
+        } catch (\Exception $e) {
+            return $this->errorInternalError($e->getMessage());
+        }
+    }
+
+    /**
+     * @OA\Put(
+     *   path="/backend/pd_products/{id}/quantity",
+     *   summary="Update Product Quantity",
+     *   operationId="pdUpdateProductQuantity",
+     *   tags={"BackendPdProducts"},
+     *   security={{"bearer":{}}},
+     *   @OA\Parameter(name="id", in="path", description="Product Id", example=1),
+     *   @OA\RequestBody(
+     *     @OA\JsonContent(
+     *       @OA\Property(property="idx", type="string", example=""),
+     *       @OA\Property(property="category_id", type="integer", example=1),
+     *       @OA\Property(property="name", type="string", example=""),
+     *       @OA\Property(property="long_name", type="string", example=""),
+     *       @OA\Property(property="price", type="integer", example=0),
+     *       @OA\Property(property="short_description", type="string", example=""),
+     *       @OA\Property(property="description", type="string", example=""),
+     *       @OA\Property(property="delivery", type="string", example="year"),
+     *       @OA\Property(property="stock_status", type="integer", example=""),
+     *       @OA\Property(property="status", type="integer", example="1"),
+     *     ),
+     *   ),
+     *   @OA\Response(response=200, description="Success", @OA\JsonContent()),
+     *   @OA\Response(response=400, description="Invalid request params", @OA\JsonContent()),
+     *   @OA\Response(response=401, description="Caller is not authenticated", @OA\JsonContent()),
+     *   @OA\Response(response=403, description="Wrong credentials response", @OA\JsonContent()),
+     *   @OA\Response(response=404, description="Resource not found", @OA\JsonContent()),
+     *   @OA\Response(response=500, description="Internal Server Error", @OA\JsonContent())
+     * )
+     */
+    public function updateQuantity($id) {
+        try {
+            // Check permission
+            if (!$this->isCRUD('products', 'edit')) return $this->errorForbidden();
+            $model = $this->model_repository->find($id);
+            if (!$model) return $this->errorNotFound();
+            $input = $this->request->all();
+            // Update Model
+            $model = $this->model_repository->update($model, $input);
+            $skus = [];
+            $skus[] = $model->model;
+            // Update varriant
+            $varriant = $this->model_repository->getModel()->where('master_id', $model->id)->get();
+            if ($varriant) {
+                foreach ($varriant as $item) {
+                    $this->model_repository->update($item, $input);
+                    $skus[] = $item->model;
+                }
+            }
+
+            // Update tiktok quantity
+            $tiktok = new Tiktok();
+            $query = [
+                'status' => 'ACTIVATE',
+                'page_size'   => 100,
+                'seller_skus' => $skus,
+            ];
+            $response = $tiktok->connect()->Product->searchProducts($query);
+
+            $updateArr = [];
+            if (isset($response['products'])) {
+                $product_list = $response['products'];
+                foreach ($product_list as $product) {
+                    foreach ($product['skus'] as $sku) {
+                        if (in_array($sku['seller_sku'], $skus)) {
+                            $updateArr[] = [
+                                'product_id' => $product['id'],
+                                'skus_id'    => $sku['id'],
+                            ];
+                        }
+                    }
+                }
+            }
+
+            $update_response = [];
+            foreach ($updateArr as $item) {
+                $sku_query = [
+                    [
+                        'id'        => $item['skus_id'],
+                        'inventory' => [
+                            [
+                                'quantity'      => (int)$input['quantity'],
+                                //'warehouse_id'  => 'YOUR_WAREHOUSE_ID',
+                            ],
+                            // Các thông tin kho khác nếu có
+                        ]
+                    ]
+                ];
+                $update_response[] = $tiktok->connect()->Product->updateInventory($item['product_id'], ['skus' => $sku_query]);
+            }
+
+            // Update Shopee Quantity
+            $shopee = new Shopee();
+            foreach ($skus as $sku) {
+                $response = $shopee->searchItem(['item_sku' => $sku]);
+                $item_list = [];
+                if ($response) {
+                    $data = $response;
+                    if (isset($data["item_id_list"])) {
+                        $item_list = $data["item_id_list"];
+                    }
+
+                    $product_detail_list = [];
+                    $size = 50; // Max 50
+                    while (count($item_list) > 0) {
+                        $new_order_lists = array_slice($item_list, 0, $size);
+                        $item_list = array_slice($item_list, $size);
+                        $ids = implode(',', $new_order_lists);
+
+                        $item_info = $shopee->connect()->Product->getItemBaseInfo($ids);
+
+                        if ($item_info) {
+                            $data = $item_info;
+                            if (isset($data["item_list"])) {
+                                $product_detail_list = array_merge($product_detail_list, $data["item_list"]);
+                            }
+                        }
+                    }
+
+                    $new_list = [];
+                    foreach ($product_detail_list as $item) {
+                        // Tìm sản phẩm con
+                        if ($item['has_model']) {
+                            $item['model_list'] = $shopee->connect()->Product->getModelList($item['item_id']);
+                        }
+                        $new_list[] = $item;
+                    }
+
+                    foreach ($new_list as $item) {
+                        $stock_list = [];
+                        if (isset($item['model_list'])) {
+                            foreach ($item['model_list']['model'] as $value) {
+                                $stock_list[] = [
+                                    'model_id'     => $value['model_id'],
+                                    'seller_stock' => [['location_id' => 'VNZ', 'stock' => (int)$input['quantity']]]
+                                ];
+                            }
+                        } else {
+                            $stock_list[] = [
+                                'model_id'     => 0,
+                                'seller_stock' => [['location_id' => 'VNZ', 'stock' => (int)$input['quantity']]]
+                            ];
+                        }
+
+                        $params = [
+                            'item_id'    => $item['item_id'],
+                            'stock_list' => $stock_list,
+                        ];
+
+                        $update_response[] = $shopee->updateStock($params);
+                    }
+                }
+            }
+
+            // Update Lazada Quantity
+            $lazada = new Lazada();
+            $response = $lazada->getProducts(['sku_seller_list' => json_encode($skus)]);
+            $item_list = [];
+            if ($response) {
+                $data = json_decode($response, true)['data'];
+                if (isset($data["products"])) {
+                    $item_list = array_map(function ($product) {
+                        return ['item_id' => $product['item_id'], 'SkuId' => $product['skus'][0]['SkuId']];
+                    }, $data["products"]);
+                }
+            }
+
+            foreach ($item_list as $item) {
+                $payload = "<Request>
+                              <Product>
+                                <Skus>
+                                  <Sku>
+                                    <ItemId>{$item['item_id']}</ItemId>
+                                    <SkuId>{$item['SkuId']}</SkuId>
+                                    <Quantity>{$input['quantity']}</Quantity>
+                                  </Sku>
+                                </Skus>
+                              </Product>
+                            </Request>";
+
+                $res = $lazada->updateProductPriceQuantity($payload);
+                $update_response[] = json_decode($res, true);
+            }
+
+            return $this->respondWithSuccess($update_response);
         } catch (\Exception $e) {
             return $this->errorInternalError($e->getMessage());
         }

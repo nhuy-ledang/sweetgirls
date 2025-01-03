@@ -5,7 +5,7 @@ class ControllerPageInformation extends Controller {
 
         $data['breadcrumbs'] = [];
         $data['breadcrumbs'][] = [
-            'text' => 'Trang chủ',
+            'text' => $this->language->get('text_home'),
             'href' => '/'
         ];
 

@@ -1,0 +1,40 @@
+<div class="page-header no-gutter">
+  <div class="row align-items-end">
+    <div class="col-sm">
+      <h1 class="page-header-title">Nhóm khách hàng</h1>
+      <nav>
+        <ol class="breadcrumb breadcrumb-no-gutter">
+          <li class="breadcrumb-item"><a class="breadcrumb-link" href="javascript:;">Bán hàng & CSKH</a></li>
+          <li class="breadcrumb-item active">Nhóm khách hàng</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-auto">
+      <div class="btn-group">
+        <button type="button" class="btn btn-secondary" (click)="create()"><span class="ic_plus"></span>&nbsp;<span>Thêm mới</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="table-responsive">
+    <table class="table m-0">
+      <thead>
+      <tr>
+        <th style="width: auto">Tên</th>
+      </tr>
+      </thead>
+      <tbody class="text-dark">
+      <tr *ngIf="data.loading"><td colspan="1" class="text-center"><div class="spinner-border"><span class="sr-only">Loading...</span></div></td></tr>
+      <tr *ngFor="let item of data.items; let i = index">
+        <td style="width: auto">
+          <a class="d-block text-nowrap text-uppercase"><span [innerText]="i|indexLetter"></span>. {{item.name}}</a>
+          <div class="row-options"><a href="javascript:;" (click)="edit(item)" [innerText]="'Sửa'|translate">Sửa</a>&nbsp; | &nbsp;<a href="javascript:;" class="text-danger" (click)="remove(item)" [innerText]="'Xóa'|translate">Xóa</a></div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<ngx-user-group-form (onSuccess)="onFormSuccess($event)"></ngx-user-group-form>
+<ngx-modal-confirm (onConfirm)="onConfirm($event)"></ngx-modal-confirm>

@@ -2,6 +2,7 @@ import { Component, Input, Output, ViewChild, ElementRef, EventEmitter, HostList
 import { Client, MessengerService, XMPP_EVENTS, XMPP_MESSAGE_BODY_TYPES, XMPP_MESSAGE_CHATSTATES, XMPP_MESSAGE_TYPES, XMPPImageInterface, XMPPMessage } from './messenger.service';
 import { User } from '../entities';
 import { MediasRepository } from '../../../../@core/repositories';
+import { UserNotifiesRepository } from '../services';
 import { UUID } from '../../../../@core/helpers';
 
 @Component({
@@ -103,7 +104,8 @@ export class MessengerComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(private _renderer2: Renderer2,
               private elementRef: ElementRef,
               private _messenger: MessengerService,
-              private _medias: MediasRepository) {
+              private _medias: MediasRepository,
+              private _userNotifies: UserNotifiesRepository) {
   }
 
   private scrollToBottom(): void {
@@ -196,6 +198,14 @@ export class MessengerComponent implements OnInit, OnDestroy, AfterViewInit {
           this.typing = false;
         }
         return;
+      } else if (name === XMPP_EVENTS.MESSAGE_SENT) { // Sent message
+        if (data.body) {
+          this.appendLogs(data);
+          // Check error && push notification
+          if (!this.client.hasAvailable(data.to.local)) {
+            return this._userNotifies.chatOffline({user_id: data.to.local, body: data.body});
+          }
+        }
       } else if (name === XMPP_EVENTS.MESSAGE_ERROR) { // Error message
       } else if (name === XMPP_EVENTS.MESSAGE) { // Received message
         // Fetch histories

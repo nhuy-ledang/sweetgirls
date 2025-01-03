@@ -5,7 +5,7 @@ class User extends Model {
     protected $persistence_table = 'persistences';
     protected $role_table = 'roles';
     protected $role_user_table = 'role_users';
-    // protected $user_ranks_table = 'user__ranks';
+    protected $user_ranks_table = 'user__ranks';
     protected $id;
     protected $auth_token;
     protected $permissions = [];
@@ -79,7 +79,7 @@ class User extends Model {
         $this->data = $user_data;
         $this->getDisplay();
         $this->getAvatarUrl();
-        // $this->getLevel();
+        $this->getLevel();
         if ($auth_token) {
             $this->auth_token = $auth_token;
         } else {
@@ -267,6 +267,29 @@ class User extends Model {
         }
 
         return $this->data['avatar_url'];
+    }
+
+    public function getLevel() {
+        if ($this->isLogged()) {
+            $listLevel = [];
+            $query = $this->db->query("SELECT * FROM " . $this->user_ranks_table . " WHERE status = '1' ORDER BY rank asc");
+            if ($query->num_rows) {
+                $listLevel = $query->rows;
+            }
+
+            $userPoints = $this->data['points'];
+            foreach ($listLevel as $level) {
+                if ($userPoints >= $level['value']) {
+                    $this->data['level_name'] = $level['name'];
+                    $this->data['level_id'] = $level['rank'];
+                }
+            }
+            return isset($this->data['level_name']) ? [
+                $this->data['level_name'],
+                $this->data['level_id'],
+            ] : null;
+        }
+        return null;
     }
 
     public function getData() {

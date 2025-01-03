@@ -10,6 +10,7 @@ import { OrderProductsRepository, OrdersRepository } from '../shared/services';
 import { DlgNotifyComponent } from '../shared/modals';
 import { OrderFrmOrderStatusComponent } from './frm-order-status/frm-order-status.component';
 import { OrderFrmProductComponent } from './frm-product/frm-product.component';
+import { FrmInvoicedComponent } from './frm-invoiced/frm-invoiced.component';
 
 @Component({
   selector: 'ngx-ord-orders',
@@ -20,6 +21,7 @@ export class OrdersComponent extends AppList implements OnInit, OnDestroy, After
   @ViewChild(ConfirmComponent) confirm: ConfirmComponent;
   @ViewChild(OrderFrmProductComponent) frmProduct: OrderFrmProductComponent;
   @ViewChild(OrderFrmOrderStatusComponent) frmOrderStatus: OrderFrmOrderStatusComponent;
+  @ViewChild(FrmInvoicedComponent) frmInvoiced: FrmInvoicedComponent;
   @ViewChild(DlgStaffSelectComponent) dlgStaffSelect: DlgStaffSelectComponent;
   @ViewChild(DlgNotifyComponent) dlgNotify: DlgNotifyComponent;
   columnList = [
@@ -89,10 +91,11 @@ export class OrdersComponent extends AppList implements OnInit, OnDestroy, After
   }
 
   ngOnInit(): void {
-    this.data.data = {q: '', invoice_no: '', payment_status: '', order_status: '', payment_code: '', is_invoice: '', embed: 'user,order_products'};
-    this.data.data = {q: '', invoice_no: '', payment_status: '', order_status: '', payment_code: '', is_invoice: '', embed: 'user,order_products'};
+    this.data.data = {q: '', invoice_no: '', payment_status: '', shipping_status: '', order_status: '', payment_code: '', is_invoice: '', embed: 'shipping,user,order_products,affiliate'};
     const q = this._route.snapshot.queryParams['q'];
     if (q) this.data.data.q = q;
+    const affiliate = this._route.snapshot.queryParams['affiliate'];
+    if (affiliate) this.data.data.affiliate = affiliate;
     this.columnInt(this._cookie, 'orders');
   }
 
@@ -193,10 +196,16 @@ export class OrdersComponent extends AppList implements OnInit, OnDestroy, After
       console.log(res.data);
       item.order_status = res.data.order_status;
       item.order_status_name = res.data.order_status_name;
+      item.shipping = res.data.shipping;
+      item.shipping_status = res.data.shipping_status;
+      item.shipping_status_name = res.data.shipping_status_name;
       const itemSelected = _.find(this.data.items, {id: res.data.id});
       if (itemSelected) {
         itemSelected.order_status = res.data.order_status;
         itemSelected.order_status_name = res.data.order_status_name;
+        itemSelected.shipping = res.data.shipping;
+        itemSelected.shipping_status = res.data.shipping_status;
+        itemSelected.shipping_status_name = res.data.shipping_status_name;
         // this.data.itemSelected = itemSelected;
       }
     }, (res: any) => {
@@ -240,6 +249,12 @@ export class OrdersComponent extends AppList implements OnInit, OnDestroy, After
     console.log(item);
     this.temps.itemSelected = item;
     this.dlgStaffSelect.show(item);
+  }
+
+  changeInvoiced(item): void {
+    console.log(item);
+    this.temps.itemSelected = item;
+    this.frmInvoiced.show(item);
   }
 
   onFrmInvoicedSuccess(res: any): void {

@@ -16,7 +16,7 @@ export class OrderResolve extends AppResolve implements Resolve<any> {
     if (info) {
       return info;
     } else {
-      return this.find(id, {embed: 'user,products'}, true);
+      return this.find(id, {embed: 'shipping,user,products'}, true);
     }
   }
 }

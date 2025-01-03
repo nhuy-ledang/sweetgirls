@@ -99,7 +99,7 @@ class CategoryController extends ApiBaseModuleController {
      */
     public function all() {
         try {
-            $results = $this->model_repository->getModel()->orderBy('sort_order', 'asc')->get();
+            $results = $this->model_repository->getModel()->where('parent_id', 0)->orderBy('sort_order', 'asc')->with('childs')->get();
             $output = [];
             foreach ($results as $result) {
                 $output[] = $result;
@@ -149,7 +149,7 @@ class CategoryController extends ApiBaseModuleController {
             $order = !$order ? 'asc' : strtolower($order);*/
             $sort = 'sort_order';
             $order = 'asc';
-            $queries = ['and' => []];
+            $queries = ['and' => [['parent_id', '=', 0]]];
             /*$data = $this->getRequestData();
             // Query by keyword
             $q = (isset($data->{'q'}) && !is_null($data->{'q'}) && $data->{'q'} !== '') ? trim((string)$data->{'q'}) : '';
@@ -181,7 +181,7 @@ class CategoryController extends ApiBaseModuleController {
                 }
 
                 $output[] = $result;
-                $queries['and'] = [];
+                $queries['and'] = [['parent_id', '=', $result->id]];
                 $childs = $this->setUpQueryBuilder($this->model(), $queries, false)->orderBy($sort, $order)->get();
                 foreach ($childs as $child) {
                     if (isset($child['options']) and !empty($child['options'])) {
@@ -272,8 +272,8 @@ class CategoryController extends ApiBaseModuleController {
             // Check permission
             if (!$this->isCRUD('products', 'create')) return $this->errorForbidden();
             $input = $this->request->all();
-            //$parent_id = (int)$this->request->get('parent_id');
-            //$input['parent_id'] = $parent_id ? $parent_id : 0;
+            $parent_id = (int)$this->request->get('parent_id');
+            $input['parent_id'] = $parent_id ? $parent_id : 0;
             // Check Valid
             $validatorErrors = $this->getValidator($input, $this->rulesForCreate());
             if (!empty($validatorErrors)) return $this->respondWithError($validatorErrors);
@@ -355,10 +355,10 @@ class CategoryController extends ApiBaseModuleController {
             $model = $this->model_repository->find($id);
             if (!$model) return $this->errorNotFound();
             $input = $this->request->all();
-            /*$parent_id = (int)$this->request->get('parent_id');
+            $parent_id = (int)$this->request->get('parent_id');
             if (!$parent_id) $parent_id = 0;
             if ($parent_id == $id) return $this->errorWrongArgs();
-            $input['parent_id'] = $parent_id;*/
+            $input['parent_id'] = $parent_id;
             // Check Valid
             $validatorErrors = $this->getValidator($input, $this->rulesForUpdate($id));
             if (!empty($validatorErrors)) return $this->respondWithError($validatorErrors);

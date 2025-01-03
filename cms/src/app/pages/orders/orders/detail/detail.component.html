@@ -12,6 +12,12 @@
     </div>
     <div class="col-auto">
       <div class="d-flex justify-content-center justify-content-sm-end">
+        <!--<div class="btn-group mr-2">
+          <button type="button" class="btn btn-outline-secondary" (click)="create()"><span class="ic_visible_outlined"></span> Xem thổng quan</button>
+        </div>
+        <div class="btn-group">
+          <button type="button" class="btn btn-secondary" (click)="create()"><span class="ic_plus"></span> Đăng ký</button>
+        </div>-->
         <div *ngIf="info&&info.type=='product'" class="btn-group dropdown" dropdown container="body" placement="bottom right">
           <button dropdownToggle class="btn btn-outline-secondary dropdown-toggle"><span class="ic_setting mr-1"></span> Thao tác</button>
           <div *dropdownMenu class="dropdown-menu dropdown-menu-default dropdown-menu-right">
@@ -24,6 +30,13 @@
   </div>
 </div>
 <div class="row justify-content-lg-between">
+  <div *ngIf="!info.sto_request_id && ['pending', 'processing'].includes(info.order_status) && productsLoaded" class="col-12">
+    <div class="mb-3">
+      <div class="btn-group">
+        <button type="button" class="btn btn-outline-primary" (click)="createStoRequest(info)">Tạo yêu cầu xuất kho</button>
+      </div>
+    </div>
+  </div>
   <div class="col-sm order-2 order-sm-1 mb-3">
     <h4 [innerText]="info.no"></h4>
     <span class="s-status" [ngClass]="info.order_status" [innerText]="info.order_status_name"></span>
@@ -37,6 +50,39 @@
     <div *ngIf="info.reason"><b>Lý do hủy:</b> {{ info.reason }}</div>
   </div>
 </div>
+<div class="mb-3 text-sm-right" *ngIf="info.is_invoice">
+  <h4 class="text-primary">Thông tin xuất hóa đơn</h4>
+  <div><b>Tên công ty:</b> {{ info.company }}</div>
+  <div><b>Mã số thuế:</b> {{ info.company_tax }}</div>
+  <div><b>Địa chỉ:</b> {{ info.company_address }}</div>
+</div>
+<div class="card mb-3">
+  <div class="card-header border-bottom-0 d-flex justify-content-between">
+    <h4 class="card-title m-0">Địa chỉ giao hàng</h4>
+    <div>
+      <a *ngIf="!info.shipping && (isSuperAdmin() || isCRUD('orders', 'edit'))" href="javascript:{}" (click)="editInfo(info)"><i class="fa fa-edit"></i> Sửa thông tin</a>
+      <a *ngIf="!info.shipping && (isSuperAdmin() || isCRUD('orders', 'edit'))" href="javascript:{}" (click)="editAddress(info)" class="ml-5"><i class="fa fa-edit"></i> Sửa địa chỉ</a>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table m-0">
+      <thead>
+      <tr>
+        <th style="width: 300px">Tên</th>
+        <th style="width: 160px">Điện thoại</th>
+        <th>Địa chỉ</th>
+      </tr>
+      </thead>
+      <tbody class="text-dark">
+      <tr>
+        <td style="width: auto;white-space: nowrap">{{ info.shipping_first_name }}</td>
+        <td style="width: auto;white-space: nowrap">{{ info.shipping_phone_number }}</td>
+        <td style="width: auto;white-space: nowrap">{{ info.shipping_address_1 }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 <ngx-ord-order-products (onLoad)="onOrderProductsLoad($event)" [info]="info.id"></ngx-ord-order-products>
 <div class="row justify-content-md-end mb-3">
   <div class="col-md-8 col-lg-7">
@@ -47,6 +93,22 @@
         <td><span [innerText]="info.sub_total|currencyFormat"></span>đ</td>
       </tr>
       <tr>
+        <td><span class="font-weight-bold">Phí vận chuyển:</span></td>
+        <td><span [innerText]="info.shipping_fee|currencyFormat"></span>đ</td>
+      </tr>
+      <tr *ngIf="info.shipping_discount">
+        <td><span class="font-weight-bold">Giảm giá vận chuyển:</span></td>
+        <td><span [innerText]="info.shipping_discount|currencyFormat"></span>đ</td>
+      </tr>
+      <tr *ngIf="info.discount_total || info.voucher_total">
+        <td><span class="font-weight-bold">Mã:</span></td>
+        <td><div [innerText]="info.discount_code"></div><div [innerText]="info.voucher_code"></div></td>
+      </tr>
+      <tr>
+        <td><span class="font-weight-bold">Giảm giá:</span></td>
+        <td><span [innerText]="(info.discount_total+info.voucher_total)|currencyFormat"></span>đ</td>
+      </tr>
+      <tr>
         <td><span class="font-weight-bold">Thành tiền:</span></td>
         <td><span [innerText]="info.total|currencyFormat"></span>đ</td>
       </tr>
@@ -54,4 +116,184 @@
     </table>
   </div>
 </div>
+<div *ngIf="info.shipping">
+  <div class="row align-items-start">
+    <div class="col-sm mb-2">
+      <h4>Chi tiết vận chuyển</h4>
+    </div>
+  </div>
+  <div class="card mb-3">
+    <div class="table-responsive">
+      <table class="table m-0">
+        <thead>
+        <tr>
+          <th>Mã vận đơn</th>
+          <th>Trọng lượng đơn</th>
+          <th>Tổng cước phí</th>
+          <th>Phí vận chuyển</th>
+          <th>Tổng tiền thu hộ</th>
+        </tr>
+        </thead>
+        <tbody class="text-dark">
+        <tr>
+          <td [innerText]="info.shipping.order_number"></td>
+          <td [innerText]="info.shipping.exchange_weight|number"></td>
+          <td [innerText]="info.shipping.money_total|currencyFormat"></td>
+          <td [innerText]="info.shipping.money_total_fee|currencyFormat"></td>
+          <td [innerText]="info.shipping.money_collection|currencyFormat"></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<!--<ng-container *ngIf="info">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-header border-bottom-0"><h4 class="card-title m-0">Khách hàng</h4></div>
+        <table class="table m-0 no_bg">
+          <tbody>
+          <tr>
+            <td style="width: 1%;">
+              <button class="btn btn-info btn-sm text-white"><i class="fa fa-user fa-fw"></i></button>
+            </td>
+            <td>{{ info.display ? info.display : info.user?.display }}</td>
+          </tr>
+          <tr>
+            <td>
+              <button type="button" class="btn btn-info btn-sm text-white"><i class="fa fa-envelope-o fa-fw"></i></button>
+            </td>
+            <td><a href="mailto:{{ info.email ? info.email : info.user?.email }}">{{ info.email ? info.email : info.user?.email }}</a></td>
+          </tr>
+          <tr>
+            <td>
+              <button type="button" class="btn btn-info btn-sm text-white"><i class="fa fa-phone fa-fw"></i></button>
+            </td>
+            <td>{{ info.phone_number ? info.phone_number : info.user?.phone_number }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-header border-bottom-0"><h4 class="card-title m-0">Chi tiết đơn hàng</h4></div>
+        <table class="table m-0 no_bg">
+          <tbody>
+          <tr>
+            <td style="width: auto">Mã hóa đơn</td>
+            <td class="text-right" [innerText]="info.no"></td>
+          </tr>
+          <tr>
+            <td style="width: auto">Ngày tạo</td>
+            <td class="text-right" [innerText]="info.created_at|formatDate"></td>
+          </tr>
+          <tr>
+            <td style="width: auto">Tổng tiền</td>
+            <td class="text-right" [innerText]="info.total|currencyFormat"></td>
+          </tr>
+          <tr>
+            <td style="width: auto">Trạng thái</td>
+            <td class="text-right" [innerText]="info.order_status_name"></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-header border-bottom-0"><h4 class="card-title m-0">Thanh toán</h4></div>
+        <table class="table m-0 no_bg">
+          <tbody>
+          <tr>
+            <td>
+              <div class="d-flex justify-content-between align-items-start">
+                <div class="text-nowrap">PT thanh toán</div>
+                <div class="text-right pl-2" [innerText]="info.payment_method"></div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="d-flex justify-content-between align-items-start">
+                <div class="text-nowrap">Ngày thanh toán</div>
+                <div class="text-right pl-2" [innerText]="info.payment_at|formatDate"></div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="d-flex justify-content-between align-items-start">
+                <div class="text-nowrap">Trạng thái</div>
+                <div class="text-right pl-2" [innerText]="info.order_status_name"></div>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="card mb-4">
+        <div class="card-header border-bottom-0"><h4 class="card-title m-0">Địa chỉ giao hàng</h4></div>
+        <table class="table m-0">
+          <thead>
+          <tr>
+            <th style="width: 300px">Tên</th>
+            <th style="width: 160px">Điện thoại</th>
+            <th>Địa chỉ</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td style="width: auto;white-space: nowrap" [innerText]="info.shipping_first_name"></td>
+            <td style="width: auto;white-space: nowrap" [innerText]="info.shipping_phone_number"></td>
+            <td style="width: auto;white-space: nowrap" [innerText]="info.shipping_address_1"></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="mb-4">
+        <div class="card">
+          <div class="card-header"><h4 class="card-title m-0">Đơn hàng (#{{ info.id }})</h4></div>
+          <div class="table-responsive">
+            <table class="table m-0" *ngIf="info.products">
+              <thead>
+              <tr>
+                <th>Stt</th>
+                <th>Tên sản phẩm</th>
+                <th>Giá</th>
+                <th>Số lượng</th>
+                <th>Tổng cộng</th>
+              </tr>
+              </thead>
+              <tbody class="text-dark">
+              <tr *ngIf="data.loading">
+                <td colspan="5" class="text-center"><span class="spinner-border"><span class="sr-only">Loading...</span></span></td>
+              </tr>
+              <tr *ngFor="let item of info.products; let $index = index">
+                <td [innerText]="$index + 1"></td>
+                <td>
+                  <div [innerText]="item.name"></div>
+                  <div class="text-nowrap d-inline-block pr-2" *ngFor="let it of item.options"><b>{{ it.name }}:</b> <span [innerText]="it.value"></span></div>
+                </td>
+                <td [innerText]="item.price|currencyFormat"></td>
+                <td [innerText]="item.quantity"></td>
+                <td [innerText]="item.total|currencyFormat"></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>-->
 <ngx-ord-frm-order-status (onSuccess)="onFrmOrderStatusSuccess($event)"></ngx-ord-frm-order-status>
+<ngx-ord-frm-edit-address (onSuccess)="onFrmEditAddressSuccess($event)"></ngx-ord-frm-edit-address>
+<ngx-ord-frm-edit-info (onSuccess)="onFrmEditInfoSuccess($event)"></ngx-ord-frm-edit-info>
+<!--<ngx-modal-confirm (onConfirm)="onConfirm($event)"></ngx-modal-confirm>-->
+<!-- <ngx-sto-exp-request-form (onSuccess)="onFormStoRequestSuccess($event)"></ngx-sto-exp-request-form> -->

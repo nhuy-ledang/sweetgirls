@@ -1,0 +1,12 @@
+<?php namespace Modules\User\Repositories;
+
+use Modules\Core\Repositories\BaseRepository;
+
+interface StatsRepository extends BaseRepository {
+    /**
+     * Update stats
+     * @param $user_id
+     * @return object
+     */
+    public function cron($user_id);
+}
