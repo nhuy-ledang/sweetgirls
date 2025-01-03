@@ -15,7 +15,7 @@ use Modules\Usr\Repositories\UserRepository;
  * Class AuthController
  *
  * @package Modules\Usr\Http\Controllers\Api
- * @author Huy D <huydang1920@gmail.com>
+
  */
 class AuthController extends ApiBaseModuleController {
     /**

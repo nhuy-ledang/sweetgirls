@@ -6,7 +6,6 @@ class ControllerProductProduct extends Controller {
 
         $this->load->model('product/product');
         $this->load->model('product/category');
-        $this->load->model('product/manufacturer');
 
         $id = isset($this->request->get['product_id']) ? (int)$this->request->get['product_id'] : 0;
         $info = $this->model_product_product->getProduct($id);
@@ -29,7 +28,6 @@ class ControllerProductProduct extends Controller {
             }
 
             $data['category_info'] = $this->model_product_category->getCategory($info['category_id']);
-            if ($info['manufacturer_id']) $data['manufacturer_info'] = $this->model_product_manufacturer->getManufacturer($info['manufacturer_id']);
 
             $data['breadcrumbs'] = [];
             $data['breadcrumbs'][] = ['text' => $this->language->get('text_home'), 'href' => '/'];
@@ -47,9 +45,9 @@ class ControllerProductProduct extends Controller {
                 $id = $info['master_id'];
                 $data['master_info'] = $this->model_product_product->getProduct($id);
             }
-
+            
             $data['product_options'] = [];
-            $product_options = $this->model_product_product->getProductOptions($id);
+            $product_options = $this->model_product_product->getProductOptions($id);// var_dump($product_options);exit();
             if ($product_options) {
                 foreach ($product_options as $product_option) {
                     $product_option['products'] = array_values(array_column($product_option['products'], null, 'option_value_id'));

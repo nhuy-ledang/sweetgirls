@@ -12,8 +12,6 @@ use Modules\Media\Services\FileService;
  * Class LayoutController
  *
  * @package Modules\Page\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2022-07-02
  */
 class LayoutController extends ApiBaseModuleController {
     /**

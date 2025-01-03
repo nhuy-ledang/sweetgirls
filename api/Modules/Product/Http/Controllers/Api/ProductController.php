@@ -16,17 +16,11 @@ use Modules\Product\Repositories\ProductImageRepository;
 use Modules\Product\Repositories\ProductOptionRepository;
 use Modules\Product\Repositories\ProductOptionValueRepository;
 use Modules\Product\Repositories\ProductRepository;
-use Modules\Product\Repositories\ProductSpecDescRepository;
-use Modules\Product\Repositories\ProductSpecRepository;
-use Modules\Product\Repositories\ProductModuleDescRepository;
-use Modules\Product\Repositories\ProductModuleRepository;
 use Modules\Product\Repositories\ProductVariantRepository;
 
 /**
  * Class ProductController
  * @package Modules\Product\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2022-06-03
  */
 class ProductController extends ApiBaseModuleController {
     /**
@@ -53,26 +47,6 @@ class ProductController extends ApiBaseModuleController {
      * @var \Modules\Product\Repositories\ProductVariantRepository
      */
     protected $product_variant_repository;
-
-    /**
-     * @var \Modules\Product\Repositories\ProductSpecRepository
-     */
-    protected $product_spec_repository;
-
-    /**
-     * @var \Modules\Product\Repositories\ProductSpecDescRepository
-     */
-    protected $product_spec_desc_repository;
-
-    /**
-     * @var \Modules\Product\Repositories\ProductModuleRepository
-     */
-    protected $product_module_repository;
-
-    /**
-     * @var \Modules\Product\Repositories\ProductModuleDescRepository
-     */
-    protected $product_module_desc_repository;
 
     /**
      * @var \Modules\Product\Repositories\OptionRepository
@@ -111,10 +85,6 @@ class ProductController extends ApiBaseModuleController {
                                 ProductOptionRepository $product_option_repository,
                                 ProductOptionValueRepository $product_option_value_repository,
                                 ProductVariantRepository $product_variant_repository,
-                                ProductSpecRepository $product_spec_repository,
-                                ProductSpecDescRepository $product_spec_desc_repository,
-                                ProductModuleRepository $product_module_repository,
-                                ProductModuleDescRepository $product_module_desc_repository,
                                 OptionRepository $option_repository,
                                 OptionValueRepository $option_value_repository,
                                 CategoryRepository $category_repository,
@@ -127,10 +97,6 @@ class ProductController extends ApiBaseModuleController {
         $this->product_option_repository = $product_option_repository;
         $this->product_option_value_repository = $product_option_value_repository;
         $this->product_variant_repository = $product_variant_repository;
-        $this->product_spec_repository = $product_spec_repository;
-        $this->product_spec_desc_repository = $product_spec_desc_repository;
-        $this->product_module_repository = $product_module_repository;
-        $this->product_module_desc_repository = $product_module_desc_repository;
         $this->option_repository = $option_repository;
         $this->option_value_repository = $option_value_repository;
         $this->category_repository = $category_repository;
@@ -254,10 +220,7 @@ class ProductController extends ApiBaseModuleController {
             }
             $tz = (int)$this->request->get('tz');
             $dateNow = $this->getDateLocalFromTz($tz);
-            $fields = [
-                '*',
-                \DB::raw("(select price from pd__product_specials ps where ps.product_id = pd__products.id and ((ps.start_date is null or UNIX_TIMESTAMP(ps.start_date) <= UNIX_TIMESTAMP('$dateNow')) and (ps.end_date is null or UNIX_TIMESTAMP('$dateNow') <= UNIX_TIMESTAMP(ps.end_date))) order by ps.priority asc, price asc limit 1) as special"),
-            ];
+            $fields = ['*'];
             $results = $this->setUpQueryBuilder($this->model(), $queries, false, $fields)->orderBy($sort, $order)->take($pageSize)->skip($pageSize * ($page - 1))->get();
             $output = $results;
             /*foreach ($results as $item) {
@@ -301,10 +264,7 @@ class ProductController extends ApiBaseModuleController {
         try {
             $tz = (int)$this->request->get('tz');
             $dateNow = $this->getDateLocalFromTz($tz);
-            $fields = [
-                '*',
-                \DB::raw("(select price from pd__product_specials ps where ps.product_id = pd__products.id and ((ps.start_date is null or UNIX_TIMESTAMP(ps.start_date) <= UNIX_TIMESTAMP('$dateNow')) and (ps.end_date is null or UNIX_TIMESTAMP('$dateNow') <= UNIX_TIMESTAMP(ps.end_date))) order by ps.priority asc, price asc limit 1) as special"),
-            ];
+            $fields = ['*'];
             $queries = ['and' => [['is_included', '=', 0], ['is_free', '=', 0]]];
             $model = $this->setUpQueryBuilder($this->model(), $queries, false, $fields)->where('id', $id)->first();
             if (!$model) return $this->errorNotFound();
@@ -571,7 +531,7 @@ class ProductController extends ApiBaseModuleController {
             if ($model->master_id && $master = $model->master) {
                 $price_min = 0;
                 $price_max = 0;
-                $result = $this->model_repository->getModel()->leftJoin('pd__product_specials as ps', 'product_id', 'pd__products.id')->where('master_id', $master->id)
+                $result = $this->model_repository->getModel()->where('master_id', $master->id)
                     ->select([\DB::raw('min(`pd__products`.`price`) as price_min, max(`pd__products`.`price`) as price_max, min(`ps`.`price`) as ps_price_min, max(`ps`.`price`) as ps_price_max')])->first();
                 if ($result) {
                     $tmp = [];
@@ -659,7 +619,7 @@ class ProductController extends ApiBaseModuleController {
             if ($master) {
                 $price_min = 0;
                 $price_max = 0;
-                $result = $this->model_repository->getModel()->leftJoin('pd__product_specials as ps', 'product_id', 'pd__products.id')->where('master_id', $master->id)
+                $result = $this->model_repository->getModel()->where('master_id', $master->id)
                     ->select([\DB::raw('min(`pd__products`.`price`) as price_min, max(`pd__products`.`price`) as price_max, min(`ps`.`price`) as ps_price_min, max(`ps`.`price`) as ps_price_max')])->first();
                 if ($result) {
                     $tmp = [];
@@ -993,8 +953,7 @@ class ProductController extends ApiBaseModuleController {
             $tz = (int)$this->request->get('tz');
             $dateNow = $this->getDateLocalFromTz($tz);
             $fields = [
-                'pd__products.*', 'pv.option_id', 'pv.option_value_id',
-                \DB::raw("(select price from pd__product_specials ps where ps.product_id = pd__products.id and ((ps.start_date is null or UNIX_TIMESTAMP(ps.start_date) <= UNIX_TIMESTAMP('$dateNow')) and (ps.end_date is null or UNIX_TIMESTAMP('$dateNow') <= UNIX_TIMESTAMP(ps.end_date))) order by ps.priority asc, price asc limit 1) as special"),
+                'pd__products.*', 'pv.option_id', 'pv.option_value_id'
             ];
             // Get products
             $results = $this->model_repository->getModel()->leftJoin('pd__product_variants as pv', 'pv.product_id', 'pd__products.id')->where('master_id', $id)->select($fields)->get();
@@ -1109,8 +1068,6 @@ class ProductController extends ApiBaseModuleController {
      */
     public function createVariant($id) {
         try {
-            // Check permission
-            if (!$this->isCRUD('products', 'create')) return $this->errorForbidden();
             $model = $this->model_repository->find($id);
             if (!$model || ($model && $model->master_id)) return $this->errorNotFound();
             $optObj = [];
@@ -1205,26 +1162,20 @@ class ProductController extends ApiBaseModuleController {
      */
     public function updateVariant($id) {
         try {
-            // Check permission
-            if (!$this->isCRUD('products', 'edit')) return $this->errorForbidden();
             $model = $this->model_repository->find($id);
             if (!$model || ($model && !$model->master_id)) return $this->errorNotFound();
             $master = $model->master;
             if (!$master) return $this->errorNotFound();
-            $input = $this->request->only('name', 'long_name', 'model', 'is_gift', 'price', 'coins', 'weight', 'length', 'width', 'height', 'status', 'alias', 'meta_title', 'meta_description', 'meta_keyword', 'short_description', 'stock_status');
+            $input = $this->request->only('name', 'long_name', 'model', 'price', 'coins', 'weight', 'length', 'width', 'height', 'status', 'alias', 'meta_title', 'meta_description', 'meta_keyword', 'short_description', 'stock_status');
             // Check Valid
             $validatorErrors = $this->getValidator($input, $this->rulesForUpdate($id));
             if (!empty($validatorErrors)) return $this->respondWithError($validatorErrors);
-            // Update seo url
-            list($errorKey, $seo_url) = $this->updateSeoUrl($id, 'vi', $input);
-            if ($errorKey) return $this->errorWrongArgs($errorKey);
             // Update Model
             $model = $this->model_repository->update($model, $input);
             // Update master
             $price_min = 0;
             $price_max = 0;
-            $result = $this->model_repository->getModel()->leftJoin('pd__product_specials as ps', 'product_id', 'pd__products.id')->where('master_id', $master->id)
-                ->select([\DB::raw('min(`pd__products`.`price`) as price_min, max(`pd__products`.`price`) as price_max, min(`ps`.`price`) as ps_price_min, max(`ps`.`price`) as ps_price_max')])->first();
+            $result = $this->model_repository->getModel()->where('master_id', $master->id)->first();
             if ($result) {
                 $tmp = [];
                 $tmp[] = (float)$result->price_min;
@@ -1281,7 +1232,7 @@ class ProductController extends ApiBaseModuleController {
                 // Update master
                 $price_min = 0;
                 $price_max = 0;
-                $result = $this->model_repository->getModel()->leftJoin('pd__product_specials as ps', 'product_id', 'pd__products.id')->where('master_id', $master->id)
+                $result = $this->model_repository->getModel()->where('master_id', $master->id)
                     ->select([\DB::raw('min(`pd__products`.`price`) as price_min, max(`pd__products`.`price`) as price_max, min(`ps`.`price`) as ps_price_min, max(`ps`.`price`) as ps_price_max')])->first();
                 if ($result) {
                     $tmp = [];

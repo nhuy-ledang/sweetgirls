@@ -9,8 +9,6 @@ use Modules\Order\Repositories\OrderRepository;
  * Class InvoiceVatController
  *
  * @package Modules\Order\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2023-04-20
  */
 class InvoiceVatController extends ApiBaseModuleController {
     /**

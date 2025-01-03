@@ -3,8 +3,6 @@ class Cart {
     private $table = DB_PREFIX . 'crt__carts';
     private $session_table = DB_PREFIX . 'crt__sessions';
     private $product_table = DB_PREFIX . 'pd__products';
-    private $discount_table = DB_PREFIX . 'pd__product_discounts';
-    private $special_table = DB_PREFIX . 'pd__product_specials';
     private $data = [];
 
     public function __construct($registry) {
@@ -226,15 +224,6 @@ class Cart {
                             $discount_quantity += (int)$cart_2['quantity'];
                         }
                     }
-                    $product_discount_query = $this->db->query("select price from " . $this->discount_table . " where product_id = '" . (int)$cart['product_id'] . "' and user_group_id = '" . (int)$this->config->get('config_user_group_id') . "' and quantity <= '" . (int)$discount_quantity . "' and ((date_start is null or date_start < NOW()) and (date_end is null or date_end > NOW())) order by quantity DESC, priority asc, price asc limit 1");
-                    if ($product_discount_query->num_rows) {
-                        $price = (float)$product_discount_query->row['price'];
-                    }
-                    // Product Specials
-                    $product_special_query = $this->db->query("select price from " . $this->special_table . " where product_id = '" . (int)$cart['product_id'] . "' and user_group_id = '" . (int)$this->config->get('config_user_group_id') . "' and ((start_date is null or start_date < NOW()) and (end_date is null or end_date > NOW())) order by priority asc, price asc limit 1");
-                    if ($product_special_query->num_rows) {
-                        $price = (float)$product_special_query->row['price'];
-                    }
                     // Stock
                     if (!$product_query->row['quantity'] || ($product_query->row['quantity'] < $cart['quantity'])) {
                         $stock = false;
@@ -251,7 +240,6 @@ class Cart {
                         'coins'       => $coins,
                         'coin_total'  => $coins * $quantity,
                         'org_price'   => (float)$product_query->row['price'],
-                        'org_special' => $product_special_query->num_rows ? (float)$product_special_query->row['price'] : 0,
                         'options'     => $option_data,
                     ]);
                     if (isset($row['image'])) $row['thumb_url'] = media_url_file(html_entity_decode($row['image'], ENT_QUOTES, 'UTF-8'), 'thumb');

@@ -16,8 +16,6 @@ use Modules\Page\Repositories\ModuleRepository;
  * Class LayoutModuleController
  *
  * @package Modules\Page\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2022-07-02
  */
 class LayoutModuleController extends ApiBaseModuleController {
     /**

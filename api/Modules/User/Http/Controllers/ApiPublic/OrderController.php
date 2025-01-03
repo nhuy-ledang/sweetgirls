@@ -9,8 +9,6 @@ use Modules\User\Repositories\UserRepository;
  * Class OrderController
  *
  * @package Modules\User\Http\Controllers\ApiPublic
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2021-07-09
  */
 class OrderController extends ApiBaseModuleController {
     /**

@@ -17,8 +17,6 @@ use Modules\Core\Traits\CommonTrait;
  * Class ApiBaseController
  *
  * @package Modules\Core\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2022-07-27
  */
 abstract class ApiBaseController extends Controller {
     use DispatchesJobs, ValidatesRequests, CommonTrait, ApiHelperControllerTrait;

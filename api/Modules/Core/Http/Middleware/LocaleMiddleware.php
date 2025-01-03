@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\App;
  * Class LocaleMiddleware
  *
  * @package Modules\Core\Http\Middleware
- * @author Huy D <huydang1920@gmail.com>
+
  */
 class LocaleMiddleware {
 

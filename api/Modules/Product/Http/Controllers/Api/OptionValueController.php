@@ -8,8 +8,6 @@ use Modules\Product\Repositories\ProductVariantRepository;
  * Class OptionValueController
  *
  * @package Modules\Order\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2023-07-03
  */
 class OptionValueController extends ApiBaseModuleController {
     /**

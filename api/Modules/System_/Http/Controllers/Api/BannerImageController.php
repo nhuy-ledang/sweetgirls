@@ -10,8 +10,6 @@ use Modules\System\Repositories\BannerRepository;
  * Class BannerImageController
  *
  * @package Modules\Blog\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2121-12-04
  */
 class BannerImageController extends ApiBaseModuleController {
     /**

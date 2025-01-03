@@ -10,8 +10,8 @@ use Modules\System\Repositories\SettingRepository;
  * Class SettingController
  *
  * @package Modules\Order\Http\Controllers\Api
- * @author Huy D <huydang1920@gmail.com>
- * @copyright (c) Motila Corporation
+
+ 
  */
 class SettingController extends ApiBaseModuleController {
     protected $hidden = [];

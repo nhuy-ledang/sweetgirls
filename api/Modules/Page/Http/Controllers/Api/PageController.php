@@ -18,8 +18,6 @@ use Modules\Media\Services\FileService;
  * Class PageController
  *
  * @package Modules\Page\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2121-07-09
  */
 class PageController extends ApiBaseModuleController {
     /**

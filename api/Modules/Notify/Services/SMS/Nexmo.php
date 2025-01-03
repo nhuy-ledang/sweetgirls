@@ -3,7 +3,7 @@
 /***
  * Class Nexmo
  * @package Modules\Notify\Services\SMS
- * @author Huy D <huydang1920@gmail.com>
+
  * @reference http://docs.guzzlephp.org/en/stable/quickstart.html#post-form-requests
  *            https://dashboard.nexmo.com/getting-started-guide
  * @errorCodes https://help.nexmo.com/hc/en-us/articles/204014733-Nexmo-SMS-Delivery-Error-Codes

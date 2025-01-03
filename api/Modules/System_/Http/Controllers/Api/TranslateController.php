@@ -6,8 +6,8 @@ use Modules\System\Repositories\TranslateRepository;
 /**
  * Class TranslateController
  * @package Modules\Core\Http\Controllers\Api
- * @author Huy D <huydang1920@gmail.com>
- * @copyright (c) Motila Corporation
+
+ 
  */
 class TranslateController extends ApiBaseModuleController {
     protected $hidden = [];

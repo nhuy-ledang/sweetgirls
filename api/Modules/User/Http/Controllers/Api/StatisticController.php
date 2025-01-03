@@ -9,8 +9,6 @@ use Modules\User\Repositories\UserRepository;
  * Class StatisticController
  *
  * @package Modules\Order\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2022-02-11
  */
 class StatisticController extends ApiBaseModuleController {
     /**

@@ -12,7 +12,7 @@ use Modules\Notify\Services\SMS\FptSMS\Auth\AccessToken;
 /***
  * Class FptSMS
  * @package Modules\Notify\Services\SMS
- * @author Huy D <huydang1920@gmail.com>
+
  * @reference https://speedsms.vn/sms-api-service/
  */
 class FptSMS {

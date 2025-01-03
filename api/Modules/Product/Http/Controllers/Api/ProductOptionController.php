@@ -10,8 +10,6 @@ use Modules\Product\Repositories\ProductVariantRepository;
  * Class ProductOptionController
  *
  * @package Modules\Product\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2023-07-03
  */
 class ProductOptionController extends ApiBaseModuleController {
     /**

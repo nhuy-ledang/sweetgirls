@@ -33,8 +33,6 @@ use Modules\User\Repositories\UserRepository;
  * Class OrderController
  *
  * @package Modules\Order\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2023-05-30
  */
 class OrderController extends ApiBaseModuleController {
     /**
@@ -352,20 +350,6 @@ class OrderController extends ApiBaseModuleController {
         }
         $data['config_owner'] = $this->setting_repository->findByKey('config_owner');
         if ($model->email) dispatch(new \Modules\Order\Jobs\OrderAddJob($this->email, $data));
-        /*$data['emails'] = ['vanhuy@tedfast.vn'];
-        $model->email = 'huydang1920@gmail.com';//$order->email;
-        $model = $data['model'];
-        // Send to customer
-        $this->email->send('order::mail/order_add', $data, function($message) use ($model) {
-            $message->to($model->email)->subject("SweetGirl xác nhận đơn hàng #{$model->id}");
-        });
-        // Send alert to admin
-        if (!empty($data['emails'])) {
-            $emails = $data['emails'];
-            $this->email->send('order::mail/order_add_alert', $data, function($message) use ($emails) {
-                foreach ($emails as $email) $message->to($email)->subject('Đơn hàng');
-            });
-        }*/
     }
 
     private function handleOrder($model) {
@@ -791,7 +775,7 @@ class OrderController extends ApiBaseModuleController {
                     ]);
                     if (empty($validatorErrors)) {
                         if (intval($item['id'])) {
-                            $product = $this->product_repository->getModel()->where('id', $item['id'])->select(['*', \DB::raw("(select price from pd__product_specials ps where ps.product_id = pd__products.id and ((ps.start_date is null or UNIX_TIMESTAMP(ps.start_date) <= UNIX_TIMESTAMP('$dateNow')) and (ps.end_date is null or UNIX_TIMESTAMP('$dateNow') <= UNIX_TIMESTAMP(ps.end_date))) order by ps.priority asc, price asc limit 1) as special")])->first();
+                            $product = $this->product_repository->getModel()->where('id', $item['id'])->first();
                             if ($product) {
                                 $newProduct = new \stdClass();
                                 $newProduct->quantity = $item['quantity'];
@@ -848,7 +832,7 @@ class OrderController extends ApiBaseModuleController {
             $input['invoice_prefix'] = $this->setting_repository->findByKey("config_ord_invoice_prefix", 'INV-');
             $invoice_no = $this->model_repository->getModel()->selectRaw('max(invoice_no) as invoice_no')->where('invoice_prefix', $input['invoice_prefix'])->first();
             $input['invoice_no'] = $invoice_no ? ((int)$invoice_no->invoice_no + 1) : 1;
-            $input['idx'] = $input['invoice_prefix'] . date('dmy') . '-' . $input['invoice_no'];
+            $input['idx'] = 'SG-' . date('dmy-His');
             // Create Model
             //$input['status'] = ORDER_SS_COMPLETED;
             $input['order_status'] = ORDER_SS_PROCESSING;

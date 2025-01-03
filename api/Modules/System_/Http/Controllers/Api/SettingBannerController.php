@@ -12,8 +12,8 @@ use Modules\System\Repositories\SettingRepository;
  * Class SettingBannerController
  *
  * @package Modules\System\Http\Controllers\Api
- * @author Huy D <huydang1920@gmail.com>
- * @copyright (c) Motila Corporation
+
+ 
  */
 class SettingBannerController extends ApiBaseModuleController {
     protected $hidden = [];

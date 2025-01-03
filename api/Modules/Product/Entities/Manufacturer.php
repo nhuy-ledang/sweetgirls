@@ -7,8 +7,8 @@ use Modules\Core\Entities\Eloquent\CoreModel;
  * Class Manufacturer
  *
  * @package Modules\Product\Entities
- * @author Huy D <huydang1920@gmail.com>
- * @copyright (c) Motila Corporation
+
+ 
  */
 class Manufacturer extends CoreModel {
     /**

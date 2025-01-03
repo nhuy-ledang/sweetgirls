@@ -7,8 +7,6 @@ use Modules\Usr\Repositories\ActivityRepository;
  * Class ActivityController
  *
  * @package Modules\Usr\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2022-10-24
  */
 class ActivityController extends ApiBaseModuleController {
     /**

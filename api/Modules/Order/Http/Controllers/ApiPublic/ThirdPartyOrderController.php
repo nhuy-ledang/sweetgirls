@@ -22,8 +22,6 @@ use Modules\User\Repositories\UserRepository;
  * Class ThirdPartyOrderController
  *
  * @package Modules\Order\Http\Controllers\ApiPublic
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2023-08-14
  */
 class ThirdPartyOrderController extends ApiBaseModuleController {
 

@@ -16,27 +16,14 @@ class ControllerAccountOrders extends Controller {
         $data['breadcrumbs'][] = ['text' => $this->language->get('text_account'), 'href' => '/account/profile'];
         $data['breadcrumbs'][] = ['text' => $this->language->get('text_orders_history'), 'href' => ''];
 
-        $filter = isset($this->request->get['f']) ? (int)$this->request->get['f'] : 0;
-        $array_filter = [];
-        if ($filter) {
-            if ($filter == 1) $array_filter = ['payment_status' => PAYMENT_SS_INPROGRESS];
-            if ($filter == 2) $array_filter = ['order_status' => ORDER_SS_PROCESSING];
-            if ($filter == 3) $array_filter = ['order_status' => ORDER_SS_SHIPPING];
-            if ($filter == 4) $array_filter = ['shipping_status' => SHIPPING_SS_DELIVERED, 'order_status' => ORDER_SS_COMPLETED];
-        }
-        $data['filter'] = $array_filter;
-
-        $data = array_merge($data, $this->load->controller('account/profile/getOrderStatus'));
-
         $userData = $this->registry->get('userData');
         $data['userInfo'] = $userData['info'];
-        $data['module_profile'] = $this->load->view('account/profile/profile', $data);
-        $data['column_left'] = $this->load->controller('account/column_left');
         $data['header'] = $this->load->controller('common/header');
         $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('account/orders', $data));
     }
+
     public function details() {
         $url_prefix = $this->config->get('config_language') != $this->config->get('language_code_default') ? $this->config->get('config_language') . '/' : '';
 
@@ -81,15 +68,8 @@ class ControllerAccountOrders extends Controller {
             }
         }
 
-        $data = array_merge($data, $this->load->controller('account/profile/getOrderStatus'));
-
-        $this->load->model('marketing/wheel');
-        $data['hide_cancel_order'] = $this->model_marketing_wheel->getHasOrderId($order_id);
-
         $userData = $this->registry->get('userData');
         $data['userInfo'] = $userData['info'];
-        $data['module_profile'] = $this->load->view('account/profile/profile', $data);
-        $data['column_left'] = $this->load->controller('account/column_left');
         $data['header'] = $this->load->controller('common/header');
         $data['footer'] = $this->load->controller('common/footer');
 

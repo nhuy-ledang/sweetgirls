@@ -43,24 +43,7 @@ class ModelProductCategory extends Model {
         $sql .= " from " . $this->table . " c";
        
         $implodes = [];
-        if (isset($data['filter_parent']) && !is_null($data['filter_parent'])) {
-            $implodes[] = "c.parent_id = '" . (int)$data['filter_parent'] . "'";
-        }
-        if (isset($data['filter_top']) && !is_null($data['filter_top'])) {
-            $implodes[] = "c.top = '" . (int)$data['filter_top'] . "'";
-        }
-        if (isset($data['filter_bottom']) && !is_null($data['filter_bottom'])) {
-            $implodes[] = "c.bottom = '" . (int)$data['filter_bottom'] . "'";
-        }
-        if (isset($data['filter_home']) && !is_null($data['filter_home'])) {
-            $implodes[] = "c.home = '" . (int)$data['filter_home'] . "'";
-        }
-        if (isset($data['filter_show']) && !is_null($data['filter_show'])) {
-            $implodes[] = "c.show = '" . (int)$data['filter_show'] . "'";
-        }
-        if (!empty($data['filter_in'])) {
-            $implodes[] = "c.id in (" . implode(',', $data['filter_in']) . ")";
-        }
+        
         $implodes[] = "c.sort_order > '-1'";
         $implodes[] = "c.status = '1'";
         if (!empty($implodes)) $sql .= " where " . implode(' and ', $implodes);

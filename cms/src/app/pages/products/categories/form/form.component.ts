@@ -80,7 +80,7 @@ export class CategoryFormComponent extends AppForm implements OnInit, OnDestroy 
     this.layoutSelected = info ? info : false;
     if (info) {
       this.setInfo(info);
-      this.getInfo(info.id, {embed: 'descs'});
+      this.getInfo(info.id, {embed: ''});
     } else {
       _.each(this.controls, (val, key) => {
         if (this.controls.hasOwnProperty(key) && !_.includes(['sort_order', 'status', 'show'], key)) this.controls[key].setValue('');

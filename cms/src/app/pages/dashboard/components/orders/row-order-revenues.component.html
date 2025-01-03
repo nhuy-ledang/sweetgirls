@@ -8,13 +8,7 @@
             <li class="nav-item"><a class="nav-link" (click)="onSelectTab('all')" [ngClass]="{'active': myTabs.all}" href="javascript:;">Tất cả</a></li>
             <li class="nav-item"><a class="nav-link" (click)="onSelectTab('bank_transfer')" [ngClass]="{'active': myTabs.bank_transfer}" href="javascript:;">Chuyển khoản</a></li>
             <li class="nav-item"><a class="nav-link" (click)="onSelectTab('cod')" [ngClass]="{'active': myTabs.cod}" href="javascript:;">COD</a></li>
-            <li class="nav-item"><a class="nav-link" (click)="onSelectTab('international')" [ngClass]="{'active': myTabs.international}" href="javascript:;">Visa, Master, JCB</a></li>
-            <li class="nav-item"><a class="nav-link" (click)="onSelectTab('domestic')" [ngClass]="{'active': myTabs.domestic}" href="javascript:;">ATM/IBanking</a></li>
           </ul>
-          <!--<a href="javascript:;" class="font-weight-bolder"><span class="ic_plus"></span> Thêm</a>-->
-        </div>
-        <div class="btn-group">
-          <button type="button" (click)="exportExcel()" class="btn btn-outline-secondary bg-white font-weight-bold card-hover-shadow"><span class="ic_share mr-1"></span>Xuất file</button>
         </div>
       </div>
     </div>
@@ -25,11 +19,6 @@
           <tr>
             <th style="width: 1px">
               <div class="table_tools d-flex justify-content-between align-items-center">
-                <!--<div>
-                  <div class="custom-control-wrapper">
-                    <div class="custom-control custom-checkbox ml-0"><input type="checkbox" class="custom-control-input" [(ngModel)]="data.selectAll" (change)="selectAll()" id="customSelect"><label class="custom-control-label cursor-pointer" for="customSelect"></label></div>
-                  </div>
-                </div>-->
                 <div>&nbsp;&nbsp;Stt</div>
               </div>
             </th>
@@ -39,34 +28,8 @@
             <th [hidden]="!columns.user_no">Mã KH</th>
             <th [hidden]="!columns.user_email">Email</th>
             <th [hidden]="!columns.user_phone_number">Số điện thoại</th>
-            <th [hidden]="!columns.user_address">Địa chỉ</th>
             <th [hidden]="!columns.sub_total" (click)="sortBy('sub_total')" [attr.class]="sortClass('sub_total')">Tạm tính <span class="sort-indicator"></span></th>
-            <th [hidden]="!columns.discount">Giảm giá</th>
-            <th [hidden]="!columns.shipping_fee" (click)="sortBy('shipping_fee')" [attr.class]="sortClass('shipping_fee')">Phí vận chuyển <span class="sort-indicator"></span></th>
             <th [hidden]="!columns.total" (click)="sortBy('total')" [attr.class]="sortClass('total')">Tổng tiền <span class="sort-indicator"></span></th>
-          </tr>
-          <tr>
-            <td>
-              <div class="dropdown" dropdown container="body" placement="bottom left">
-                <button type="button" dropdownToggle class="btn btn-secondary dropdown-toggle no_arrow d-flex align-items-center"><span class="mr-1 ic ic_visible_outlined"></span><span>Hiển thị</span></button>
-                <div *dropdownMenu class="dropdown-menu dropdown-menu-sm dropdown-menu-left">
-                  <div class="dropdown-item no_active" *ngFor="let item of columnList">
-                    <div class="custom-control custom-checkbox"><input type="checkbox" [attr.id]="'columnShow'+item.id" [(ngModel)]="item.checkbox" class="custom-control-input" [disabled]="item.disabled" (change)="columnCheckbox()"><label [attr.for]="'columnShow'+item.id" class="custom-control-label d-block" [innerText]="item.name"></label></div>
-                  </div>
-                </div>
-              </div>
-            </td>
-            <td [hidden]="!columns.idx"><input type="text" [(ngModel)]="data.data.invoice_no" (keyup)="onFilter($event)" class="form-control"></td>
-            <td [hidden]="!columns.created_at"></td>
-            <td [hidden]="!columns.user"><input type="text" [(ngModel)]="data.data.q" (keyup)="onFilter($event)" class="form-control"></td>
-            <td [hidden]="!columns.user_no"></td>
-            <td [hidden]="!columns.user_email"></td>
-            <td [hidden]="!columns.user_phone_number"></td>
-            <td [hidden]="!columns.user_address"></td>
-            <td [hidden]="!columns.sub_total"></td>
-            <td [hidden]="!columns.discount"></td>
-            <td [hidden]="!columns.shipping_fee"></td>
-            <td [hidden]="!columns.total"></td>
           </tr>
           </thead>
           <tbody class="text-dark">
@@ -77,30 +40,6 @@
             <tr *ngIf="!item.is_deleted" [ngClass]="{'odd':$index%2==0,'even':$index%2==1,'bg_selected':data.itemSelected&&data.itemSelected.id==item.id}">
               <td>
                 <div class="table_tools d-flex justify-content-between align-items-center">
-                  <!--<div class="d-flex justify-content-start align-items-center">
-                    <div>
-                      <div class="custom-control-wrapper">
-                        <div class="custom-control custom-checkbox ml-0"><input type="checkbox" class="custom-control-input" [(ngModel)]="item.checkbox" [attr.id]="'customSelect'+$index" (click)="checkbox(item)"><label class="custom-control-label cursor-pointer" [attr.for]="'customSelect'+$index"></label></div>
-                      </div>
-                    </div>
-                    &lt;!&ndash;<div><a (click)="edit(item)" class="btn btn-icon" href="javascript:;"><span class="ic_pencil_square"></span></a></div>&ndash;&gt;
-                    <div>
-                      <div class="dropdown" dropdown container="body" placement="bottom left">
-                        <button type="button" dropdownToggle class="btn btn-icon"><span class="ic_three_dots_vertical"></span></button>
-                        <div *dropdownMenu class="dropdown-menu">
-                          <a class="dropdown-item" (click)="detail(item)" href="javascript:;">Chi tiết</a>
-                          &lt;!&ndash;<div class="dropdown-divider"></div>&ndash;&gt;
-                          &lt;!&ndash;<a class="dropdown-item" (click)="changeSupervisor(item)" href="javascript:;"><span>Gán người phụ trách</span></a>&ndash;&gt;
-                          <div class="dropdown-divider"></div>
-                          &lt;!&ndash;<ng-container *ngIf="(item.is_invoice&&!item.invoiced&&item.order_status=='completed')">
-                            <a class="dropdown-item" (click)="changeInvoiced(item)" href="javascript:;"><span>Đã xuất VAT</span></a>
-                            <div class="dropdown-divider"></div>
-                          </ng-container>&ndash;&gt;
-                          <a class="dropdown-item text-danger" (click)="remove(item)" href="javascript:">Xóa</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>-->
                   <div><span class="btn btn-icon w-auto fs-normal pl-1" [innerText]="$index + 1"></span></div>
                 </div>
               </td>
@@ -110,20 +49,13 @@
               <td [hidden]="!columns.user_no" [innerText]="item.user?.no"></td>
               <td [hidden]="!columns.user_email" [innerText]="item.email"></td>
               <td [hidden]="!columns.user_phone_number" [innerText]="item.phone_number"></td>
-              <td [hidden]="!columns.user_address" [innerText]="item.shipping_address_1 + ', ' + item.shipping_ward + ', ' + item.shipping_district + ', ' + item.shipping_province"></td>
               <td [hidden]="!columns.sub_total" [innerText]="item.sub_total|currencyFormat"></td>
-              <td [hidden]="!columns.discount" [innerText]="(item.voucher_total || item.discount_total)|currencyFormat"></td>
-              <td [hidden]="!columns.shipping_fee" [innerText]="item.shipping_fee|currencyFormat"></td>
               <td [hidden]="!columns.total" [innerText]="item.total|currencyFormat"></td>
             </tr>
           </ng-container>
           </tbody>
         </table>
       </div>
-      <div class="card-footer">
-        <ngx-pagination2 [page]="data.page" [pageSize]="data.pageSize" [totalItems]="data.totalItems" [maxSize]="data.maxSize" (change)="pageChanged($event)" (pageSizeChange)="pageSizeChanged($event)"></ngx-pagination2>
-      </div>
     </div>
   </div>
-
 </div>

@@ -15,9 +15,6 @@ use Modules\Media\Helpers\FileHelper;
 use Modules\Notify\Repositories\NotificationRepository;
 use Modules\Order\Repositories\OrderRepository;
 use Modules\User\Repositories\Authentication;
-use Modules\User\Repositories\DeviceTokenRepository;
-use Modules\User\Repositories\ReminderPhoneNumberRepository;
-use Modules\User\Repositories\SocialRepository;
 use Modules\User\Repositories\UserRepository;
 use Modules\System\Repositories\SettingRepository;
 use Sentinel;
@@ -26,7 +23,7 @@ use Sentinel;
  * Class AuthController
  *
  * @package Modules\User\Http\Controllers\ApiPublic
- * @author Huy D <huydang1920@gmail.com>
+
  * @OA\Info(title="Tedfast Swagger API", version="1.0.0")
  */
 class AuthController extends ApiBaseModuleController {
@@ -34,21 +31,6 @@ class AuthController extends ApiBaseModuleController {
      * @var \Modules\User\Repositories\Authentication
      */
     protected $authentication;
-
-    /**
-     * @var SocialRepository
-     */
-    protected $social_repository;
-
-    /**
-     * @var \Modules\User\Repositories\ReminderPhoneNumberRepository
-     */
-    protected $reminder_phone_number_repository;
-
-    /**
-     * @var DeviceTokenRepository
-     */
-    protected $device_token_repository;
 
     /**
      * @var \Modules\Notify\Repositories\NotificationRepository
@@ -68,17 +50,11 @@ class AuthController extends ApiBaseModuleController {
     public function __construct(Request $request,
                                 Authentication $authentication,
                                 UserRepository $user_repository,
-                                SocialRepository $social_repository,
-                                ReminderPhoneNumberRepository $reminder_phone_number_repository,
-                                DeviceTokenRepository $device_token_repository,
                                 NotificationRepository $notification_repository,
                                 SettingRepository $setting_repository,
                                 OrderRepository $order_repository) {
         $this->model_repository = $user_repository;
         $this->authentication = $authentication;
-        $this->social_repository = $social_repository;
-        $this->reminder_phone_number_repository = $reminder_phone_number_repository;
-        $this->device_token_repository = $device_token_repository;
         $this->notification_repository = $notification_repository;
         $this->setting_repository = $setting_repository;
         $this->order_repository = $order_repository;

@@ -104,9 +104,6 @@ class ModelCheckoutOrder extends Model {
             $row = $order_query->row;
             $row['org_total'] = $row['total'] ? $row['total'] : 0;
             $row['total'] = number_format($row['total'], 0, ',', '.');
-            $row['org_shipping_fee'] = $row['shipping_fee'] ? $row['shipping_fee'] : 0;
-            $row['shipping_fee'] = number_format($row['shipping_fee'], 0, ',', '.');
-            $row['discount_total'] = number_format($row['discount_total'], 0, ',', '.');
 
             return $row;
         } else {

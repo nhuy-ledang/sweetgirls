@@ -5,8 +5,6 @@ use Exception;
 /**
  * Class NotFoundRevisionExceptions
  * @package Modules\Core\Exceptions
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 7/19/2018 11:01 PM
  */
 class NotFoundRevisionExceptions extends Exception {
     protected $entity_id;

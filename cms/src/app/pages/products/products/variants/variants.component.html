@@ -34,16 +34,10 @@
                         <span *ngIf="variant.product.special"><strike [innerText]="variant.product.price|currencyFormat"></strike>&nbsp;<span class="text-danger" [innerText]="variant.product.special|currencyFormat"></span></span>
                         <span *ngIf="!variant.product.special" [innerText]="variant.product.price|currencyFormat"></span>
                       </div>
-                      <div><b>Coin:</b>&nbsp;<span [innerText]="variant.product.coins|number"></span></div>
-                      <div><b>Cân nặng:</b>&nbsp;<span [innerText]="variant.product.weight|number"></span></div>
-                      <div><b>Kích thước:</b>&nbsp;<span [innerText]="variant.product.length|number"></span>x<span [innerText]="variant.product.width|number"></span>x<span [innerText]="variant.product.height|number"></span></div>
-                      <div><b>Trạng thái:</b>&nbsp;<span [innerText]="variant.product.status?'bật':'tắt'"></span><br><span *ngIf="variant.product.stock_status == 'in_stock'" class="text-success">Sẵn hàng</span><span *ngIf="variant.product.stock_status == 'out_of_stock'" class="text-danger">Hết hàng</span></div>
+                      <div><b>Trạng thái:</b>&nbsp;<span [innerText]="variant.product.status?'Bật':'Tắt'"></span><br><span *ngIf="variant.product.stock_status == 'in_stock'" class="text-success">Sẵn hàng</span><span *ngIf="variant.product.stock_status == 'out_of_stock'" class="text-danger">Hết hàng</span></div>
                     </div>
                     <div class="col-sm-auto">
                       <a (click)="edit(variant, item)" href="javascript:;"><span class="ic_pencil_square"></span></a>
-                      <br>
-                      <!--<a (click)="detail(variant)" href="javascript:;"><span class="ic_visible_outlined"></span></a>-->
-                      <a (click)="select(variant.product)" href="javascript:;"><span class="ic_visible_outlined"></span></a>
                       <br>
                       <a class="text-danger" (click)="remove(variant)" href="javascript:;"><span class="ic_trash_outline"></span></a>
                     </div>
@@ -62,9 +56,6 @@
         <tr>
           <th style="width: 1px" [innerText]="d.variants[0].name"></th>
           <th>Giá bán</th>
-          <th>Coin</th>
-          <th>Cân nặng</th>
-          <th>Kích thước</th>
           <th>Trạng thái</th>
           <th></th>
         </tr>
@@ -80,23 +71,11 @@
               </ng-container>
             </td>
             <td>
-              <ng-container *ngIf="variant.product"><span [innerText]="variant.product.coins|number"></span></ng-container>
-            </td>
-            <td>
-              <ng-container *ngIf="variant.product"><span [innerText]="variant.product.weight|number"></span></ng-container>
-            </td>
-            <td>
-              <ng-container *ngIf="variant.product"><span [innerText]="variant.product.length|number"></span>x<span [innerText]="variant.product.width|number"></span>x<span [innerText]="variant.product.height|number"></span></ng-container>
-            </td>
-            <td>
-              <ng-container *ngIf="variant.product"><span [innerText]="variant.product.status?'bật':'tắt'"></span><br><span *ngIf="variant.product.stock_status == 'in_stock'" class="text-success">Sẵn hàng</span><span *ngIf="variant.product.stock_status == 'out_of_stock'" class="text-danger">Hết hàng</span></ng-container>
+              <ng-container *ngIf="variant.product"><span [innerText]="variant.product.status?'Bật':'Tắt'"></span><br><span *ngIf="variant.product.stock_status == 'in_stock'" class="text-success">Sẵn hàng</span><span *ngIf="variant.product.stock_status == 'out_of_stock'" class="text-danger">Hết hàng</span></ng-container>
             </td>
             <td class="text-right">
               <ng-container *ngIf="variant.product">
                 <a (click)="edit(variant)" href="javascript:;"><span class="ic_pencil_square"></span></a>
-                &nbsp;
-                <!--<a (click)="detail(variant)" href="javascript:;"><span class="ic_visible_outlined"></span></a>-->
-                <a (click)="select(variant.product)" href="javascript:;"><span class="ic_visible_outlined"></span></a>
                 &nbsp;
                 <a class="text-danger" (click)="remove(variant)" href="javascript:;"><span class="ic_trash_outline"></span></a>
               </ng-container>

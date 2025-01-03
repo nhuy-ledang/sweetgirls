@@ -9,7 +9,6 @@ use Modules\Product\Entities\GiftOrder;
 use Modules\Product\Entities\GiftOrderProduct;
 use Modules\Product\Entities\Product;
 use Modules\Product\Entities\ProductDiscount;
-use Modules\Product\Entities\ProductSpecial;
 use Modules\Order\Repositories\CartRepository;
 use Modules\Core\Repositories\Eloquent\EloquentBaseRepository;
 
@@ -148,57 +147,6 @@ class EloquentCartRepository extends EloquentBaseRepository implements CartRepos
                 $is_sale = false;
                 $special_id = null;
                 $special_price_total = null;
-                if ($result->type != 'G') { // Gift (by coin)
-                    // Product Discounts
-                    /*$discount_quantity = 0;
-                    foreach ($results as $result2) {
-                        if ($result2->product_id == $result->product_id) {
-                            $discount_quantity += $result2->quantity;
-                        }
-                    }
-                    $product_discount_query = ProductDiscount::where('product_id', $result->product_id)
-                        //->where('user_group_id', $config_user_group_id)
-                        ->where('quantity', '<=', $discount_quantity)
-                        ->whereRaw("((`date_start` is null or `date_start` < '$dateNow') and (`date_end` is null or `date_end` > '$dateNow'))")
-                        ->orderBy('quantity', 'desc')->orderBy('priority', 'asc')->orderBy('price', 'asc')->select(['price'])->first();
-                    if ($product_discount_query) {
-                        $price = (float)$product_discount_query->price;
-                    }*/
-                    // Product Specials
-                    $product_special_query = ProductSpecial::where('product_id', $result->product_id)
-                        //->where('user_group_id', $config_user_group_id)
-                        ->whereRaw("((`start_date` is null or UNIX_TIMESTAMP(`start_date`) <= UNIX_TIMESTAMP('$dateNow')) and (`end_date` is null or UNIX_TIMESTAMP('$dateNow') <= UNIX_TIMESTAMP(`end_date`))) and (`quantity` is null or `quantity` >= $result->quantity)")
-                        ->orderBy('priority', 'asc')->orderBy('price', 'asc')->select(['id', 'price', 'quantity', 'used'])->first();
-                    if ($product_special_query) {
-                        $specialo = (float)$product_special_query->price;
-                        $price = $specialo;
-                        $special_id = $product_special_query->id;
-                        if (!is_null($product_special_query->quantity)) {
-                            $is_sale = true;
-                            if ($product_special_query->quantity < $result->quantity) {
-                                $special_price_total = (float)($specialo * $product_special_query->quantity) +  $result->pd__price * ((int)$result->quantity - $product_special_query->quantity);
-                            }
-                        }
-                    }
-                }
-                // Gift products
-                if ($result->master_id) {
-                    $master_pd = Product::where('id', $result->master_id)
-                    ->select(['gift_set_id'])->first();
-                    if ($master_pd) $result->gift_set_id = $master_pd->gift_set_id;
-                }
-                $gifts = [];
-                $weight_gifts = 0;
-                if ($result->gift_set_id) {
-                    $tmp = Product::rightJoin('pd__gift_set_products as gsp', 'gsp.product_id', 'pd__products.id')->leftJoin('pd__gift_sets as gs', 'gs.id', 'gsp.gift_set_id')
-                        ->where('pd__products.status', 1)->where('gsp.gift_set_id', intval($result->gift_set_id))
-                        ->where('gs.status', 1)->whereRaw("((`gs`.`start_date` is null or DATE(`gs`.`start_date`) <= DATE('$dateNow')) and (`gs`.`end_date` is null or DATE('$dateNow') <= DATE(`gs`.`end_date`)))")
-                        ->select(['pd__products.id', 'pd__products.image', 'pd__products.alias', 'pd__products.name', 'gsp.name as long_name', 'gsp.price', \DB::raw('sum(gsp.quantity *' . $result->quantity .') as quantity'), \DB::raw('sum(pd__products.weight * gsp.quantity * ' . $result->quantity .') as weight')])
-                        ->groupBy('pd__products.id')
-                        ->orderBy('gsp.name', 'asc')->get();
-                    $gifts = $tmp->toArray();
-                    if ($gifts) $weight_gifts = array_sum(array_column($gifts, 'weight'));
-                }
 
                 $cart_quantity = (int)$result->quantity;
                 $product_quantity = (int)$result->pd__quantity;

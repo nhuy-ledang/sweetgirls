@@ -7,8 +7,6 @@ use Modules\Usr\Repositories\GroupRepository;
  * Class GroupController
  *
  * @package Modules\Usr\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2021-10-01
  */
 class GroupController extends ApiBaseModuleController {
     protected $maximumLimit = 20;

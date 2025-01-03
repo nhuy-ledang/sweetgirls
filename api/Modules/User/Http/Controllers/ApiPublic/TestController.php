@@ -6,7 +6,7 @@ use Modules\User\Repositories\UserRepository;
 /**
  * Class TestController
  * @package Modules\User\Http\Controllers\ApiPublic
- * @author Huy D <huydang1920@gmail.com>
+
  * @SWG\Resource(
  *   apiVersion="1.0.0",
  *   swaggerVersion="1.2",

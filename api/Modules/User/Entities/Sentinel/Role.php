@@ -6,8 +6,6 @@ use Modules\Core\Traits\NodeTreeTrait;
 /**
  * Class Role
  * @package Modules\User\Entities\Sentinel
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 9/4/2018 11:17 AM
  */
 class Role extends EloquentRole {
     use NodeTreeTrait;

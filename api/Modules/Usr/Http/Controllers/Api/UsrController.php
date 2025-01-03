@@ -4,7 +4,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Modules\Media\Repositories\FileRepository;
 use Modules\Media\Services\FileService;
-use Modules\Staff\Repositories\UserRepository as StaffRepository;
 use Modules\System\Repositories\SettingRepository;
 use Modules\Usr\Repositories\UserRepository;
 
@@ -12,7 +11,7 @@ use Modules\Usr\Repositories\UserRepository;
  * Class UsrController
  *
  * @package Modules\User\Http\Controllers\Api
- * @author Huy D <huydang1920@gmail.com>
+
  * Date: 2022-07-29
  */
 class UsrController extends ApiBaseModuleController {
@@ -20,11 +19,6 @@ class UsrController extends ApiBaseModuleController {
      * @var \Modules\Usr\Sentinel\UserRepositoryInterface
      */
     protected $model_repository;
-
-    /**
-     * @var \Modules\Staff\Repositories\UserRepository
-     */
-    protected $staff_repository;
 
     /**
      * @var \Modules\Media\Repositories\FileRepository
@@ -45,12 +39,10 @@ class UsrController extends ApiBaseModuleController {
                                 FileRepository $file_repository,
                                 FileService $fileService,
                                 UserRepository $usr_repository,
-                                StaffRepository $staff_repository,
                                 SettingRepository $setting_repository) {
         $this->model_repository = $usr_repository;
         $this->file_repository = $file_repository;
         $this->fileService = $fileService;
-        $this->staff_repository = $staff_repository;
         $this->setting_repository = $setting_repository;
 
         $this->middleware('auth.usr');
@@ -331,29 +323,7 @@ class UsrController extends ApiBaseModuleController {
                 $data['config_owner'] = $this->setting_repository->findByKey('config_owner');
                 dispatch(new \Modules\Usr\Jobs\SendUserCreated($this->email, $data));
             }
-            /*// Send push notification
-            $toUser = $user;
-            $fromUser = $this->auth;
-            $pushType = NOTIFY_TYPE_PLACE_USER_CREATE;
-            $pushMessage = sprintf(Lang::get('core::messages.push_notify.' . $pushType), $place->name);
-            $object_id = $place->id;
-            $pushData = [
-                'user'     => [
-                    'id'         => $fromUser->id,
-                    'display'    => $fromUser->display,
-                    'avatar_url' => $fromUser->avatar_url,
-                ],
-                'place'    => [
-                    'id'            => $place->id,
-                    'name'          => $place->name,
-                    'thumb_url'     => $place->thumb_url,
-                ],
-                'messages' => [Lang::get('core::messages.push_notify.' . $pushType), $place->name]
-            ];
-            $this->pushNotification($toUser, $pushMessage, $pushType, $pushData, $object_id);*/
-            // Link to staff
-            $this->staff_repository->getModel()->where('email', $model->email)->whereNotNull('email')->update(['usr_id' => $model->id]);
-
+            
             return $this->respondWithSuccess($model);
         } catch (\Exception $e) {
             return $this->errorInternalError($e->getMessage());
@@ -454,9 +424,6 @@ class UsrController extends ApiBaseModuleController {
             }
             // Update Model
             $model = $this->model_repository->update($model, $input);
-            // Link to staff
-            $this->staff_repository->getModel()->where('email', $model->email)->whereNotNull('email')->update(['usr_id' => $model->id]);
-
             return $this->respondWithSuccess($model);
         } catch (\Exception $e) {
             return $this->errorInternalError($e->getMessage());
@@ -485,16 +452,8 @@ class UsrController extends ApiBaseModuleController {
             //if (!$this->isAdmin()) return $this->errorForbidden();
             $model = $this->model_repository->getModel()->where('id', $id)->withTrashed()->first();
             if (!$model) return $this->errorNotFound();
-            // Link to staff
-            $this->staff_repository->getModel()->where('usr_id', $model->id)->update(['usr_id' => null]);
             // Delete model
             $this->model_repository->destroy($model);
-            //$model->forceDelete();
-            /*if ($model->status == USER_STATUS_STARTER) {
-                $model->forceDelete();
-            } else {
-                $this->model_repository->destroy($model);
-            }*/
 
             return $this->respondWithSuccess(trans("Delete success"));
         } catch (\Exception $e) {

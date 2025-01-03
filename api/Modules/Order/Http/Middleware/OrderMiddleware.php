@@ -8,7 +8,7 @@ use Modules\Core\Helper\ErrorFormat;
  * Class OrderMiddleware
  *
  * @package Modules\Order\Http\Middleware
- * @author Huy D <huydang1920@gmail.com>
+
  */
 class OrderMiddleware {
     /**

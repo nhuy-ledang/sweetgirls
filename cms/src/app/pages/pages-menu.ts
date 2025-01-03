@@ -93,7 +93,7 @@ export const MENU_ITEMS: MenuItem[] = [
     ],
   },
   {module: 'orders', title: 'Đơn hàng', link: '/pages/ord/orders', icon: 'ic_sales'},
-  {module: 'user_list', title: 'Danh sách', link: '/pages/users/users', icon: 'ic_user_group'},
+  {module: 'user_list', title: 'Khách hàng', link: '/pages/users/users', icon: 'ic_user_group'},
   {module: 'administrator', title: 'Quản trị viên', link: '/pages/usrs', icon: 'ic_user_group'},
   {module: 'system', title: 'Hệ thống', icon: 'ic_system', link: '/pages/setting/settings'},
 ];

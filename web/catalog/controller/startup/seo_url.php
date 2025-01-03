@@ -6,46 +6,17 @@ class ControllerStartupSeoUrl extends Controller {
         // Add rewrite to url class
         $this->url->addRewrite($this);
         $this->load->model('design/seo_url');
-        $this->load->model('design/seo_regex');
         // Remove suffix
         $suffix = $this->config->get('config_suffix_url');
         if (isset($this->request->get['_route_']) && $suffix) {
             $this->request->get['_route_'] = str_replace(".$suffix", '', $this->request->get['_route_']);
         }
-        // Redirect old urls
-        /*if (isset($this->request->get['_route_'])) {
-            $redirects = false; //$this->cache->get('redirect.all');
-            if (!$redirects) {
-                $query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "mkt__redirects`");
-                $redirects = $query->rows;
-                $this->cache->set('redirect.all', $redirects);
-            }
-            $obj = [];
-            foreach ($redirects as $item) {
-                $obj[ltrim($item['old_url'], '/')] = ltrim($item['new_url'], '/');
-            }
-            if (isset($obj[$this->request->get['_route_']])) {
-                $new_url = $obj[$this->request->get['_route_']];
-                $this->response->redirect($this->url->link("$new_url", '', true));
-            }
-        }*/
-        // Load all regexes in the var so we are not accessing the db so much.
-        $this->regex = $this->model_design_seo_regex->getSeoRegexes();
         if (isset($this->request->get['_route_'])) $this->request->get['_full_route_'] = $this->request->get['_route_'];
         // Set Language Default
         if (isset($this->request->get['_route_'])) {
             $parts = explode('/', $this->request->get['_route_']);
             // Remove any empty arrays from trailing
             if (utf8_strlen(end($parts)) == 0) array_pop($parts);
-            // if (!empty($parts) && in_array($parts[0], array_column($this->config->get('core_language_list'),'code'))) {
-            //     $this->request->get['lang'] = $parts[0];
-            //     unset($parts[0]);
-            //     if (empty($parts)) {
-            //         unset($this->request->get['_route_']);
-            //     } else {
-            //         $this->request->get['_route_'] = implode('/', $parts);
-            //     }
-            // }
         }
         // Decode URL
         if (isset($this->request->get['_route_'])) {

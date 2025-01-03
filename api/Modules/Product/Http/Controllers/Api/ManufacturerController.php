@@ -11,8 +11,6 @@ use Modules\Product\Repositories\ProductRepository;
  * Class ManufacturerController
  *
  * @package Modules\Product\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2022-05-21
  */
 class ManufacturerController extends ApiBaseModuleController {
     /**

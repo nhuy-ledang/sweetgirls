@@ -7,8 +7,6 @@ use Modules\Product\Repositories\ProductReviewRepository;
 /**
  * Class ReviewController
  * package Modules\User\Http\Controllers\ApiPublic
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2022-15-11
  */
 class ReviewController extends ApiBaseModuleController {
     /**

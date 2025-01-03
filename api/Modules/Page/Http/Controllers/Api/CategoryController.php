@@ -8,8 +8,6 @@ use Modules\Page\Repositories\CategoryRepository;
  * Class CategoryController
  *
  * @package Modules\Page\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2021-10-28
  */
 class CategoryController extends ApiBaseModuleController {
     /**

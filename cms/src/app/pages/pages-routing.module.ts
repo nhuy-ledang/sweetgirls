@@ -14,7 +14,6 @@ const routes: Routes = [{
     {path: 'ord', loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule)},
     {path: 'setting', loadChildren: () => import('./setting/setting.module').then(m => m.SettingModule)},
     {path: 'prd', loadChildren: () => import('./products/products.module').then(m => m.ProductsModule)},
-    {path: 'pages', loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)},
     {path: 'media', loadChildren: () => import('./media/media.module').then(m => m.MediaModule)},
     {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
     // {path: '**', component: NotFoundComponent},

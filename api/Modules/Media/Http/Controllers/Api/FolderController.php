@@ -7,8 +7,6 @@ use Modules\Media\Repositories\FolderRepository;
 /**
  * Class FolderController
  * @package Modules\Media\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 9/10/2018 4:37 PM
  */
 class FolderController extends ApiBaseModuleController {
     protected $maximumLimit = 20;

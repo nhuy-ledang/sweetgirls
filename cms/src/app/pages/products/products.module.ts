@@ -12,7 +12,6 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { SortableModule } from 'ngx-bootstrap/sortable';
 import { ThemeModule } from '../../@theme/theme.module';
 import { PdSharedModule } from './shared/shared.module';
-import { PgSharedModule } from '../pages/shared/shared.module';
 import { ProductsRoutingModule, providerComponents, routedComponents } from './products-routing.module';
 
 @NgModule({
@@ -29,7 +28,6 @@ import { ProductsRoutingModule, providerComponents, routedComponents } from './p
     SortableModule.forRoot(),
     ThemeModule,
     PdSharedModule,
-    PgSharedModule,
     ProductsRoutingModule,
   ],
   declarations: [

@@ -9,8 +9,6 @@ use Modules\Order\Networks\Tiktok;
  * Class StatisticController
  *
  * @package Modules\Order\Http\Controllers\ApiPublic
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2023-01-17
  */
 class NetworkController extends ApiBaseModuleController {
     /**

@@ -9,8 +9,8 @@ use Modules\Order\Traits\OrderStatusTrait;
  * Class Order
  *
  * @package Modules\Order\Entities
- * @author Huy D <huydang1920@gmail.com>
- * @copyright (c) Motila Corporation
+
+ 
  */
 class Order extends CoreModel {
     use SoftDeletes;
@@ -36,9 +36,8 @@ class Order extends CoreModel {
      * @var array
      */
     protected $fillable = ['idx', 'master_id', 'invoice_no', 'invoice_prefix', 'user_id', 'user_group_id', 'usr_id', 'pusr_id', 'first_name', 'last_name', 'gender', 'email', 'phone_number', 'telephone', 'fax', 'is_invoice', 'company', 'company_tax', 'company_email', 'company_address', 'payment_method', 'payment_code',
-        'shipping_method', 'shipping_code', 'shipping_time', 'shipping_first_name', 'shipping_last_name', 'shipping_company', 'shipping_address_1', 'shipping_address_2', 'shipping_phone_number', 'shipping_city', 'shipping_country', 'shipping_country_id', 'shipping_province', 'shipping_province_id', 'shipping_district', 'shipping_district_id', 'shipping_ward', 'shipping_ward_id',
-        'coins', 'sub_total', 'discount_code', 'discount_total', 'voucher_code', 'voucher_total', 'shipping_fee', 'shipping_discount', 'vat', 'total', 'total_coins',
-        'note', 'comment', 'tags', 'status', 'order_status', 'payment_status', 'shipping_status', 'sto_request_id', 'reason', 'affiliate_id', 'tracking', 'lang', 'currency_code', 'summary', 'transaction_no', 'response_code', 'payload', 'ip', 'referral_code', 'forwarded_ip', 'user_agent', 'accept_language', 'payment_at'];
+        'coins', 'sub_total', 'vat', 'total', 'total_coins',
+        'note', 'comment', 'tags', 'status', 'order_status', 'payment_status', 'sto_request_id', 'reason', 'affiliate_id', 'tracking', 'lang', 'currency_code', 'summary', 'transaction_no', 'response_code', 'payload', 'ip', 'referral_code', 'forwarded_ip', 'user_agent', 'accept_language', 'payment_at'];
 
     /**
      * The attributes that should be hidden for serialization.

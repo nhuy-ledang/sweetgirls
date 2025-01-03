@@ -16,8 +16,6 @@ import { ProductOptionFormComponent } from './products/options/form/form.compone
 import { ProductVariantsComponent } from './products/variants/variants.component';
 import { ProductVariantFormComponent } from './products/variants/form/form.component';
 import { ProductVariantEditFormComponent } from './products/variants/edit-form/edit-form.component';
-import { SettingsComponent } from './settings/settings.component';
-import { SettingFormComponent } from './settings/form/form.component';
 import { ProductQuantityFormComponent } from './products/form/quantity-form.component';
 import { OptionsComponent } from './options/options.component';
 import { OptionDescComponent } from './options/desc/desc.component';
@@ -35,7 +33,6 @@ const routes: Routes = [{
     {path: 'manufacturers', component: ManufacturersComponent},
     {path: 'categories', component: CategoriesComponent},
     {path: 'options', component: OptionsComponent},
-    {path: 'settings', component: SettingsComponent},
     {path: '', redirectTo: 'products', pathMatch: 'full'},
   ],
 }];
@@ -70,8 +67,6 @@ export const routedComponents = [
   OptionValuesComponent,
   OptionValueFormComponent,
   OptionValueDescComponent,
-  SettingsComponent,
-  SettingFormComponent,
 ];
 
 export const providerComponents = [

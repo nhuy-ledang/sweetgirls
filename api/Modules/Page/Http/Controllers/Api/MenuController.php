@@ -9,8 +9,6 @@ use Modules\Page\Repositories\MenuRepository;
  * Class MenuController
  *
  * @package Modules\Page\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2122-01-23
  */
 class MenuController extends ApiBaseModuleController {
     /**

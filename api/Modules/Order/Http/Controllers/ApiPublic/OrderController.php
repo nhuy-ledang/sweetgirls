@@ -16,7 +16,6 @@ use Modules\Product\Repositories\GiftOrderHistoryRepository;
 use Modules\Product\Repositories\GiftOrderRepository;
 use Modules\Product\Repositories\ProductQuantityRepository;
 use Modules\Product\Repositories\ProductRepository;
-use Modules\Product\Repositories\ProductSpecialRepository;
 use Modules\System\Repositories\SettingRepository;
 use Modules\User\Repositories\AddressRepository as UserAddressRepository;
 use Modules\User\Repositories\NotifyRepository as UserNotifyRepository;
@@ -27,8 +26,6 @@ use Modules\User\Repositories\UserRepository;
  * Class OrderController
  *
  * @package Modules\Order\Http\Controllers\ApiPublic
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2023-05-30
  */
 class OrderController extends ApiBaseModuleController {
     use OnepayTrait, MomoTrait;
@@ -66,22 +63,6 @@ class OrderController extends ApiBaseModuleController {
     protected $product_repository;
 
     /**
-     * @var \Modules\Product\Repositories\ProductQuantityRepository
-     */
-    protected $product_quantity_repository;
-
-    /**
-     * @var \Modules\Product\Repositories\GiftOrderRepository
-     */
-    protected $gift_order_repository;
-
-
-    /**
-     * @var \Modules\Product\Repositories\GiftOrderHistoryRepository
-     */
-    protected $gift_order_history_repository;
-
-    /**
      * @var \Modules\Order\Repositories\CartRepository
      */
     protected $cart_repository;
@@ -116,11 +97,6 @@ class OrderController extends ApiBaseModuleController {
      */
     protected $setting_repository;
 
-    /**
-     * @var \Modules\Product\Repositories\ProductSpecialRepository
-     */
-    protected $product_special_repository ;
-
     public function __construct(Request $request,
                                 SettingRepository $setting_repository,
                                 OrderRepository $order_repository,
@@ -130,15 +106,8 @@ class OrderController extends ApiBaseModuleController {
                                 OrderShippingRepository $order_shipping_repository,
                                 CartRepository $cart_repository,
                                 ProductRepository $product_repository,
-                                ProductQuantityRepository $product_quantity_repository,
-                                GiftOrderRepository $gift_order_repository,
-                                GiftOrderHistoryRepository $gift_order_history_repository,
                                 UserRepository $user_repository,
-                                UserCoinRepository $user_coin_repository,
-                                UserAddressRepository $user_address_repository,
-                                UserNotifyRepository $user_notify_repository,
-                                NotificationRepository $notification_repository,
-                                ProductSpecialRepository $product_special_repository) {
+                                NotificationRepository $notification_repository) {
         $this->model_repository = $order_repository;
         $this->order_product_repository = $order_product_repository;
         $this->order_total_repository = $order_total_repository;
@@ -146,9 +115,6 @@ class OrderController extends ApiBaseModuleController {
         $this->order_shipping_repository = $order_shipping_repository;
         $this->cart_repository = $cart_repository;
         $this->product_repository = $product_repository;
-        $this->product_quantity_repository = $product_quantity_repository;
-        $this->gift_order_repository = $gift_order_repository;
-        $this->gift_order_history_repository = $gift_order_history_repository;
         $this->user_repository = $user_repository;
         $this->user_coin_repository = $user_coin_repository;
         $this->user_address_repository = $user_address_repository;
@@ -161,8 +127,6 @@ class OrderController extends ApiBaseModuleController {
         $this->user_notify_repository = $user_notify_repository;
         $this->agent_repository = $agent_repository;
         $this->setting_repository = $setting_repository;
-        $this->agent_point_repository = $agent_point_repository;
-        $this->product_special_repository = $product_special_repository;
 
         $this->middleware('auth.user')->except(['storeGuest', 'onepayCallback']);
 
@@ -272,7 +236,7 @@ class OrderController extends ApiBaseModuleController {
             if (!empty($this->request->server->get('HTTP_ACCEPT_LANGUAGE'))) $input['accept_language'] = $this->request->server->get('HTTP_ACCEPT_LANGUAGE');
             $invoice_no = $this->model_repository->getModel()->selectRaw('max(invoice_no) as invoice_no')->where('invoice_prefix', $input['invoice_prefix'])->first();
             $input['invoice_no'] = $invoice_no ? ((int)$invoice_no->invoice_no + 1) : 1;
-            $input['idx'] = $input['invoice_prefix'] . date('dmy') . '-' . $input['invoice_no'];
+            $input['idx'] = 'SG- '. date('dmy-His');
             $input['payment_status'] = $total == 0 ? PAYMENT_SS_PAID : PAYMENT_SS_INPROGRESS;
             // Create Model
             // if ($total == 0) { // Nếu sản phẩm 0đ, thêm mã freeship thì $total vẫn có thể = 0

@@ -9,8 +9,6 @@ use Modules\Media\Services\FileService;
  * Class FilemanagerController
  *
  * @package Modules\Media\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2021-12-22
  */
 class FilemanagerController extends ApiBaseModuleController {
     /**

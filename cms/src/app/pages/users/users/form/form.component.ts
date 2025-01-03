@@ -26,8 +26,6 @@ export class UserFormComponent extends AppForm implements OnInit, OnDestroy {
     birthday?: AbstractControl,
     gender?: AbstractControl,
     password?: AbstractControl,
-    group_id?: AbstractControl,
-    source_id?: AbstractControl,
   };
   @ViewChild('uploaderEl') uploaderEl: {init: any};
   genderList = [{id: 0, name: 'Không'}, {id: 1, name: 'Nam'}, {id: 2, name: 'Nữ'}];
@@ -46,8 +44,6 @@ export class UserFormComponent extends AppForm implements OnInit, OnDestroy {
       birthday: [''],
       gender: [this.genderList[0].id],
       password: [''],
-      group_id: [''],
-      source_id: [''],
     });
     this.controls = this.form.controls;
     this.fb = fb;
@@ -92,8 +88,6 @@ export class UserFormComponent extends AppForm implements OnInit, OnDestroy {
     });
     this.controls.gender.setValue(info.gender ? info.gender : 0);
     this.controls.birthday.setValue(info.birthday ? new Date(info.birthday) : '');
-    this.controls.group_id.setValue(info.group_id ? info.group_id : '');
-    this.controls.source_id.setValue(info.source_id ? info.source_id : '');
     this.fileOpt = _.extend(_.cloneDeep(this.fileOpt), {thumb_url: info.avatar_url ? info.avatar_url : ''});
     this.info = info;
   }

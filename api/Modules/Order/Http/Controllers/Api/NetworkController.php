@@ -12,8 +12,6 @@ use Modules\User\Repositories\UserRepository;
  * Class StatisticController
  *
  * @package Modules\Order\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2023-01-17
  */
 class NetworkController extends ApiBaseModuleController {
     /**

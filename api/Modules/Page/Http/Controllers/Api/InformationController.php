@@ -11,8 +11,6 @@ use Modules\Media\Services\FileService;
  * Class InformationController
  *
  * @package Modules\Blog\Http\Controllers\Api
- * @author Huy Dang <huydang1920@gmail.com>
- * Date: 2021/12/22
  */
 class InformationController extends ApiBaseModuleController {
     /**
